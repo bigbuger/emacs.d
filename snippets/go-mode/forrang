@@ -1,0 +1,7 @@
+# -*- mode: go -*-
+# name: forrang
+# key: forrang
+# --
+for ${1:k}, ${2:v} := range ${3:amap} {
+    $0
+}

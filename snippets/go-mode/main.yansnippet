@@ -1,0 +1,6 @@
+# -*- mode: go -*-
+# name: main
+# key: main
+# --
+func main() {
+}

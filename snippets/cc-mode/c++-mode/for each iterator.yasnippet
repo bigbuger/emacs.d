@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: for each iterator
+# key: foriter
+# --
+for(${1:vector}<${2:int}>::iterator ${3:iter} = ${4:v}.begin();$3 != $4.end();${5:++$3})
+{
+    $0
+}
