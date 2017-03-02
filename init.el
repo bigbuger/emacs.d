@@ -50,6 +50,7 @@
   		 (list 
   		  "/usr/local/bin"
   		  "/usr/local/go/bin"
+		  (concat (getenv "HOME") "/Library/Haskell/bin")
   		  (concat (getenv "HOME") "/go/bin")))))
     (setenv "PATH"  (mapconcat 'identity mypaths ":"))
     (setq exec-path (append mypaths (list "." exec-directory)) ))
