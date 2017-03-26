@@ -67,7 +67,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (idris-mode flymake-haskell-multi flycheck yasnippet visual-regexp undo-tree sr-speedbar smex ruby-electric rsense go-scratch go-playground go-eldoc go-dlv go-autocomplete ghc flymake-ruby color-theme ac-inf-ruby ac-haskell-process))))
+    (robe json-mode idris-mode flymake-haskell-multi flycheck yasnippet visual-regexp undo-tree sr-speedbar smex ruby-electric rsense go-scratch go-playground go-eldoc go-dlv go-autocomplete ghc flymake-ruby color-theme ac-inf-ruby ac-haskell-process))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
