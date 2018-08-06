@@ -7,8 +7,14 @@
 ;;alway hight light
 (global-font-lock-mode 1)
 
+;;ido
 (ido-mode 1)
 (setq ido-auto-merge-work-directories-length -1)
+
+;;projectile
+(projectile-global-mode)
+(setq projectile-require-project-root nil)
+(global-set-key (kbd "M-<f2>") 'projectile-speedbar-open-current-buffer-in-tree)
 
 ;;括号匹配
 (setq show-paren-delay 0
@@ -21,6 +27,38 @@
 (which-function-mode)
 
 (auto-image-file-mode)
+
+;; 自动保存
+(require 'auto-save)            ;; 加载自动保存模块
+(auto-save-enable)              ;; 开启自动保存功能
+(setq auto-save-slient t)       ;; 自动保存的时候静悄悄的， 不要打扰我
+
+
+(global-linum-mode 1)
+
+;; smex
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+;; sr-speebar
+(setq sr-speedbar-right-side nil)
+(setq sr-speedbar-auto-refresh t)
+(setq speedbar-show-unknown-files t)
+(global-set-key [f8] 'sr-speedbar-toggle)
+
+;; undo-tree
+(global-undo-tree-mode)
+
+;; visual=regexp
+(require 'visual-regexp)
+(define-key global-map (kbd "C-c r") 'vr/replace)
+(define-key global-map (kbd "C-c q") 'vr/query-replace)
+
+(eval-after-load 'flymake '(require 'flymake-cursor))
+
+(add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
 
 ;=========================================
 ;(global-set-key (kbd "C-c j") 'goto-line)

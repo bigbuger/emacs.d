@@ -10,4 +10,4 @@
 (setq yas/root-directory "~/.emacs.d/snippets")
 ;(yas/load-directory yas/root-directory)
 
-;(global-set-key (kbd "C-i") 'yas/expand)
+(global-set-key (kbd "<M-RET>") 'yas-expand)

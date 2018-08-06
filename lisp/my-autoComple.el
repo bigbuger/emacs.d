@@ -7,3 +7,5 @@
 ;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 ;(add-to-list 'ac-dictionary-directories "~/.emacs.d/auto-complete-1.4/ac-dict")
 (ac-config-default)
+(add-to-list 'ac-sources 'ac-source-files-in-current-dir)
+(add-to-list 'ac-sources 'ac-source-filename)

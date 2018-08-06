@@ -1,4 +1,3 @@
-
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives
@@ -7,11 +6,29 @@
 
 (set-default-coding-systems 'utf-8)
 
+
 (setq shell-file-name "/bin/bash")
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
 
+(when (memq window-system '(mac ns))
+  (let (
+  	(mypaths
+  	 (append (split-string (getenv "PATH") ":")
+  		 (list
+  		  "/usr/local/bin"
+  		  "/usr/local/go/bin"
+  		  (concat (getenv "HOME") "/Library/Haskell/bin")
+  		  (concat (getenv "HOME") "/go/bin")))))
+    (setenv "PATH"  (mapconcat 'identity mypaths ":"))
+    (setenv "GOPATH" (concat (getenv "HOME") "/go"))
+    (setq exec-path (append mypaths (list "." exec-directory)) ))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-envs '("GEM_HOME" "GEM_PATH"))
+)
+
 (add-to-list 'load-path "~/.emacs.d/lisp/")
+
 (load "global.el")
 (load "my-command.el")
 (load "my-hideShow.el")
@@ -19,45 +36,13 @@
 (load "my-yasnippet.el")
 (load "my-go.el")
 (load "my-haskell.el")
+(load "my-erlang.el")
 (load "my-scheme.el")
 (load "my-ruby.el")
-
-(global-linum-mode 1)
-
-(smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-(setq sr-speedbar-right-side nil)
-(setq sr-speedbar-auto-refresh t)
-(setq speedbar-show-unknown-files t)
-(global-set-key [f8] 'sr-speedbar-toggle)
-
-(global-undo-tree-mode)
-
-(require 'visual-regexp)
-(define-key global-map (kbd "C-c r") 'vr/replace)
-(define-key global-map (kbd "C-c q") 'vr/query-replace)
+(load "my-package.el")
 
 
 
-
-(when (memq window-system '(mac ns))
-  (let (
-  	(mypaths
-  	 (append (split-string (getenv "PATH") ":")
-  		 (list 
-  		  "/usr/local/bin"
-  		  "/usr/local/go/bin"
-		  (concat (getenv "HOME") "/Library/Haskell/bin")
-  		  (concat (getenv "HOME") "/go/bin")))))
-    (setenv "PATH"  (mapconcat 'identity mypaths ":"))
-    (setq exec-path (append mypaths (list "." exec-directory)) ))
-  ;;(exec-path-from-shell-initialize)
-)
-
-(add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
 ;;(global-flycheck-mode)
 
 (custom-set-variables
@@ -67,7 +52,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (robe json-mode idris-mode flymake-haskell-multi flycheck yasnippet visual-regexp undo-tree sr-speedbar smex ruby-electric rsense go-scratch go-playground go-eldoc go-dlv go-autocomplete ghc flymake-ruby color-theme ac-inf-ruby ac-haskell-process))))
+    (magit projectile-speedbar helm projectile rvm ## auto-complete dash distel-completion-lib epl flymake-easy go-mode gotest haskell-mode json-reformat json-snatcher pkg-info popup prop-menu flycheck-rebar3 auto-complete-distel erlang flymake-cursor json-mode idris-mode flymake-haskell-multi flycheck yasnippet visual-regexp undo-tree sr-speedbar smex ruby-electric rsense go-scratch go-playground go-eldoc go-dlv go-autocomplete ghc flymake-ruby color-theme ac-haskell-process))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
