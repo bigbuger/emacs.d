@@ -2,19 +2,24 @@
 (setq inhibit-startup-message t)
 (setq frame-title-format "emacs@%b")
 
+
 ;;关闭蜂鸣
 (setq visible-bell t)
 ;;alway hight light
 (global-font-lock-mode 1)
 
 ;;ido
-(ido-mode 1)
-(setq ido-auto-merge-work-directories-length -1)
+;;(ido-mode 1)
+;;(setq ido-auto-merge-work-directories-length -1)
+
+
+;;ivy
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
 
 ;;projectile
 (projectile-global-mode)
 (setq projectile-require-project-root nil)
-(global-set-key (kbd "M-<f2>") 'projectile-speedbar-open-current-buffer-in-tree)
 
 ;;括号匹配
 (setq show-paren-delay 0
@@ -23,6 +28,13 @@
 
 ;;显示时间
 (display-time)
+
+;; neotree
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+(setq neo-smart-open t)
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+
 
 (which-function-mode)
 
@@ -42,11 +54,6 @@
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
-;; sr-speebar
-(setq sr-speedbar-right-side nil)
-(setq sr-speedbar-auto-refresh t)
-(setq speedbar-show-unknown-files t)
-(global-set-key [f8] 'sr-speedbar-toggle)
 
 ;; undo-tree
 (global-undo-tree-mode)

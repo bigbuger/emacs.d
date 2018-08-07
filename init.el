@@ -52,10 +52,14 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (magit projectile-speedbar helm projectile rvm ## auto-complete dash distel-completion-lib epl flymake-easy go-mode gotest haskell-mode json-reformat json-snatcher pkg-info popup prop-menu flycheck-rebar3 auto-complete-distel erlang flymake-cursor json-mode idris-mode flymake-haskell-multi flycheck yasnippet visual-regexp undo-tree sr-speedbar smex ruby-electric rsense go-scratch go-playground go-eldoc go-dlv go-autocomplete ghc flymake-ruby color-theme ac-haskell-process))))
+    (all-the-icons neotree counsel ivy magit projectile rvm auto-complete dash distel-completion-lib epl flymake-easy go-mode gotest haskell-mode json-reformat json-snatcher pkg-info popup prop-menu flycheck-rebar3 auto-complete-distel erlang flymake-cursor json-mode idris-mode flymake-haskell-multi flycheck yasnippet visual-regexp undo-tree smex robe exec-path-from-shell inf-ruby ac-inf-ruby ruby-electric rsense go-scratch go-playground go-eldoc go-dlv go-autocomplete ghc flymake-ruby color-theme ac-haskell-process))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+
+

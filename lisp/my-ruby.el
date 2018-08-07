@@ -16,10 +16,11 @@
 (require 'rvm)
 (rvm-use-default)
 
+(require 'inf-ruby)
 (setq inf-ruby-default-implementation "pry")
 ;;(setq inf-ruby-eval-binding "Pry.toplevel_binding")
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
 
-
+(require 'robe)
 ;;;;;;;;;;; end ruby ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
