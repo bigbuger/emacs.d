@@ -1,3 +1,4 @@
+
 ;;========================================================;;
 ;;  haskell                                               ;;
 (require 'haskell-mode)
@@ -6,13 +7,18 @@
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 (add-hook 'haskell-mode-hook 'linum-mode)
+
 ;;(add-to-list 'load-path "~/.emacs.d/lisp/ghc-mod-1.11.3/elisp")
 ;;(load "~/.emacs.d/lisp/ghc-mod-1.11.3/elisp/ghc.el")
+
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t)
 (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+
 (require 'flymake-haskell-multi)
+
 (add-hook 'haskell-mode-hook 'flymake-haskell-multi-load)
+(add-to-list 'company-backends 'company-ghc)
 
 (setq haskell-program-name "ghci")
 ;; 添加菜单项
@@ -20,7 +26,7 @@
 (defun load-haskell-file ()
   (interactive)
   (progn
-    (let ((b (current-buffer))) 
+    (let ((b (current-buffer)))
       (run-haskell)
       (switch-to-buffer b)
       (inferior-haskell-load-file))))

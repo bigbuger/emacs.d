@@ -1,6 +1,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;    GO                                            ;;
-(require 'go-autocomplete)
+
+;;(require 'go-autocomplete)
+(add-hook 'go-mode-hook
+	  (lambda ()
+	    (setq-local company-backends '(company-go company-files company-dabbrev))))
+
 (require 'go-flymake)
 ;;(require 'go-flycheck)
 (add-hook 'go-mode-hook 'go-eldoc-setup)
