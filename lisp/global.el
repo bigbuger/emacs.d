@@ -150,3 +150,14 @@
 ;(color-theme-tty-dark)
 (add-to-list 'load-path "~/.emacs.d/lisp/tomorrow-theme")
 (require 'tomorrow-night-eighties-theme)
+
+
+(require 'popup)
+(require 'osx-dictionary)
+(defun osx-dictionary-search-at-point-and-pop ()
+  "Search word around and display result with popup."
+  (interactive)
+  (let* ((word (osx-dictionary--region-or-word))
+	 (result (osx-dictionary--search word)))
+    (popup-tip result)))
+(global-set-key (kbd "C-S-d") 'osx-dictionary-search-at-point-and-pop)
