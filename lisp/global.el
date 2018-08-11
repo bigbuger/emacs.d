@@ -49,6 +49,14 @@
 (global-set-key (kbd "C-c M-f") 'windmove-right)
 (global-set-key (kbd "C-c M-b") 'windmove-left)
 
+;; smex
+(require 'smex)
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+
 ;;ivy
 (require 'ivy)
 (ivy-mode 1)
@@ -90,21 +98,14 @@
 (require 'all-the-icons)
 (global-set-key [f8] 'neotree-toggle)
 (setq neo-smart-open t)
-;;(setq neo-vc-integration t)
+(setq neo-vc-integration '(face))
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+(global-set-key [f8] 'neotree-toggle)
 
 ;; 自动保存
 (require 'auto-save)            ;; 加载自动保存模块
 (auto-save-enable)              ;; 开启自动保存功能
 (setq auto-save-slient t)       ;; 自动保存的时候静悄悄的， 不要打扰我
-
-;; smex
-(require 'smex)
-(smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
 
 ;; visual=regexp
 (require 'visual-regexp)
@@ -115,8 +116,16 @@
 (eval-after-load 'flymake '(require 'flymake-cursor))
 (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
 
-(load-library "realgud")
+;;============================================================
+;;flymake基本配置
+;;(autoload 'flymake-find-file-hook "flymake" "" t)
+;;(add-hook 'find-file-hook 'flymake-find-file-hook)
+;;(setq flymake-gui-warnings-enabled nil)	;关闭错误对话框
+;;(setq flymake-log-level 0)
 
+;;============================================================
+
+(load-library "realgud")
 
 ;============================================================
 ;全屏函数
@@ -129,16 +138,6 @@
 			   (progn (setq old-fullscreen current-value)
 				  'fullboth)))))
 (global-set-key [f11] 'toggle-fullscreen)
-
-
-;;============================================================
-;;flymake基本配置
-;;(autoload 'flymake-find-file-hook "flymake" "" t)
-;;(add-hook 'find-file-hook 'flymake-find-file-hook)
-;;(setq flymake-gui-warnings-enabled nil)	;关闭错误对话框
-;;(setq flymake-log-level 0)
-
-;;============================================================
 
 ;============================================================
 ;颜色主题

@@ -6,28 +6,16 @@
 
 (set-default-coding-systems 'utf-8)
 
-
-(setq shell-file-name "/bin/bash")
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
 
 (when (memq window-system '(mac ns))
-  (let (
-  	(mypaths
-  	 (append (split-string (getenv "PATH") ":")
-  		 (list
-  		  "/usr/local/bin"
-  		  "/usr/local/go/bin"
-  		  (concat (getenv "HOME") "/Library/Haskell/bin")
-  		  (concat (getenv "HOME") "/go/bin")))))
-    (setenv "PATH"  (mapconcat 'identity mypaths ":"))
-    (setenv "GOPATH" (concat (getenv "HOME") "/go"))
-    (setq exec-path (append mypaths (list "." exec-directory)) ))
   (exec-path-from-shell-initialize)
-  (exec-path-from-shell-copy-envs '("GEM_HOME" "GEM_PATH"))
+  (exec-path-from-shell-copy-envs '("PATH" "GOPATH" "GEM_HOME" "GEM_PATH"))
 )
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
+(setq shell-file-name "/bin/bash")
 
 (add-hook 'after-init-hook
 	  (lambda ()
