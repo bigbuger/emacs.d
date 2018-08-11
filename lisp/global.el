@@ -1,4 +1,6 @@
 
+
+
 ;;关闭启动画面
 (setq inhibit-startup-message t)
 (setq frame-title-format "emacs@%b")
@@ -65,6 +67,7 @@
 (setq ivy-use-selectable-prompt t)
 (global-set-key "\C-s" 'swiper)
 (setq ivy-display-style 'fancy)
+(global-set-key (kbd "C-c C-y") 'counsel-yank-pop)
 
 (require 'company)
 (global-company-mode 1)
