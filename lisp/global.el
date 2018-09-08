@@ -58,7 +58,6 @@
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
-
 ;;ivy
 (require 'ivy)
 (ivy-mode 1)
@@ -104,7 +103,6 @@
 (setq neo-smart-open t)
 (setq neo-vc-integration '(face))
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-(global-set-key [f8] 'neotree-toggle)
 
 ;; 自动保存
 (require 'auto-save)            ;; 加载自动保存模块

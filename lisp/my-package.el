@@ -1,46 +1,54 @@
 (defvar my-packages
-  '(company-go
-    company
-    all-the-icons
-    neotree
-    counsel
+  '(
+    ;; base
+    color-theme
+    undo-tree
     ivy
+    swiper
+    counsel
+    smex
+    company
+    company-quickhelp
+    yasnippet
+    visual-regexp
+    flycheck
+    flymake-easy
+    flymake-cursor
+    popup
+    exec-path-from-shell
     magit
     projectile
-    rvm
-    dash
+    neotree
+    all-the-icons
+    realgud
     epl
-    flymake-easy
+    osx-dictionary
+    ;; ruby
+    inf-ruby
+    robe
+    rvm
+    ruby-electric
+    rsense
+    flymake-ruby
+    realgud-byebug
+    ;; go
     go-mode
     gotest
     go-scratch
     go-playground
-    go-eldoc
     go-dlv
+    go-eldoc
+    company-go
+    ;; haskell
     haskell-mode
-    json-reformat
-    json-snatcher
-    pkg-info
-    popup
-    prop-menu
-    flycheck-rebar3
-    flymake-cursor
-    json-mode
-    idris-mode
-    flymake-haskell-multi
-    flycheck
-    yasnippet
-    visual-regexp
-    undo-tree
-    smex
-    robe
-    exec-path-from-shell
-    inf-ruby
-    ruby-electric
-    rsense
+    company-ghc
+    company-ghci
     ghc
-    flymake-ruby
-    color-theme)
+    flymake-haskell-multi
+    ;; scheme
+    geiser
+    sicp
+    )
   "A list of packages to ensure are installed at launch.")
 
 (defun my-packages-installed-p ()
