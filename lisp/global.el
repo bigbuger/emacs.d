@@ -103,6 +103,10 @@
 (setq neo-smart-open t)
 (setq neo-vc-integration '(face))
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+(setq neo-autorefresh t)
+(setq neo-force-change-root t)
+(setq projectile-switch-project-action 'neotree-projectile-action)
+
 
 ;; 自动保存
 (require 'auto-save)            ;; 加载自动保存模块
