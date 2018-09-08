@@ -72,6 +72,7 @@
 (require 'company)
 (global-company-mode 1)
 (setq company-minimum-prefix-length 1)
+(setq company-require-match nil)
 (require 'color)
 (custom-set-faces
  '(company-preview
@@ -93,7 +94,7 @@
 ;;projectile
 (require 'projectile)
 (projectile-global-mode)
-(setq projectile-require-project-root nil)
+(setq projectile-require-project-root t)
 (setq projectile-completion-system 'ivy)
 
 ;; neotree
@@ -152,12 +153,12 @@
 (require 'tomorrow-night-eighties-theme)
 
 
-(require 'popup)
+(require 'pos-tip)
 (require 'osx-dictionary)
 (defun osx-dictionary-search-at-point-and-pop ()
   "Search word around and display result with popup."
   (interactive)
   (let* ((word (osx-dictionary--region-or-word))
 	 (result (osx-dictionary--search word)))
-    (popup-tip result)))
+    (pos-tip-show result)))
 (global-set-key (kbd "C-S-d") 'osx-dictionary-search-at-point-and-pop)
