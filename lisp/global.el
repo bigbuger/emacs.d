@@ -68,6 +68,14 @@
 (setq ivy-display-style 'fancy)
 (global-set-key (kbd "C-c C-y") 'counsel-yank-pop)
 
+;;yasnippet
+(require 'yasnippet)
+(yas-global-mode 1)
+(setq yas/root-directory "~/.emacs.d/snippets")
+;(yas/load-directory yas/root-directory)
+(global-set-key (kbd "<M-RET>") 'yas-expand)
+
+;;company
 (require 'company)
 (global-company-mode 1)
 (setq company-minimum-prefix-length 1)
@@ -90,6 +98,9 @@
     (t (:inherit company-tooltip-selection)))))
 (add-hook 'after-init-hook 'company-quickhelp-mode)
 
+
+(add-to-list 'company-backends 'company-yasnippet)
+
 ;;projectile
 (require 'projectile)
 (projectile-global-mode)
@@ -105,7 +116,7 @@
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 (setq neo-autorefresh t)
 (setq neo-force-change-root t)
-(setq projectile-switch-project-action 'neotree-projectile-action)
+;; (setq projectile-switch-project-action 'neotree-projectile-action)
 
 
 ;; 自动保存
