@@ -9,7 +9,8 @@
 (add-hook 'ruby-mode-hook 'ruby-electric-mode)
 
 (eval-after-load 'company
-  '(add-to-list 'company-backends 'company-inf-ruby 'company-robe))
+  '(push '(company-inf-ruby company-robe :with company-yasnippet)
+	  company-backends))
 
 (add-hook 'ruby-mode-hook 'robe-mode)
 

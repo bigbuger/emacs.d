@@ -4,7 +4,9 @@
 ;;(require 'go-autocomplete)
 (add-hook 'go-mode-hook
 	  (lambda ()
-	    (setq-local company-backends '(company-go company-files company-dabbrev))))
+	    (setq-local company-backends '((company-go :with company-yasnippet)
+					    (company-files :with company-yasnippet)
+					    (company-dabbrev :with company-yasnippet)))))
 
 (require 'go-flymake)
 ;;(require 'go-flycheck)

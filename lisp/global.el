@@ -1,6 +1,3 @@
-
-
-
 ;;关闭启动画面
 (setq inhibit-startup-message t)
 (setq frame-title-format "emacs@%b")
@@ -27,8 +24,6 @@
 
 ;;显示时间
 (display-time)
-
-
 ;=========================================
 ;(global-set-key (kbd "C-c j") 'goto-line)
 ;(global-set-key (kbd "M-s") 'query-replace-regexp)
@@ -51,22 +46,31 @@
 (global-set-key (kbd "C-c M-f") 'windmove-right)
 (global-set-key (kbd "C-c M-b") 'windmove-left)
 
-;; smex
-(require 'smex)
-(smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
 ;;ivy
 (require 'ivy)
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
+(setq ivy-count-format "(%d/%d) ")
 (setq enable-recursive-minibuffers t)
 (setq ivy-use-selectable-prompt t)
-(global-set-key "\C-s" 'swiper)
 (setq ivy-display-style 'fancy)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-find-library)
 (global-set-key (kbd "C-c C-y") 'counsel-yank-pop)
+(define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+
+;; (require 'ivy-posframe)
+;; (setq ivy-display-function #'ivy-posframe-display)
+;; (setq ivy-display-function #'ivy-posframe-display-at-frame-center)
+;; (setq ivy-display-function #'ivy-posframe-display-at-window-center)
+;; (setq ivy-display-function #'ivy-posframe-display-at-frame-bottom-left)
+;; (setq ivy-display-function #'ivy-posframe-display-at-window-bottom-left)
+;; (setq ivy-display-function #'ivy-posframe-display-at-point)
+;; (ivy-posframe-enable)
 
 ;;yasnippet
 (require 'yasnippet)
@@ -75,11 +79,20 @@
 ;(yas/load-directory yas/root-directory)
 (global-set-key (kbd "<M-RET>") 'yas-expand)
 
+(require 'shell)
+(dolist (hook (list
+               'term-mode-hook
+	       'shell-mode-hook
+               ))
+  (add-hook hook '(lambda () (yas-minor-mode -1))))
+
+
 ;;company
 (require 'company)
 (global-company-mode 1)
 (setq company-minimum-prefix-length 1)
 (setq company-require-match nil)
+(setq company-show-numbers t)
 (require 'color)
 (custom-set-faces
  '(company-preview
@@ -97,9 +110,17 @@
    ((((type x)) (:inherit company-tooltip-selection :weight bold))
     (t (:inherit company-tooltip-selection)))))
 (add-hook 'after-init-hook 'company-quickhelp-mode)
+;(add-to-list 'company-backends 'company-yasnippet)
+(defvar company-mode/enable-yas t
+  "Enable yasnippet for all backends.")
+(defun company-mode/backend-with-yas (backend)
+  (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+      backend
+    (append (if (consp backend) backend (list backend))
+            '(:with company-yasnippet))))
+(setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
 
 
-(add-to-list 'company-backends 'company-yasnippet)
 
 ;;projectile
 (require 'projectile)
@@ -124,13 +145,13 @@
 (auto-save-enable)              ;; 开启自动保存功能
 (setq auto-save-slient t)       ;; 自动保存的时候静悄悄的， 不要打扰我
 
-;; visual=regexp
+;; visual-regexp
 (require 'visual-regexp)
 (define-key global-map (kbd "C-c r") 'vr/replace)
 (define-key global-map (kbd "C-c q") 'vr/query-replace)
 
 
-(eval-after-load 'flymake '(require 'flymake-cursor))
+;;(eval-after-load 'flymake '(require 'flymake-cursor))
 (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
 
 ;;============================================================

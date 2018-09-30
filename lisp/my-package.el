@@ -13,7 +13,6 @@
     visual-regexp
     flycheck
     flymake-easy
-    flymake-cursor
     popup
     exec-path-from-shell
     magit

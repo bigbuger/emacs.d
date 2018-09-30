@@ -5,4 +5,4 @@
 (setq ensime-startup-notification nil)
 (setq ensime-search-interface 'ivy)
 
-(push '(ensime-company company-yasnippet) company-backends)
+(push '(ensime-company :with company-yasnippet) company-backends)
