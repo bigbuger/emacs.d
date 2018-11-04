@@ -152,7 +152,10 @@
 
 
 ;;(eval-after-load 'flymake '(require 'flymake-cursor))
+(require 'flycheck)
 (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
+(add-hook 'c++-mode-hook 'flycheck-mode)
+(add-hook 'c-mode-hook 'flycheck-mode)
 
 ;;============================================================
 ;;flymake基本配置
