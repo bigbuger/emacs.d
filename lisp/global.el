@@ -185,7 +185,7 @@
 ;(add-to-list 'load-path "~/.emacs.d/color-theme")
 (require 'color-theme)
 (color-theme-initialize)
-;(color-theme-tty-dark)
+;;(color-theme-dark-erc)
 (add-to-list 'load-path "~/.emacs.d/lisp/tomorrow-theme")
 (require 'tomorrow-night-eighties-theme)
 

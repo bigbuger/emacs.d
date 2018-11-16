@@ -10,6 +10,7 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
 
 (when (memq window-system '(mac ns))
+  (set-fontset-font t nil (font-spec :family "Apple Color Emoji") nil 'append)
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-envs '("PATH" "GOPATH" "GEM_HOME" "GEM_PATH")))
 
@@ -39,7 +40,7 @@
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(package-selected-packages
    (quote
-    (ivy-posframe counsel-projectile ag dash-at-point ace-window ensime go-eldo company-quickhelp geiser osx-dictionary sicp swiper realgud-byebug realgud-pry realgud company-ghci company-ghc company-go company all-the-icons neotree counsel ivy magit projectile rvm dash epl flymake-easy go-mode gotest haskell-mode popup flymake-haskell-multi flycheck yasnippet visual-regexp undo-tree smex robe exec-path-from-shell inf-ruby ruby-electric rsense go-scratch go-playground go-eldoc go-dlv ghc flymake-ruby color-theme))))
+    (company-web markdown-mode yaml-mode ivy-posframe counsel-projectile ag dash-at-point ace-window ensime go-eldo company-quickhelp geiser osx-dictionary sicp swiper realgud-byebug realgud-pry realgud company-ghci company-ghc company-go company all-the-icons neotree counsel ivy magit projectile rvm dash epl flymake-easy go-mode gotest haskell-mode popup flymake-haskell-multi flycheck yasnippet visual-regexp undo-tree smex robe exec-path-from-shell inf-ruby ruby-electric rsense go-scratch go-playground go-eldoc go-dlv ghc flymake-ruby color-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

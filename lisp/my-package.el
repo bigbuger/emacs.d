@@ -47,6 +47,10 @@
     ;; scheme
     geiser
     sicp
+    ;;
+    yaml-mode
+    markdown-mode
+    company-web
     )
   "A list of packages to ensure are installed at launch.")
 
