@@ -128,6 +128,8 @@
 (setq projectile-require-project-root t)
 (setq projectile-completion-system 'ivy)
 
+(require 'counsel-projectile)
+
 ;; neotree
 (require 'neotree)
 (require 'all-the-icons)
@@ -139,6 +141,8 @@
 (setq neo-force-change-root t)
 ;; (setq projectile-switch-project-action 'neotree-projectile-action)
 
+;;magit
+(require 'magit)
 
 ;; 自动保存
 (require 'auto-save)            ;; 加载自动保存模块

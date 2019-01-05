@@ -6,6 +6,7 @@
     ivy
     swiper
     counsel
+    ag
     smex
     company
     company-quickhelp
@@ -13,13 +14,15 @@
     visual-regexp
     flycheck
     flymake-easy
+    realgud
     popup
     exec-path-from-shell
     magit
     projectile
+    counsel-projectile
     neotree
     all-the-icons
-    realgud
+    json-mode
     epl
     osx-dictionary
     ;; ruby
@@ -55,8 +58,9 @@
   "A list of packages to ensure are installed at launch.")
 
 (defun my-packages-installed-p ()
-  (loop for p in my-packages
-        when (not (package-installed-p p)) do (return nil)
+  "Install need packages."
+  (cl-loop for p in my-packages
+        when (not (package-installed-p p)) do (cl-return nil)
         finally (return t)))
 
 (unless (my-packages-installed-p)
