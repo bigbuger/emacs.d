@@ -60,8 +60,12 @@
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
 (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 (global-set-key (kbd "<f1> l") 'counsel-find-library)
+;;(global-set-key (kbd "<f1> k") 'counsel-descbinds)
 (global-set-key (kbd "C-c C-y") 'counsel-yank-pop)
+(global-set-key (kbd "C-c i") 'counsel-imenu)
+(global-set-key (kbd "C-c b") 'counsel-ibuffer)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+
 
 ;; (require 'ivy-posframe)
 ;; (setq ivy-display-function #'ivy-posframe-display)
@@ -129,6 +133,7 @@
 (setq projectile-completion-system 'ivy)
 
 (require 'counsel-projectile)
+(define-key global-map (kbd "C-c p a") 'counsel-projectile-ag)
 
 ;; neotree
 (require 'neotree)

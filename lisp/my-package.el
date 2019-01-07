@@ -17,14 +17,14 @@
     realgud
     popup
     exec-path-from-shell
+    neotree
+    all-the-icons
+    
+    ;; about project
     magit
     projectile
     counsel-projectile
-    neotree
-    all-the-icons
-    json-mode
-    epl
-    osx-dictionary
+    
     ;; ruby
     inf-ruby
     robe
@@ -33,6 +33,7 @@
     rsense
     flymake-ruby
     realgud-byebug
+    
     ;; go
     go-mode
     gotest
@@ -41,16 +42,26 @@
     go-dlv
     go-eldoc
     company-go
+    
     ;; haskell
     haskell-mode
     company-ghc
     company-ghci
     ghc
     flymake-haskell-multi
+    
     ;; scheme
     geiser
     sicp
-    ;;
+    
+    ;; python
+    elpy
+    company-jedi
+    
+    ;; other
+    json-mode
+    epl
+    osx-dictionary
     yaml-mode
     markdown-mode
     company-web

@@ -25,8 +25,8 @@
 (load "my-haskell.el")
 (load "my-scheme.el")
 (load "my-ruby.el")
-(load "my-scala.el")
-
+;;(load "my-scala.el")
+(load "my-python.el")
 
 ;;(global-flycheck-mode)
 
@@ -39,7 +39,7 @@
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(package-selected-packages
    (quote
-    (json-mode company-web markdown-mode yaml-mode ivy-posframe counsel-projectile ag dash-at-point ace-window ensime go-eldo company-quickhelp geiser osx-dictionary sicp swiper realgud-byebug realgud-pry realgud company-ghci company-ghc company-go company all-the-icons neotree counsel ivy magit projectile rvm dash epl flymake-easy go-mode gotest haskell-mode popup flymake-haskell-multi flycheck yasnippet visual-regexp undo-tree smex robe exec-path-from-shell inf-ruby ruby-electric rsense go-scratch go-playground go-eldoc go-dlv ghc flymake-ruby color-theme))))
+    (company-jedi elpy json-mode company-web markdown-mode yaml-mode ivy-posframe counsel-projectile ag dash-at-point ace-window ensime go-eldo company-quickhelp geiser osx-dictionary sicp swiper realgud-byebug realgud-pry realgud company-ghci company-ghc company-go company all-the-icons neotree counsel ivy magit projectile rvm dash epl flymake-easy go-mode gotest haskell-mode popup flymake-haskell-multi flycheck yasnippet visual-regexp undo-tree smex robe exec-path-from-shell inf-ruby ruby-electric rsense go-scratch go-playground go-eldoc go-dlv ghc flymake-ruby color-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
