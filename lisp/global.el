@@ -83,13 +83,6 @@
 ;(yas/load-directory yas/root-directory)
 (global-set-key (kbd "<M-RET>") 'yas-expand)
 
-(require 'shell)
-(dolist (hook (list
-               'term-mode-hook
-	       'shell-mode-hook
-               ))
-  (add-hook hook '(lambda () (yas-minor-mode -1))))
-
 
 ;;company
 (require 'company)
@@ -97,23 +90,8 @@
 (setq company-minimum-prefix-length 1)
 (setq company-require-match nil)
 (setq company-show-numbers t)
-(require 'color)
-(custom-set-faces
- '(company-preview
-   ((t (:foreground "darkgray" :underline t))))
- '(company-preview-common
-   ((t (:inherit company-preview))))
- '(company-tooltip
-   ((t (:background "lightgray" :foreground "black"))))
- '(company-tooltip-selection
-   ((t (:background "steelblue" :foreground "white"))))
- '(company-tooltip-common
-   ((((type x)) (:inherit company-tooltip :weight bold))
-    (t (:inherit company-tooltip))))
- '(company-tooltip-common-selection
-   ((((type x)) (:inherit company-tooltip-selection :weight bold))
-    (t (:inherit company-tooltip-selection)))))
 (add-hook 'after-init-hook 'company-quickhelp-mode)
+
 ;(add-to-list 'company-backends 'company-yasnippet)
 (defvar company-mode/enable-yas t
   "Enable yasnippet for all backends.")
@@ -134,6 +112,8 @@
 
 (require 'counsel-projectile)
 (define-key global-map (kbd "C-c p a") 'counsel-projectile-ag)
+(define-key global-map (kbd "C-c p i") 'counsel-projectile-switch-to-buffer)
+
 
 ;; neotree
 (require 'neotree)
@@ -191,7 +171,6 @@
 
 ;============================================================
 ;颜色主题
-;(add-to-list 'load-path "~/.emacs.d/color-theme")
 (require 'color-theme)
 (color-theme-initialize)
 ;;(color-theme-dark-erc)
