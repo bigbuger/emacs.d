@@ -83,6 +83,13 @@
 ;(yas/load-directory yas/root-directory)
 (global-set-key (kbd "<M-RET>") 'yas-expand)
 
+(require 'shell)
+(dolist (hook (list
+               'term-mode-hook
+	       'shell-mode-hook
+               ))
+  (add-hook hook '(lambda () (yas-minor-mode -1))))
+
 
 ;;company
 (require 'company)
@@ -157,25 +164,15 @@
 
 (load-library "realgud")
 
-;============================================================
-;全屏函数
-(defun toggle-fullscreen (&optional f)
-  (interactive)
-  (let ((current-value (frame-parameter nil 'fullscreen)))
-    (set-frame-parameter nil 'fullscreen
-			 (if (equal 'fullboth current-value)
-			     (if (boundp 'old-fullscreen) old-fullscreen nil)
-			   (progn (setq old-fullscreen current-value)
-				  'fullboth)))))
-(global-set-key [f11] 'toggle-fullscreen)
 
-;============================================================
-;颜色主题
-(require 'color-theme)
-(color-theme-initialize)
-;;(color-theme-dark-erc)
-(add-to-list 'load-path "~/.emacs.d/lisp/tomorrow-theme")
-(require 'tomorrow-night-eighties-theme)
+(require 'multi-term)
+(global-set-key (kbd "C-c s") 'multi-term-dedicated-open)
+
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 
 (require 'pos-tip)

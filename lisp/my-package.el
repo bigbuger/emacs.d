@@ -12,6 +12,8 @@
     company-quickhelp
     yasnippet
     visual-regexp
+    multi-term
+    multiple-cursors
     flycheck
     flymake-easy
     realgud
@@ -19,6 +21,7 @@
     exec-path-from-shell
     neotree
     all-the-icons
+    
     
     ;; about project
     magit

@@ -3,6 +3,9 @@
 (require 'elpy)
 (require 'company-jedi)
 
+;; fixme
+(setq python-shell-completion-native-enable nil)
+
 ;; enable elpy jedi backend
 (setq elpy-rpc-backend "jedi")
 
