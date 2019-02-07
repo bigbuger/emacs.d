@@ -22,6 +22,14 @@
       show-paren-style 'parenthesis)
 (show-paren-mode 1)
 
+(electric-pair-mode 1)
+(setq electric-pair-pairs '(
+                            (?\" . ?\")
+                            (?\` . ?\`)
+                            (?\( . ?\))
+                            (?\{ . ?\})
+                            ))
+
 ;;显示时间
 (display-time)
 ;=========================================
@@ -113,13 +121,16 @@
 
 ;;projectile
 (require 'projectile)
-(projectile-global-mode)
+(projectile-mode)
 (setq projectile-require-project-root t)
 (setq projectile-completion-system 'ivy)
 
+
 (require 'counsel-projectile)
-(define-key global-map (kbd "C-c p a") 'counsel-projectile-ag)
-(define-key global-map (kbd "C-c p i") 'counsel-projectile-switch-to-buffer)
+(global-set-key (kbd "C-c p a") 'counsel-projectile-ag)
+(global-set-key (kbd "C-c p i") 'counsel-projectile-switch-to-buffer)
+(global-set-key (kbd "C-c p p") 'counsel-projectile-switch-project)
+(global-set-key (kbd "C-c p f") 'counsel-projectile-find-file)
 
 
 ;; neotree
@@ -143,8 +154,8 @@
 
 ;; visual-regexp
 (require 'visual-regexp)
-(define-key global-map (kbd "C-c r") 'vr/replace)
-(define-key global-map (kbd "C-c q") 'vr/query-replace)
+(global-set-key (kbd "C-c r") 'vr/replace)
+(global-set-key (kbd "C-c q") 'vr/query-replace)
 
 
 ;;(eval-after-load 'flymake '(require 'flymake-cursor))
@@ -166,7 +177,7 @@
 
 
 (require 'multi-term)
-(global-set-key (kbd "C-c s") 'multi-term-dedicated-open)
+(global-set-key (kbd "C-c s") 'multi-term)
 
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)

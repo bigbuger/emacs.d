@@ -22,7 +22,6 @@
     neotree
     all-the-icons
     
-    
     ;; about project
     magit
     projectile
@@ -60,6 +59,9 @@
     ;; python
     elpy
     company-jedi
+
+    ;; scala
+    ensime
     
     ;; other
     json-mode

@@ -1,7 +1,7 @@
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives
              '("MELPA Stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 
 (set-default-coding-systems 'utf-8)
@@ -9,15 +9,23 @@
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
 
-(when (memq window-system '(mac ns))
-  (set-fontset-font t nil (font-spec :family "Apple Color Emoji") nil 'append)
-  (exec-path-from-shell-initialize)
-  (exec-path-from-shell-copy-envs '("PATH" "GOPATH" "GEM_HOME" "GEM_PATH")))
-
 (add-to-list 'load-path "~/.emacs.d/lisp/")
-;(setq shell-file-name "/bin/bash")
-
 (load "my-package.el")
+
+(when (memq window-system '(mac ns))
+  (set-fontset-font t nil (font-spec :family "Apple Color Emoji") nil 'append))
+
+(exec-path-from-shell-initialize)
+(exec-path-from-shell-copy-envs '("PATH" "GOPATH" "GEM_HOME" "GEM_PATH"))
+
+(setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+      backup-by-copying t    ; Don't delink hardlinks
+      version-control t      ; Use version numbers on backups
+      delete-old-versions t  ; Automatically delete excess backups
+      kept-new-versions 20   ; how many of the newest versions to keep
+      kept-old-versions 5    ; and how many of the old
+  )
+
 
 (load "global.el")
 (load "my-command.el")
@@ -26,6 +34,7 @@
 (load "my-scheme.el")
 (load "my-ruby.el")
 (load "my-python.el")
+(load "my-scala")
 
 
 ;============================================================
@@ -55,9 +64,7 @@
  ;; If there is more than one, they won't work right.
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
- '(package-selected-packages
-   (quote
-    (multiple-cursors multi-term company-jedi elpy json-mode company-web markdown-mode yaml-mode ivy-posframe counsel-projectile ag dash-at-point ace-window ensime go-eldo company-quickhelp geiser osx-dictionary sicp swiper realgud-byebug realgud-pry realgud company-ghci company-ghc company-go company all-the-icons neotree counsel ivy magit projectile rvm dash epl flymake-easy go-mode gotest haskell-mode popup flymake-haskell-multi flycheck yasnippet visual-regexp undo-tree smex robe exec-path-from-shell inf-ruby ruby-electric rsense go-scratch go-playground go-eldoc go-dlv ghc flymake-ruby color-theme))))
+ '(package-selected-packages (quote (go-eldo))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
