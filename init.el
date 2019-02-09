@@ -49,8 +49,10 @@
 				  'fullboth)))))
 (global-set-key [f11] 'toggle-fullscreen)
 
-;============================================================
-;颜色主题
+;;============================================================
+;; 颜色主题
+(set-face-attribute 'default nil :height 140)
+
 (require 'color-theme)
 (color-theme-initialize)
 (add-to-list 'load-path "~/.emacs.d/lisp/tomorrow-theme")
@@ -62,9 +64,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(display-time-mode t)
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
- '(package-selected-packages (quote (go-eldo))))
+ '(package-selected-packages (quote (go-eldo)))
+ '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
