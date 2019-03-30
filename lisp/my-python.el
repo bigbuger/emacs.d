@@ -9,6 +9,11 @@
 ;; enable elpy jedi backend
 (setq elpy-rpc-backend "jedi")
 
+(setq elpy-rpc-python-command "python3")
+(setq python-shell-interpreter "python3")
+(setq python-check-command "~/Library/Python/3.7/bin/flake8")
+(setq flycheck-python-flake8-executable "/usr/local/bin/flake8")
+
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
