@@ -6,6 +6,7 @@
     ivy
     swiper
     counsel
+    ivy-rich
     ag
     smex
     company
@@ -21,6 +22,7 @@
     exec-path-from-shell
     neotree
     all-the-icons
+    string-inflection
     
     ;; about project
     magit
@@ -70,6 +72,9 @@
     yaml-mode
     markdown-mode
     company-web
+    restclient
+    company-restclient
+    docker
     )
   "A list of packages to ensure are installed at launch.")
 

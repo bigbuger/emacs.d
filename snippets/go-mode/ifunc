@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: ifunc
+# key: ifunc
+# --
+func (${1:o}) ${2:name}(${3}) ${4} {
+     $0
+}

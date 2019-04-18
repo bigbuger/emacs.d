@@ -54,6 +54,9 @@
 (global-set-key (kbd "C-c M-f") 'windmove-right)
 (global-set-key (kbd "C-c M-b") 'windmove-left)
 
+(require 'string-inflection)
+(global-set-key (kbd "C-c C-u") 'string-inflection-all-cycle)
+
 ;;ivy
 (require 'ivy)
 (ivy-mode 1)
@@ -74,6 +77,8 @@
 (global-set-key (kbd "C-c b") 'counsel-ibuffer)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
+(require 'ivy-rich)
+(ivy-rich-mode 1)
 
 ;; (require 'ivy-posframe)
 ;; (setq ivy-display-function #'ivy-posframe-display)
@@ -84,11 +89,14 @@
 ;; (setq ivy-display-function #'ivy-posframe-display-at-point)
 ;; (ivy-posframe-enable)
 
+(require 'ace-window)
+(global-set-key (kbd "C-c o") 'ace-window)
+
 ;;yasnippet
 (require 'yasnippet)
 (yas-global-mode 1)
 (setq yas/root-directory "~/.emacs.d/snippets")
-;(yas/load-directory yas/root-directory)
+;;(yas/load-directory yas/root-directory)
 (global-set-key (kbd "<M-RET>") 'yas-expand)
 
 (require 'shell)
@@ -146,6 +154,8 @@
 
 ;;magit
 (require 'magit)
+(require 'magit-gitflow)
+(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
 ;; 自动保存
 (require 'auto-save)            ;; 加载自动保存模块
@@ -185,6 +195,14 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
+
+(require 'restclient)
+(require 'company-restclient)
+(add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
+
+;; docker
+(require 'docker)
+(setq docker-container-shell-file-name "/bin/bash")
 
 (require 'pos-tip)
 (require 'osx-dictionary)

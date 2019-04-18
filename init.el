@@ -36,7 +36,6 @@
 (load "my-python.el")
 (load "my-scala")
 
-
 ;============================================================
 ;全屏函数
 (defun toggle-fullscreen (&optional f)
@@ -53,11 +52,13 @@
 ;; 颜色主题
 (set-face-attribute 'default nil :height 140)
 
-(require 'color-theme)
-(color-theme-initialize)
+;;(require 'color-theme)
+;;(color-theme-initialize)
 (add-to-list 'load-path "~/.emacs.d/lisp/tomorrow-theme")
 (require 'tomorrow-night-eighties-theme)
-
+;;(setq sml/theme 'respectful)
+(setq sml/no-confirm-load-theme t)
+(sml/setup)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -67,13 +68,16 @@
  '(display-time-mode t)
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
- '(package-selected-packages (quote (magit-gitflow go-eldo)))
+ '(package-selected-packages
+   (quote
+    (treemacs treemacs-evil treemacs-icons-dired treemacs-magit treemacs-projectile string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode docker ivy-rich smart-mode-line company-restclient restclient magit-gitflow go-eldo)))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(aw-leading-char-face ((t (:foreground "red" :height 5.0))))
  '(company-preview ((t (:foreground "darkgray" :underline t))))
  '(company-preview-common ((t (:inherit company-preview))))
  '(company-tooltip ((t (:background "lightgray" :foreground "black"))))

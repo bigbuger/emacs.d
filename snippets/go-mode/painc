@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: panic
+# key: panic
+# --
+painc({$1:error})

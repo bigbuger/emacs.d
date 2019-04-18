@@ -1,6 +1,7 @@
-# -*- mode: go -*-
+# -*- mode: snippet -*-
 # name: main
 # key: main
 # --
 func main() {
+	$0
 }
