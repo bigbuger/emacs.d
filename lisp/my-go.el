@@ -20,4 +20,7 @@
 (define-key go-mode-map
   (kbd "M-.") 'godef-jump)
 
+(add-hook 'go-mode-hook (lambda ()
+			  (setq-local flycheck-disabled-checkers '(go-staticcheck))))
+
 ;;;;;;;; end of go ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

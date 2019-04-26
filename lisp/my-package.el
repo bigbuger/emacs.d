@@ -7,6 +7,7 @@
     swiper
     counsel
     ivy-rich
+    which-key
     ag
     smex
     company

@@ -1,21 +1,24 @@
 ;;关闭启动画面
 (setq inhibit-startup-message t)
-(setq frame-title-format "emacs@%b")
-
+(setq frame-title-format "%b")
 
 ;;关闭蜂鸣
 (setq visible-bell t)
 ;;alway hight light
 (global-font-lock-mode 1)
 
-;; undo-tree
-(global-undo-tree-mode)
+;;显示时间
+(display-time)
 
 (global-linum-mode 1)
 (which-function-mode)
 (auto-image-file-mode)
 
 (setq org-src-fontify-natively t)
+
+;; undo-tree
+(require 'undo-tree)
+(global-undo-tree-mode)
 
 ;;括号匹配
 (setq show-paren-delay 0
@@ -29,12 +32,37 @@
                             (?\( . ?\))
                             (?\{ . ?\})
                             ))
+;; (require 'smartparens-config)
+(show-smartparens-global-mode)
+(global-set-key (kbd "C-}") 'sp-forward-slurp-sexp)
+(global-set-key (kbd "C-{") 'sp-forward-barf-sexp)
 
-;;显示时间
-(display-time)
-;=========================================
-;(global-set-key (kbd "C-c j") 'goto-line)
-;(global-set-key (kbd "M-s") 'query-replace-regexp)
+(require 'cl)
+(defmacro def-pairs (pairs)
+  `(progn
+     ,@(loop for (key . val) in pairs
+             collect
+             `(defun ,(read (concat
+                             "wrap-with-"
+                             (prin1-to-string key)
+                             "s"))
+                  (&optional arg)
+                (interactive "p")
+                (sp-wrap-with-pair ,val)))))
+
+(def-pairs ((paren . "(")
+            (bracket . "[")
+            (brace . "{")
+            (single-quote . "'")
+            (double-quote . "\"")
+            (back-quote . "`")))
+(global-set-key (kbd "C-c (") 'wrap-with-parens)
+(global-set-key (kbd "C-c [") 'wrap-with-brackets)
+(global-set-key (kbd "C-c {") 'wrap-with-braces)
+(global-set-key (kbd "C-c '") 'wrap-with-single-quotes)
+(global-set-key (kbd "C-c \"") 'wrap-with-double-quotes)
+(global-set-key (kbd "C-c `") 'wrap-with-back-quotes)
+
 
 ;;========================================
 ;;关闭当前缓冲区 Alt+4  ;; C-x 0
@@ -47,6 +75,7 @@
 (global-set-key (kbd "M-3") 'split-window-horizontally)
 ;;切换到其它缓冲区 Alt+0 ;; C-x o
 (global-set-key (kbd "M-0") 'other-window)
+
 ;;============================================================
 ;;窗口之间移到
 (global-set-key (kbd "C-c M-n") 'windmove-down)
@@ -88,6 +117,9 @@
 ;; (setq ivy-display-function #'ivy-posframe-display-at-window-bottom-left)
 ;; (setq ivy-display-function #'ivy-posframe-display-at-point)
 ;; (ivy-posframe-enable)
+
+(require 'which-key)
+(which-key-mode)
 
 (require 'ace-window)
 (global-set-key (kbd "C-c o") 'ace-window)
