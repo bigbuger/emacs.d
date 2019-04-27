@@ -77,12 +77,6 @@
 ;;切换到其它缓冲区 Alt+0 ;; C-x o
 (global-set-key (kbd "M-0") 'other-window)
 
-;;============================================================
-;;窗口之间移到
-(global-set-key (kbd "C-c M-n") 'windmove-down)
-(global-set-key (kbd "C-c M-p") 'windmove-up)
-(global-set-key (kbd "C-c M-f") 'windmove-right)
-(global-set-key (kbd "C-c M-b") 'windmove-left)
 
 (require 'string-inflection)
 (global-set-key (kbd "C-c C-u") 'string-inflection-all-cycle)
@@ -173,6 +167,7 @@
 
 (require 'counsel-projectile)
 (global-set-key (kbd "C-c p a") 'counsel-projectile-ag)
+(global-set-key (kbd "C-c p r") 'counsel-projectile-rg)
 (global-set-key (kbd "C-c p i") 'counsel-projectile-switch-to-buffer)
 (global-set-key (kbd "C-c p p") 'counsel-projectile-switch-project)
 (global-set-key (kbd "C-c p f") 'counsel-projectile-find-file)
@@ -212,14 +207,6 @@
 ;; (add-hook 'c-mode-hook 'flycheck-mode)
 (global-flycheck-mode)
 
-;;============================================================
-;;flymake基本配置
-;;(autoload 'flymake-find-file-hook "flymake" "" t)
-;;(add-hook 'find-file-hook 'flymake-find-file-hook)
-;;(setq flymake-gui-warnings-enabled nil)	;关闭错误对话框
-;;(setq flymake-log-level 0)
-
-;;============================================================
 
 (load-library "realgud")
 

@@ -52,8 +52,6 @@
 ;; 颜色主题
 (set-face-attribute 'default nil :height 140)
 
-;;(require 'color-theme)
-;;(color-theme-initialize)
 (add-to-list 'load-path "~/.emacs.d/lisp/tomorrow-theme")
 (require 'tomorrow-night-eighties-theme)
 ;;(setq sml/theme 'respectful)
@@ -73,7 +71,7 @@
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(package-selected-packages
    (quote
-    (auto-yasnippet move-text treemacs treemacs-magit treemacs-projectile company-shell graphviz-dot-mode buffer-move smartparens which-key string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode docker ivy-rich smart-mode-line company-restclient restclient magit-gitflow go-eldo)))
+    (fzf auto-yasnippet move-text treemacs treemacs-magit treemacs-projectile company-shell graphviz-dot-mode buffer-move smartparens which-key string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode docker ivy-rich smart-mode-line company-restclient restclient magit-gitflow go-eldo)))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
