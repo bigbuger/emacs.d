@@ -13,6 +13,7 @@
     company
     company-quickhelp
     yasnippet
+    auto-yasnippet
     visual-regexp
     multi-term
     multiple-cursors
@@ -24,6 +25,7 @@
     neotree
     all-the-icons
     string-inflection
+    move-text
     
     ;; about project
     magit

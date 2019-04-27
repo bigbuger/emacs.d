@@ -63,6 +63,7 @@
 (global-set-key (kbd "C-c \"") 'wrap-with-double-quotes)
 (global-set-key (kbd "C-c `") 'wrap-with-back-quotes)
 
+(move-text-default-bindings)
 
 ;;========================================
 ;;关闭当前缓冲区 Alt+4  ;; C-x 0
@@ -138,6 +139,10 @@
                ))
   (add-hook hook '(lambda () (yas-minor-mode -1))))
 
+(require 'auto-yasnippet)
+(global-set-key (kbd "C-S-w") #'aya-create)
+(global-set-key (kbd "C-S-y") #'aya-expand)
+
 
 ;;company
 (require 'company)
@@ -202,9 +207,10 @@
 
 ;;(eval-after-load 'flymake '(require 'flymake-cursor))
 (require 'flycheck)
-(add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
-(add-hook 'c++-mode-hook 'flycheck-mode)
-(add-hook 'c-mode-hook 'flycheck-mode)
+;; (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
+;; (add-hook 'c++-mode-hook 'flycheck-mode)
+;; (add-hook 'c-mode-hook 'flycheck-mode)
+(global-flycheck-mode)
 
 ;;============================================================
 ;;flymake基本配置
