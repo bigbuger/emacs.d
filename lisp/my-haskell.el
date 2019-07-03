@@ -15,23 +15,21 @@
 (autoload 'ghc-debug "ghc" nil t)
 (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 
-(require 'flymake-haskell-multi)
+;;(require 'flymake-haskell-multi)
+;;(add-hook 'haskell-mode-hook 'flymake-haskell-multi-load)
 
-(add-hook 'haskell-mode-hook 'flymake-haskell-multi-load)
-(push '(company-ghc :with company-yasnippet) company-backends)
+(add-to-list 'company-backends '(company-ghc :with company-yasnippet))
 
 (setq haskell-program-name "ghci")
 ;; 添加菜单项
 (add-hook 'haskell-mode-hook 'imenu-add-menubar-index)
-(defun load-haskell-file ()
-  (interactive)
-  (progn
-    (let ((b (current-buffer)))
-      (run-haskell)
-      (switch-to-buffer b)
-      (inferior-haskell-load-file))))
+
+
+(define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile)
+(define-key haskell-mode-map (kbd "<f5>") 'haskell-process-load-file)
+
 (add-hook 'haskell-mode-hook
-	  '(lambda ()
-	     (local-set-key (kbd "<f5>") 'load-haskell-file)))
+	  (lambda ()
+	    (setq-local flycheck-disabled-checkers '(haskell-stack-ghc))))
 
 ;;;;;;;;;;;;;;; end haskell   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -2,6 +2,14 @@
 ;;    GO                                            ;;
 
 ;;(require 'go-autocomplete)
+
+(require 'go-dlv)
+(require 'go-guru)
+(require 'go-rename)
+
+(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
+(require 'golint)
+
 (add-hook 'go-mode-hook
 	  (lambda ()
 	    (setq-local company-backends '((company-go :with company-yasnippet)
@@ -12,10 +20,7 @@
 ;;(require 'go-flycheck)
 (add-hook 'go-mode-hook 'flycheck-mode)
 (add-hook 'go-mode-hook 'go-eldoc-setup)
-(require 'go-dlv)
 
-(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
-(require 'golint)
 
 (define-key go-mode-map
   (kbd "M-.") 'godef-jump)

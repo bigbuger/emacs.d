@@ -1,9 +1,3 @@
-(defun my-insterLine ()
-  (interactive)
-  (insert-char ?= 60))
-(global-set-key (kbd "C-=") 'my-insterLine)
-
-
 (defun myselect-line (num)
   "select n lines"
   (interactive "p")
@@ -29,7 +23,7 @@
     (myselect-line num)
     (setq endline (if (= (point) (point-max))
 		      (+ (line-number-at-pos) 1)
-		      (line-number-at-pos)))
+		    (line-number-at-pos)))
     (kill-region (region-beginning) (region-end))
     (message "kill %d line[s]" (- endline startline))))
 
@@ -51,7 +45,7 @@
     (setq endline (line-number-at-pos))
     (if (= endline startline)
 	(message "Copy line%d into killring" startline)
-	(message "Copy line%d to line%d into killring" startline endline))))
+      (message "Copy line%d to line%d into killring" startline endline))))
 
 (global-set-key (kbd "C-c y") 'mycopy-line)
 
@@ -66,11 +60,6 @@
       (copy-region-as-kill (region-beginning) (region-end)))))
 (global-set-key (kbd "C-c M-d") 'mycopy-one-word)
 
-
-
-
-
-
 (defun my-sed (sed-cmd)
   "Run the sed commond in current-butter and replace."
   (interactive "ssed:")
@@ -81,14 +70,14 @@
 	(buffer (current-buffer))
 	(old-point (point)))
     ;;(save-excursion
-      (setq testrun (shell-command-on-region start end test-cmd nil nil))
-      (if (= testrun 0)
-	  (progn
-	    (shell-command-on-region start end cmd buffer 1)
-	    (goto-char old-point)
-	    (message "ok!"))
-	(message "sed command :'%s' is error" sed-cmd))));)
-    
+    (setq testrun (shell-command-on-region start end test-cmd nil nil))
+    (if (= testrun 0)
+	(progn
+	  (shell-command-on-region start end cmd buffer 1)
+	  (goto-char old-point)
+	  (message "ok!"))
+      (message "sed command :'%s' is error" sed-cmd))));)
+
 (global-set-key (kbd "C-c :") 'my-sed)
 
 (defun duplicate-line (arg)
@@ -127,3 +116,12 @@
   (next-line arg))
 
 (global-set-key (kbd "C-d") 'duplicate-line)
+
+
+(defun my-new-line ()
+  "Insert new line."
+  (interactive)
+  (progn
+    (move-end-of-line nil)
+    (newline-and-indent)))
+(global-set-key [(shift return)] 'my-new-line)

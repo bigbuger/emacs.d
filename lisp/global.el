@@ -80,6 +80,7 @@
 
 (require 'string-inflection)
 (global-set-key (kbd "C-c C-u") 'string-inflection-all-cycle)
+(global-set-key (kbd "C-c u") 'string-inflection-camelcase)
 
 ;;ivy
 (require 'ivy)
@@ -145,6 +146,8 @@
 (setq company-require-match nil)
 (setq company-show-numbers t)
 (add-hook 'after-init-hook 'company-quickhelp-mode)
+
+(global-set-key (kbd "<backtab>") 'company-complete)
 
 ;(add-to-list 'company-backends 'company-yasnippet)
 (defvar company-mode/enable-yas t
@@ -218,7 +221,7 @@
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
 
 
 (require 'restclient)
@@ -238,3 +241,17 @@
 	 (result (osx-dictionary--search word)))
     (pos-tip-show result)))
 (global-set-key (kbd "C-S-d") 'osx-dictionary-search-at-point-and-pop)
+
+(require 'god-mode)
+;; (add-to-list 'god-exempt-major-modes 'dired-mode)
+;; (add-to-list 'god-exempt-major-modes 'term-mode)
+;; (add-to-list 'god-exempt-major-modes 'magit-mode)
+
+(global-set-key (kbd "<escape>") 'god-mode-all)
+(defun my-update-cursor ()
+  (setq cursor-type (if (or god-local-mode buffer-read-only)
+                        'hollow
+                      'box)))
+
+(add-hook 'god-mode-enabled-hook 'my-update-cursor)
+(add-hook 'god-mode-disabled-hook 'my-update-cursor)

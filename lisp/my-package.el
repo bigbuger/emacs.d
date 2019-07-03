@@ -49,13 +49,19 @@
     go-dlv
     go-eldoc
     company-go
+    go-guru
+    go-rename
+
+    ;;rust
+    rust-mode
+    racer
     
     ;; haskell
     haskell-mode
     company-ghc
     company-ghci
     ghc
-    flymake-haskell-multi
+    ;;flymake-haskell-multi
     
     ;; scheme
     geiser
@@ -64,9 +70,6 @@
     ;; python
     elpy
     company-jedi
-
-    ;; scala
-    ensime
     
     ;; other
     json-mode

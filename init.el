@@ -34,7 +34,7 @@
 (load "my-scheme.el")
 (load "my-ruby.el")
 (load "my-python.el")
-(load "my-scala")
+(load "my-rust.el")
 
 ;============================================================
 ;全屏函数
@@ -50,7 +50,7 @@
 
 ;;============================================================
 ;; 颜色主题
-(set-face-attribute 'default nil :height 140)
+(set-face-attribute 'default nil :height 145)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/tomorrow-theme")
 (require 'tomorrow-night-eighties-theme)
@@ -63,15 +63,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("52588047a0fe3727e3cd8a90e76d7f078c9bd62c0b246324e557dfa5112e0d0c" "cf08ae4c26cacce2eebff39d129ea0a21c9d7bf70ea9b945588c1c66392578d1" "7f1263c969f04a8e58f9441f4ba4d7fb1302243355cb9faecb55aec878a06ee9" "5ee12d8250b0952deefc88814cf0672327d7ee70b16344372db9460e9a0e3ffc" default)))
  '(display-time-mode t)
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(package-selected-packages
    (quote
-    (fzf auto-yasnippet move-text treemacs treemacs-magit treemacs-projectile company-shell graphviz-dot-mode buffer-move smartparens which-key string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode docker ivy-rich smart-mode-line company-restclient restclient magit-gitflow go-eldo)))
+    (flycheck-rust racer rust-mode god-mode go-rename go-guru fzf auto-yasnippet move-text treemacs treemacs-magit treemacs-projectile company-shell graphviz-dot-mode buffer-move smartparens which-key string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode docker ivy-rich smart-mode-line company-restclient restclient magit-gitflow go-eldo)))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -87,6 +84,7 @@
  '(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
  '(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
  '(company-tooltip-selection ((t (:background "steelblue" :foreground "white"))))
+ '(flycheck-error ((t (:underline "Red1"))))
  '(flycheck-warning ((t (:underline (:color "yellow2" :style wave)))))
  '(flymake-warning ((t (:underline (:color "yellow2" :style wave)))))
  '(ivy-posframe ((t (:inherit default :background "gray40" :foreground "#dcdccc"))))
