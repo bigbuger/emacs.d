@@ -63,7 +63,11 @@
 (global-set-key (kbd "C-c \"") 'wrap-with-double-quotes)
 (global-set-key (kbd "C-c `") 'wrap-with-back-quotes)
 
+(require 'move-text)
 (move-text-default-bindings)
+
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
 
 ;;========================================
 ;;关闭当前缓冲区 Alt+4  ;; C-x 0
@@ -192,6 +196,10 @@
 (require 'magit-gitflow)
 (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
+;;(require 'git-gutter)
+;;(global-git-gutter-mode t)
+
+
 ;; 自动保存
 (require 'auto-save)            ;; 加载自动保存模块
 (auto-save-enable)              ;; 开启自动保存功能
@@ -255,3 +263,20 @@
 
 (add-hook 'god-mode-enabled-hook 'my-update-cursor)
 (add-hook 'god-mode-disabled-hook 'my-update-cursor)
+
+;; lsp setting
+(require 'lsp-mode)
+(require 'company-lsp)
+(require 'lsp-ui)
+(require 'dap-mode)
+
+(setq lsp-prefer-flymake nil)
+(add-hook 'lsp-mode-hook 'lsp-ui-mode)
+
+(dap-mode 1)
+(dap-ui-mode 1)
+;; enables mouse hover support
+(dap-tooltip-mode 1)
+;; use tooltips for mouse hover
+;; if it is not enabled `dap-mode' will use the minibuffer.
+(tooltip-mode 1)

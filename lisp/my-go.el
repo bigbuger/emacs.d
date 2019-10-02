@@ -10,6 +10,8 @@
 (add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
 (require 'golint)
 
+(require 'dap-go)
+
 (add-hook 'go-mode-hook
 	  (lambda ()
 	    (setq-local company-backends '((company-go :with company-yasnippet)
@@ -20,7 +22,7 @@
 ;;(require 'go-flycheck)
 (add-hook 'go-mode-hook 'flycheck-mode)
 (add-hook 'go-mode-hook 'go-eldoc-setup)
-
+(add-hook 'go-mode-hook #'lsp)
 
 (define-key go-mode-map
   (kbd "M-.") 'godef-jump)

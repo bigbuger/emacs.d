@@ -26,6 +26,13 @@
     all-the-icons
     string-inflection
     move-text
+    expand-region
+
+    ;; lsp
+    lsp-mode
+    dap-mode
+    company-lsp
+    lsp-ui
     
     ;; about project
     magit
