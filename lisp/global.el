@@ -7,11 +7,18 @@
 ;;alway hight light
 (global-font-lock-mode 1)
 
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 ;;显示时间
 (display-time)
 
-(global-linum-mode 1)
+;;(global-linum-mode 1)
+(global-display-line-numbers-mode 1)
+(add-hook 'term-mode-hook
+	  (lambda () (display-line-numbers-mode -1)))
+
 (which-function-mode)
+
 (auto-image-file-mode)
 
 (setq org-src-fontify-natively t)
@@ -182,6 +189,8 @@
 
 ;; neotree
 (require 'neotree)
+(add-hook 'neotree-mode-hook
+	  (lambda () (display-line-numbers-mode -1)))
 (require 'all-the-icons)
 (global-set-key [f8] 'neotree-toggle)
 (setq neo-smart-open t)
@@ -190,14 +199,18 @@
 (setq neo-autorefresh t)
 (setq neo-force-change-root t)
 ;; (setq projectile-switch-project-action 'neotree-projectile-action)
+(define-key neotree-mode-map (kbd "+") 'neotree-create-node)
+(define-key neotree-mode-map (kbd "<DEL>") 'neotree-delete-node)
+(define-key neotree-mode-map (kbd "r") 'neotree-rename-node)
 
 ;;magit
 (require 'magit)
 (require 'magit-gitflow)
 (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
-;;(require 'git-gutter)
-;;(global-git-gutter-mode t)
+(require 'diff-hl)
+(global-diff-hl-mode)
+(add-hook 'dired-mode-hook 'diff-hl-dired-mode)
 
 
 ;; 自动保存
@@ -213,14 +226,32 @@
 
 ;;(eval-after-load 'flymake '(require 'flymake-cursor))
 (require 'flycheck)
-;; (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
-;; (add-hook 'c++-mode-hook 'flycheck-mode)
-;; (add-hook 'c-mode-hook 'flycheck-mode)
 (global-flycheck-mode)
+(require 'flycheck-pos-tip)
+(with-eval-after-load 'flycheck
+  (flycheck-pos-tip-mode))
 
 
 (load-library "realgud")
 
+;; lsp setting
+(require 'lsp-mode)
+(require 'company-lsp)
+(require 'lsp-ui)
+(require 'dap-mode)
+
+(setq lsp-prefer-flymake nil)
+(add-hook 'lsp-mode-hook 'lsp-ui-mode)
+(setq lsp-ui-doc-enable nil)
+(setq lsp-ui-sideline-enable nil)
+
+(dap-mode 1)
+(dap-ui-mode 1)
+;; enables mouse hover support
+(dap-tooltip-mode 1)
+;; use tooltips for mouse hover
+;; if it is not enabled `dap-mode' will use the minibuffer.
+(tooltip-mode 1)
 
 (require 'multi-term)
 (global-set-key (kbd "C-c s") 'multi-term)
@@ -230,7 +261,7 @@
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
-
+(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
 (require 'restclient)
 (require 'company-restclient)
@@ -250,33 +281,17 @@
     (pos-tip-show result)))
 (global-set-key (kbd "C-S-d") 'osx-dictionary-search-at-point-and-pop)
 
-(require 'god-mode)
-;; (add-to-list 'god-exempt-major-modes 'dired-mode)
-;; (add-to-list 'god-exempt-major-modes 'term-mode)
-;; (add-to-list 'god-exempt-major-modes 'magit-mode)
+(require 'centaur-tabs)
+(centaur-tabs-mode t)
+(setq centaur-tabs-set-icons t)
 
-(global-set-key (kbd "<escape>") 'god-mode-all)
-(defun my-update-cursor ()
-  (setq cursor-type (if (or god-local-mode buffer-read-only)
-                        'hollow
-                      'box)))
+;;(require 'aggressive-indent)
+;;(global-aggressive-indent-mode 1)
 
-(add-hook 'god-mode-enabled-hook 'my-update-cursor)
-(add-hook 'god-mode-disabled-hook 'my-update-cursor)
+(require 'highlight-indent-guides)
+(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+(setq highlight-indent-guides-method 'character)
 
-;; lsp setting
-(require 'lsp-mode)
-(require 'company-lsp)
-(require 'lsp-ui)
-(require 'dap-mode)
-
-(setq lsp-prefer-flymake nil)
-(add-hook 'lsp-mode-hook 'lsp-ui-mode)
-
-(dap-mode 1)
-(dap-ui-mode 1)
-;; enables mouse hover support
-(dap-tooltip-mode 1)
-;; use tooltips for mouse hover
-;; if it is not enabled `dap-mode' will use the minibuffer.
-(tooltip-mode 1)
+;; about dired
+(require 'all-the-icons-dired)
+(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)

@@ -3,31 +3,41 @@
     ;; base
     color-theme
     undo-tree
+    popup
+    all-the-icons
+    exec-path-from-shell
+
+    smex
+    which-key
     ivy
     swiper
     counsel
+    wgrep
     ivy-rich
-    which-key
-    ag
-    smex
+
     company
     company-quickhelp
     yasnippet
     auto-yasnippet
     visual-regexp
+
     multi-term
     multiple-cursors
+
     flycheck
+    flycheck-pos-tip
     flymake-easy
     realgud
-    popup
-    exec-path-from-shell
+
     neotree
-    all-the-icons
     string-inflection
     move-text
     expand-region
-
+    centaur-tabs
+    aggressive-indent
+    highlight-indent-guides
+    all-the-icons-dired
+    
     ;; lsp
     lsp-mode
     dap-mode
@@ -38,6 +48,7 @@
     magit
     projectile
     counsel-projectile
+    diff-hl
     
     ;; ruby
     inf-ruby

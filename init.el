@@ -1,7 +1,9 @@
 (require 'package)
-(add-to-list 'package-archives
-             '("MELPA Stable" . "https://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+;; (add-to-list 'package-archives
+;;              '("MELPA Stable" . "https://stable.melpa.org/packages/") t)
+;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 (package-initialize)
 
 (set-default-coding-systems 'utf-8)
@@ -64,11 +66,12 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(display-time-mode t)
+ '(doom-modeline-mode nil)
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(package-selected-packages
    (quote
-    (dap-mode lsp-ui company-lsp lsp-mode expand-region flycheck-rust racer rust-mode god-mode go-rename go-guru auto-yasnippet move-text treemacs treemacs-magit treemacs-projectile company-shell graphviz-dot-mode buffer-move smartparens which-key string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode docker ivy-rich smart-mode-line company-restclient restclient magit-gitflow go-eldo)))
+    (flycheck-pos-tip google-this all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight aggressive-indent centaur-tabs dap-mode lsp-ui company-lsp lsp-mode expand-region flycheck-rust racer rust-mode god-mode go-rename go-guru auto-yasnippet move-text treemacs treemacs-magit treemacs-projectile company-shell graphviz-dot-mode buffer-move smartparens which-key string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode docker ivy-rich smart-mode-line company-restclient restclient magit-gitflow go-eldo)))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -84,10 +87,14 @@
  '(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
  '(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
  '(company-tooltip-selection ((t (:background "steelblue" :foreground "white"))))
+ '(diff-hl-change ((t (:background "blue3" :foreground "blue3"))))
+ '(diff-hl-delete ((t (:inherit diff-removed :background "red3" :foreground "red3"))))
+ '(diff-hl-insert ((t (:inherit diff-added :background "green4" :foreground "green4"))))
  '(flycheck-error ((t (:underline "Red1"))))
  '(flycheck-warning ((t (:underline (:color "yellow2" :style wave)))))
  '(flymake-warning ((t (:underline (:color "yellow2" :style wave)))))
  '(ivy-posframe ((t (:inherit default :background "gray40" :foreground "#dcdccc"))))
+ '(lsp-face-highlight-textual ((t (:inherit highlight :background "gray50"))))
  '(swiper-line-face ((t (:background "dark cyan"))))
  '(term-color-blue ((t (:background "SkyBlue3" :foreground "SkyBlue3")))))
 
