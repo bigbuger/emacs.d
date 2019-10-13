@@ -118,10 +118,21 @@
 (global-set-key (kbd "C-c C-y") 'counsel-yank-pop)
 (global-set-key (kbd "C-c i") 'counsel-imenu)
 (global-set-key (kbd "C-c b") 'counsel-ibuffer)
+(global-set-key (kbd "C-c g") 'counsel-rg)
+(global-set-key (kbd "C-c l") 'counsel-fzf)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
 (require 'ivy-rich)
+(setq ivy-rich-path-style 'abbrev)
+(setq ivy-rich-display-transformers-list
+      (append ivy-rich-display-transformers-list
+	      '(counsel-bookmark
+		(:columns
+		 ((ivy-rich-bookmark-type)
+		  (ivy-rich-candidate (:width 10))
+		  (ivy-rich-bookmark-info))))))
 (ivy-rich-mode 1)
+(global-set-key (kbd "C-c m") 'counsel-bookmark)
 
 ;; (require 'ivy-posframe)
 ;; (setq ivy-display-function #'ivy-posframe-display)
