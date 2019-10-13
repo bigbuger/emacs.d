@@ -18,6 +18,8 @@
 	  (lambda () (display-line-numbers-mode -1)))
 
 (which-function-mode)
+;; (setq-default header-line-format
+;;       '((which-func-mode ("" which-func-format " "))))
 
 (auto-image-file-mode)
 
@@ -87,6 +89,11 @@
 (global-set-key (kbd "M-3") 'split-window-horizontally)
 ;;切换到其它缓冲区 Alt+0 ;; C-x o
 (global-set-key (kbd "M-0") 'other-window)
+
+(require 'crux)
+(global-set-key (kbd "C-^") 'crux-top-join-line)
+(global-set-key (kbd "C-<backspace>") #'crux-kill-line-backwards)
+(global-set-key (kbd "C-c M-r") #'crux-rename-file-and-buffer)
 
 
 (require 'string-inflection)
@@ -211,6 +218,12 @@
 (require 'diff-hl)
 (global-diff-hl-mode)
 (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+(defhydra hydra-diff-hl (global-map "<ESC> v")
+  "vc"
+  ("n" diff-hl-next-hunk "next hunk")
+  ("p" diff-hl-previous-hunk "previous hunk")
+  ("r" diff-hl-revert-hunk "revert hunk")
+  ("q" nil "exit"))
 
 
 ;; 自动保存
@@ -240,9 +253,12 @@
 (require 'lsp-ui)
 (require 'dap-mode)
 
-(setq lsp-prefer-flymake nil)
+(setq lsp-auto-guess-root t)
+(setq lsp-prefer-flymake :none)
+(setq lsp-ui-flycheck-enable nil)
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 (setq lsp-ui-doc-enable nil)
+(setq lsp-ui-doc-position 'at-point)
 (setq lsp-ui-sideline-enable nil)
 
 (dap-mode 1)
@@ -253,8 +269,26 @@
 ;; if it is not enabled `dap-mode' will use the minibuffer.
 (tooltip-mode 1)
 
+(defun toggle-lsp-ui-doc ()
+  "Toggle lsp ui doc."
+  (interactive)
+  (if lsp-ui-doc-mode
+      (progn
+	(lsp-ui-doc-mode -1)
+	(lsp-ui-doc--hide-frame))
+    (lsp-ui-doc-mode 1)))
+
+(define-key lsp-mode-map (kbd "C-c C-q") 'toggle-lsp-ui-doc)
+(define-key lsp-mode-map (kbd "M-?") 'lsp-ui-peek-find-references)
+(define-key lsp-mode-map [f5] 'dap-debug)
+(define-key lsp-mode-map (kbd "C-<f5>") 'dap-hydra)
+
 (require 'multi-term)
+(setq multi-term-dedicated-select-after-open-p t)
 (global-set-key (kbd "C-c s") 'multi-term)
+(global-set-key (kbd "C-c t") 'multi-term-dedicated-open)
+
+
 
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
@@ -281,9 +315,9 @@
     (pos-tip-show result)))
 (global-set-key (kbd "C-S-d") 'osx-dictionary-search-at-point-and-pop)
 
-(require 'centaur-tabs)
-(centaur-tabs-mode t)
-(setq centaur-tabs-set-icons t)
+;;(require 'centaur-tabs)
+;;(centaur-tabs-mode t)
+;;(setq centaur-tabs-set-icons t)
 
 ;;(require 'aggressive-indent)
 ;;(global-aggressive-indent-mode 1)
@@ -295,3 +329,6 @@
 ;; about dired
 (require 'all-the-icons-dired)
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+(require 'dired-subtree)
+(define-key dired-mode-map (kbd "<tab>") 'dired-subtree-toggle)
+

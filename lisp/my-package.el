@@ -6,7 +6,9 @@
     popup
     all-the-icons
     exec-path-from-shell
-
+    crux
+    dired-subtree
+    
     smex
     which-key
     ivy
@@ -14,6 +16,7 @@
     counsel
     wgrep
     ivy-rich
+    hydra
 
     company
     company-quickhelp
