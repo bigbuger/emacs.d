@@ -1,11 +1,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;   ruby                                                      ;;
-(require 'flymake-ruby)
+;;(require 'flymake-ruby)
 (require 'rvm)
 (require 'inf-ruby)
 (require 'robe)
 
-(add-hook 'ruby-mode-hook 'flymake-ruby-load)
+;;(add-hook 'ruby-mode-hook 'flymake-ruby-load)
 (add-hook 'ruby-mode-hook 'ruby-electric-mode)
 
 (eval-after-load 'company

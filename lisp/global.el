@@ -229,6 +229,7 @@
 (require 'diff-hl)
 (global-diff-hl-mode)
 (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+(add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 (defhydra hydra-diff-hl (global-map "<ESC> v")
   "vc"
   ("n" diff-hl-next-hunk "next hunk")
