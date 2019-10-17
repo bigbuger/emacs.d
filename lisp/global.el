@@ -256,7 +256,7 @@
 (with-eval-after-load 'flycheck
   (flycheck-pos-tip-mode))
 
-
+(require 'realgud)
 (load-library "realgud")
 
 ;; lsp setting

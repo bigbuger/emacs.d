@@ -6,10 +6,12 @@
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
-(add-hook 'haskell-mode-hook 'linum-mode)
 
 ;;(add-to-list 'load-path "~/.emacs.d/lisp/ghc-mod-1.11.3/elisp")
 ;;(load "~/.emacs.d/lisp/ghc-mod-1.11.3/elisp/ghc.el")
+(with-eval-after-load 'highlight-indent-guides
+  (add-hook 'haskell-mode-hook (lambda ()
+				 (highlight-indent-guides-mode -1))))
 
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t)
