@@ -29,14 +29,15 @@
   )
 
 
-(load "global.el")
-(load "my-command.el")
-(load "my-go.el")
-(load "my-haskell.el")
-(load "my-scheme.el")
-(load "my-ruby.el")
-(load "my-python.el")
-(load "my-rust.el")
+(require 'global)
+(require 'my-command)
+(require 'my-go)
+(require 'my-haskell)
+(require 'my-scheme)
+(require 'my-ruby)
+(require 'my-python)
+(require 'my-rust)
+(require 'my-cc)
 
 ;============================================================
 ;全屏函数

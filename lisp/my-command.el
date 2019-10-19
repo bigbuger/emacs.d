@@ -1,7 +1,14 @@
+;;; my-command.el --- My command
+
+;;; Commentary:
+;; 
+
+;;; Code:
+
 (defun myselect-line (num)
-  "select n lines"
+  "Select NUM lines."
   (interactive "p")
-  (progn 
+  (progn
     (setq tnum num)
     (forward-line 0)
     (setq startline (line-number-at-pos))
@@ -12,7 +19,7 @@
 
 
 (defun mydelete-line (num)
-  "kill n lines"
+  "Kill NUM lines."
   (interactive "p")
   (save-excursion
     ;; (setq tnum num)
@@ -30,7 +37,7 @@
 (global-set-key (kbd "C-c d") 'mydelete-line)
 
 (defun mycopy-line (num)
-  "Copy n lines into killring"
+  "Copy NUM lines into killring."
   (interactive "p")
   (save-excursion
     ;; (setq tnum num)
@@ -61,7 +68,7 @@
 (global-set-key (kbd "C-c M-d") 'mycopy-one-word)
 
 (defun my-sed (sed-cmd)
-  "Run the sed commond in current-butter and replace."
+  "Run the sed commond SED-CMD in current-butter and replace."
   (interactive "ssed:")
   (let ((start (point-min))
 	(end (point-max))
@@ -125,3 +132,7 @@
     (move-end-of-line nil)
     (newline-and-indent)))
 (global-set-key [(shift return)] 'my-new-line)
+
+(provide 'my-command)
+
+;;; my-command.el ends here

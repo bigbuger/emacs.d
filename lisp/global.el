@@ -1,3 +1,6 @@
+;;; global.el --- global config
+;;; Code:
+
 ;;关闭启动画面
 (setq inhibit-startup-message t)
 (setq frame-title-format "%b")
@@ -26,6 +29,10 @@
 (setq org-src-fontify-natively t)
 
 ;; undo-tree
+
+;;; Commentary:
+;; 
+
 (require 'undo-tree)
 (global-undo-tree-mode)
 
@@ -195,14 +202,14 @@
 (projectile-mode)
 (setq projectile-require-project-root t)
 (setq projectile-completion-system 'ivy)
-
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 (require 'counsel-projectile)
-(global-set-key (kbd "C-c p a") 'counsel-projectile-ag)
-(global-set-key (kbd "C-c p r") 'counsel-projectile-rg)
-(global-set-key (kbd "C-c p i") 'counsel-projectile-switch-to-buffer)
-(global-set-key (kbd "C-c p p") 'counsel-projectile-switch-project)
-(global-set-key (kbd "C-c p f") 'counsel-projectile-find-file)
+;;(define-key projectile-command-map (kbd "p") 'counsel-projectile-switch-project)
+(define-key projectile-command-map (kbd "a") 'counsel-projectile-ag)
+(define-key projectile-command-map (kbd "g") 'counsel-projectile-rg)
+(define-key projectile-command-map (kbd "i") 'counsel-projectile-switch-to-buffer)
+(define-key projectile-command-map (kbd "f") 'counsel-projectile-find-file)
 
 
 ;; neotree
@@ -344,3 +351,7 @@
 (require 'dired-subtree)
 (define-key dired-mode-map (kbd "<tab>") 'dired-subtree-toggle)
 
+
+(provide 'global)
+
+;;; global.el ends here

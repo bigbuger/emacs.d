@@ -1,11 +1,17 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;   ruby                                                      ;;
+;;; my-ruby.el --- ruby config
+
+;;; Commentary:
+;; 
+
+;;; Code:
+
 ;;(require 'flymake-ruby)
 (require 'rvm)
 (require 'inf-ruby)
 (require 'robe)
 
 ;;(add-hook 'ruby-mode-hook 'flymake-ruby-load)
+
 (add-hook 'ruby-mode-hook 'ruby-electric-mode)
 
 (eval-after-load 'company
@@ -24,3 +30,7 @@
 (load-library "realgud-byebug")
 
 ;;;;;;;;;;; end ruby ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(provide 'my-ruby)
+
+;;; my-ruby.el ends here

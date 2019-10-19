@@ -1,3 +1,10 @@
+;;; my-rust.el --- rust config
+
+
+;;; Commentary:
+;; 
+
+;;; Code:
 
 (require 'rust-mode)
 (require 'racer)
@@ -7,3 +14,7 @@
 
 (with-eval-after-load 'rust-mode
   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+
+(provide 'my-rust)
+
+;;; my-rust.el ends here

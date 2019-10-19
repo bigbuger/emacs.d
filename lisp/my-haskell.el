@@ -1,8 +1,13 @@
+;;; my-haskell.el --- haskell config
 
-;;========================================================;;
-;;  haskell                                               ;;
+;;; Commentary:
+;; 
+
+;;; Code:
+
 (require 'haskell-mode)
 (require 'haskell-indent)
+
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
@@ -34,4 +39,7 @@
 	  (lambda ()
 	    (setq-local flycheck-disabled-checkers '(haskell-stack-ghc))))
 
-;;;;;;;;;;;;;;; end haskell   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(provide 'my-haskell)
+
+;;; my-haskell.el ends here

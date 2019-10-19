@@ -1,4 +1,10 @@
+;;; my-python.el --- pytohon config
 ;;;
+
+;;; Commentary:
+;; 
+
+;;; Code:
 
 (require 'elpy)
 (require 'company-jedi)
@@ -21,3 +27,7 @@
 (elpy-enable)
 (add-hook 'python-mode-hook 'jedi-mode)
 ;;;
+
+(provide 'my-python)
+
+;;; my-python.el ends here

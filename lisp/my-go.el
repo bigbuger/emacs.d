@@ -1,11 +1,17 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;    GO                                            ;;
+;;; my-go.el --- golang config
+
+;;; Commentary:
+;; 
+
+;;; Code:
+
 
 ;;(require 'go-autocomplete)
 
 (require 'go-dlv)
 (require 'go-guru)
 (require 'go-rename)
+
 
 (add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
 (require 'golint)
@@ -31,3 +37,7 @@
 			  (setq-local flycheck-disabled-checkers '(go-staticcheck))))
 
 ;;;;;;;; end of go ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(provide 'my-go)
+
+;;; my-go.el ends here

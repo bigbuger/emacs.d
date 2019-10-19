@@ -1,3 +1,10 @@
+;;; my-package.el --- package to install
+
+;;; Commentary:
+;;
+
+;;; Code:
+
 (defvar my-packages
   '(
     ;; base
@@ -124,3 +131,7 @@
 
 
 (provide 'my-packages)
+
+(provide 'my-package)
+
+;;; my-package.el ends here
