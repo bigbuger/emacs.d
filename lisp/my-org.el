@@ -7,8 +7,12 @@
 
 (require 'org)
 
-(setq org-src-fontify-natively t)
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+(setq org-src-fontify-natively t
+      org-ellipsis " ⤵ " ;; folding symbol
+      org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 
 (org-babel-do-load-languages
       'org-babel-load-languages

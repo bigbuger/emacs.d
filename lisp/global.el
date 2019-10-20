@@ -20,13 +20,14 @@
 (display-time)
 
 ;;(global-linum-mode 1)
-(global-display-line-numbers-mode 1)
-(add-hook 'term-mode-hook
-	  (lambda () (display-line-numbers-mode -1)))
+(add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode +1)))
+
 
 (which-function-mode)
-;; (setq-default header-line-format
-;;       '((which-func-mode ("" which-func-format " "))))
+(add-hook 'prog-mode-hook
+	  (lambda ()
+	    (setq header-line-format
+		  '((which-func-mode ("" which-func-format " "))))))
 
 (auto-image-file-mode)
 
@@ -103,8 +104,8 @@
 
 
 (require 'string-inflection)
-(global-set-key (kbd "C-c C-u") 'string-inflection-all-cycle)
-(global-set-key (kbd "C-c u") 'string-inflection-camelcase)
+(global-set-key (kbd "C-c u") 'string-inflection-all-cycle)
+(global-set-key (kbd "C-c M-u") 'string-inflection-camelcase)
 
 ;;ivy
 (require 'ivy)
@@ -126,6 +127,7 @@
 (global-set-key (kbd "C-c b") 'counsel-ibuffer)
 (global-set-key (kbd "C-c g") 'counsel-rg)
 (global-set-key (kbd "C-c l") 'counsel-fzf)
+(global-set-key (kbd "C-c m") 'counsel-bookmark)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
 (require 'ivy-rich)
@@ -138,7 +140,7 @@
 		  (ivy-rich-candidate (:width 10))
 		  (ivy-rich-bookmark-info))))))
 (ivy-rich-mode 1)
-(global-set-key (kbd "C-c m") 'counsel-bookmark)
+
 
 ;; (require 'ivy-posframe)
 ;; (setq ivy-display-function #'ivy-posframe-display)

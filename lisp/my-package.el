@@ -47,6 +47,9 @@
     aggressive-indent
     highlight-indent-guides
     all-the-icons-dired
+
+    ;;org
+    org-bullets
     
     ;; lsp
     lsp-mode
