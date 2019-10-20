@@ -5,7 +5,6 @@
 
 ;;; Code:
 (require 'mode-local)
-(require 'ccls)
 (require 'dap-lldb)
 (require 'dap-gdb-lldb)
 ;;(setq-mode-local c++-mode lsp-prefer-flymake nil lsp-ui-flycheck-enable t)
