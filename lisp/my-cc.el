@@ -4,12 +4,20 @@
 ;; 
 
 ;;; Code:
+(require 'mode-local)
+(require 'ccls)
+(require 'dap-lldb)
+(require 'dap-gdb-lldb)
+;;(setq-mode-local c++-mode lsp-prefer-flymake nil lsp-ui-flycheck-enable t)
+;;(setq-mode-local c-mode lsp-prefer-flymake nil lsp-ui-flycheck-enable t)
 
-(setq-mode-local c++-mode lsp-prefer-flymake nil lsp-ui-flycheck-enable t)
-(setq-mode-local c-mode lsp-prefer-flymake nil lsp-ui-flycheck-enable t)
-(add-hook 'c++-mode-hook 'lsp-mode)
-(add-hook 'c-mode-hook 'lsp-mode)
-
+(dolist (hook (list 'c++-mode-hook
+		    'c-mode-hook))
+  (add-hook hook (lambda ()
+		   (progn
+		     (c-set-style "k&r")
+		     (require 'ccls)
+		     (lsp)))))
 
 (provide 'my-cc)
 

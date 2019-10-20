@@ -98,6 +98,9 @@
     ;; python
     elpy
     company-jedi
+
+    ;; c lang
+    ccls
     
     ;; other
     json-mode
