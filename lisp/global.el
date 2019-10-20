@@ -1,4 +1,8 @@
 ;;; global.el --- global config
+
+;;; Commentary:
+;; 
+
 ;;; Code:
 
 ;;关闭启动画面
@@ -26,13 +30,8 @@
 
 (auto-image-file-mode)
 
-(setq org-src-fontify-natively t)
 
 ;; undo-tree
-
-;;; Commentary:
-;; 
-
 (require 'undo-tree)
 (global-undo-tree-mode)
 
@@ -315,6 +314,7 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
+(global-set-key (kbd "C-c M-i") 'mc/insert-numbers)
 
 (require 'restclient)
 (require 'company-restclient)

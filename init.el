@@ -31,6 +31,7 @@
 
 (require 'global)
 (require 'my-command)
+(require 'my-org)
 (require 'my-go)
 (require 'my-haskell)
 (require 'my-scheme)
