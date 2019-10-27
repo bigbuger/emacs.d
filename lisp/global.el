@@ -98,6 +98,7 @@
 (global-set-key (kbd "M-0") 'other-window)
 
 (require 'crux)
+(global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
 (global-set-key (kbd "C-^") 'crux-top-join-line)
 (global-set-key (kbd "C-<backspace>") #'crux-kill-line-backwards)
 (global-set-key (kbd "C-c M-r") #'crux-rename-file-and-buffer)

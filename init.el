@@ -12,7 +12,7 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
-(load "my-package.el")
+(require 'my-package)
 
 (when (memq window-system '(mac ns))
   (set-fontset-font t nil (font-spec :family "Apple Color Emoji") nil 'append))
@@ -57,8 +57,9 @@
 (set-face-attribute 'default nil :height 145)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/tomorrow-theme")
-(require 'tomorrow-night-eighties-theme)
-;;(setq sml/theme 'respectful)
+;;(require 'tomorrow-night-eighties-theme)
+(load-theme 'spacemacs-light t)
+(setq sml/theme 'respectful)
 (setq sml/no-confirm-load-theme t)
 (sml/setup)
 
@@ -74,7 +75,7 @@
  '(lsp-ui-flycheck-enable nil)
  '(package-selected-packages
    (quote
-    (org-bullets ccls dired-subtree crux flycheck-pos-tip google-this all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight aggressive-indent centaur-tabs lsp-ui company-lsp lsp-mode expand-region flycheck-rust go-guru auto-yasnippet move-text treemacs treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich smart-mode-line company-restclient magit-gitflow go-eldo)))
+    (gnuplot gnuplot-mode spacemacs-theme imenu-list olivetti org-bullets ccls dired-subtree crux flycheck-pos-tip google-this all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight aggressive-indent centaur-tabs lsp-ui company-lsp lsp-mode expand-region flycheck-rust go-guru auto-yasnippet move-text treemacs treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich smart-mode-line company-restclient magit-gitflow go-eldo)))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -84,22 +85,14 @@
  '(agda2-highlight-datatype-face ((t (:foreground "AliceBlue"))))
  '(agda2-highlight-function-face ((t (:foreground "DeepSkyBlue1"))))
  '(aw-leading-char-face ((t (:foreground "red" :height 5.0))))
- '(company-preview ((t (:foreground "darkgray" :underline t))))
- '(company-preview-common ((t (:inherit company-preview))))
- '(company-tooltip ((t (:background "lightgray" :foreground "black"))))
- '(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
- '(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
- '(company-tooltip-selection ((t (:background "steelblue" :foreground "white"))))
  '(dap-ui-marker-face ((t (:background "DimGray"))))
  '(diff-hl-change ((t (:background "blue3" :foreground "blue3"))))
  '(diff-hl-delete ((t (:inherit diff-removed :background "red3" :foreground "red3"))))
  '(diff-hl-insert ((t (:inherit diff-added :background "green4" :foreground "green4"))))
  '(flycheck-error ((t (:underline "Red1"))))
- '(flycheck-warning ((t (:underline (:color "yellow2" :style wave)))))
- '(flymake-warning ((t (:underline (:color "yellow2" :style wave)))))
+ '(flycheck-warning ((t (:underline (:color "yellow4" :style wave)))))
+ '(flymake-warning ((t (:underline (:color "yellow4" :style wave)))))
  '(ivy-posframe ((t (:inherit default :background "gray40" :foreground "#dcdccc"))))
- '(lsp-face-highlight-textual ((t (:inherit highlight :background "gray50"))))
- '(swiper-line-face ((t (:background "dark cyan"))))
  '(term-color-blue ((t (:background "SkyBlue3" :foreground "SkyBlue3")))))
 
 

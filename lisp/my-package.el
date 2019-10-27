@@ -50,6 +50,9 @@
 
     ;;org
     org-bullets
+    gnuplot
+    gnuplot-mode
+    olivetti
     
     ;; lsp
     lsp-mode
@@ -134,9 +137,6 @@
     (when (not (package-installed-p p))
       (package-install p))))
 
-
-
-(provide 'my-packages)
 
 (provide 'my-package)
 
