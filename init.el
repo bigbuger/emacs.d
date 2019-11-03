@@ -85,7 +85,6 @@
  '(agda2-highlight-datatype-face ((t (:foreground "AliceBlue"))))
  '(agda2-highlight-function-face ((t (:foreground "DeepSkyBlue1"))))
  '(aw-leading-char-face ((t (:foreground "red" :height 5.0))))
- '(dap-ui-marker-face ((t (:background "DimGray"))))
  '(diff-hl-change ((t (:background "blue3" :foreground "blue3"))))
  '(diff-hl-delete ((t (:inherit diff-removed :background "red3" :foreground "red3"))))
  '(diff-hl-insert ((t (:inherit diff-added :background "green4" :foreground "green4"))))
