@@ -9,7 +9,7 @@
 
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-(add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
+;;(add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
 
 (setq org-src-fontify-natively t
       org-ellipsis " ⤵ " ;; folding symbol
@@ -21,6 +21,7 @@
 	(scheme . t)
         (ruby . t)
         (python . t)
+	(haskell . t)
         (shell . t)
         (latex . t)))
 
