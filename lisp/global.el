@@ -248,9 +248,13 @@
 
 
 ;; 自动保存
+(add-to-list 'load-path "~/.emacs.d/lisp/auto-save/")
 (require 'auto-save)            ;; 加载自动保存模块
 (auto-save-enable)              ;; 开启自动保存功能
 (setq auto-save-slient t)       ;; 自动保存的时候静悄悄的， 不要打扰我
+(setq auto-save-disable-predicates
+      '((lambda () 
+	  (tramp-tramp-file-p (buffer-file-name))))) ;; tramp 模式不自动保存
 
 ;; visual-regexp
 (require 'visual-regexp)

@@ -1,0 +1,3 @@
+[submodule "lisp/auto-save"]
+	path = lisp/auto-save
+	url = https://github.com/manateelazycat/auto-save.git
