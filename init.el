@@ -83,8 +83,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(agda2-highlight-datatype-face ((t (:foreground "AliceBlue"))))
- '(agda2-highlight-function-face ((t (:foreground "DeepSkyBlue1"))))
  '(aw-leading-char-face ((t (:foreground "red" :height 5.0))))
  '(diff-hl-change ((t (:background "blue3" :foreground "blue3"))))
  '(diff-hl-delete ((t (:inherit diff-removed :background "red3" :foreground "red3"))))
