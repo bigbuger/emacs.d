@@ -110,13 +110,17 @@
     
     ;; other
     json-mode
+    counsel-jq
+    
     epl
     osx-dictionary
     yaml-mode
     markdown-mode
+
     company-web
     restclient
     company-restclient
+
     docker
     )
   "A list of packages to ensure are installed at launch.")

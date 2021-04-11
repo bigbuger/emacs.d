@@ -1,3 +1,4 @@
+;; -*- coding: utf-8; lexical-binding: t -*-
 ;;; my-command.el --- My command
 
 ;;; Commentary:
@@ -132,6 +133,29 @@
     (move-end-of-line nil)
     (newline-and-indent)))
 (global-set-key [(shift return)] 'my-new-line)
+
+(defun my-convert-time (timestamp)
+  "Convert TIMESTAMP to iso8601 and put it into kill ring."
+  (interactive "ntimestamp:")
+  (let ((time-string (format-time-string "%FT%T%z" (seconds-to-time timestamp))))
+    (progn
+      (kill-new time-string)
+      (message time-string))))
+(defalias 'ct 'my-convert-time)
+
+(defun my-get-timestamp (time-string)
+  "Convert TIME-STRING to unix timestamp and put it into kill ring."
+  (interactive "stime-string:")
+  (let* ((tl0 (parse-time-string time-string))
+	 (tl-with-out-zone (butlast tl0))
+	 (tl (append (mapcar #'(lambda (i) (if i i 0)) tl-with-out-zone)
+		     (last tl0)))
+	 (et (apply #'encode-time tl))
+	(time-stamp (format-time-string "%s" et)))
+    (progn
+      (kill-new time-stamp)
+      (message time-stamp))))
+(defalias 'dt 'my-get-timestamp)
 
 (provide 'my-command)
 

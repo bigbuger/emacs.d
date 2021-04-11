@@ -131,6 +131,7 @@
 (global-set-key (kbd "C-c m") 'counsel-bookmark)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
+
 (require 'ivy-rich)
 (setq ivy-rich-path-style 'abbrev)
 (setq ivy-rich-display-transformers-list
@@ -203,6 +204,7 @@
 (require 'projectile)
 (projectile-mode)
 (setq projectile-require-project-root t)
+(setq projectile-indexing-method 'hybrid)
 (setq projectile-completion-system 'ivy)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
