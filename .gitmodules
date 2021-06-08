@@ -1,3 +1,6 @@
 [submodule "lisp/auto-save"]
 	path = lisp/auto-save
 	url = https://github.com/manateelazycat/auto-save.git
+[submodule "lisp/hideshowvis"]
+	path = lisp/hideshowvis
+	url = https://github.com/sheijk/hideshowvis.git

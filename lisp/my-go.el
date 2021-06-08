@@ -28,6 +28,7 @@
 (add-hook 'go-mode-hook 'flycheck-mode)
 (add-hook 'go-mode-hook 'go-eldoc-setup)
 (add-hook 'go-mode-hook #'lsp)
+(add-hook 'go-mode-hook 'electric-pair-mode)
 
 ;; (define-key go-mode-map
 ;;   (kbd "M-.") 'godef-jump)

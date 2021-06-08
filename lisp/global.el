@@ -41,14 +41,15 @@
       show-paren-style 'parenthesis)
 (show-paren-mode 1)
 
-(electric-pair-mode 1)
-(setq electric-pair-pairs '(
-                            (?\" . ?\")
-                            (?\` . ?\`)
-                            (?\( . ?\))
-                            (?\{ . ?\})
-                            ))
-;; (require 'smartparens-config)
+;; (electric-pair-mode 1)
+;; (setq electric-pair-pairs '(
+;;                            (?\" . ?\")
+;;                            (?\` . ?\`)
+;;                            (?\( . ?\))
+;;                            (?\{ . ?\})
+;;                            ))
+
+(require 'smartparens-config)
 (show-smartparens-global-mode)
 (global-set-key (kbd "C-}") 'sp-forward-slurp-sexp)
 (global-set-key (kbd "C-{") 'sp-forward-barf-sexp)
@@ -360,6 +361,10 @@
 (require 'dired-subtree)
 (define-key dired-mode-map (kbd "<tab>") 'dired-subtree-toggle)
 
+(add-to-list 'load-path "~/.emacs.d/lisp/hideshowvis/")
+(require 'hideshowvis)
+(hideshowvis-symbols)
+;;(add-hook 'prog-mode-hook 'hideshowvis-enable)
 
 (provide 'global)
 
