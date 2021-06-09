@@ -290,12 +290,7 @@
 (setq lsp-ui-sideline-enable nil)
 
 (dap-mode 1)
-(dap-ui-mode 1)
-;; enables mouse hover support
-(dap-tooltip-mode 1)
-;; use tooltips for mouse hover
-;; if it is not enabled `dap-mode' will use the minibuffer.
-(tooltip-mode 1)
+
 
 (defun toggle-lsp-ui-doc ()
   "Toggle lsp ui doc."
@@ -310,6 +305,8 @@
 (define-key lsp-mode-map (kbd "M-?") 'lsp-ui-peek-find-references)
 (define-key lsp-mode-map [f5] 'dap-debug)
 (define-key lsp-mode-map (kbd "C-<f5>") 'dap-hydra)
+ (add-hook 'dap-stopped-hook
+          (lambda (arg) (call-interactively #'dap-hydra)))
 
 (require 'multi-term)
 (setq multi-term-dedicated-select-after-open-p t)

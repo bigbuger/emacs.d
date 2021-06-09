@@ -6,27 +6,14 @@
 
 ;;; Code:
 
-(require 'elpy)
-(require 'company-jedi)
+(require 'lsp-python-ms)
+(require 'dap-python)
 
-;; fixme
-(setq python-shell-completion-native-enable nil)
+(setq lsp-python-ms-auto-install-server t)
+(add-hook 'python-mode-hook #'lsp) ; or lsp-deferred
 
-;; enable elpy jedi backend
-(setq elpy-rpc-backend "jedi")
+(setq lsp-python-ms-python-executable-cmd "python3")
 
-(setq elpy-rpc-python-command "python3")
-(setq python-shell-interpreter "python3")
-;;(setq python-check-command "~/Library/Python/3.7/bin/flake8")
-;;(setq flycheck-python-flake8-executable "/usr/local/bin/flake8")
-
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
-
-(elpy-enable)
-(add-hook 'python-mode-hook 'jedi-mode)
-;;;
 
 (provide 'my-python)
 
