@@ -41,6 +41,8 @@
       show-paren-style 'parenthesis)
 (show-paren-mode 1)
 
+(global-set-key (kbd "C-c v") 'view-file)
+
 ;; (electric-pair-mode 1)
 ;; (setq electric-pair-pairs '(
 ;;                            (?\" . ?\")
@@ -50,7 +52,9 @@
 ;;                            ))
 
 (require 'smartparens-config)
-(show-smartparens-global-mode)
+(add-hook 'prog-mode-hook #'smartparens-mode)
+(sp-local-pair 'emacs-lisp-mode "(" nil :actions '(wrap))
+(sp-local-pair 'emacs-lisp-mode "'" nil :actions '(wrap))
 (global-set-key (kbd "C-}") 'sp-forward-slurp-sexp)
 (global-set-key (kbd "C-{") 'sp-forward-barf-sexp)
 
@@ -289,8 +293,7 @@
 (setq lsp-ui-doc-position 'at-point)
 (setq lsp-ui-sideline-enable nil)
 
-(dap-mode 1)
-
+(setq dap-auto-configure-features '(controls tooltip))
 
 (defun toggle-lsp-ui-doc ()
   "Toggle lsp ui doc."

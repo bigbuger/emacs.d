@@ -70,7 +70,7 @@
     inf-ruby
     robe
     rvm
-    ruby-electric
+    ;;ruby-electric
     rsense
     flymake-ruby
     realgud-byebug
@@ -99,6 +99,7 @@
     
     ;; scheme
     geiser
+    geiser-guile
     sicp
     
     ;; python

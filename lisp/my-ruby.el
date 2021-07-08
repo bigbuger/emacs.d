@@ -12,7 +12,7 @@
 
 ;;(add-hook 'ruby-mode-hook 'flymake-ruby-load)
 
-(add-hook 'ruby-mode-hook 'ruby-electric-mode)
+;;(add-hook 'ruby-mode-hook 'ruby-electric-mode)
 
 (eval-after-load 'company
   '(push '(company-inf-ruby company-robe :with company-yasnippet)

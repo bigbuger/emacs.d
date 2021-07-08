@@ -5,6 +5,7 @@
 ;;; Code:
 
 (require 'geiser)
+(require 'geiser-guile)
 
 (setq geiser-active-implementations '(guile))
 (setq geiser-mode-start-repl-p t)
