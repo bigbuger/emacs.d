@@ -123,7 +123,7 @@
   ;; put the point in the lowest line and return
   (next-line arg))
 
-(global-set-key (kbd "C-d") 'duplicate-line)
+;;(global-set-key (kbd "C-d") 'duplicate-line)
 
 
 (defun my-new-line ()

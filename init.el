@@ -91,6 +91,7 @@
  '(flycheck-warning ((t (:underline (:color "yellow4" :style wave)))))
  '(flymake-warning ((t (:underline (:color "yellow4" :style wave)))))
  '(ivy-posframe ((t (:inherit default :background "gray40" :foreground "#dcdccc"))))
+ '(show-paren-match ((t (:inherit bold :foreground "royal blue" :underline t))))
  '(term-color-blue ((t (:background "SkyBlue3" :foreground "SkyBlue3")))))
 
 
