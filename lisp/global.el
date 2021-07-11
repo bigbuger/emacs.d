@@ -41,7 +41,7 @@
       show-paren-style 'parenthesis)
 (show-paren-mode 1)
 
-(global-set-key (kbd "C-c v") 'view-file)
+(global-set-key (kbd "C-x v") 'view-file)
 
 ;; (electric-pair-mode 1)
 ;; (setq electric-pair-pairs '(
@@ -53,8 +53,8 @@
 
 (require 'smartparens-config)
 (add-hook 'prog-mode-hook #'smartparens-mode)
-(sp-local-pair 'emacs-lisp-mode "(" nil :actions '(wrap))
-(sp-local-pair 'emacs-lisp-mode "'" nil :actions '(wrap))
+(sp-local-pair 'emacs-lisp-mode "(" nil :actions '(:rem insert))
+(sp-local-pair 'emacs-lisp-mode "'" nil :actions '(:add wrap))
 (global-set-key (kbd "C-}") 'sp-forward-slurp-sexp)
 (global-set-key (kbd "C-{") 'sp-forward-barf-sexp)
 
@@ -194,7 +194,7 @@
 
 (global-set-key (kbd "<backtab>") 'company-complete)
 
-;(add-to-list 'company-backends 'company-yasnippet)
+					;(add-to-list 'company-backends 'company-yasnippet)
 (defvar company-mode/enable-yas t
   "Enable yasnippet for all backends.")
 (defun company-mode/backend-with-yas (backend)
@@ -309,7 +309,7 @@
 (define-key lsp-mode-map (kbd "M-?") 'lsp-ui-peek-find-references)
 (define-key lsp-mode-map [f5] 'dap-debug)
 (define-key lsp-mode-map (kbd "C-<f5>") 'dap-hydra)
- (add-hook 'dap-stopped-hook
+(add-hook 'dap-stopped-hook
           (lambda (arg) (call-interactively #'dap-hydra)))
 
 (require 'multi-term)

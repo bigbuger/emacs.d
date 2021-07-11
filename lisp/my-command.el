@@ -125,6 +125,14 @@
 
 ;;(global-set-key (kbd "C-d") 'duplicate-line)
 
+(defun my-indent-buffer ()
+  "Indent whole buffer."
+  (interactive)
+  (save-excursion
+    (indent-region (point-min) (point-max) nil)))
+
+(global-set-key (kbd "C-M-l") 'my-indent-buffer)
+
 
 (defun my-new-line ()
   "Insert new line."
