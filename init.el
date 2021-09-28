@@ -40,6 +40,7 @@
 (require 'my-rust)
 (require 'my-cc)
 (require 'my-octave)
+(require 'my-json)
 
 ;============================================================
 ;全屏函数
@@ -69,6 +70,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(centaur-tabs-background-color "white")
  '(dap-python-executable "python3")
  '(display-time-mode t)
  '(doom-modeline-mode nil)

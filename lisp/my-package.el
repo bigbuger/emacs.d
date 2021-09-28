@@ -55,6 +55,7 @@
     olivetti
     
     ;; lsp
+    treemacs
     lsp-mode
     dap-mode
     company-lsp

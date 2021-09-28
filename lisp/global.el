@@ -5,6 +5,11 @@
 
 ;;; Code:
 
+(setq initial-major-mode 'text-mode)
+(setq initial-scratch-message "")
+
+
+
 ;;关闭启动画面
 (setq inhibit-startup-message t)
 (setq frame-title-format "%b")
@@ -54,7 +59,7 @@
 (require 'smartparens-config)
 (add-hook 'prog-mode-hook #'smartparens-mode)
 (sp-local-pair 'emacs-lisp-mode "(" nil :actions '(:rem insert))
-(sp-local-pair 'emacs-lisp-mode "'" nil :actions '(:add wrap))
+(sp-local-pair 'emacs-lisp-mode "'" nil :actions '(wrap))
 (global-set-key (kbd "C-}") 'sp-forward-slurp-sexp)
 (global-set-key (kbd "C-{") 'sp-forward-barf-sexp)
 
@@ -158,6 +163,8 @@
 ;; (setq ivy-display-function #'ivy-posframe-display-at-window-bottom-left)
 ;; (setq ivy-display-function #'ivy-posframe-display-at-point)
 ;; (ivy-posframe-enable)
+
+;; end of ivy
 
 (require 'which-key)
 (which-key-mode)
@@ -290,8 +297,9 @@
 (setq lsp-prefer-flymake :none)
 (setq lsp-ui-flycheck-enable nil)
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-(setq lsp-ui-doc-enable nil)
+(setq lsp-ui-doc-enable t)
 (setq lsp-ui-doc-position 'at-point)
+(setq lsp-ui-doc-show-with-cursor nil)
 (setq lsp-ui-sideline-enable nil)
 
 (setq dap-auto-configure-features '(controls tooltip))
@@ -311,6 +319,11 @@
 (define-key lsp-mode-map (kbd "C-<f5>") 'dap-hydra)
 (add-hook 'dap-stopped-hook
           (lambda (arg) (call-interactively #'dap-hydra)))
+
+(with-eval-after-load 'lsp-mode
+  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
+
+;; end of lsp setting
 
 (require 'multi-term)
 (setq multi-term-dedicated-select-after-open-p t)

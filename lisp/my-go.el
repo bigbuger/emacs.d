@@ -22,19 +22,28 @@
 	    (setq-local company-backends '((company-go :with company-yasnippet)
 					   (company-files :with company-yasnippet)
 					   (company-dabbrev :with company-yasnippet)))))
-(setenv "GO111MODULE" "on")
+(setenv "GO111MODULE" "off")
 ;;(require 'go-flymake)
 ;;(require 'go-flycheck)
 (add-hook 'go-mode-hook 'flycheck-mode)
 (add-hook 'go-mode-hook 'go-eldoc-setup)
 (add-hook 'go-mode-hook #'lsp)
-(add-hook 'go-mode-hook #'smartparens-mode)
 
 ;; (define-key go-mode-map
 ;;   (kbd "M-.") 'godef-jump)
 
 (add-hook 'go-mode-hook (lambda ()
 			  (setq-local flycheck-disabled-checkers '(go-staticcheck))))
+
+(add-hook 'go-mode-hook #'lsp-deferred)
+
+;; Set up before-save hooks to format buffer and add/delete imports.
+;; Make sure you don't have other gofmt/goimports hooks enabled.
+;; (defun lsp-go-install-save-hooks ()
+;;   (add-hook 'before-save-hook #'lsp-format-buffer t t)
+;;   (add-hook 'before-save-hook #'lsp-organize-imports t t))
+;; (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+
 
 ;;;;;;;; end of go ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
