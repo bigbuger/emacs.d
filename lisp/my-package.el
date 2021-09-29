@@ -47,6 +47,8 @@
     aggressive-indent
     highlight-indent-guides
     all-the-icons-dired
+    imenu-list
+    smartparens
 
     ;;org
     org-bullets
@@ -66,6 +68,7 @@
     projectile
     counsel-projectile
     diff-hl
+    ztree
     
     ;; ruby
     inf-ruby
@@ -90,12 +93,14 @@
     ;;rust
     rust-mode
     racer
+    flycheck-rust
     
     ;; haskell
     haskell-mode
     company-ghc
     company-ghci
     ghc
+    dante
     ;;flymake-haskell-multi
     
     ;; scheme
@@ -111,6 +116,7 @@
     ccls
     
     ;; other
+    csv-mode
     json-mode
     counsel-jq
     
