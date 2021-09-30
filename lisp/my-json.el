@@ -4,13 +4,16 @@
 ;;; Commentary:
 ;; 
 
+;;; Code:
 (require 'json-mode)
 (require 'counsel-jq)
-;;; Code:
 
 ;; reqquier fx: https://github.com/antonmedv/fx
 ;; install by: npm install -g fx
 ;;(setq counsel-jq-command "fx")
+
+(add-hook 'json-mode-hook 'hideshowvis-enable)
+
 
 (provide 'my-json)
 

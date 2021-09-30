@@ -11,6 +11,14 @@
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 ;;(add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
 
+(defun org-babel-execute:passthrough (body params)
+  body)
+
+;; json output is json
+(defalias 'org-babel-execute:json 'org-babel-execute:passthrough)
+
+(provide 'ob-passthrough)
+
 (setq org-src-fontify-natively t
       org-ellipsis " ⤵ " ;; folding symbol
       org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
@@ -18,11 +26,14 @@
 (org-babel-do-load-languages
       'org-babel-load-languages
       '((emacs-lisp . t)
+	(calc . t)
 	(scheme . t)
         (ruby . t)
         (python . t)
 	(haskell . t)
         (shell . t)
+	(js . t)
+	(passthrough . t)
         (latex . t)))
 
 (provide 'my-org)
