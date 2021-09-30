@@ -204,8 +204,10 @@
 (add-hook 'after-init-hook 'company-quickhelp-mode)
 
 (global-set-key (kbd "<backtab>") 'company-complete)
+(global-set-key (kbd "<C-S-tab>") 'company-files)
 
-					;(add-to-list 'company-backends 'company-yasnippet)
+
+;;(add-to-list 'company-backends 'company-yasnippet)
 (defvar company-mode/enable-yas t
   "Enable yasnippet for all backends.")
 (defun company-mode/backend-with-yas (backend)
@@ -306,18 +308,15 @@
 (setq lsp-ui-doc-show-with-cursor nil)
 (setq lsp-ui-sideline-enable nil)
 
+(setq lsp-completion-provider :none)
+
+(add-hook 'lsp-completion-mode-hook
+	  '(lambda ()
+	     (setq-local company-backends
+			 (cl-adjoin '(company-capf :separate company-yasnippet)
+				    company-backends :test #'equal))))
+
 (setq dap-auto-configure-features '(controls tooltip))
-
-(defun toggle-lsp-ui-doc ()
-  "Toggle lsp ui doc."
-  (interactive)
-  (if lsp-ui-doc-mode
-      (progn
-	(lsp-ui-doc-mode -1)
-	(lsp-ui-doc--hide-frame))
-    (lsp-ui-doc-mode 1)))
-
-(define-key lsp-mode-map (kbd "s-d") 'toggle-lsp-ui-doc)
 (define-key lsp-mode-map (kbd "M-?") 'lsp-ui-peek-find-references)
 (define-key lsp-mode-map [f5] 'dap-debug)
 (define-key lsp-mode-map (kbd "C-<f5>") 'dap-hydra)
