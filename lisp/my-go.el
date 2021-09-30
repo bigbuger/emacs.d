@@ -22,7 +22,7 @@
 	    (setq-local company-backends '((company-go :with company-yasnippet)
 					   (company-files :with company-yasnippet)
 					   (company-dabbrev :with company-yasnippet)))))
-(setenv "GO111MODULE" "off")
+;;(setenv "GO111MODULE" "off")
 ;;(require 'go-flymake)
 ;;(require 'go-flycheck)
 (add-hook 'go-mode-hook 'flycheck-mode)
