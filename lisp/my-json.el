@@ -13,6 +13,7 @@
 ;;(setq counsel-jq-command "fx")
 
 (add-hook 'json-mode-hook 'hideshowvis-enable)
+(define-key json-mode-map (kbd "C-c j") 'counsel-jq)
 
 
 (provide 'my-json)

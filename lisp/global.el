@@ -12,6 +12,12 @@
 
 ")
 
+(setq-default major-mode
+              (lambda () (if buffer-file-name
+                             (fundamental-mode)
+                           (let ((buffer-file-name (buffer-name)))
+                             (set-auto-mode)))))
+
 
 
 ;;关闭启动画面
@@ -108,8 +114,7 @@
 (global-set-key (kbd "M-2") 'split-window-vertically)
 ;;垂直分割缓冲区 Alt+3  ;; C-x 3
 (global-set-key (kbd "M-3") 'split-window-horizontally)
-;;切换到其它缓冲区 Alt+0 ;; C-x o
-(global-set-key (kbd "M-0") 'other-window)
+
 
 (require 'crux)
 (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
@@ -156,6 +161,7 @@
 		 ((ivy-rich-bookmark-type)
 		  (ivy-rich-candidate (:width 10))
 		  (ivy-rich-bookmark-info))))))
+(all-the-icons-ivy-rich-mode 1)
 (ivy-rich-mode 1)
 
 
@@ -235,27 +241,24 @@
 (define-key projectile-command-map (kbd "f") 'counsel-projectile-find-file)
 
 
-;; neotree
-(require 'neotree)
-(add-hook 'neotree-mode-hook
-	  (lambda () (display-line-numbers-mode -1)))
-(require 'all-the-icons)
-(global-set-key [f8] 'neotree-toggle)
-(setq neo-smart-open t)
-(setq neo-vc-integration '(face))
-(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-(setq neo-autorefresh t)
-(setq neo-force-change-root t)
-;; (setq projectile-switch-project-action 'neotree-projectile-action)
-(define-key neotree-mode-map (kbd "+") 'neotree-create-node)
-(define-key neotree-mode-map (kbd "<DEL>") 'neotree-delete-node)
-(define-key neotree-mode-map (kbd "r") 'neotree-rename-node)
+;; treemacs
+(require 'treemacs)
+(require 'treemacs-all-the-icons)
+(treemacs-load-theme "all-the-icons")
 
-;;magit
+(setq treemacs-follow-after-init t)
+(treemacs-project-follow-mode)
+(global-set-key [f8] 'treemacs)
+(global-set-key (kbd "M-0") 'treemacs-select-window)
+
+
+
+;; magit
 (require 'magit)
 (require 'magit-gitflow)
 (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
+;; diff-hl
 (require 'diff-hl)
 (global-diff-hl-mode)
 (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
@@ -290,6 +293,7 @@
 (with-eval-after-load 'flycheck
   (flycheck-pos-tip-mode))
 
+;; realgud
 (require 'realgud)
 (load-library "realgud")
 
@@ -328,13 +332,15 @@
 
 ;; end of lsp setting
 
+
+;; multi-term
 (require 'multi-term)
 (setq multi-term-dedicated-select-after-open-p t)
 (global-set-key (kbd "C-c s") 'multi-term)
 (global-set-key (kbd "C-c t") 'multi-term-dedicated-open)
 
 
-
+;; multiple-cursors
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
@@ -343,6 +349,7 @@
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 (global-set-key (kbd "C-c M-i") 'mc/insert-numbers)
 
+;; restclient
 (require 'restclient)
 (require 'company-restclient)
 (add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
@@ -351,6 +358,7 @@
 (require 'docker)
 (setq docker-container-shell-file-name "/bin/bash")
 
+;; osx-dictionary
 (require 'pos-tip)
 (require 'osx-dictionary)
 (defun osx-dictionary-search-at-point-and-pop ()
@@ -361,10 +369,12 @@
     (pos-tip-show result)))
 (global-set-key (kbd "C-S-d") 'osx-dictionary-search-at-point-and-pop)
 
+;; centaur-tabs
 ;;(require 'centaur-tabs)
 ;;(centaur-tabs-mode t)
 ;;(setq centaur-tabs-set-icons t)
 
+;; about indent
 ;;(require 'aggressive-indent)
 ;;(global-aggressive-indent-mode 1)
 
@@ -372,12 +382,13 @@
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 (setq highlight-indent-guides-method 'character)
 
+
 ;; about dired
 (require 'all-the-icons-dired)
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
-(require 'dired-subtree)
-(define-key dired-mode-map (kbd "<tab>") 'dired-subtree-toggle)
 
+
+;; hideshowvis
 (add-to-list 'load-path "~/.emacs.d/lisp/hideshowvis/")
 (require 'hideshowvis)
 (hideshowvis-symbols)

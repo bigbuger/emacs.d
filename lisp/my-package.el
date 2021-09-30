@@ -14,15 +14,15 @@
     all-the-icons
     exec-path-from-shell
     crux
-    dired-subtree
-    
-    smex
+    all-the-icons-dired
+
     which-key
     ivy
     swiper
     counsel
     wgrep
     ivy-rich
+    all-the-icons-ivy-rich
     hydra
 
     company
@@ -32,23 +32,23 @@
     visual-regexp
 
     multi-term
-    multiple-cursors
 
     flycheck
     flycheck-pos-tip
     flymake-easy
     realgud
 
-    neotree
+    smartparens
+    treemacs
     string-inflection
     move-text
+    multiple-cursors
     expand-region
+
     centaur-tabs
     aggressive-indent
     highlight-indent-guides
-    all-the-icons-dired
     imenu-list
-    smartparens
 
     ;;org
     org-bullets
@@ -57,7 +57,6 @@
     olivetti
     
     ;; lsp
-    treemacs
     lsp-mode
     dap-mode
     company-lsp
