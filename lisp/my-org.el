@@ -23,6 +23,9 @@
       org-ellipsis " ⤵ " ;; folding symbol
       org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 
+
+(setq org-imenu-depth 4)
+
 (org-babel-do-load-languages
       'org-babel-load-languages
       '((emacs-lisp . t)

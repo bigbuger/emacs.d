@@ -64,6 +64,7 @@
     
     ;; about project
     magit
+    magit-todos
     projectile
     counsel-projectile
     diff-hl

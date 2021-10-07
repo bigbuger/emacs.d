@@ -7,16 +7,16 @@
 
 (setq initial-major-mode 'org-mode)
 (setq initial-scratch-message
-      "# This buffer is for text that is not saved, and for Org-mode.
+     "# This buffer is for text that is not saved, and for Org-mode.
 # To create a file, visit it with <open> and enter text in its buffer.
 
 ")
 
 (setq-default major-mode
-              (lambda () (if buffer-file-name
-                             (fundamental-mode)
-                           (let ((buffer-file-name (buffer-name)))
-                             (set-auto-mode)))))
+	     (lambda () (if buffer-file-name
+			    (fundamental-mode)
+			  (let ((buffer-file-name (buffer-name)))
+			    (set-auto-mode)))))
 
 
 
@@ -40,9 +40,9 @@
 
 (which-function-mode)
 (add-hook 'prog-mode-hook
-	  (lambda ()
-	    (setq header-line-format
-		  '((which-func-mode ("" which-func-format " "))))))
+	 (lambda ()
+	   (setq header-line-format
+		 '((which-func-mode ("" which-func-format " "))))))
 
 (auto-image-file-mode)
 
@@ -53,7 +53,7 @@
 
 ;;括号匹配
 (setq show-paren-delay 0
-      show-paren-style 'parenthesis)
+     show-paren-style 'parenthesis)
 (show-paren-mode 1)
 
 (global-set-key (kbd "C-x v") 'view-file)
@@ -75,23 +75,23 @@
 
 (require 'cl)
 (defmacro def-pairs (pairs)
-  `(progn
-     ,@(loop for (key . val) in pairs
-             collect
-             `(defun ,(read (concat
-                             "wrap-with-"
-                             (prin1-to-string key)
-                             "s"))
-                  (&optional arg)
-                (interactive "p")
-                (sp-wrap-with-pair ,val)))))
+ `(progn
+    ,@(loop for (key . val) in pairs
+	    collect
+	    `(defun ,(read (concat
+			    "wrap-with-"
+			    (prin1-to-string key)
+			    "s"))
+		 (&optional arg)
+	       (interactive "p")
+	       (sp-wrap-with-pair ,val)))))
 
 (def-pairs ((paren . "(")
-            (bracket . "[")
-            (brace . "{")
-            (single-quote . "'")
-            (double-quote . "\"")
-            (back-quote . "`")))
+	   (bracket . "[")
+	   (brace . "{")
+	   (single-quote . "'")
+	   (double-quote . "\"")
+	   (back-quote . "`")))
 (global-set-key (kbd "C-c (") 'wrap-with-parens)
 (global-set-key (kbd "C-c [") 'wrap-with-brackets)
 (global-set-key (kbd "C-c {") 'wrap-with-braces)
@@ -125,8 +125,25 @@
 
 
 (require 'string-inflection)
-(global-set-key (kbd "C-c u") 'string-inflection-all-cycle)
-(global-set-key (kbd "C-c M-u") 'string-inflection-camelcase)
+(global-set-key (kbd "C-c u") 'string-inflection-toggle)
+(defhydra hydra-string-inflection (:hint nil :exit t)
+  "
+string inflection
+_c_: lower-camelcase fooVar  ^_C_: camelcase FooBar
+_u_: underscore foo__bar      _U_: upcase FOO__BAR
+_k_: kebab foo-bar          ^ _q_: cancel.
+"
+  ("c" string-inflection-lower-camelcase)
+  ("C" string-inflection-camelcase)
+  ("u" string-inflection-underscore)
+  ("U" string-inflection-upcase)
+  ("k" string-inflection-kebab-case)
+  ("q" nil))
+(global-set-key (kbd "C-c M-u") 'hydra-string-inflection/body)
+
+
+(require 'imenu-list)
+(global-set-key (kbd "C-c C-l") 'imenu-list)
 
 ;;ivy
 (require 'ivy)
@@ -251,11 +268,16 @@
 (global-set-key [f8] 'treemacs)
 (global-set-key (kbd "M-0") 'treemacs-select-window)
 
+(setq treemacs-filewatch-mode t)
+(setq treemacs-file-event-delay 1000)
+
 
 
 ;; magit
 (require 'magit)
 (require 'magit-gitflow)
+(require 'magit-todos)
+(magit-todos-mode)
 (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
 ;; diff-hl
