@@ -8,6 +8,10 @@
 
 ;;(require 'go-autocomplete)
 
+
+;; go install github.com/go-delve/delve/cmd/dlv
+;; go get golang.org/x/tools/cmd/guru
+;; go get golang.org/x/tools/cmd/gorename
 (require 'go-dlv)
 (require 'go-guru)
 (require 'go-rename)

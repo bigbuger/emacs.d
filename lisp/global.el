@@ -143,7 +143,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 
 
 (require 'imenu-list)
-(global-set-key (kbd "C-c C-l") 'imenu-list)
+(global-set-key (kbd "<f9>") 'imenu-list)
 
 ;;ivy
 (require 'ivy)

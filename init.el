@@ -34,6 +34,7 @@
 (require 'my-org)
 (require 'my-go)
 (require 'my-haskell)
+(require 'my-agda)
 (require 'my-scheme)
 (require 'my-ruby)
 (require 'my-python)
@@ -78,7 +79,7 @@
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(lsp-ui-flycheck-enable nil t)
  '(package-selected-packages
-   '(magit-todos all-the-icons-ivy-rich yafolding geiser-guile ztree lsp-python-ms dante counsel-jq csv-mode geiser gnuplot gnuplot-mode spacemacs-theme imenu-list olivetti org-bullets ccls crux flycheck-pos-tip google-this all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight aggressive-indent centaur-tabs lsp-ui company-lsp lsp-mode expand-region flycheck-rust go-guru auto-yasnippet move-text treemacs treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich smart-mode-line company-restclient magit-gitflow go-eldo))
+   '(literate-calc-mode magit-todos all-the-icons-ivy-rich yafolding geiser-guile ztree lsp-python-ms dante counsel-jq csv-mode geiser gnuplot gnuplot-mode spacemacs-theme imenu-list olivetti org-bullets ccls crux flycheck-pos-tip google-this all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight aggressive-indent centaur-tabs lsp-ui company-lsp lsp-mode expand-region flycheck-rust go-guru auto-yasnippet move-text treemacs treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich smart-mode-line company-restclient magit-gitflow go-eldo))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -99,6 +100,3 @@
 
 
 
-
-(load-file (let ((coding-system-for-read 'utf-8))
-                (shell-command-to-string "agda-mode locate")))
