@@ -5,6 +5,15 @@
 
 ;;; Code:
 
+
+(setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+      backup-by-copying t    ; Don't delink hardlinks
+      version-control t      ; Use version numbers on backups
+      delete-old-versions t  ; Automatically delete excess backups
+      kept-new-versions 20   ; how many of the newest versions to keep
+      kept-old-versions 5    ; and how many of the old
+      )
+
 (setq initial-major-mode 'org-mode)
 (setq initial-scratch-message
      "# This buffer is for text that is not saved, and for Org-mode.
@@ -12,27 +21,30 @@
 
 ")
 
+
+
+;; 关闭启动画面
+(setq inhibit-startup-message t)
+(setq frame-title-format "%b")
+
+;; 关闭蜂鸣
+(setq visible-bell t)
+;; alway hight light
+(global-font-lock-mode 1)
+
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; 显示时间
+(display-time)
+
+(auto-image-file-mode)
+
+;; 临时 buffer 根据后缀选择 major-mode
 (setq-default major-mode
 	     (lambda () (if buffer-file-name
 			    (fundamental-mode)
 			  (let ((buffer-file-name (buffer-name)))
 			    (set-auto-mode)))))
-
-
-
-;;关闭启动画面
-(setq inhibit-startup-message t)
-(setq frame-title-format "%b")
-
-;;关闭蜂鸣
-(setq visible-bell t)
-;;alway hight light
-(global-font-lock-mode 1)
-
-(defalias 'yes-or-no-p 'y-or-n-p)
-
-;;显示时间
-(display-time)
 
 ;;(global-linum-mode 1)
 (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode +1)))
@@ -44,8 +56,33 @@
 	   (setq header-line-format
 		 '((which-func-mode ("" which-func-format " "))))))
 
-(auto-image-file-mode)
+;; base key ========================================
+;;关闭当前缓冲区 Alt+4  ;; C-x 0
+(global-set-key (kbd "M-4") 'delete-window)
+;;关闭其它缓冲区 Alt+1  ;; C-x 1
+(global-set-key (kbd "M-1") 'delete-other-windows)
+;;水平分割缓冲区 Alt+2  ;; C-x 2
+(global-set-key (kbd "M-2") 'split-window-vertically)
+;;垂直分割缓冲区 Alt+3  ;; C-x 3
+(global-set-key (kbd "M-3") 'split-window-horizontally)
 
+;全屏函数
+(defun toggle-fullscreen (&optional f)
+  (interactive)
+  (let ((current-value (frame-parameter nil 'fullscreen)))
+    (set-frame-parameter nil 'fullscreen
+			 (if (equal 'fullboth current-value)
+			     (if (boundp 'old-fullscreen) old-fullscreen nil)
+			   (progn (setq old-fullscreen current-value)
+				  'fullboth)))))
+(global-set-key [f11] 'toggle-fullscreen)
+
+(require 'crux)
+(global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
+(global-set-key (kbd "C-^") 'crux-top-join-line)
+(global-set-key (kbd "C-d") 'crux-duplicate-current-line-or-region)
+(global-set-key (kbd "C-<backspace>") #'crux-kill-line-backwards)
+(global-set-key (kbd "C-c M-r") #'crux-rename-file-and-buffer)
 
 ;; undo-tree
 (require 'undo-tree)
@@ -55,8 +92,6 @@
 (setq show-paren-delay 0
      show-paren-style 'parenthesis)
 (show-paren-mode 1)
-
-(global-set-key (kbd "C-x v") 'view-file)
 
 ;; (electric-pair-mode 1)
 ;; (setq electric-pair-pairs '(
@@ -104,24 +139,6 @@
 
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
-
-;;========================================
-;;关闭当前缓冲区 Alt+4  ;; C-x 0
-(global-set-key (kbd "M-4") 'delete-window)
-;;关闭其它缓冲区 Alt+1  ;; C-x 1
-(global-set-key (kbd "M-1") 'delete-other-windows)
-;;水平分割缓冲区 Alt+2  ;; C-x 2
-(global-set-key (kbd "M-2") 'split-window-vertically)
-;;垂直分割缓冲区 Alt+3  ;; C-x 3
-(global-set-key (kbd "M-3") 'split-window-horizontally)
-
-
-(require 'crux)
-(global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
-(global-set-key (kbd "C-^") 'crux-top-join-line)
-(global-set-key (kbd "C-d") 'crux-duplicate-current-line-or-region)
-(global-set-key (kbd "C-<backspace>") #'crux-kill-line-backwards)
-(global-set-key (kbd "C-c M-r") #'crux-rename-file-and-buffer)
 
 
 (require 'string-inflection)

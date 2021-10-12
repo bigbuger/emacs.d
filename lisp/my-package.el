@@ -15,6 +15,7 @@
     exec-path-from-shell
     crux
     all-the-icons-dired
+    doom-modeline
 
     which-key
     ivy
