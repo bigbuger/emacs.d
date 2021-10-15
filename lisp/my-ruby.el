@@ -8,17 +8,23 @@
 ;;(require 'flymake-ruby)
 (require 'rvm)
 (require 'inf-ruby)
-(require 'robe)
+;;(require 'robe)
+
+;; Calling dap-ruby-setup
+;; gem install ruby-debug-ide -v 0.6.0 or higher versions
+;; gem install debase -v 0.2.1 or higher versions
+;;
+(require 'dap-ruby)
 
 ;;(add-hook 'ruby-mode-hook 'flymake-ruby-load)
 
 ;;(add-hook 'ruby-mode-hook 'ruby-electric-mode)
 
 (eval-after-load 'company
-  '(push '(company-inf-ruby company-robe :with company-yasnippet)
+  '(push '(company-inf-ruby :with company-yasnippet)
 	  company-backends))
 
-(add-hook 'ruby-mode-hook 'robe-mode)
+;;(add-hook 'ruby-mode-hook 'robe-mode)
 
 (rvm-use-default)
 
@@ -32,7 +38,7 @@
 ;; gem install byebug
 (load-library "realgud-byebug")
 
-;;;;;;;;;;; end ruby ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-hook 'ruby-mode-hook #'lsp-deferred)
 
 (provide 'my-ruby)
 
