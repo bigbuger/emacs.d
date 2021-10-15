@@ -21,7 +21,7 @@
 
 ;; How tall the mode-line should be. It's only respected in GUI.
 ;; If the actual char height is larger, it respects the actual height.
-(setq doom-modeline-height 15)
+(setq doom-modeline-height 18)
 
 (defun my-doom-modeline--font-height ()
   "Calculate the actual char height of the mode-line."
@@ -29,14 +29,10 @@
 (advice-add #'doom-modeline--font-height :override #'my-doom-modeline--font-height)
 
 ;; If non-nil, only display one number for checker information if applicable.
-(setq doom-modeline-checker-simple-format t)
+(setq doom-modeline-checker-simple-format nil)
 
-;; Whether display the modification icon for the buffer.
-;; It respects `doom-modeline-icon' and `doom-modeline-buffer-state-icon'.
-(setq doom-modeline-buffer-modification-icon nil)
+(setq doom-modeline-icon nil)
 
-;; Whether display the icon for `major-mode'. It respects `doom-modeline-icon'.
-(setq doom-modeline-major-mode-icon t)
 
 (add-hook 'after-init-hook #'doom-modeline-mode)
 
