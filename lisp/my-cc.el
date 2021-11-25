@@ -15,8 +15,8 @@
   (add-hook hook (lambda ()
 		   (progn
 		     (c-set-style "k&r")
-		     ;;(require 'ccls)
-		     (lsp)))))
+		     (require 'ccls)
+		     (lsp-deferred)))))
 
 (provide 'my-cc)
 

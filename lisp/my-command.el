@@ -148,8 +148,8 @@
   (let ((time-string (format-time-string "%FT%T%z" (seconds-to-time timestamp))))
     (progn
       (kill-new time-string)
-      (message time-string))))
-(defalias 'ct 'my-convert-time)
+      (message "date is: %s" time-string))))
+(defalias 'd2t 'my-convert-time)
 
 (defun my-get-timestamp (time-string)
   "Convert TIME-STRING to unix timestamp and put it into kill ring."
@@ -162,8 +162,8 @@
 	(time-stamp (format-time-string "%s" et)))
     (progn
       (kill-new time-stamp)
-      (message time-stamp))))
-(defalias 'dt 'my-get-timestamp)
+      (message "timestamp is: %s" time-stamp))))
+(defalias 't2d 'my-get-timestamp)
 
 (provide 'my-command)
 

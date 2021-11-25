@@ -10,7 +10,7 @@
 (require 'dap-python)
 
 (setq lsp-python-ms-auto-install-server t)
-(add-hook 'python-mode-hook #'lsp-deferred) ; or lsp-deferred
+(add-hook 'python-mode-hook #'lsp) ; or lsp-deferred
 
 (setq lsp-python-ms-python-executable-cmd "python3")
 

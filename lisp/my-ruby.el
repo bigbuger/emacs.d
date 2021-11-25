@@ -8,7 +8,7 @@
 ;;(require 'flymake-ruby)
 (require 'rvm)
 (require 'inf-ruby)
-;;(require 'robe)
+(require 'robe)
 
 ;; Calling dap-ruby-setup
 ;; gem install ruby-debug-ide -v 0.6.0 or higher versions

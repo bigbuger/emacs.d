@@ -21,6 +21,7 @@
     ivy
     swiper
     counsel
+    counsel-fd
     wgrep
     ivy-rich
     all-the-icons-ivy-rich
