@@ -39,6 +39,9 @@
 	(passthrough . t)
         (latex . t)))
 
+;; latex company
+(add-to-list 'company-backends 'company-math-symbols-latex)
+
 (provide 'my-org)
 
 ;;; my-org.el ends here

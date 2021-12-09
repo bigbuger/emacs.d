@@ -18,6 +18,7 @@
 (setq initial-scratch-message
      "# This buffer is for text that is not saved, and for Org-mode.
 # To create a file, visit it with <open> and enter text in its buffer.
+#+startup: latexpreview
 
 ")
 

@@ -131,6 +131,8 @@
     restclient
     company-restclient
 
+    company-math
+
     docker
     )
   "A list of packages to ensure are installed at launch.")
