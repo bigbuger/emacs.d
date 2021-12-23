@@ -114,6 +114,7 @@
     ;; python
     elpy
     company-jedi
+    lsp-pyright
 
     ;; c lang
     ccls
