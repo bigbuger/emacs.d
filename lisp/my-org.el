@@ -6,7 +6,7 @@
 ;;; Code:
 
 (require 'org)
-
+(require 'smartparens)
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 ;;(add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
@@ -41,6 +41,9 @@
 
 ;; latex company
 (add-to-list 'company-backends 'company-math-symbols-latex)
+
+(add-hook 'org-mode-hook #'smartparens-mode)
+(sp-local-pair 'org-mode "\\[" "\\]")
 
 (provide 'my-org)
 

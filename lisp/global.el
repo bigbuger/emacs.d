@@ -18,7 +18,6 @@
 (setq initial-scratch-message
      "# This buffer is for text that is not saved, and for Org-mode.
 # To create a file, visit it with <open> and enter text in its buffer.
-#+startup: latexpreview
 
 ")
 
@@ -56,6 +55,8 @@
 	 (lambda ()
 	   (setq header-line-format
 		 '((which-func-mode ("" which-func-format " "))))))
+;; make it split horizontal
+(setq split-width-threshold 10000)
 
 ;; base key ========================================
 ;;关闭当前缓冲区 Alt+4  ;; C-x 0
@@ -290,7 +291,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (global-set-key (kbd "M-0") 'treemacs-select-window)
 
 (setq treemacs-filewatch-mode t)
-(setq treemacs-file-event-delay 1000)
+(setq treemacs-file-event-delay 600)
 
 
 
