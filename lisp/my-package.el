@@ -108,6 +108,7 @@
     ;; scheme
     geiser
     geiser-guile
+    flycheck-guile
     sicp
     
     ;; python
