@@ -48,6 +48,7 @@
 
 ;;(global-linum-mode 1)
 (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode +1)))
+(column-number-mode 1)
 
 
 (which-function-mode)
