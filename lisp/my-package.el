@@ -26,6 +26,8 @@
     ivy-rich
     all-the-icons-ivy-rich
     hydra
+    ripgrep
+    figlet
 
     company
     company-quickhelp

@@ -272,6 +272,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq projectile-indexing-method 'hybrid)
 (setq projectile-completion-system 'ivy)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 
 (require 'counsel-projectile)
 ;;(define-key projectile-command-map (kbd "p") 'counsel-projectile-switch-project)
