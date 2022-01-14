@@ -37,7 +37,8 @@
         (shell . t)
 	(js . t)
 	(passthrough . t)
-        (latex . t)))
+        (latex . t)
+	(dot . t)))
 
 ;; latex company
 (add-to-list 'company-backends 'company-math-symbols-latex)
