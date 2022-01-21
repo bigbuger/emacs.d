@@ -272,7 +272,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq projectile-indexing-method 'hybrid)
 (setq projectile-completion-system 'ivy)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-(define-key projectile-mode-map (kbd "<escape> p") 'projectile-command-map)
+(define-key projectile-mode-map (kbd "<ESC> p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 
 (require 'counsel-projectile)
@@ -339,6 +339,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (require 'flycheck-pos-tip)
 (with-eval-after-load 'flycheck
   (flycheck-pos-tip-mode))
+(setq flycheck-indication-mode 'right-fringe)
 
 ;; realgud
 (require 'realgud)
