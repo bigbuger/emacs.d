@@ -272,7 +272,6 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq projectile-indexing-method 'hybrid)
 (setq projectile-completion-system 'ivy)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-(define-key projectile-mode-map (kbd "<ESC> p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 
 (require 'counsel-projectile)
@@ -310,7 +309,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (global-diff-hl-mode)
 (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
 (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-(defhydra hydra-diff-hl (global-map "<ESC> v")
+(defhydra hydra-diff-hl (global-map "M-s-v")
   "vc"
   ("n" diff-hl-next-hunk "next hunk")
   ("p" diff-hl-previous-hunk "previous hunk")
