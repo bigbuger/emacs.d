@@ -120,6 +120,11 @@
 
     ;; c lang
     ccls
+
+    ;; laTeX
+    company-math
+    auctex
+    magic-latex-buffer
     
     ;; other
     csv-mode
@@ -134,8 +139,6 @@
     company-web
     restclient
     company-restclient
-
-    company-math
 
     docker
     )
