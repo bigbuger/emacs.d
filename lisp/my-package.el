@@ -36,7 +36,8 @@
     auto-yasnippet
     visual-regexp
 
-    multi-term
+    ;; multi-term
+    vterm
 
     flycheck
     flycheck-pos-tip
