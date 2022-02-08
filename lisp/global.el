@@ -57,7 +57,7 @@
 	   (setq header-line-format
 		 '((which-func-mode ("" which-func-format " "))))))
 ;; make it split horizontal
-(setq split-width-threshold 10000)
+(setq split-width-threshold 1000)
 
 ;; base key ========================================
 ;;关闭当前缓冲区 Alt+4  ;; C-x 0
@@ -191,6 +191,8 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 
 (require 'counsel-fd)
 (global-set-key (kbd "C-c j") 'counsel-fd-file-jump)
+(require 'dired-x)
+(global-set-key (kbd "C-c M-j") 'counsel-fd-dired-jump)
 
 (require 'ivy-rich)
 (setq ivy-rich-path-style 'abbrev)

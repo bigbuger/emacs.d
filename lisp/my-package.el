@@ -16,7 +16,8 @@
     crux
     all-the-icons-dired
     doom-modeline
-
+    ranger
+    
     which-key
     ivy
     swiper

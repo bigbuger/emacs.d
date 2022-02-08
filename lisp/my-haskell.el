@@ -27,7 +27,8 @@
 ;;(require 'flymake-haskell-multi)
 ;;(add-hook 'haskell-mode-hook 'flymake-haskell-multi-load)
 
-(add-to-list 'company-backends '(company-ghc :with company-yasnippet))
+(add-hook 'haskell-interactive-mode-hook 'company-mode)
+(add-to-list 'company-backends '(company-ghc company-ghci :with company-yasnippet))
 
 (setq haskell-program-name "ghci")
 ;; 添加菜单项
