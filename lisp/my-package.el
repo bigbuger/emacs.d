@@ -67,6 +67,10 @@
     dap-mode
     company-lsp
     lsp-ui
+
+    ;; tree-sitter
+    tree-sitter
+    tree-sitter-langs
     
     ;; about project
     magit
@@ -132,6 +136,7 @@
     csv-mode
     json-mode
     counsel-jq
+    graphviz-dot-mode
     
     epl
     osx-dictionary
