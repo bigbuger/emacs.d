@@ -464,6 +464,11 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (hideshowvis-symbols)
 ;;(add-hook 'prog-mode-hook 'hideshowvis-enable)
 
+;; graphviz-dot
+(require 'graphviz-dot-mode)
+(require 'company-graphviz-dot)
+
+
 (provide 'global)
 
 ;;; global.el ends here
