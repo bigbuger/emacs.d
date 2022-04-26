@@ -76,6 +76,7 @@
     magit
     magit-todos
     projectile
+    projectile-ripgrep
     counsel-projectile
     diff-hl
     ztree
@@ -146,6 +147,7 @@
     company-web
     restclient
     company-restclient
+    ob-restclient
 
     docker
     )

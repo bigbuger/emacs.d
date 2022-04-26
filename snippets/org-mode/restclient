@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: restclient
+# key: >curl
+# --
+
+#+BEGIN_SRC restclient :results value :wrap SRC json
+
+GET https://$0
+
+#+END_SRC

@@ -38,7 +38,8 @@
 	(js . t)
 	(passthrough . t)
         (latex . t)
-	(dot . t)))
+	(dot . t)
+	(restclient . t)))
 
 ;; latex company
 (add-to-list 'company-backends 'company-math-symbols-latex)
