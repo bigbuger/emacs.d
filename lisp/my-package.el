@@ -136,7 +136,6 @@
     ;; other
     csv-mode
     json-mode
-    counsel-jq
     graphviz-dot-mode
     
     epl

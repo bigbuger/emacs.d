@@ -6,14 +6,11 @@
 
 ;;; Code:
 (require 'json-mode)
-(require 'counsel-jq)
-
-;; reqquier fx: https://github.com/antonmedv/fx
-;; install by: npm install -g fx
-;;(setq counsel-jq-command "fx")
+(add-to-list 'load-path "~/.emacs.d/lisp/counsel-jq-ex/")
+(require 'counsel-jq-ex)
 
 (add-hook 'json-mode-hook 'hideshowvis-enable)
-(define-key json-mode-map (kbd "C-c j") 'counsel-jq)
+(define-key json-mode-map (kbd "C-c j") 'counsel-jq-ex)
 
 
 (provide 'my-json)
