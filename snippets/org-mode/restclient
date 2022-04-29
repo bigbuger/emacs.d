@@ -3,7 +3,7 @@
 # key: >curl
 # expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
 # --
-#+BEGIN_SRC restclient :results value :wrap SRC json
+#+BEGIN_SRC restclient :results value :wrap src json
 
 ${1:GET} ${2:https}://$0
 # Content-Type: application/json
