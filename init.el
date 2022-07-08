@@ -7,6 +7,7 @@
 (package-initialize)
 
 (set-default-coding-systems 'utf-8)
+(define-coding-system-alias 'UTF-8 'utf-8)
 
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)

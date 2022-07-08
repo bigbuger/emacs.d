@@ -196,6 +196,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (require 'dired-x)
 (global-set-key (kbd "C-c M-j") 'counsel-fd-dired-jump)
 
+
 (require 'ivy-rich)
 (setq ivy-rich-path-style 'abbrev)
 (setq ivy-rich-display-transformers-list
@@ -456,6 +457,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 
 
 ;; about dired
+(setq dired-listing-switches "-alh")
 (require 'all-the-icons-dired)
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
