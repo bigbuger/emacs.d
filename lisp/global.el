@@ -176,7 +176,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "C-M-s") 'swiper-isearch)
+(global-set-key (kbd "C-S-s") 'swiper-isearch)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
 (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 (global-set-key (kbd "<f1> l") 'counsel-find-library)
@@ -314,7 +314,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (global-diff-hl-mode)
 (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
 (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-(defhydra hydra-diff-hl (global-map "M-s-v")
+(defhydra hydra-diff-hl (global-map "C-c v")
   "vc"
   ("n" diff-hl-next-hunk "next hunk")
   ("p" diff-hl-previous-hunk "previous hunk")
@@ -392,7 +392,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 ;;(global-set-key (kbd "C-c t") 'multi-term-dedicated-open)
 
 (require 'vterm)
-(global-set-key (kbd "C-c v") 'vterm-other-window)
+(global-set-key (kbd "C-c s") 'vterm-other-window)
 
 (defun projectile-run-vterm-other-window (&optional arg)
   "Invoke `vterm-other-window' in the project's root.

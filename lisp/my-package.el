@@ -32,6 +32,7 @@
 
     company
     company-quickhelp
+    company-fuzzy
     yasnippet
     auto-yasnippet
     visual-regexp
