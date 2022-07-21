@@ -8,7 +8,10 @@
 (require 'org)
 (require 'smartparens)
 (require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(require 'verb)
+
+
+;;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 ;;(add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
 
 (defun org-babel-execute:passthrough (body params)
@@ -19,12 +22,15 @@
 
 (provide 'ob-passthrough)
 
-(setq org-src-fontify-natively t
+
+(setq org-imenu-depth 4
+      org-src-fontify-natively t
       org-ellipsis " ⤵ " ;; folding symbol
-      org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+      org-format-latex-options (plist-put org-format-latex-options :scale 2.0)
+      org-edit-src-content-indentation 0
+      org-src-tab-acts-natively t
+      org-src-preserve-indentation t)
 
-
-(setq org-imenu-depth 4)
 
 (org-babel-do-load-languages
       'org-babel-load-languages
@@ -39,13 +45,18 @@
 	(passthrough . t)
         (latex . t)
 	(dot . t)
-	(restclient . t)))
+	(restclient . t)
+	(verb . t)))
 
 ;; latex company
 (add-to-list 'company-backends 'company-math-symbols-latex)
 
 (add-hook 'org-mode-hook #'smartparens-mode)
 (sp-local-pair 'org-mode "\\[" "\\]")
+
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
+
 
 (provide 'my-org)
 

@@ -186,15 +186,15 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (global-set-key (kbd "C-c e") 'counsel-recentf)
 (global-set-key (kbd "C-c b") 'counsel-ibuffer)
 (global-set-key (kbd "C-c g") 'counsel-rg)
-(global-set-key (kbd "C-c l") 'counsel-fzf)
+(global-set-key (kbd "C-c f") 'counsel-fzf)
 ;;(global-set-key (kbd "C-c j") 'counsel-file-jump)
 (global-set-key (kbd "C-c m") 'counsel-bookmark)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
 (require 'counsel-fd)
-(global-set-key (kbd "C-c j") 'counsel-fd-file-jump)
+;;(global-set-key (kbd "C-c j") 'counsel-fd-file-jump)
 (require 'dired-x)
-(global-set-key (kbd "C-c M-j") 'counsel-fd-dired-jump)
+(global-set-key (kbd "C-c C-j") 'counsel-fd-dired-jump)
 
 
 (require 'ivy-rich)

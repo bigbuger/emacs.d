@@ -58,7 +58,7 @@
 
     ;;org
     org-bullets
-    gnuplot
+    ;; gnuplot
     gnuplot-mode
     olivetti
     
@@ -147,6 +147,7 @@
     restclient
     company-restclient
     ob-restclient
+    verb
 
     docker
     )
