@@ -22,6 +22,7 @@
     ivy
     swiper
     counsel
+    ivy-hydra
     counsel-fd
     wgrep
     ivy-rich

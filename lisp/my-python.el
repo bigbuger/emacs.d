@@ -12,8 +12,9 @@
 (require 'dap-python)
 
 
-(setq python-shell-interpreter "python3")
-(setq lsp-pyright-python-executable-cmd "python3")
+(setq python-shell-interpreter "python3"
+      lsp-pyright-python-executable-cmd "python3")
+
 
 (with-eval-after-load "lsp-mode"
   (add-to-list 'lsp-disabled-clients 'mspyls))

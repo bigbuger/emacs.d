@@ -46,7 +46,7 @@
  '(Man-notify-method 'pushy)
  '(centaur-tabs-background-color "white")
  '(custom-safe-themes
-   '("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
+   '("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
  '(dap-python-executable "python3")
  '(display-time-mode t)
  '(doom-modeline-mode t)
@@ -55,7 +55,7 @@
  '(flycheck-checker-error-threshold 600)
  '(lsp-ui-flycheck-enable nil t)
  '(package-selected-packages
-   '(company-fuzzy impostman verb ob-restclient projectile-ripgrep tree-sitter-langs tree-sitter vterm ranger magic-latex-buffer auctex figlet ripgrep flycheck-guile counsel-fd doom-modeline magit-todos all-the-icons-ivy-rich yafolding geiser-guile ztree lsp-python-ms dante csv-mode geiser gnuplot-mode spacemacs-theme imenu-list olivetti org-bullets ccls crux flycheck-pos-tip google-this all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight aggressive-indent centaur-tabs lsp-ui company-lsp lsp-mode expand-region flycheck-rust go-guru auto-yasnippet move-text treemacs treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich smart-mode-line company-restclient magit-gitflow go-eldo))
+   '(ivy-hydra company-fuzzy impostman verb ob-restclient projectile-ripgrep tree-sitter-langs tree-sitter vterm ranger magic-latex-buffer auctex figlet ripgrep flycheck-guile counsel-fd doom-modeline magit-todos all-the-icons-ivy-rich yafolding geiser-guile ztree lsp-python-ms dante csv-mode geiser gnuplot-mode spacemacs-theme imenu-list olivetti org-bullets ccls crux flycheck-pos-tip google-this all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight aggressive-indent centaur-tabs lsp-ui company-lsp lsp-mode expand-region flycheck-rust go-guru auto-yasnippet move-text treemacs treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich smart-mode-line company-restclient magit-gitflow go-eldo))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

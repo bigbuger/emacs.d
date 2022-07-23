@@ -31,7 +31,7 @@
 ;; If non-nil, only display one number for checker information if applicable.
 (setq doom-modeline-checker-simple-format nil)
 
-(setq doom-modeline-icon t)
+(setq doom-modeline-icon nil)
 
 
 (add-hook 'after-init-hook #'doom-modeline-mode)

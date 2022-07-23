@@ -21,6 +21,10 @@
 
 ")
 
+(require 'saveplace)
+(add-hook 'after-init-hook
+	  (save-place-mode))
+
 
 
 ;; 关闭启动画面
@@ -90,6 +94,7 @@
 ;; undo-tree
 (require 'undo-tree)
 (global-undo-tree-mode)
+(setq undo-tree-auto-save-history nil)
 
 ;;括号匹配
 (setq show-paren-delay 0
@@ -393,6 +398,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 
 (require 'vterm)
 (global-set-key (kbd "C-c s") 'vterm-other-window)
+(add-to-list 'vterm-eval-cmds '("find-file-other-window" find-file-other-window))
 
 (defun projectile-run-vterm-other-window (&optional arg)
   "Invoke `vterm-other-window' in the project's root.
