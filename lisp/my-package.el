@@ -151,6 +151,8 @@
     verb
 
     docker
+    docker-compose-mode
+    dockerfile-mode
     )
   "A list of packages to ensure are installed at launch.")
 

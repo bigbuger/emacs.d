@@ -298,7 +298,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (global-set-key (kbd "M-0") 'treemacs-select-window)
 
 (setq treemacs-filewatch-mode t)
-(setq treemacs-file-event-delay 600)
+(setq treemacs-file-event-delay 50)
 
 
 
