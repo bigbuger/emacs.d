@@ -19,7 +19,7 @@
 ;;(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
 ;;(require 'golint)
 
-(require 'dap-go)
+(require 'dap-dlv-go)
 
 (add-hook 'go-mode-hook
 	  (lambda ()

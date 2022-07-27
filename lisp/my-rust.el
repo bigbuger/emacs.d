@@ -7,6 +7,8 @@
 ;;; Code:
 
 (require 'rust-mode)
+(require 'dap-gdb-lldb)
+(require 'rustic)
 ;;(require 'racer)
 
 ;;(add-hook 'rust-mode-hook #'racer-mode)
@@ -20,6 +22,15 @@
 (add-hook 'rust-mode-hook
 	  (lambda ()
 	    (lsp)))
+
+(dap-register-debug-template
+ "Rust::LLDB Run Configuration"
+ (list :type "lldb"
+       :request "launch"
+       :name "LLDB::Run"
+       :gdbpath "rust-lldb"
+       :target nil
+       :cwd nil))
 
 
 

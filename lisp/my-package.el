@@ -106,6 +106,7 @@
     ;;rust
     rust-mode
     racer
+    rustic
     flycheck-rust
     
     ;; haskell
