@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: add column
+# key: addcol
+# --
+ALTER TABLE $1 `(if (eq sql-product 'mysql) "ADD" "FROB")` COLUMN \`$2\` $3 COMMENT '$4';
+

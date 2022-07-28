@@ -131,6 +131,10 @@
     ;; c lang
     ccls
 
+    ;; web
+    web-mode
+    company-web
+    
     ;; laTeX
     company-math
     auctex

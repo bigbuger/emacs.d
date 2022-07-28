@@ -35,6 +35,7 @@
 (require 'my-cc)
 (require 'my-octave)
 (require 'my-json)
+(require 'my-web)
 (require 'my-latex)
 (require 'theme-settig)
 
