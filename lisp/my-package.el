@@ -15,8 +15,8 @@
     exec-path-from-shell
     crux
     all-the-icons-dired
+    spacemacs-theme
     doom-modeline
-    ranger
     
     which-key
     ivy
@@ -53,7 +53,6 @@
     multiple-cursors
     expand-region
 
-    centaur-tabs
     aggressive-indent
     highlight-indent-guides
     imenu-list
@@ -134,6 +133,9 @@
     ;; web
     web-mode
     company-web
+
+    ;; sql
+    ejc-sql
     
     ;; laTeX
     company-math

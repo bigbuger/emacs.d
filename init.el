@@ -36,6 +36,7 @@
 (require 'my-octave)
 (require 'my-json)
 (require 'my-web)
+(require 'my-ejc)
 (require 'my-latex)
 (require 'theme-settig)
 
@@ -56,7 +57,7 @@
  '(flycheck-checker-error-threshold 600)
  '(lsp-ui-flycheck-enable nil t)
  '(package-selected-packages
-   '(rustic ivy-hydra company-fuzzy impostman verb ob-restclient projectile-ripgrep tree-sitter-langs tree-sitter vterm ranger magic-latex-buffer auctex figlet ripgrep flycheck-guile counsel-fd doom-modeline magit-todos all-the-icons-ivy-rich yafolding geiser-guile ztree lsp-python-ms dante csv-mode geiser gnuplot-mode spacemacs-theme imenu-list olivetti org-bullets ccls crux flycheck-pos-tip google-this all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight aggressive-indent centaur-tabs lsp-ui company-lsp lsp-mode expand-region flycheck-rust go-guru auto-yasnippet move-text treemacs treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich smart-mode-line company-restclient magit-gitflow go-eldo))
+   '(company-inf-ruby ejc-sql rustic ivy-hydra company-fuzzy impostman verb ob-restclient projectile-ripgrep tree-sitter-langs tree-sitter vterm magic-latex-buffer auctex figlet ripgrep flycheck-guile counsel-fd doom-modeline magit-todos all-the-icons-ivy-rich yafolding geiser-guile ztree lsp-python-ms dante csv-mode geiser gnuplot-mode spacemacs-theme imenu-list olivetti org-bullets ccls crux flycheck-pos-tip google-this all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight aggressive-indent lsp-ui company-lsp lsp-mode expand-region flycheck-rust go-guru auto-yasnippet move-text treemacs treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich smart-mode-line company-restclient magit-gitflow go-eldo))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
