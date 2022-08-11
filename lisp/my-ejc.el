@@ -32,6 +32,9 @@
 	  (lambda ()
 	    (ejc-eldoc-setup)))
 
+(setq ejc-completion-system 'standard)
+
+
 (provide 'my-ejc)
 
 ;;; my-ejc.el ends here

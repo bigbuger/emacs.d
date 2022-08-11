@@ -17,6 +17,7 @@
     all-the-icons-dired
     spacemacs-theme
     doom-modeline
+    dirvish
     
     which-key
     ivy
@@ -57,7 +58,7 @@
     highlight-indent-guides
     imenu-list
 
-    ;;org
+    ;; org
     org-bullets
     ;; gnuplot
     gnuplot-mode
@@ -90,6 +91,7 @@
     rsense
     flymake-ruby
     realgud-byebug
+    yard-mode
     
     ;; go
     go-mode

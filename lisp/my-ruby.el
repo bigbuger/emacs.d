@@ -38,7 +38,10 @@
 ;; gem install byebug
 (load-library "realgud-byebug")
 
+;; gem install solargraph
 (add-hook 'ruby-mode-hook #'lsp-deferred)
+
+(add-hook 'ruby-mode-hook 'yard-mode)
 
 (provide 'my-ruby)
 

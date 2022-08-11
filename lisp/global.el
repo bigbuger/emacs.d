@@ -54,6 +54,8 @@
 (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode +1)))
 (column-number-mode 1)
 
+;; disable bookmark fringe
+(setq bookmark-set-fringe-mark nil)
 
 (which-function-mode)
 (add-hook 'prog-mode-hook
@@ -467,6 +469,25 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (require 'all-the-icons-dired)
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
+(with-eval-after-load 'dired
+  (require 'dired-x)
+  ;; Set dired-x global variables here.  For example:
+  ;; (setq dired-guess-shell-gnutar "gtar")
+  ;; (setq dired-x-hands-off-my-keys nil)
+  )
+(add-hook 'dired-mode-hook
+          (lambda ()
+            ;; Set dired-x buffer-local variables here.  For example:
+            (dired-omit-mode 1)
+            ))
+
+(dirvish-override-dired-mode)
+(setq dirvish-attributes '(vc-state subtree-state file-size))
+(define-key dirvish-mode-map
+  (kbd "TAB") 'dirvish-subtree-toggle)
+(define-key dirvish-mode-map
+  (kbd "C-c t") 'dirvish-layout-toggle)
+(setq dirvish-reuse-session t)
 
 ;; hideshowvis
 (add-to-list 'load-path "~/.emacs.d/lisp/hideshowvis/")
