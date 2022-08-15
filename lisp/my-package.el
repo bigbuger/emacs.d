@@ -67,7 +67,7 @@
     ;; lsp
     lsp-mode
     dap-mode
-    company-lsp
+    ;;company-lsp
     lsp-ui
 
     ;; tree-sitter

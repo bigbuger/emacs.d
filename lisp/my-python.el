@@ -23,6 +23,7 @@
 	  (lambda ()
 	    (setq-local lsp-diagnostics-provider :none) ;; disable lsp flycheck
 	    (lsp)))
+(setq dap-python-debugger 'debugpy)
 
 (provide 'my-python)
 

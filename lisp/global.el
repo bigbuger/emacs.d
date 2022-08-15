@@ -358,7 +358,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 
 ;; lsp setting
 (require 'lsp-mode)
-(require 'company-lsp)
+;;(require 'company-lsp)
 (require 'lsp-ui)
 (require 'dap-mode)
 
@@ -467,7 +467,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 ;; about dired
 (setq dired-listing-switches "-alh")
 (require 'all-the-icons-dired)
-(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+;;(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
 (with-eval-after-load 'dired
   (require 'dired-x)
@@ -482,7 +482,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
             ))
 
 (dirvish-override-dired-mode)
-(setq dirvish-attributes '(vc-state subtree-state file-size))
+(setq dirvish-attributes '(vc-state all-the-icons subtree-state file-size))
 (define-key dirvish-mode-map
   (kbd "TAB") 'dirvish-subtree-toggle)
 (define-key dirvish-mode-map
