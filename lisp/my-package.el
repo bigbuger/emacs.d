@@ -153,6 +153,7 @@
 
     ;; sql
     ejc-sql
+    sqlformat
     
     ;; laTeX
     company-math

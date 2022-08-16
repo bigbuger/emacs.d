@@ -6,6 +6,7 @@
 (require 'ejc-sql)
 (require 'ejc-company)
 (require 'ejc-eldoc)
+(require 'sqlformat)
 
 ;;; Code:
 
@@ -33,6 +34,10 @@
 	    (ejc-eldoc-setup)))
 
 (setq ejc-completion-system 'standard)
+
+;; pip3 install shandy-sqlfmt
+(setq sqlformat-command 'sqlformat)
+(define-key sql-mode-map (kbd "C-c C-f") 'sqlfmt)
 
 
 (provide 'my-ejc)
