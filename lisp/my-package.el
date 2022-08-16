@@ -8,18 +8,39 @@
 (defvar my-packages
   '(
     ;; base
-    color-theme
     undo-tree
     popup
-    all-the-icons
-    exec-path-from-shell
     crux
-    all-the-icons-dired
-    spacemacs-theme
-    doom-modeline
-    dirvish
+    string-inflection
+    move-text
+    multiple-cursors
+    expand-region
+    smartparens
+    ripgrep
+    figlet
+    visual-regexp
     
     which-key
+    hydra
+   
+    imenu-list
+   
+    ;; file manager
+    treemacs
+    dirvish
+    
+    ;; indent
+    aggressive-indent
+    highlight-indent-guides
+
+    ;; theme
+    color-theme
+    spacemacs-theme
+    doom-modeline
+    all-the-icons
+    all-the-icons-dired
+    
+    ;; ivy
     ivy
     swiper
     counsel
@@ -28,46 +49,41 @@
     wgrep
     ivy-rich
     all-the-icons-ivy-rich
-    hydra
-    ripgrep
-    figlet
 
+    ;; company
     company
     company-quickhelp
     company-fuzzy
+
+    ;; yasnippet
     yasnippet
     auto-yasnippet
-    visual-regexp
 
     ;; multi-term
     vterm
 
+    ;; flycheck
     flycheck
     flycheck-pos-tip
-    flymake-easy
+
+    ;; realgud
     realgud
-
-    smartparens
-    treemacs
-    string-inflection
-    move-text
-    multiple-cursors
-    expand-region
-
-    aggressive-indent
-    highlight-indent-guides
-    imenu-list
 
     ;; org
     org-bullets
-    ;; gnuplot
     gnuplot-mode
     olivetti
+
+    ;; resetclient
+    restclient
+    company-restclient
+    ob-restclient
+    verb
+    impostman
     
     ;; lsp
     lsp-mode
     dap-mode
-    ;;company-lsp
     lsp-ui
 
     ;; tree-sitter
@@ -87,11 +103,10 @@
     inf-ruby
     robe
     rvm
-    ;;ruby-electric
     rsense
-    flymake-ruby
     realgud-byebug
     yard-mode
+    company-inf-ruby
     
     ;; go
     go-mode
@@ -144,25 +159,21 @@
     auctex
     magic-latex-buffer
     
-    ;; other
-    csv-mode
-    json-mode
-    graphviz-dot-mode
-    
-    epl
-    osx-dictionary
-    yaml-mode
-    markdown-mode
-
-    company-web
-    restclient
-    company-restclient
-    ob-restclient
-    verb
-
+    ;; docker
     docker
     docker-compose-mode
     dockerfile-mode
+    
+    ;; others
+    csv-mode
+    json-mode
+    graphviz-dot-mode
+    yaml-mode
+    markdown-mode
+    company-ansible
+    
+    osx-dictionary
+    exec-path-from-shell
     )
   "A list of packages to ensure are installed at launch.")
 

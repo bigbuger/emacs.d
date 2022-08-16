@@ -16,13 +16,9 @@
 ;;
 (require 'dap-ruby)
 
-;;(add-hook 'ruby-mode-hook 'flymake-ruby-load)
-
-;;(add-hook 'ruby-mode-hook 'ruby-electric-mode)
-
-(eval-after-load 'company
-  '(push '(company-inf-ruby :with company-yasnippet)
-	  company-backends))
+;; (eval-after-load 'company
+;;   '(push '(company-inf-ruby :with company-yasnippet)
+;; 	  company-backends))
 
 ;;(add-hook 'ruby-mode-hook 'robe-mode)
 
