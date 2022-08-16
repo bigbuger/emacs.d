@@ -57,6 +57,7 @@
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
 
+(setq org-confirm-babel-evaluate nil)
 
 (provide 'my-org)
 
