@@ -46,6 +46,8 @@
 (add-hook 'haskell-mode-hook 'dante-mode)
 (flycheck-add-next-checker 'haskell-dante '(info . haskell-hlint))
 
+(setq haskell-font-lock-symbols 1)
+
 (provide 'my-haskell)
 
 ;;; my-haskell.el ends here
