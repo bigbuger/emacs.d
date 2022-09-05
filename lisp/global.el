@@ -180,6 +180,8 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq enable-recursive-minibuffers t)
 (setq ivy-use-selectable-prompt t)
 (setq ivy-display-style 'fancy)
+(setq counsel-fzf-cmd "fd --type f --hidden --follow --exclude .git --color never '%s'")
+
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "C-s") 'swiper)
@@ -343,7 +345,13 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (global-set-key (kbd "C-c r") 'vr/replace)
 (global-set-key (kbd "C-c q") 'vr/query-replace)
 
+;; dumb-jump
+(require 'dumb-jump)
+(setq dumb-jump-force-searcher 'rg)
+(global-set-key (kbd "C-.") 'dumb-jump-go)
 
+
+;; flycheck
 ;;(eval-after-load 'flymake '(require 'flymake-cursor))
 (require 'flycheck)
 (global-flycheck-mode)

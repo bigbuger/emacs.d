@@ -7,8 +7,8 @@
 
 (set-face-attribute 'default nil :height 145)
 
-(add-to-list 'load-path "~/.emacs.d/lisp/tomorrow-theme")
-;;(require 'tomorrow-night-eighties-theme)
+;; (add-to-list 'load-path "~/.emacs.d/lisp/tomorrow-theme")
+;; (require 'tomorrow-night-eighties-theme)
 (load-theme 'spacemacs-light t)
 
 ;; smart-modeline

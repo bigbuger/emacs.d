@@ -24,6 +24,8 @@
     hydra
    
     imenu-list
+
+    dumb-jump
    
     ;; file manager
     treemacs
@@ -34,7 +36,7 @@
     highlight-indent-guides
 
     ;; theme
-    color-theme
+    ;; color-theme
     spacemacs-theme
     doom-modeline
     all-the-icons

@@ -12,7 +12,12 @@
 
 
 ;;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-;;(add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
+(add-hook 'org-mode-hook
+	  (lambda ()
+	    (when (not (string= (buffer-name) "*scratch*"))
+		(olivetti-mode 1))))
+(setq olivetti-body-width 85)
+(setq olivetti-style 'fancy)
 
 (defun org-babel-execute:passthrough (body params)
   body)
