@@ -41,6 +41,9 @@
 ;; 显示时间
 (display-time)
 
+;; 保存命令历史
+(savehist-mode 1)
+
 (auto-image-file-mode)
 
 ;; 临时 buffer 根据后缀选择 major-mode
