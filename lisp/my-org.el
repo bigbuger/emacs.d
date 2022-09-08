@@ -9,6 +9,7 @@
 (require 'smartparens)
 (require 'org-bullets)
 (require 'verb)
+(require 'org-mouse)
 
 
 ;;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
@@ -16,7 +17,7 @@
 	  (lambda ()
 	    (when (not (string= (buffer-name) "*scratch*"))
 		(olivetti-mode 1))))
-(setq olivetti-body-width 85)
+(setq olivetti-body-width 95)
 (setq olivetti-style 'fancy)
 
 (defun org-babel-execute:passthrough (body params)

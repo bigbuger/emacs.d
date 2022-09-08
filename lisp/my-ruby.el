@@ -16,6 +16,9 @@
 ;;
 (require 'dap-ruby)
 
+(setq ruby-insert-encoding-magic-comment nil)
+
+
 ;; (eval-after-load 'company
 ;;   '(push '(company-inf-ruby :with company-yasnippet)
 ;; 	  company-backends))

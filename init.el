@@ -38,6 +38,7 @@
 (require 'my-web)
 (require 'my-ejc)
 (require 'my-latex)
+(require 'my-liquid)
 (require 'theme-settig)
 
 (custom-set-variables
