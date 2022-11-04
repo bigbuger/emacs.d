@@ -21,6 +21,8 @@
 
 (require 'dap-dlv-go)
 
+(setq go-test-args "-v")
+
 (add-hook 'go-mode-hook
 	  (lambda ()
 	    (setq-local company-backends '((company-go :with company-yasnippet)
