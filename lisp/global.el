@@ -222,6 +222,10 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (ivy-rich-mode 1)
 
 
+(require 'pyim-cregexp-utils)
+(setq ivy-re-builders-alist
+      '((t . pyim-cregexp-ivy)))
+
 ;; (require 'ivy-posframe)
 ;; (setq ivy-display-function #'ivy-posframe-display)
 ;; (setq ivy-display-function #'ivy-posframe-display-at-frame-center)

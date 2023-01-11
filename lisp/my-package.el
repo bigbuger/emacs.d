@@ -19,6 +19,7 @@
     ripgrep
     figlet
     visual-regexp
+    pyim
     
     which-key
     hydra
