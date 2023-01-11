@@ -1,9 +1,10 @@
 (require 'package)
-;; (add-to-list 'package-archives
-;;              '("MELPA Stable" . "https://stable.melpa.org/packages/") t)
-;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+;;(add-to-list 'package-archives
+;;             '("MELPA Stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+;;(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+;;                         ("stable-melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/stable-melpa/")
+;;			 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 (package-initialize)
 
 (set-default-coding-systems 'utf-8)
@@ -58,7 +59,7 @@
  '(flycheck-checker-error-threshold 600)
  '(lsp-ui-flycheck-enable nil t)
  '(package-selected-packages
-   '(dumb-jump sqlformat yard-mode dirvish company-inf-ruby ejc-sql rustic ivy-hydra company-fuzzy impostman verb ob-restclient projectile-ripgrep tree-sitter-langs tree-sitter vterm magic-latex-buffer auctex figlet ripgrep flycheck-guile counsel-fd doom-modeline magit-todos all-the-icons-ivy-rich geiser-guile ztree dante csv-mode geiser gnuplot-mode spacemacs-theme imenu-list olivetti org-bullets crux flycheck-pos-tip google-this all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight aggressive-indent expand-region flycheck-rust go-guru auto-yasnippet move-text treemacs treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich company-restclient magit-gitflow go-eldo))
+   '(dap-mode ebnf-mode dumb-jump sqlformat yard-mode dirvish company-inf-ruby ejc-sql rustic ivy-hydra company-fuzzy impostman verb ob-restclient projectile-ripgrep tree-sitter-langs tree-sitter vterm magic-latex-buffer auctex figlet ripgrep flycheck-guile counsel-fd doom-modeline all-the-icons-ivy-rich geiser-guile ztree dante csv-mode geiser gnuplot-mode spacemacs-theme imenu-list olivetti org-bullets crux flycheck-pos-tip google-this all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight aggressive-indent expand-region flycheck-rust go-guru auto-yasnippet move-text treemacs treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich company-restclient go-eldo))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

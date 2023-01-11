@@ -316,10 +316,8 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 
 ;; magit
 (require 'magit)
-(require 'magit-gitflow)
 (require 'magit-todos)
 (magit-todos-mode)
-(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
 ;; diff-hl
 (require 'diff-hl)
@@ -440,6 +438,8 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 (global-set-key (kbd "C-c M-i") 'mc/insert-numbers)
+(define-key mc/keymap (kbd "C-c C-g") 'mc/keyboard-quit)
+
 
 ;; restclient
 (require 'restclient)

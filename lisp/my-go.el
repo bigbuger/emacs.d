@@ -49,6 +49,7 @@
    ("gopls.completeUnimported" t t)
    ("gopls.staticcheck" t t)))
 
+(setq go-test-args "-v -count=1")
 
 ;;(add-hook 'go-mode-hook #'lsp)
 (add-hook 'go-mode-hook #'lsp-deferred)
