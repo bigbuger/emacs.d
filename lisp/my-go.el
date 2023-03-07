@@ -17,12 +17,17 @@
 ;; go install github.com/cweill/gotests/...@latest
 ;; go install github.com/josharian/impl@latest
 ;; go install github.com/godoctor/godoctor@latest
+;; go install github.com/fatih/gomodifytags@latest
+;; go install github.com/davidrjenni/reftools/cmd/fillstruct@latest
 (require 'go-dlv)
 (require 'go-guru)
 (require 'go-rename)
 (require 'go-gen-test)
 (require 'go-impl)
 (require 'godoctor)
+(require 'go-tag)
+(require 'go-fill-struct)
+
 
 ;;(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
 ;;(require 'golint)
@@ -88,6 +93,10 @@
 ;;   (add-hook 'before-save-hook #'lsp-organize-imports t t))
 ;; (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 
+
+(with-eval-after-load 'go-mode
+  (define-key go-mode-map (kbd "C-c t") #'go-tag-add)
+  (define-key go-mode-map (kbd "C-c T") #'go-tag-remove))
 
 (provide 'my-go)
 

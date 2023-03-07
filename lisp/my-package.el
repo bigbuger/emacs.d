@@ -124,6 +124,8 @@
     go-gen-test
     go-impl
     godoctor
+    go-tag
+    go-fill-struct
 
     ;;rust
     rust-mode
