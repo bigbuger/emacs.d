@@ -121,6 +121,9 @@
     company-go
     go-guru
     go-rename
+    go-gen-test
+    go-impl
+    godoctor
 
     ;;rust
     rust-mode

@@ -203,6 +203,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (global-set-key (kbd "C-c m") 'counsel-bookmark)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
+
 (require 'counsel-fd)
 ;;(global-set-key (kbd "C-c j") 'counsel-fd-file-jump)
 (require 'dired-x)
@@ -323,6 +324,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (require 'magit-todos)
 (magit-todos-mode)
 
+
 ;; diff-hl
 (require 'diff-hl)
 (global-diff-hl-mode)
@@ -377,12 +379,13 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 
 (setq lsp-auto-guess-root t)
 (setq lsp-prefer-flymake :none)
-(setq lsp-ui-flycheck-enable nil)
+(setq lsp-ui-flycheck-enable t)
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 (setq lsp-ui-doc-enable t)
 (setq lsp-ui-doc-position 'at-point)
 (setq lsp-ui-doc-show-with-cursor nil)
 (setq lsp-ui-sideline-enable nil)
+(define-key lsp-mode-map (kbd "s-d") 'lsp-ui-doc-glance)
 
 (setq lsp-completion-provider :none)
 
@@ -398,6 +401,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (define-key lsp-mode-map (kbd "C-<f5>") 'dap-hydra)
 ;; (add-hook 'dap-stopped-hook
 ;;           (lambda (arg) (call-interactively #'dap-hydra)))
+
 
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))

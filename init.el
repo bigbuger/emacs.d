@@ -57,9 +57,10 @@
  '(ediff-split-window-function 'split-window-horizontally)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(flycheck-checker-error-threshold 600)
+ '(flycheck-pos-tip-max-width 20)
  '(lsp-ui-flycheck-enable nil t)
  '(package-selected-packages
-   '(pyim dap-mode ebnf-mode dumb-jump sqlformat yard-mode dirvish company-inf-ruby ejc-sql rustic ivy-hydra company-fuzzy impostman verb ob-restclient projectile-ripgrep tree-sitter-langs tree-sitter vterm magic-latex-buffer auctex figlet ripgrep flycheck-guile counsel-fd doom-modeline all-the-icons-ivy-rich geiser-guile ztree dante csv-mode geiser gnuplot-mode spacemacs-theme imenu-list olivetti org-bullets crux flycheck-pos-tip google-this all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight aggressive-indent expand-region flycheck-rust go-guru auto-yasnippet move-text treemacs treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich company-restclient go-eldo))
+   '(godoctor go-impl go-gen-test multiple-cursors flycheck-posframe pyim dap-mode ebnf-mode dumb-jump sqlformat yard-mode dirvish company-inf-ruby ejc-sql rustic ivy-hydra company-fuzzy impostman verb ob-restclient projectile-ripgrep tree-sitter-langs tree-sitter vterm magic-latex-buffer auctex figlet ripgrep counsel-fd doom-modeline all-the-icons-ivy-rich ztree dante csv-mode gnuplot-mode spacemacs-theme imenu-list olivetti org-bullets crux flycheck-pos-tip google-this all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight aggressive-indent expand-region flycheck-rust go-guru auto-yasnippet move-text treemacs treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich company-restclient go-eldo))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

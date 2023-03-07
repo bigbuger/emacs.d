@@ -12,9 +12,17 @@
 ;; go install github.com/go-delve/delve/cmd/dlv
 ;; go get golang.org/x/tools/cmd/guru
 ;; go get golang.org/x/tools/cmd/gorename
+;; go install github.com/golangci/golangci-lint/cmd/golangci-lint@
+;; go get golang.org/x/tools/gopls@latest
+;; go install github.com/cweill/gotests/...@latest
+;; go install github.com/josharian/impl@latest
+;; go install github.com/godoctor/godoctor@latest
 (require 'go-dlv)
 (require 'go-guru)
 (require 'go-rename)
+(require 'go-gen-test)
+(require 'go-impl)
+(require 'godoctor)
 
 ;;(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
 ;;(require 'golint)
@@ -41,7 +49,11 @@
 ;; 			  (setq-local flycheck-disabled-checkers '(go-staticcheck))))
 
 
-;; GO111MODULE=on go get golang.org/x/tools/gopls@latest
+
+(defun my-go-impl ()
+    (interactive)
+    (let ((completing-read-function'completing-read-default))
+      (call-interactively 'go-impl)))
 
 (lsp-register-custom-settings
  '(("go.linitTool" "staticcheck" nil)
@@ -54,16 +66,19 @@
 ;;(add-hook 'go-mode-hook #'lsp)
 (add-hook 'go-mode-hook #'lsp-deferred)
 
-;; (defvar-local flycheck-local-checkers nil)
-;; (defun +flycheck-checker-get(fn checker property)
-;;   (or (alist-get property (alist-get checker flycheck-local-checkers))
-;;       (funcall fn checker property)))
-;; (advice-add 'flycheck-checker-get :around '+flycheck-checker-get)
+(require 'flycheck-golangci-lint)
 
-;; (add-hook 'lsp-managed-mode-hook
-;;           (lambda ()
-;;             (when (derived-mode-p 'go-mode)
-;;               (setq flycheck-local-checkers '((lsp . ((next-checkers . (go-staticcheck)))))))))
+(defvar-local flycheck-local-checkers nil)
+  (defun +flycheck-checker-get(fn checker property)
+    (or (alist-get property (alist-get checker flycheck-local-checkers))
+        (funcall fn checker property)))
+(advice-add 'flycheck-checker-get :around '+flycheck-checker-get)
+
+
+(add-hook 'go-mode-hook
+	  (lambda()
+            (flycheck-golangci-lint-setup)
+            (setq flycheck-local-checkers '((lsp . ((next-checkers . (golangci-lint))))))))
 
 
 ;; Set up before-save hooks to format buffer and add/delete imports.
