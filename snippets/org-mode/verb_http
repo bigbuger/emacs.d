@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: verb http
+# key: >http
+# --
+* ${1:title} * :verb: 

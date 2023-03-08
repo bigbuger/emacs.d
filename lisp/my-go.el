@@ -95,8 +95,10 @@
 
 
 (with-eval-after-load 'go-mode
-  (define-key go-mode-map (kbd "C-c t") #'go-tag-add)
-  (define-key go-mode-map (kbd "C-c T") #'go-tag-remove))
+  (define-key go-mode-map (kbd "s-g t") #'go-tag-add)
+  (define-key go-mode-map (kbd "s-g T") #'go-tag-remove)
+  (define-key go-mode-map (kbd "s-g i") #'my-go-impl)
+  (define-key go-mode-map (kbd "s-g f") #'go-fill-struct))
 
 (provide 'my-go)
 
