@@ -10,6 +10,7 @@
 (require 'org-bullets)
 (require 'verb)
 (require 'org-mouse)
+(require 'ob-go)
 
 
 ;;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
@@ -44,9 +45,11 @@
 	(calc . t)
 	(scheme . t)
         (ruby . t)
+	(perl . t)
         (python . t)
 	(haskell . t)
         (shell . t)
+	(go . t)
 	(js . t)
 	(passthrough . t)
         (latex . t)

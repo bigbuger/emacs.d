@@ -16,6 +16,7 @@
     multiple-cursors
     expand-region
     smartparens
+    highlight-parentheses
     ripgrep
     figlet
     visual-regexp
@@ -126,6 +127,8 @@
     godoctor
     go-tag
     go-fill-struct
+    ob-go
+    gorepl-mode
 
     ;;rust
     rust-mode

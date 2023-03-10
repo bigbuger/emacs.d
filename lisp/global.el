@@ -106,6 +106,11 @@
      show-paren-style 'parenthesis)
 (show-paren-mode 1)
 
+(require 'highlight-parentheses)
+;; (add-hook 'lisp-mode-hook #'highlight-parentheses-mode)
+;; (add-hook 'scheme-mode-hook #'highlight-parentheses-mode)
+
+
 ;; (electric-pair-mode 1)
 ;; (setq electric-pair-pairs '(
 ;;                            (?\" . ?\")
@@ -135,11 +140,11 @@
 	       (sp-wrap-with-pair ,val)))))
 
 (def-pairs ((paren . "(")
-	   (bracket . "[")
-	   (brace . "{")
-	   (single-quote . "'")
-	   (double-quote . "\"")
-	   (back-quote . "`")))
+	    (bracket . "[")
+	    (brace . "{")
+	    (single-quote . "'")
+	    (double-quote . "\"")
+	    (back-quote . "`")))
 (global-set-key (kbd "C-c (") 'wrap-with-parens)
 (global-set-key (kbd "C-c [") 'wrap-with-brackets)
 (global-set-key (kbd "C-c {") 'wrap-with-braces)
@@ -385,6 +390,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq lsp-ui-doc-position 'at-point)
 (setq lsp-ui-doc-show-with-cursor nil)
 (setq lsp-ui-sideline-enable nil)
+(setq lsp-ui-sideline-show-code-actions t)
 (define-key lsp-mode-map (kbd "s-d") 'lsp-ui-doc-glance)
 
 (setq lsp-completion-provider :none)

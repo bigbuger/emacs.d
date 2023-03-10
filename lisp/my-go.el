@@ -19,6 +19,7 @@
 ;; go install github.com/godoctor/godoctor@latest
 ;; go install github.com/fatih/gomodifytags@latest
 ;; go install github.com/davidrjenni/reftools/cmd/fillstruct@latest
+;; go install github.com/x-motemen/gore/cmd/gore@latest
 (require 'go-dlv)
 (require 'go-guru)
 (require 'go-rename)
@@ -27,6 +28,7 @@
 (require 'godoctor)
 (require 'go-tag)
 (require 'go-fill-struct)
+(require 'gorepl-mode)
 
 
 ;;(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
