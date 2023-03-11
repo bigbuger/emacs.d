@@ -125,6 +125,7 @@
 (sp-local-pair 'emacs-lisp-mode "'" nil :actions '(wrap))
 (global-set-key (kbd "C-}") 'sp-forward-slurp-sexp)
 (global-set-key (kbd "C-{") 'sp-forward-barf-sexp)
+(global-set-key (kbd "C-c <backspace>") 'sp-raise-sexp)
 
 (require 'cl)
 (defmacro def-pairs (pairs)
