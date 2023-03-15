@@ -394,6 +394,8 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq lsp-ui-sideline-show-code-actions t)
 (define-key lsp-mode-map (kbd "s-d") 'lsp-ui-doc-glance)
 
+(setq lsp-modeline-code-actions-segments '(count icon name))
+
 (setq lsp-completion-provider :none)
 
 (add-hook 'lsp-completion-mode-hook
@@ -412,6 +414,10 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
+
+(require 'lsp-ivy)
+(setq lsp-ivy-show-symbol-filename nil)
+(define-key lsp-command-map (kbd "s") 'lsp-ivy-workspace-symbol)
 
 ;; end of lsp setting
 

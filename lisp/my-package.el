@@ -89,6 +89,7 @@
     lsp-mode
     dap-mode
     lsp-ui
+    lsp-ivy
 
     ;; tree-sitter
     tree-sitter
