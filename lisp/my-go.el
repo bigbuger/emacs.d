@@ -14,6 +14,7 @@
 ;; go get golang.org/x/tools/cmd/gorename
 ;; go install github.com/golangci/golangci-lint/cmd/golangci-lint@
 ;; go get golang.org/x/tools/gopls@latest
+;; go install golang.org/x/tools/cmd/goimports@latest
 ;; go install github.com/cweill/gotests/...@latest
 ;; go install github.com/josharian/impl@latest
 ;; go install github.com/godoctor/godoctor@latest
@@ -88,6 +89,7 @@
             (setq flycheck-local-checkers '((lsp . ((next-checkers . (golangci-lint))))))))
 
 
+(setq gofmt-command "goimports")
 ;; Set up before-save hooks to format buffer and add/delete imports.
 ;; Make sure you don't have other gofmt/goimports hooks enabled.
 ;; (defun lsp-go-install-save-hooks ()
@@ -100,7 +102,7 @@
   (define-key go-mode-map (kbd "s-g t") #'go-tag-add)
   (define-key go-mode-map (kbd "s-g T") #'go-tag-remove)
   (define-key go-mode-map (kbd "s-g i") #'my-go-impl)
-  (define-key go-mode-map (kbd "s-g f") #'go-fill-struct))
+  (define-key go-mode-map (kbd "s-g f") #'gofmt))
 
 (provide 'my-go)
 

@@ -186,6 +186,7 @@
     company-ansible
     
     osx-dictionary
+    osx-trash
     exec-path-from-shell
     )
   "A list of packages to ensure are installed at launch.")

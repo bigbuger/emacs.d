@@ -500,6 +500,12 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (setq dired-listing-switches "-alh")
 (require 'all-the-icons-dired)
 ;;(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+(setq wdired-allow-to-change-permissions t)
+
+(require 'osx-trash)
+(when (eq system-type 'darwin)
+  (osx-trash-setup))
+(setq delete-by-moving-to-trash t)
 
 (with-eval-after-load 'dired
   (require 'dired-x)
@@ -513,6 +519,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
             (dired-omit-mode 1)
             ))
 
+(require 'dirvish)
 (dirvish-override-dired-mode)
 (setq dirvish-attributes '(vc-state all-the-icons subtree-state file-size))
 (define-key dirvish-mode-map
