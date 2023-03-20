@@ -213,7 +213,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (require 'counsel-fd)
 ;;(global-set-key (kbd "C-c j") 'counsel-fd-file-jump)
 (require 'dired-x)
-(global-set-key (kbd "C-c C-j") 'counsel-fd-dired-jump)
+(global-set-key (kbd "C-c j") 'counsel-fd-dired-jump)
 
 
 (require 'ivy-rich)
@@ -373,6 +373,12 @@ _k_: kebab foo-bar          ^ _q_: cancel.
   (flycheck-pos-tip-mode))
 (setq flycheck-indication-mode 'right-fringe)
 
+(defvar-local flycheck-local-checkers nil)
+  (defun +flycheck-checker-get(fn checker property)
+    (or (alist-get property (alist-get checker flycheck-local-checkers))
+        (funcall fn checker property)))
+(advice-add 'flycheck-checker-get :around '+flycheck-checker-get)
+
 ;; realgud
 (require 'realgud)
 (load-library "realgud")
@@ -391,7 +397,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq lsp-ui-doc-position 'at-point)
 (setq lsp-ui-doc-show-with-cursor nil)
 (setq lsp-ui-sideline-enable nil)
-(setq lsp-ui-sideline-show-code-actions t)
+(setq lsp-ui-sideline-show-code-actions nil)
 (define-key lsp-mode-map (kbd "s-d") 'lsp-ui-doc-glance)
 
 (setq lsp-modeline-code-actions-segments '(count icon name))

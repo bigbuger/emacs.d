@@ -87,7 +87,10 @@ See URL `https://github.com/golangci/golangci-lint'."
             (option-list "--enable=" flycheck-golangci-lint-enable-linters concat)
             ".")
   :error-patterns
-  ((info line-start (file-name) ":" line ":" column ": " (message) line-end)
+  (
+   (error line-start (file-name) ":" line ":" column ": " (message) " (typecheck)" line-end)
+   (error line-start (file-name) ":" line ":" (message) " (typecheck)" line-end)
+   (info line-start (file-name) ":" line ":" column ": " (message) line-end)
    (info line-start (file-name) ":" line ":" (message) line-end))
   :modes go-mode)
 

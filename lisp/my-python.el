@@ -22,7 +22,7 @@
 (add-hook 'python-mode-hook
 	  (lambda ()
 	    (setq-local lsp-diagnostics-provider :none) ;; disable lsp flycheck
-	    (lsp)))
+	    (lsp-deferred)))
 (setq dap-python-debugger 'debugpy)
 
 (provide 'my-python)
