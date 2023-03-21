@@ -398,7 +398,10 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq lsp-ui-doc-show-with-cursor nil)
 (setq lsp-ui-sideline-enable nil)
 (setq lsp-ui-sideline-show-code-actions nil)
+(setq lsp-ui-doc-include-signature t)
 (define-key lsp-mode-map (kbd "s-d") 'lsp-ui-doc-glance)
+(setq lsp-signature-function 'lsp-signature-posframe)
+(define-key lsp-mode-map (kbd "s-D") 'lsp-signature-activate)
 
 (setq lsp-modeline-code-actions-segments '(count icon name))
 

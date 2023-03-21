@@ -21,6 +21,7 @@
     figlet
     visual-regexp
     pyim
+    eldoc-box
     
     which-key
     hydra
