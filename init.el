@@ -73,6 +73,7 @@
  '(diff-hl-delete ((t (:inherit diff-removed :background "red3" :foreground "red3"))))
  '(diff-hl-insert ((t (:inherit diff-added :background "green4" :foreground "green4"))))
  '(flycheck-error ((t (:underline "Red1"))))
+ '(flycheck-info ((t (:underline (:color "#3a81c3" :style wave)))))
  '(flycheck-warning ((t (:underline (:color "yellow4" :style wave)))))
  '(flymake-warning ((t (:underline (:color "yellow4" :style wave)))))
  '(ivy-posframe ((t (:inherit default :background "gray40" :foreground "#dcdccc"))))

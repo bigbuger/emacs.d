@@ -60,25 +60,39 @@
 
 (defun my-go-impl ()
     (interactive)
-    (let ((completing-read-function'completing-read-default))
+    (let ((completing-read-function 'completing-read-default))
       (call-interactively 'go-impl)))
 
 (lsp-register-custom-settings
- '(("go.linitTool" "staticcheck" nil)
+ '(("go.linitTool" "golangci-lint" nil)
    ("gopls.analyses.simplifycompositelit" t t)
    ("gopls.completeUnimported" t t)
    ("gopls.staticcheck" t t)))
 
 (setq go-test-args "-v -count=1")
 
-(add-hook 'go-mode-hook #'lsp-deferred)
-
 
 (require 'flycheck-golangci-lint)
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
+(flycheck-add-next-checker 'go-build '(warning . golangci-lint) t)
+
+
 (add-hook 'go-mode-hook
 	  (lambda()
-            (flycheck-golangci-lint-setup)
-	    (setq-local lsp-diagnostics-provider :none))) 
+	    (setq-local lsp-diagnostics-provider :none)
+	    (setq-local flycheck-disabled-checkers
+			'(go-gofmt
+			  go-golint
+			  go-vet
+			  ;; go-build
+			  ;; go-test
+			  go-errcheck
+			  go-staticcheck
+			  go-unconvert))
+            (when (flycheck-may-use-checker 'go-build)
+	      (flycheck-select-checker 'go-build))
+	    (lsp-deferred)))
 
 
 (setq gofmt-command "goimports")
@@ -98,7 +112,8 @@
   (define-key go-mode-map (kbd "s-g t") #'go-tag-add)
   (define-key go-mode-map (kbd "s-g T") #'go-tag-remove)
   (define-key go-mode-map (kbd "s-g i") #'my-go-impl)
-  (define-key go-mode-map (kbd "s-g f") #'gofmt))
+  (define-key go-mode-map (kbd "s-g f") #'gofmt)
+  (define-key go-mode-map (kbd "s-g l") #'counsel-golangci-lint))
 
 (provide 'my-go)
 

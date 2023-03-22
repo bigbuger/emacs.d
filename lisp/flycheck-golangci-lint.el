@@ -72,6 +72,16 @@
   :type '(repeat (string :tag "linter"))
   :safe #'flycheck-string-list-p)
 
+(flycheck-def-option-var flycheck-golangci-lint-max-issues-per-linter nil golangci-lint
+  "Maximum issues count per one linter."
+  :type 'integer
+  :safe #'integerp)
+
+(flycheck-def-option-var flycheck-golangci-lint-max-same-issues nil golangci-lint
+  "Maximum count of issues with the same text."
+  :type 'integer
+  :safe #'integerp)
+
 (flycheck-define-checker golangci-lint
   "A Go syntax checker using golangci-lint that's 5x faster than gometalinter
 
@@ -79,6 +89,8 @@ See URL `https://github.com/golangci/golangci-lint'."
   :command ("golangci-lint" "run" "--print-issued-lines=false" "--out-format=line-number"
             (option "--config=" flycheck-golangci-lint-config concat)
             (option "--deadline=" flycheck-golangci-lint-deadline concat)
+            (option "--max-issues-per-linter" flycheck-golangci-lint-max-issues-per-linter concat)
+            (option "--max-same-issues" flycheck-golangci-lint-max-same-issues concat)
             (option-flag "--tests" flycheck-golangci-lint-tests)
             (option-flag "--fast" flycheck-golangci-lint-fast)
             (option-flag "--disable-all" flycheck-golangci-lint-disable-all)

@@ -393,20 +393,27 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq lsp-prefer-flymake :none)
 (setq lsp-ui-flycheck-enable t)
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+
 (setq lsp-ui-doc-enable t)
 (setq lsp-ui-doc-position 'at-point)
 (setq lsp-ui-doc-show-with-cursor nil)
+
 (setq lsp-ui-sideline-enable nil)
-(setq lsp-ui-sideline-show-code-actions nil)
+(setq lsp-ui-sideline-show-code-actions t)
+
 (setq lsp-ui-doc-include-signature t)
 (define-key lsp-mode-map (kbd "s-d") 'lsp-ui-doc-glance)
-(setq lsp-signature-function 'lsp-signature-posframe)
-(define-key lsp-mode-map (kbd "s-D") 'lsp-signature-activate)
+(defun lsp-signature-posframe-glance ()
+  "Show lsp signature with posframe."
+  (interactive)
+  (let ((lsp-signature-function #'lsp-signature-posframe))
+    (call-interactively 'lsp-signature-activate)))
+(define-key lsp-mode-map (kbd "s-D") 'lsp-signature-posframe-glance)
 
-(setq lsp-modeline-code-actions-segments '(count icon name))
+(setq lsp-auto-execute-action nil)
+(setq lsp-modeline-code-actions-segments '(count icon))
 
 (setq lsp-completion-provider :none)
-
 (add-hook 'lsp-completion-mode-hook
 	  '(lambda ()
 	     (setq-local company-backends
