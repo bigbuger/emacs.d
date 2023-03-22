@@ -10,3 +10,6 @@
 [submodule "lisp/counsel-golangci-lint"]
 	path = lisp/counsel-golangci-lint
 	url = git@github.com:bigbuger/counsel-golangci-lint.git
+[submodule "lisp/flycheck-posframe"]
+	path = lisp/flycheck-posframe
+	url = git@github.com:bigbuger/flycheck-posframe.git

@@ -29,6 +29,8 @@
     imenu-list
 
     dumb-jump
+    flyspell-correct-popup
+    wucuo
    
     ;; file manager
     treemacs

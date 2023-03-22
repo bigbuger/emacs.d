@@ -279,7 +279,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 
 (global-set-key (kbd "<backtab>") 'company-complete)
 (global-set-key (kbd "<C-S-tab>") 'company-files)
-
+(global-set-key (kbd "<C-M-tab>") 'company-ispell)
 
 ;;(add-to-list 'company-backends 'company-yasnippet)
 (defvar company-mode/enable-yas t
@@ -368,9 +368,17 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 ;;(eval-after-load 'flymake '(require 'flymake-cursor))
 (require 'flycheck)
 (global-flycheck-mode)
-(require 'flycheck-pos-tip)
+;; (require 'flycheck-pos-tip)
+;; (with-eval-after-load 'flycheck
+;;   (flycheck-pos-tip-mode))
+
+(add-to-list 'load-path "~/.emacs.d/lisp/flycheck-posframe")
+(require 'flycheck-posframe)
+(setq flycheck-posframe-timeout 4) 
 (with-eval-after-load 'flycheck
-  (flycheck-pos-tip-mode))
+  (require 'flycheck-posframe)
+  (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
+
 (setq flycheck-indication-mode 'right-fringe)
 
 (defvar-local flycheck-local-checkers nil)
@@ -554,6 +562,18 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (require 'graphviz-dot-mode)
 (require 'company-graphviz-dot)
 
+;; flyspell
+(setq flyspell-mark-duplications-flag nil)
+
+
+(require 'flyspell-correct-popup)
+(define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-wrapper)
+
+(setq ispell-program-name "aspell")
+(setq ispell-extra-args '("--sug-mode=ultra" "--camel-case"))
+
+;; (add-hook 'prog-mode-hook #'wucuo-start)
+;; (add-hook 'text-mode-hook #'wucuo-start)
 
 (provide 'global)
 
