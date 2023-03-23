@@ -350,7 +350,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (auto-save-enable)              ;; 开启自动保存功能
 (setq auto-save-slient t)       ;; 自动保存的时候静悄悄的， 不要打扰我
 (setq auto-save-disable-predicates
-      '((lambda () 
+      '((lambda ()
 	  (tramp-tramp-file-p (buffer-file-name))))) ;; tramp 模式不自动保存
 
 ;; visual-regexp
@@ -374,7 +374,11 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 
 (add-to-list 'load-path "~/.emacs.d/lisp/flycheck-posframe")
 (require 'flycheck-posframe)
-(setq flycheck-posframe-timeout 4) 
+(setq flycheck-posframe-warning-prefix "⚠ ")
+(setq flycheck-posframe-info-prefix "ℹ ")
+(setq flycheck-posframe-error-prefix "⨯ ")
+
+(setq flycheck-posframe-timeout 4)
 (with-eval-after-load 'flycheck
   (require 'flycheck-posframe)
   (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
