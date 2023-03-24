@@ -348,7 +348,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (add-to-list 'load-path "~/.emacs.d/lisp/auto-save/")
 (require 'auto-save)            ;; 加载自动保存模块
 (auto-save-enable)              ;; 开启自动保存功能
-(setq auto-save-slient t)       ;; 自动保存的时候静悄悄的， 不要打扰我
+(setq auto-save-silent t)       ;; 自动保存的时候静悄悄的， 不要打扰我
 (setq auto-save-disable-predicates
       '((lambda ()
 	  (tramp-tramp-file-p (buffer-file-name))))) ;; tramp 模式不自动保存
@@ -414,13 +414,11 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq lsp-ui-sideline-show-code-actions t)
 
 (setq lsp-ui-doc-include-signature t)
-(define-key lsp-mode-map (kbd "s-d") 'lsp-ui-doc-glance)
-(defun lsp-signature-posframe-glance ()
-  "Show lsp signature with posframe."
-  (interactive)
-  (let ((lsp-signature-function #'lsp-signature-posframe))
-    (call-interactively 'lsp-signature-activate)))
-(define-key lsp-mode-map (kbd "s-D") 'lsp-signature-posframe-glance)
+
+(setq lsp-signature-auto-activate nil)
+(setq lsp-signature-render-documentation nil)
+(setq lsp-signature-function 'lsp-signature-posframe)
+(define-key lsp-mode-map (kbd "s-d") 'lsp-signature-activate)
 
 (setq lsp-auto-execute-action nil)
 (setq lsp-modeline-code-actions-segments '(count icon))
@@ -546,6 +544,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
             ;; Set dired-x buffer-local variables here.  For example:
             (dired-omit-mode 1)
             ))
+(setq insert-directory-program "gls")
 
 (require 'dirvish)
 (dirvish-override-dired-mode)
