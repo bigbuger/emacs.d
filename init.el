@@ -52,8 +52,8 @@
  '(custom-safe-themes
    '("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
  '(dap-python-executable "python3")
- '(display-time-mode t)
  '(doom-modeline-mode t)
+ '(doom-modeline-vcs-max-length 30)
  '(ediff-split-window-function 'split-window-horizontally)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(flycheck-checker-error-threshold 600)

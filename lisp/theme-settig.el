@@ -34,6 +34,8 @@
 (setq doom-modeline-icon nil)
 
 
+(setq auto-revert-check-vc-info t)
+
 (add-hook 'after-init-hook #'doom-modeline-mode)
 
 (provide 'theme-settig)

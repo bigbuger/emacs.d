@@ -38,8 +38,6 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; 显示时间
-(display-time)
 
 ;; 保存命令历史
 (savehist-mode 1)
@@ -207,6 +205,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (global-set-key (kbd "C-c f") 'counsel-fzf)
 ;;(global-set-key (kbd "C-c j") 'counsel-file-jump)
 (global-set-key (kbd "C-c m") 'counsel-bookmark)
+(global-set-key (kbd "C-c c") 'counsel-git-checkout)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
 
