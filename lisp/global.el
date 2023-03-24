@@ -58,7 +58,7 @@
 ;; disable bookmark fringe
 (setq bookmark-set-fringe-mark nil)
 
-(which-function-mode)
+;; (which-function-mode)
 (add-hook 'prog-mode-hook
 	 (lambda ()
 	   (setq header-line-format

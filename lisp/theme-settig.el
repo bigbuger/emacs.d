@@ -31,9 +31,9 @@
 ;; If non-nil, only display one number for checker information if applicable.
 (setq doom-modeline-checker-simple-format nil)
 
-(setq doom-modeline-icon nil)
+;; (setq doom-modeline-icon nil)
 
-
+;; change of branch reflect in modeline
 (setq auto-revert-check-vc-info t)
 
 (add-hook 'after-init-hook #'doom-modeline-mode)
