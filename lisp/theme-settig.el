@@ -35,7 +35,7 @@
 
 ;; change of branch reflect in modeline
 (setq auto-revert-check-vc-info t)
-
+(setq doom-modeline-vcs-max-length 50)
 (add-hook 'after-init-hook #'doom-modeline-mode)
 
 (provide 'theme-settig)
