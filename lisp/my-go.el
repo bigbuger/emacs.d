@@ -79,7 +79,7 @@
 
 
 (add-hook 'go-mode-hook
-	  (lambda()
+	  (lambda ()
 	    (setq-local lsp-diagnostics-provider :none)
 	    (setq-local flycheck-disabled-checkers
 			'(go-gofmt
@@ -92,6 +92,10 @@
 			  go-unconvert))
             (when (flycheck-may-use-checker 'go-build)
 	      (flycheck-select-checker 'go-build))
+	    (lsp-deferred)))
+
+(add-hook 'go-dot-mod-mode-hook
+	  (lambda ()
 	    (lsp-deferred)))
 
 
