@@ -453,6 +453,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 ;;(global-set-key (kbd "C-c s") 'multi-term)
 ;;(global-set-key (kbd "C-c t") 'multi-term-dedicated-open)
 
+;; vterm
 (require 'vterm)
 (global-set-key (kbd "C-c s") 'vterm-other-window)
 (add-to-list 'vterm-eval-cmds '("find-file-other-window" find-file-other-window))
@@ -522,15 +523,17 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 
 
 ;; about dired
-(setq dired-listing-switches "-alh")
-(require 'all-the-icons-dired)
-;;(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+;; (require 'all-the-icons-dired)
+;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 (setq wdired-allow-to-change-permissions t)
+(setq delete-by-moving-to-trash t)
+(setq dired-listing-switches (concat dired-listing-switches " -h --time-style=long-iso"))
 
 (require 'osx-trash)
+
 (when (eq system-type 'darwin)
+  (setq insert-directory-program "gls")
   (osx-trash-setup))
-(setq delete-by-moving-to-trash t)
 
 (with-eval-after-load 'dired
   (require 'dired-x)
@@ -543,15 +546,21 @@ Use a prefix argument ARG to indicate creation of a new process instead."
             ;; Set dired-x buffer-local variables here.  For example:
             (dired-omit-mode 1)
             ))
-(setq insert-directory-program "gls")
 
 (require 'dirvish)
 (dirvish-override-dired-mode)
 (setq dirvish-attributes '(vc-state all-the-icons subtree-state file-size))
+(setq dirvish-mode-line-format nil)
+
 (define-key dirvish-mode-map
   (kbd "TAB") 'dirvish-subtree-toggle)
 (define-key dirvish-mode-map
   (kbd "C-c t") 'dirvish-layout-toggle)
+(define-key dirvish-mode-map
+  (kbd ".") 'dired-create-empty-file)
+(define-key dirvish-mode-map
+  (kbd "/") 'dirvish-fd)
+
 (setq dirvish-reuse-session t)
 
 ;; hideshowvis
