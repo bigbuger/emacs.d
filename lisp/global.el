@@ -366,6 +366,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 ;; dumb-jump
 (require 'dumb-jump)
 (setq dumb-jump-force-searcher 'rg)
+(add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
 (global-set-key (kbd "C-.") 'dumb-jump-go)
 
 
@@ -566,6 +567,9 @@ Use a prefix argument ARG to indicate creation of a new process instead."
   (kbd ".") 'dired-create-empty-file)
 (define-key dirvish-mode-map
   (kbd "/") 'dirvish-fd)
+
+(add-hook 'dirvish-find-entry-hook
+          (lambda (&rest _) (setq-local truncate-lines t)))
 
 (setq dirvish-reuse-session t)
 
