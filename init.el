@@ -61,7 +61,7 @@
  '(highlight-parentheses-colors '("LightPink4" "dark cyan" "turquoise3" "IndianRed4"))
  '(lsp-ui-flycheck-enable nil t)
  '(package-selected-packages
-   '(wucuo flyspell-correct-popup flycheck-popup-tip eldoc-box go-playground osx-trash protobuf-mode lsp-ivy gorepl-mode ob-go highlight-parentheses go-tag go-fill-struct godoctor go-impl go-gen-test multiple-cursors pyim dap-mode ebnf-mode dumb-jump sqlformat yard-mode dirvish company-inf-ruby ejc-sql rustic ivy-hydra company-fuzzy impostman verb ob-restclient projectile-ripgrep tree-sitter-langs tree-sitter vterm magic-latex-buffer auctex figlet ripgrep counsel-fd doom-modeline all-the-icons-ivy-rich ztree dante csv-mode gnuplot-mode spacemacs-theme imenu-list olivetti org-bullets crux flycheck-pos-tip google-this all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight aggressive-indent expand-region flycheck-rust go-guru auto-yasnippet move-text treemacs treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich company-restclient go-eldo))
+   '(wucuo flyspell-correct-popup flycheck-popup-tip eldoc-box go-playground osx-trash protobuf-mode lsp-ivy gorepl-mode ob-go highlight-parentheses go-tag go-fill-struct godoctor go-impl go-gen-test multiple-cursors pyim dap-mode ebnf-mode dumb-jump sqlformat yard-mode dirvish company-inf-ruby ejc-sql rustic ivy-hydra company-fuzzy impostman verb ob-restclient projectile-ripgrep tree-sitter-langs vterm magic-latex-buffer auctex figlet counsel-fd doom-modeline all-the-icons-ivy-rich ztree dante csv-mode gnuplot-mode spacemacs-theme imenu-list org-bullets crux flycheck-pos-tip google-this all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight aggressive-indent expand-region flycheck-rust go-guru auto-yasnippet move-text treemacs treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich company-restclient go-eldo))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -78,7 +78,6 @@
  '(flycheck-posframe-face ((t (:inherit default :background "#efeae9"))))
  '(flycheck-warning ((t (:underline (:color "yellow4" :style wave)))))
  '(flymake-warning ((t (:underline (:color "yellow4" :style wave)))))
- '(ivy-posframe ((t (:inherit default :background "gray40" :foreground "#dcdccc"))))
  '(show-paren-match ((t (:inherit bold :foreground "royal blue" :underline t))))
  '(term-color-blue ((t (:background "SkyBlue3" :foreground "SkyBlue3"))))
  '(tooltip ((t (:background "#c8c6dd" :foreground "#655370" :underline nil :slant normal :weight normal :height 3.0)))))

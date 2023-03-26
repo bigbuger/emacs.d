@@ -14,7 +14,8 @@
 
 
 (require 'smartparens)
-(sp-local-pair 'scheme-mode "(" nil :actions '(:rem insert))
+(sp-local-pair 'scheme-mode "(" nil :actions '(:rem insert skip))
+(define-key scheme-mode-map  (kbd "C-}") 'sp-forward-slurp-sexp)
 
 
 

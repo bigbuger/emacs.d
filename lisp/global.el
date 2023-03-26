@@ -119,11 +119,15 @@
 
 (require 'smartparens-config)
 (add-hook 'prog-mode-hook #'smartparens-mode)
-(sp-local-pair 'emacs-lisp-mode "(" nil :actions '(:rem insert))
+(sp-local-pair 'emacs-lisp-mode "(" nil :actions '(:rem insert autoskip))
 (sp-local-pair 'emacs-lisp-mode "'" nil :actions '(wrap))
-(global-set-key (kbd "C-}") 'sp-forward-slurp-sexp)
+(global-set-key (kbd "C-}") 'sp-slurp-hybrid-sexp)
+(define-key emacs-lisp-mode-map  (kbd "C-}") 'sp-forward-slurp-sexp)
 (global-set-key (kbd "C-{") 'sp-forward-barf-sexp)
 (global-set-key (kbd "C-c <backspace>") 'sp-raise-sexp)
+(global-set-key (kbd "C-M-a") 'sp-beginning-of-sexp)
+(global-set-key (kbd "C-M-e") 'sp-end-of-sexp)
+(global-set-key (kbd "C-M-d") 'sp-clone-sexp)
 
 (require 'cl)
 (defmacro def-pairs (pairs)
