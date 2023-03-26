@@ -447,6 +447,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
+(add-to-list 'load-path "~/.emacs.d/lisp/lsp-ivy")
 (require 'lsp-ivy)
 (setq lsp-ivy-show-symbol-filename nil)
 (define-key lsp-command-map (kbd "s") 'lsp-ivy-workspace-symbol)
