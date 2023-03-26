@@ -17,6 +17,7 @@
     expand-region
     smartparens
     highlight-parentheses
+    auto-highlight-symbol
     ripgrep
     figlet
     visual-regexp

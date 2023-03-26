@@ -179,6 +179,8 @@ _k_: kebab foo-bar          ^ _q_: cancel.
   ("q" nil))
 (global-set-key (kbd "C-c M-u") 'hydra-string-inflection/body)
 
+(require 'auto-highlight-symbol)
+(global-auto-highlight-symbol-mode t)
 
 (require 'imenu-list)
 (global-set-key (kbd "<f9>") 'imenu-list)
