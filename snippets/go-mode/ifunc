@@ -2,6 +2,6 @@
 # name: ifunc
 # key: ifunc
 # --
-func (${1:o}) ${2:name}(${3}) ${4} {
+func (${1:o} ${2:Type}) ${3:name}($4) $5 {
      $0
 }
