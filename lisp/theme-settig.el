@@ -11,11 +11,6 @@
 ;; (require 'tomorrow-night-eighties-theme)
 (load-theme 'spacemacs-light t)
 
-;; smart-modeline
-;;(setq sml/theme 'respectful)
-;;(setq sml/no-confirm-load-theme t)
-;;(sml/setup)
-
 
 (require 'doom-modeline)
 
