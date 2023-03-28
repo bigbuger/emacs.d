@@ -28,6 +28,8 @@
     hydra
    
     imenu-list
+    ibuffer-projectile
+    ibuffer-sidebar
 
     dumb-jump
     flyspell-correct-popup

@@ -315,6 +315,19 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (define-key projectile-command-map (kbd "f") 'counsel-projectile-find-file)
 
 
+;; ibuffer-projectile
+(require 'ibuffer-projectile)
+(defun ibuffer-projectile-filter ()
+    "Set up `ibuffer-projectile'."
+    (ibuffer-projectile-set-filter-groups)
+      (unless (eq ibuffer-sorting-mode 'alphabetic)
+        (ibuffer-do-sort-by-alphabetic)))
+
+(add-hook 'ibuffer-hook #'ibuffer-projectile-filter)
+(require 'ibuffer-sidebar)
+(add-hook 'ibuffer-sidebar-mode-hook #'ibuffer-projectile-filter)
+
+
 ;; treemacs
 (require 'treemacs)
 (require 'treemacs-all-the-icons)
