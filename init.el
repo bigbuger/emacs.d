@@ -68,8 +68,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ahs-face ((t (:background "#bbd4f9"))))
- '(ahs-plugin-default-face ((t (:background "#bbd4f9"))))
+ '(ahs-face ((t (:background "#e6ebeb"))))
+ '(ahs-plugin-default-face ((t (:background "#e6ebeb"))))
  '(aw-leading-char-face ((t (:foreground "red" :height 5.0))))
  '(diff-hl-change ((t (:background "blue3" :foreground "blue3"))))
  '(diff-hl-delete ((t (:inherit diff-removed :background "red3" :foreground "red3"))))
@@ -80,7 +80,7 @@
  '(flycheck-posframe-face ((t (:inherit default :background "#efeae9"))))
  '(flycheck-warning ((t (:underline (:color "yellow4" :style wave)))))
  '(flymake-warning ((t (:underline (:color "yellow4" :style wave)))))
- '(lsp-face-highlight-textual ((t (:inherit highlight :background "#bbd4f9"))))
+ '(lsp-face-highlight-textual ((t (:inherit highlight :background "#e6ebeb"))))
  '(show-paren-match ((t (:inherit bold :foreground "royal blue" :underline t))))
  '(term-color-blue ((t (:background "SkyBlue3" :foreground "SkyBlue3"))))
  '(tooltip ((t (:background "#c8c6dd" :foreground "#655370" :underline nil :slant normal :weight normal :height 3.0)))))
