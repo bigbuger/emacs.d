@@ -59,10 +59,13 @@
 (setq bookmark-set-fringe-mark nil)
 
 ;; (which-function-mode)
-(add-hook 'prog-mode-hook
-	 (lambda ()
-	   (setq header-line-format
-		 '((which-func-mode ("" which-func-format " "))))))
+
+;; fixme some thing wrong with tab bar
+;; (add-hook 'prog-mode-hook
+;; 	 (lambda ()
+;; 	   (setq header-line-format
+;; 		 '((which-func-mode ("" which-func-format " "))))))
+
 ;; make it split horizontal
 (setq split-width-threshold 1000)
 
@@ -535,6 +538,30 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (require 'centaur-tabs)
 (setq centaur-tabs-set-icons t)
 (setq centaur-tabs-set-bar 'over)
+
+
+(defun centaur-tabs-hide-tab (x)
+  "Do no to show buffer X in tabs."
+  (let ((name (format "%s" x)))
+    (or
+     ;; Current window is not dedicated window.
+     (window-dedicated-p (selected-window))
+
+     ;; Buffer name not match below blacklist.
+     (string-prefix-p "*Compile-Log*" name)
+     (string-prefix-p "*lsp" name)
+     (string-prefix-p "*company" name)
+     (string-prefix-p "*Flycheck" name)
+     (string-prefix-p "*tramp" name)
+     (string-prefix-p " *Mini" name)
+     (string-prefix-p "*help" name)
+     (string-prefix-p "*Help" name)
+
+     ;; Is not magit buffer.
+     (and (string-prefix-p "magit" name)
+          (not (file-name-extension name)))
+     )))
+
 (centaur-tabs-mode t)
 
 ;; about indent
