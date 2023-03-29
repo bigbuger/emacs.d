@@ -532,9 +532,10 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (global-set-key (kbd "C-S-d") 'osx-dictionary-search-at-point-and-pop)
 
 ;; centaur-tabs
-;;(require 'centaur-tabs)
-;;(centaur-tabs-mode t)
-;;(setq centaur-tabs-set-icons t)
+(require 'centaur-tabs)
+(setq centaur-tabs-set-icons t)
+(setq centaur-tabs-set-bar 'over)
+(centaur-tabs-mode t)
 
 ;; about indent
 ;;(require 'aggressive-indent)

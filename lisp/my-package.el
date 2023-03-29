@@ -30,6 +30,7 @@
     imenu-list
     ibuffer-projectile
     ibuffer-sidebar
+    centaur-tabs
 
     dumb-jump
     flyspell-correct-popup
