@@ -160,6 +160,16 @@
 
 (require 'move-text)
 (move-text-default-bindings)
+(defun indent-region-advice (&rest ignored)
+  (let ((deactivate deactivate-mark))
+    (if (region-active-p)
+        (indent-region (region-beginning) (region-end))
+      (indent-region (line-beginning-position) (line-end-position)))
+    (setq deactivate-mark deactivate)))
+
+(advice-add 'move-text-up :after 'indent-region-advice)
+(advice-add 'move-text-down :after 'indent-region-advice)
+
 
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
@@ -548,15 +558,8 @@ Use a prefix argument ARG to indicate creation of a new process instead."
      (window-dedicated-p (selected-window))
 
      ;; Buffer name not match below blacklist.
-     (string-prefix-p "*Compile-Log*" name)
-     (string-prefix-p "*lsp" name)
-     (string-prefix-p "*company" name)
-     (string-prefix-p "*Flycheck" name)
-     (string-prefix-p "*tramp" name)
-     (string-prefix-p " *Mini" name)
-     (string-prefix-p "*help" name)
-     (string-prefix-p "*Help" name)
-
+     (string-prefix-p "*" name) ;; just block all buffer start with *
+   
      ;; Is not magit buffer.
      (and (string-prefix-p "magit" name)
           (not (file-name-extension name)))
