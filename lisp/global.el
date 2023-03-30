@@ -69,6 +69,11 @@
             ;; invisible here anyway.
             (assq-delete-all 'which-function-mode mode-line-misc-info))
 
+(add-hook 'prog-mode-hook
+	  (lambda ()
+	    (font-lock-add-keywords nil
+				    '(("\\<\\(FIXME\\|fixme\\|TODO\\|todo\\|BUG\\|bug\\)\\>" 1 font-lock-warning-face t)))))
+
 ;; make it split horizontal
 (setq split-width-threshold 1000)
 
