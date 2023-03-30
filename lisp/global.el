@@ -343,6 +343,9 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (require 'ibuffer-sidebar)
 (add-hook 'ibuffer-sidebar-mode-hook #'ibuffer-projectile-filter)
 
+(require 'all-the-icons-ibuffer)
+(add-hook 'ibuffer-mode-hook #'all-the-icons-ibuffer-mode)
+
 
 ;; treemacs
 (require 'treemacs)
@@ -558,7 +561,12 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 ;; centaur-tabs
 (require 'centaur-tabs)
 (setq centaur-tabs-set-icons t)
-(setq centaur-tabs-set-bar 'over)
+(setq centaur-tabs-style "alternate")
+
+(setq centaur-tabs-set-bar 'under)
+;; Note: If you're not using Spacmeacs, in order for the underline to display
+;; correctly you must add the following line:
+(setq x-underline-at-descent-line t)
 
 
 (defun centaur-tabs-hide-tab (x)
@@ -576,7 +584,9 @@ Use a prefix argument ARG to indicate creation of a new process instead."
           (not (file-name-extension name)))
      )))
 
-(centaur-tabs-mode t)
+(add-hook 'after-init-hook
+	  (lambda ()
+	    (centaur-tabs-mode t)))
 
 ;; about indent
 ;;(require 'aggressive-indent)

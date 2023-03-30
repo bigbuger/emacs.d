@@ -50,6 +50,7 @@
     doom-modeline
     all-the-icons
     all-the-icons-dired
+    all-the-icons-ibuffer
     
     ;; ivy
     ivy
