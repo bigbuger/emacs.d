@@ -201,6 +201,12 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (global-set-key (kbd "C-c M-u") 'hydra-string-inflection/body)
 
 (require 'auto-highlight-symbol)
+(with-eval-after-load 'auto-highlight-symbol
+  (setq auto-highlight-symbol-mode-map (make-sparse-keymap)))
+(add-hook 'auto-highlight-symbol-mode-hook
+	  #'(lambda ()
+	      (assq-delete-all 'auto-highlight-symbol-mode minor-mode-map-alist)))
+
 (global-auto-highlight-symbol-mode t)
 
 (require 'imenu-list)
