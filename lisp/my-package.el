@@ -21,6 +21,7 @@
     ripgrep
     figlet
     visual-regexp
+    regex-tool
     pyim
     eldoc-box
     
