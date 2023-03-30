@@ -230,7 +230,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 (global-set-key (kbd "<f1> l") 'counsel-find-library)
 ;;(global-set-key (kbd "<f1> k") 'counsel-descbinds)
-(global-set-key (kbd "C-c C-y") 'counsel-yank-pop)
+(global-set-key (kbd "C-c M-y") 'counsel-yank-pop)
 (global-set-key (kbd "C-c i") 'counsel-imenu)
 (global-set-key (kbd "C-c e") 'counsel-recentf)
 (global-set-key (kbd "C-c b") 'counsel-ibuffer)
