@@ -377,6 +377,8 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (require 'magit)
 (require 'magit-todos)
 (magit-todos-mode)
+(add-to-list 'magit-process-password-prompt-regexps
+	     ".*verification code: ?$")
 
 
 ;; diff-hl
