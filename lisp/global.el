@@ -58,13 +58,16 @@
 ;; disable bookmark fringe
 (setq bookmark-set-fringe-mark nil)
 
-;; (which-function-mode)
+(which-function-mode)
 
-;; fixme some thing wrong with tab bar
-;; (add-hook 'prog-mode-hook
-;; 	 (lambda ()
-;; 	   (setq header-line-format
-;; 		 '((which-func-mode ("" which-func-format " "))))))
+(add-hook 'prog-mode-hook
+	  (lambda ()
+	    (setq header-line-format
+		  '((which-func-mode ("" which-func-format " "))))))
+(setq mode-line-misc-info
+            ;; We remove Which Function Mode from the mode line, because it's mostly
+            ;; invisible here anyway.
+            (assq-delete-all 'which-function-mode mode-line-misc-info))
 
 ;; make it split horizontal
 (setq split-width-threshold 1000)
@@ -437,6 +440,14 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq lsp-prefer-flymake :none)
 (setq lsp-ui-flycheck-enable t)
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+
+(setq lsp-headerline-breadcrumb-enable t)
+(add-hook 'lsp-mode-hook
+	  '(lambda ()
+	     (setq-local header-line-format
+			 '((t
+			    (:eval
+			     (frame-parameter nil 'lsp-headerline--string)))))))
 
 (setq lsp-ui-doc-enable t)
 (setq lsp-ui-doc-position 'at-point)

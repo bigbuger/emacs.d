@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Content-Type
+# key: Content-Type
+# --
+
+Content-Type: ${1:application/json}
+$0
