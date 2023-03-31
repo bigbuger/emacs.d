@@ -597,7 +597,11 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 
      ;; Buffer name not match below blacklist.
      (string-prefix-p "*" name) ;; just block all buffer start with *
-   
+
+     ;; Is not temp version
+     (string-match-p "^.+\\.~.+~$" name)
+     
+     
      ;; Is not magit buffer.
      (and (string-prefix-p "magit" name)
           (not (file-name-extension name)))
