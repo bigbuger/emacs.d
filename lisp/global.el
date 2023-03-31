@@ -55,6 +55,9 @@
 (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode +1)))
 (column-number-mode 1)
 
+;; Auto delete region when typing
+(delete-selection-mode 1)
+
 ;; disable bookmark fringe
 (setq bookmark-set-fringe-mark nil)
 
