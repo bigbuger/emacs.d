@@ -102,15 +102,19 @@
     ;; tree-sitter
     tree-sitter
     tree-sitter-langs
-    
-    ;; about project
+
+    ;; about vc
     magit
     magit-todos
+    magit-delta
+    diff-hl
+    ztree
+    
+    
+    ;; about project
     projectile
     projectile-ripgrep
     counsel-projectile
-    diff-hl
-    ztree
     
     ;; ruby
     inf-ruby

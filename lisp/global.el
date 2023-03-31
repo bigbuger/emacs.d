@@ -383,6 +383,9 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (add-to-list 'magit-process-password-prompt-regexps
 	     ".*verification code: ?$")
 
+(require 'magit-delta)
+(add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))
+
 
 ;; diff-hl
 (require 'diff-hl)
