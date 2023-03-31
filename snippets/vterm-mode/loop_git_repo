@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: loop each git repo
+# key: loopr
+# --
+find . -type d -execdir test -d '.git' \; -print -prune | xargs -I {} zsh -c 'cd {} && $0'

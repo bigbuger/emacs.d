@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
 # name: ifunc
 # key: ifunc
+# expand-env: ((yas-indent-line 'auto))
 # --
 func (${1:o} ${2:Type}) ${3:name}($4) $5 {
      $0

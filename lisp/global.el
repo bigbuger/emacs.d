@@ -307,8 +307,8 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 ;;company
 (require 'company)
 (global-company-mode 1)
-(setq company-minimum-prefix-length 1)
-(setq company-require-match nil)
+(setq company-minimum-prefix-length 2)
+(setq company-require-match 'never)
 (setq company-show-numbers t)
 (add-hook 'after-init-hook 'company-quickhelp-mode)
 
