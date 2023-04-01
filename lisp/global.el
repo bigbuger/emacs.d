@@ -345,7 +345,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (define-key projectile-command-map (kbd "f") 'counsel-projectile-find-file)
 
 
-;; ibuffer-projectile
+;; ibuffer
 (require 'ibuffer-projectile)
 (defun ibuffer-projectile-filter ()
     "Set up `ibuffer-projectile'."
@@ -354,8 +354,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
         (ibuffer-do-sort-by-alphabetic)))
 
 (add-hook 'ibuffer-hook #'ibuffer-projectile-filter)
-(require 'ibuffer-sidebar)
-(add-hook 'ibuffer-sidebar-mode-hook #'ibuffer-projectile-filter)
+
 
 (require 'all-the-icons-ibuffer)
 (add-hook 'ibuffer-mode-hook #'all-the-icons-ibuffer-mode)
@@ -425,9 +424,6 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 ;;(eval-after-load 'flymake '(require 'flymake-cursor))
 (require 'flycheck)
 (global-flycheck-mode)
-;; (require 'flycheck-pos-tip)
-;; (with-eval-after-load 'flycheck
-;;   (flycheck-pos-tip-mode))
 
 (add-to-list 'load-path "~/.emacs.d/lisp/flycheck-posframe")
 (require 'flycheck-posframe)
@@ -484,6 +480,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq lsp-signature-render-documentation nil)
 (setq lsp-signature-function 'lsp-signature-posframe)
 (define-key lsp-mode-map (kbd "s-d") 'lsp-signature-activate)
+(define-key lsp-mode-map (kbd "s-l l") 'lsp-ui-sideline-mode)
 
 (setq lsp-auto-execute-action nil)
 (setq lsp-modeline-code-actions-segments '(count icon))
@@ -513,12 +510,6 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 
 ;; end of lsp setting
 
-
-;; multi-term
-;;(require 'multi-term)
-;;(setq multi-term-dedicated-select-after-open-p t)
-;;(global-set-key (kbd "C-c s") 'multi-term)
-;;(global-set-key (kbd "C-c t") 'multi-term-dedicated-open)
 
 ;; vterm
 (require 'vterm)

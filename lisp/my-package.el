@@ -16,10 +16,8 @@
     multiple-cursors
     expand-region
     smartparens
-    highlight-parentheses
     auto-highlight-symbol
     ripgrep
-    figlet
     visual-regexp
     regex-tool
     pyim
@@ -29,13 +27,10 @@
     hydra
    
     imenu-list
-    ibuffer-projectile
-    ibuffer-sidebar
     centaur-tabs
 
     dumb-jump
-    flyspell-correct-popup
-    wucuo
+
    
     ;; file manager
     treemacs
@@ -46,7 +41,6 @@
     highlight-indent-guides
 
     ;; theme
-    ;; color-theme
     spacemacs-theme
     doom-modeline
     all-the-icons
@@ -72,13 +66,12 @@
     yasnippet
     auto-yasnippet
 
-    ;; multi-term
+    ;; shell term
     vterm
 
     ;; flycheck
     flycheck
-    flycheck-pos-tip
-
+    
     ;; realgud
     realgud
 
@@ -86,6 +79,11 @@
     org-bullets
     gnuplot-mode
     olivetti
+
+    ;; flyspell
+    flyspell-correct-popup
+    wucuo
+   
 
     ;; resetclient
     restclient
@@ -115,6 +113,7 @@
     projectile
     projectile-ripgrep
     counsel-projectile
+    ibuffer-projectile
     
     ;; ruby
     inf-ruby
@@ -155,7 +154,7 @@
     company-ghci
     ghc
     dante
-    ;;flymake-haskell-multi
+    ;; flymake-haskell-multi
     
     ;; scheme
     geiser
