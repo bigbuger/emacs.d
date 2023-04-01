@@ -57,8 +57,6 @@
  '(ediff-split-window-function 'split-window-horizontally)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(flycheck-checker-error-threshold 600)
- '(flycheck-pos-tip-max-width nil)
- '(highlight-parentheses-colors '("LightPink4" "dark cyan" "turquoise3" "IndianRed4"))
  '(lsp-ui-flycheck-enable nil t)
  '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'")
  '(package-selected-packages

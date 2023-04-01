@@ -92,6 +92,7 @@
 
 ;全屏函数
 (defun toggle-fullscreen (&optional f)
+  "Fullscreen."
   (interactive)
   (let ((current-value (frame-parameter nil 'fullscreen)))
     (set-frame-parameter nil 'fullscreen
@@ -118,18 +119,6 @@
      show-paren-style 'parenthesis)
 (show-paren-mode 1)
 
-(require 'highlight-parentheses)
-;; (add-hook 'lisp-mode-hook #'highlight-parentheses-mode)
-;; (add-hook 'scheme-mode-hook #'highlight-parentheses-mode)
-
-
-;; (electric-pair-mode 1)
-;; (setq electric-pair-pairs '(
-;;                            (?\" . ?\")
-;;                            (?\` . ?\`)
-;;                            (?\( . ?\))
-;;                            (?\{ . ?\})
-;;                            ))
 
 (require 'smartparens-config)
 (add-hook 'prog-mode-hook #'smartparens-mode)
@@ -297,7 +286,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
                'term-mode-hook
 	       'shell-mode-hook
                ))
-  (add-hook hook '(lambda () (yas-minor-mode -1))))
+  (add-hook hook #'(lambda () (yas-minor-mode -1))))
 
 (require 'auto-yasnippet)
 (global-set-key (kbd "C-S-w") #'aya-create)
@@ -309,7 +298,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (global-company-mode 1)
 (setq company-minimum-prefix-length 2)
 (setq company-require-match 'never)
-(setq company-show-numbers t)
+(setq company-show-quick-access t)
 (add-hook 'after-init-hook 'company-quickhelp-mode)
 
 (global-set-key (kbd "<backtab>") 'company-complete)
@@ -320,6 +309,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (defvar company-mode/enable-yas t
   "Enable yasnippet for all backends.")
 (defun company-mode/backend-with-yas (backend)
+  "Add company-yasnippet after BACKEND."
   (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
       backend
     (append (if (consp backend) backend (list backend))
