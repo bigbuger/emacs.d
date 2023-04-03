@@ -525,6 +525,11 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (define-key projectile-command-map (kbd "v") 'projectile-run-vterm-other-window)
 
 
+;; compile
+(add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
+(define-key menu-bar-tools-menu [compile] '("Compile..." . smart-compile))
+(define-key prog-mode-map (kbd "s-r") 'smart-compile)
+
 ;; multiple-cursors
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)

@@ -31,6 +31,8 @@
 
     dumb-jump
 
+    smart-compile
+
    
     ;; file manager
     treemacs
@@ -182,6 +184,7 @@
     company-math
     auctex
     magic-latex-buffer
+    xenops
     
     ;; docker
     docker
