@@ -586,8 +586,12 @@ Use a prefix argument ARG to indicate creation of a new process instead."
      ;; Buffer name not match below blacklist.
      ;; just block all buffer start with *
      (and (string-prefix-p "*" name)
+	  (not (with-current-buffer x (derived-mode-p 'comint-mode)))
 	  (not (string-prefix-p "*compilation" name))
-	  (not (string-prefix-p "*vterm" name)))
+	  (not (string-prefix-p "*vterm" name))
+	  (not (string-prefix-p "*term" name))
+	  (not (string-prefix-p "*shell" name))
+	  (not (string-prefix-p "*ielm" name)))
 
      ;; Is not temp version
      (string-match-p "^.+\\.~.+~$" name)
@@ -597,6 +601,39 @@ Use a prefix argument ARG to indicate creation of a new process instead."
      (and (string-prefix-p "magit" name)
           (not (file-name-extension name)))
      )))
+
+(defun centaur-tabs-buffer-groups ()
+  "`centaur-tabs-buffer-groups' control buffers' group rules."
+  (list
+   (cond
+   
+    ((or (derived-mode-p 'eshell-mode)
+	 (derived-mode-p 'term-mode)
+	 (derived-mode-p 'shell-mode)
+	 (derived-mode-p 'vterm-mode)
+	 (derived-mode-p 'compilation-mode)
+	 (derived-mode-p 'comint-mode))
+     "Execute")
+    
+    ((derived-mode-p 'dired-mode)
+     "Dired")
+    ((memq major-mode '(org-mode org-agenda-mode diary-mode))
+     "OrgMode")
+
+    ((or (string-equal "*" (substring (buffer-name) 0 1))
+	 (memq major-mode '(magit-process-mode
+			    magit-status-mode
+			    magit-diff-mode
+			    magit-log-mode
+			    magit-file-mode
+			    magit-blob-mode
+			    magit-blame-mode
+			    )))
+     "Emacs")
+    
+    (t
+     (centaur-tabs-get-group-name (current-buffer))))))
+
 
 (add-hook 'after-init-hook
 	  (lambda ()
