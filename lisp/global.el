@@ -531,6 +531,9 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 (define-key menu-bar-tools-menu [compile] '("Compile..." . smart-compile))
 (define-key prog-mode-map (kbd "s-r") 'smart-compile)
+(with-eval-after-load 'projectile
+  (define-key projectile-command-map (kbd "r") 'projectile-run-project))
+  
 
 ;; multiple-cursors
 (require 'multiple-cursors)
@@ -587,6 +590,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
      ;; just block all buffer start with *
      (and (string-prefix-p "*" name)
 	  (not (with-current-buffer x (derived-mode-p 'comint-mode)))
+	  (not (with-current-buffer x (derived-mode-p 'compilation-mode)))
 	  (not (string-prefix-p "*compilation" name))
 	  (not (string-prefix-p "*vterm" name))
 	  (not (string-prefix-p "*term" name))
