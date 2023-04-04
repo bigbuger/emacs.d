@@ -704,7 +704,6 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 
 ;; graphviz-dot
 (require 'graphviz-dot-mode)
-(require 'company-graphviz-dot)
 
 ;; flyspell
 (setq flyspell-mark-duplications-flag nil)
