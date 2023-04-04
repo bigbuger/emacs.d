@@ -40,6 +40,7 @@
 (require 'my-ejc)
 (require 'my-latex)
 (require 'my-liquid)
+(require 'my-protobuf)
 (require 'theme-settig)
 
 (custom-set-variables
