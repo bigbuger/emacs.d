@@ -408,6 +408,8 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq dumb-jump-force-searcher 'rg)
 (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
 (global-set-key (kbd "C-.") 'dumb-jump-go)
+(setq xref-show-definitions-function #'xref-show-definitions-completing-read)
+
 
 
 ;; flycheck
