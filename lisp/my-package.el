@@ -198,6 +198,7 @@
     yaml-mode
     markdown-mode
     company-ansible
+    protobuf-mode
     
     osx-dictionary
     osx-trash
