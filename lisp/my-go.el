@@ -115,12 +115,12 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/counsel-golangci-lint")
 (require 'counsel-golangci-lint)
 
-(require 'projectile)
-(projectile-register-project-type 'go-mod '("go.mod")
-                  :compile "go build ."
-                  :test "go test ./..."
-                  :run "go run ."
-                  :test-suffix "_test.go")
+(with-eval-after-load 'projectile
+  (projectile-register-project-type 'go-mod '("go.mod")
+				    :compile "go build ."
+				    :test "go test ./..."
+				    :run "go run ."
+				    :test-suffix "_test.go"))
 
 (with-eval-after-load 'go-mode
   (define-key go-mode-map (kbd "s-g t") #'go-tag-add)

@@ -19,7 +19,10 @@
                      :activation-fn (lsp-activate-on "\\.proto\\'")
                      :server-id 'bufls)))
 
-(add-hook 'protobuf-mode-hook #'lsp-deferred)
+(add-hook 'protobuf-mode-hook
+	  (lambda ()
+	    (setq-local lsp-diagnostics-provider :none)
+	    (lsp-deferred)))
 
 
 (provide 'my-protobuf)

@@ -584,7 +584,10 @@ Use a prefix argument ARG to indicate creation of a new process instead."
      (window-dedicated-p (selected-window))
 
      ;; Buffer name not match below blacklist.
-     (string-prefix-p "*" name) ;; just block all buffer start with *
+     ;; just block all buffer start with *
+     (and (string-prefix-p "*" name)
+	  (not (string-prefix-p "*compilation" name))
+	  (not (string-prefix-p "*vterm" name)))
 
      ;; Is not temp version
      (string-match-p "^.+\\.~.+~$" name)
