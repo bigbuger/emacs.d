@@ -172,6 +172,9 @@
     ;; c lang
     ccls
 
+    ;; elm lang
+    elm-mode
+
     ;; web
     web-mode
     company-web
