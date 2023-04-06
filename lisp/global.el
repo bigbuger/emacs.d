@@ -586,6 +586,10 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 ;; Note: If you're not using Spacmeacs, in order for the underline to display
 ;; correctly you must add the following line:
 (setq x-underline-at-descent-line t)
+(setq centaur-tabs-show-navigation-buttons t)
+(setq centaur-tabs-forward-tab-text " ▸ ")
+(setq centaur-tabs-backward-tab-text " ◂ ")
+(setq centaur-tabs-down-tab-text  " ↯ ")
 
 
 (defun centaur-tabs-hide-tab (x)
