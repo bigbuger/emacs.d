@@ -630,18 +630,19 @@ Use a prefix argument ARG to indicate creation of a new process instead."
     
     ((derived-mode-p 'dired-mode)
      "Dired")
+    
     ((memq major-mode '(org-mode org-agenda-mode diary-mode))
      "OrgMode")
 
     ((or (string-equal "*" (substring (buffer-name) 0 1))
-	 (not (memq major-mode '(magit-process-mode
+	 (memq major-mode '(magit-process-mode
 			    magit-status-mode
 			    magit-diff-mode
 			    magit-log-mode
 			    magit-file-mode
 			    magit-blob-mode
 			    magit-blame-mode
-			    ))))
+			    )))
      "Emacs")
     
     (t
