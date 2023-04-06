@@ -33,6 +33,7 @@
 
     smart-compile
 
+    helpful
    
     ;; file manager
     treemacs

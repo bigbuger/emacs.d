@@ -128,6 +128,8 @@
   (define-key go-mode-map (kbd "s-g i") #'my-go-impl)
   (define-key go-mode-map (kbd "s-g f") #'gofmt)
   (define-key go-mode-map (kbd "s-g l") #'counsel-golangci-lint)
+  (define-key go-dot-mod-mode-map (kbd "s-g l") #'counsel-golangci-lint)
+  (define-key go-dot-work-mode-map (kbd "s-g l") #'counsel-golangci-lint)
   (define-key go-mode-map (kbd "s-g r") #'go-run))
 
 (provide 'my-go)

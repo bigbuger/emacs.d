@@ -268,6 +268,14 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 
 ;; end of ivy
 
+(require 'helpful)
+(setq counsel-describe-function-function #'helpful-callable)
+(setq counsel-describe-variable-function #'helpful-variable)
+(global-set-key (kbd "C-h k") #'helpful-key)
+(global-set-key (kbd "C-h x") #'helpful-command)
+
+(define-key emacs-lisp-mode-map (kbd "C-c C-d") #'helpful-at-point)
+
 (require 'which-key)
 (which-key-mode)
 
@@ -396,6 +404,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq auto-save-silent t)       ;; 自动保存的时候静悄悄的， 不要打扰我
 (setq auto-save-disable-predicates
       '((lambda ()
+	  (not (file-writable-p (buffer-file-name))) ;; 不可写文件不自动保存
 	  (tramp-tramp-file-p (buffer-file-name))))) ;; tramp 模式不自动保存
 
 ;; visual-regexp
@@ -625,14 +634,14 @@ Use a prefix argument ARG to indicate creation of a new process instead."
      "OrgMode")
 
     ((or (string-equal "*" (substring (buffer-name) 0 1))
-	 (memq major-mode '(magit-process-mode
+	 (not (memq major-mode '(magit-process-mode
 			    magit-status-mode
 			    magit-diff-mode
 			    magit-log-mode
 			    magit-file-mode
 			    magit-blob-mode
 			    magit-blame-mode
-			    )))
+			    ))))
      "Emacs")
     
     (t
@@ -642,6 +651,9 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (add-hook 'after-init-hook
 	  (lambda ()
 	    (centaur-tabs-mode t)))
+
+(with-eval-after-load 'counsel
+  (global-set-key (kbd "C-c t") 'centaur-tabs-counsel-switch-group))
 
 ;; about indent
 ;;(require 'aggressive-indent)
