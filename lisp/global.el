@@ -735,6 +735,15 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 ;; (add-hook 'prog-mode-hook #'wucuo-start)
 ;; (add-hook 'text-mode-hook #'wucuo-start)
 
+;; dash doc
+(require 'counsel-dash)
+(setq dash-docs-enable-debugging nil)
+;; (setq counsel-dash-docsets-path  (expand-file-name "~/.docsets/"))
+(setq counsel-dash-browser-func
+      #'(lambda (url &rest args)
+	  (xwidget-webkit-browse-url url args)
+	  (display-buffer xwidget-webkit-last-session-buffer)))
+
 (provide 'global)
 
 ;;; global.el ends here

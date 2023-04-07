@@ -59,6 +59,7 @@
     wgrep
     ivy-rich
     all-the-icons-ivy-rich
+    counsel-dash
 
     ;; company
     company

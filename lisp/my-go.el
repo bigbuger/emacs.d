@@ -132,6 +132,10 @@
   (define-key go-dot-work-mode-map (kbd "s-g l") #'counsel-golangci-lint)
   (define-key go-mode-map (kbd "s-g r") #'go-run))
 
+(add-hook 'go-mode-hook
+	  (lambda () (setq-local counsel-dash-docsets '("Go"))))
+
+
 (provide 'my-go)
 
 ;;; my-go.el ends here
