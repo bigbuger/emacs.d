@@ -203,6 +203,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 
 (require 'imenu-list)
 (global-set-key (kbd "<f9>") 'imenu-list)
+(setq imenu-auto-rescan t)
 
 ;;ivy
 (require 'ivy)
@@ -623,7 +624,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
   "`centaur-tabs-buffer-groups' control buffers' group rules."
   (list
    (cond
-   
+    
     ((or (derived-mode-p 'eshell-mode)
 	 (derived-mode-p 'term-mode)
 	 (derived-mode-p 'shell-mode)
@@ -635,7 +636,8 @@ Use a prefix argument ARG to indicate creation of a new process instead."
     ((derived-mode-p 'dired-mode)
      "Dired")
     
-    ((memq major-mode '(org-mode org-agenda-mode diary-mode))
+    ((and (not (projectile-project-root))
+	  (memq major-mode '(org-mode org-agenda-mode diary-mode)))
      "OrgMode")
 
     ((or (string-equal "*" (substring (buffer-name) 0 1))
@@ -672,6 +674,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 ;; about dired
 ;; (require 'all-the-icons-dired)
 ;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+(setq dired-dwim-target t)
 (setq wdired-allow-to-change-permissions t)
 (setq delete-by-moving-to-trash t)
 (setq dired-listing-switches (concat dired-listing-switches " -h --time-style=long-iso"))

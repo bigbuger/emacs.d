@@ -16,3 +16,6 @@
 [submodule "lisp/lsp-ivy"]
 	path = lisp/lsp-ivy
 	url = git@github.com:bigbuger/lsp-ivy.git
+[submodule "company-proto"]
+	path = company-proto
+	url = git@github.com:bigbuger/company-proto.git
