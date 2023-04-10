@@ -28,7 +28,7 @@
 (require 'company-proto)
 (add-hook 'protobuf-mode-hook
           (lambda () (setq-local company-backends
-				 (cl-adjoin '(company-proto :with company-yasnippet) company-backends))))
+				 (cl-adjoin '(company-proto :with company-yasnippet) company-backends :test #'equal))))
 
 
 (provide 'my-protobuf)

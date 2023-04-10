@@ -58,7 +58,9 @@
 	(verb . t)))
 
 ;; latex company
-(add-to-list 'company-backends 'company-math-symbols-latex)
+(add-hook 'org-mode-hook
+          (lambda () (setq-local company-backends
+				 (cl-adjoin '(company-math-symbols-latex) company-backends :test #'equal))))
 
 (add-hook 'org-mode-hook #'smartparens-mode)
 (sp-local-pair 'org-mode "\\[" "\\]")

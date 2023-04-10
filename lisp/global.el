@@ -560,7 +560,9 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (require 'restclient)
 (require 'company-restclient)
 (add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
-(add-to-list 'company-backends '(company-restclient :with company-yasnippe))
+(add-hook 'restclient-mode-hook
+          (lambda () (setq-local company-backends
+				 (cl-adjoin '(company-restclient :with company-yasnippet) company-backends :test #'equal))))
 
 
 ;; docker

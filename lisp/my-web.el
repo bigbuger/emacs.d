@@ -9,9 +9,12 @@
 
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(eval-after-load 'company
-  #'(dolist (backend (list 'company-web-html 'comapny-css))
-      (add-to-list 'company-backends `(,backend :with company-yasnippet))))
+
+(dolist (mode (list 'web-mode-hook 'html-mode-hook))
+  (add-hook mode
+            (lambda () (setq-local company-backends
+				   (cl-adjoin '(company-web-html company-css :with company-yasnippe) company-backends :test #'equal)))))
+
 
 (provide 'my-web)
 

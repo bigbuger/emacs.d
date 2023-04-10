@@ -22,8 +22,9 @@
 (setq ejc-result-table-impl 'ejc-result-mode) ; Set major-mode for results.
 
 (eval-after-load 'company
-  (lambda ()
-    (push 'ejc-company-backend company-backends)))
+  (add-hook 'ejc-sql-mode-hook
+          (lambda () (setq-local company-backends
+				 (cl-adjoin '(ejc-company-backend :with company-yasnippet) company-backends :test #'equal)))))
 
 (add-hook 'sql-mode-hook
 	  (lambda ()

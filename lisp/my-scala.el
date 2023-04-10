@@ -13,7 +13,10 @@
 (setq ensime-startup-notification nil)
 (setq ensime-search-interface 'ivy)
 
-(push '(ensime-company :with company-yasnippet) company-backends)
+
+(add-hook 'protobuf-mode-hook
+          (lambda () (setq-local company-backends
+				 (cl-adjoin '(ensime-company :with company-yasnippet) company-backends :test #'equal))))
 
 (provide 'my-scala)
 

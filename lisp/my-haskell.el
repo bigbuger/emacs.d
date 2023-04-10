@@ -28,7 +28,9 @@
 ;;(add-hook 'haskell-mode-hook 'flymake-haskell-multi-load)
 
 (add-hook 'haskell-interactive-mode-hook 'company-mode)
-(add-to-list 'company-backends '(company-ghc company-ghci :with company-yasnippet))
+(add-hook 'haskell-mode-hook
+          (lambda () (setq-local company-backends
+				 (cl-adjoin '(company-ghc company-ghci :with company-yasnippet) company-backends :test #'equal))))
 
 (setq haskell-program-name "ghci")
 ;; 添加菜单项
