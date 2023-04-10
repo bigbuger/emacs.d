@@ -137,6 +137,28 @@
 	  (lambda () (setq-local counsel-dash-docsets '("Go"))))
 
 
+(require 'rmsbolt)
+(with-eval-after-load 'rmsbolt
+  (cl-defun rmsbolt--go-compile-cmd (&key src-buffer)
+    "Process a compile command for go."
+    (rmsbolt--with-files
+     src-buffer
+     (let* ((cmd (buffer-local-value 'rmsbolt-command src-buffer))
+            (cmd (mapconcat #'identity
+                            (list cmd
+				  "build"
+				  "-gcflags=-S"
+                                  "-o" output-filename
+                                  src-filename)
+                            " ")))
+       cmd))))
+
+
+(add-hook 'go-mode-hook
+	  (lambda () (setq rmsbolt-default-directory
+			   (expand-file-name (string-replace "\n" "" (shell-command-to-string "dirname $(go env GOMOD)"))))))
+
+
 (provide 'my-go)
 
 ;;; my-go.el ends here

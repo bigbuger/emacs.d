@@ -754,20 +754,6 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (require 'rmsbolt)
 
 (with-eval-after-load 'rmsbolt
-  (cl-defun rmsbolt--go-compile-cmd (&key src-buffer)
-    "Process a compile command for go."
-    (rmsbolt--with-files
-     src-buffer
-     (let* ((cmd (buffer-local-value 'rmsbolt-command src-buffer))
-            (cmd (mapconcat #'identity
-                            (list cmd
-				  "build"
-                                  "-o" output-filename
-                                  src-filename)
-                            " ")))
-       cmd))))
-
-(with-eval-after-load 'rmsbolt
   (add-to-list 'display-buffer-alist
 	       `(,rmsbolt-output-buffer
 		 display-buffer-in-direction
