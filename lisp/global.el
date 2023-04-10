@@ -305,7 +305,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 ;;company
 (require 'company)
 (global-company-mode 1)
-(setq company-minimum-prefix-length 2)
+(setq company-minimum-prefix-length 1)
 (setq company-require-match 'never)
 (setq company-show-quick-access t)
 (add-hook 'after-init-hook 'company-quickhelp-mode)
@@ -741,11 +741,38 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 ;; dash doc
 (require 'counsel-dash)
 (setq dash-docs-enable-debugging nil)
-;; (setq counsel-dash-docsets-path  (expand-file-name "~/.docsets/"))
+(setq counsel-dash-common-docsets '("Redis" "MySQL"))
+(setq counsel-dash-docsets-path  (expand-file-name "~/.docset/"))
 (setq counsel-dash-browser-func
       #'(lambda (url &rest args)
 	  (xwidget-webkit-browse-url url args)
 	  (display-buffer xwidget-webkit-last-session-buffer)))
+(define-key prog-mode-map (kbd "C-c C-d") 'counsel-dash-at-point)
+
+
+;; rmsbolt
+(require 'rmsbolt)
+
+(with-eval-after-load 'rmsbolt
+  (cl-defun rmsbolt--go-compile-cmd (&key src-buffer)
+    "Process a compile command for go."
+    (rmsbolt--with-files
+     src-buffer
+     (let* ((cmd (buffer-local-value 'rmsbolt-command src-buffer))
+            (cmd (mapconcat #'identity
+                            (list cmd
+				  "build"
+                                  "-o" output-filename
+                                  src-filename)
+                            " ")))
+       cmd))))
+
+(with-eval-after-load 'rmsbolt
+  (add-to-list 'display-buffer-alist
+	       `(,rmsbolt-output-buffer
+		 display-buffer-in-direction
+		 (direction . right)
+		 (window-width . 0.5))))
 
 (provide 'global)
 

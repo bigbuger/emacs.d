@@ -123,6 +123,7 @@
 				    :test-suffix "_test.go"))
 
 (with-eval-after-load 'go-mode
+  (define-key go-mode-map (kbd "C-c C-d") #'counsel-dash-at-point)
   (define-key go-mode-map (kbd "s-g t") #'go-tag-add)
   (define-key go-mode-map (kbd "s-g T") #'go-tag-remove)
   (define-key go-mode-map (kbd "s-g i") #'my-go-impl)

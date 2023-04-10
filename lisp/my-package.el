@@ -32,6 +32,7 @@
     dumb-jump
 
     smart-compile
+    rmsbolt
 
     helpful
    
