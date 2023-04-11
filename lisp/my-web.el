@@ -13,7 +13,7 @@
 (dolist (mode (list 'web-mode-hook 'html-mode-hook))
   (add-hook mode
             (lambda () (setq-local company-backends
-				   (cl-adjoin '(company-web-html company-css :with company-yasnippe) company-backends :test #'equal)))))
+				   (cl-adjoin '(company-web-html company-css :with company-yasnippet) company-backends :test #'equal)))))
 
 
 (provide 'my-web)
