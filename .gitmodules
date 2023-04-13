@@ -19,3 +19,6 @@
 [submodule "lisp/company-proto"]
 	path = lisp/company-proto
 	url = git@github.com:bigbuger/company-proto.git
+[submodule "lisp/company-english-helper"]
+	path = lisp/company-english-helper
+	url = git@github.com:manateelazycat/company-english-helper.git

@@ -580,6 +580,16 @@ Use a prefix argument ARG to indicate creation of a new process instead."
     (pos-tip-show result)))
 (global-set-key (kbd "C-S-d") 'osx-dictionary-search-at-point-and-pop)
 
+(require 'google-translate)
+(require 'google-translate-default-ui)
+(setq google-translate-default-source-language "auto")
+(setq google-translate-default-target-language "zh-CN")
+
+
+(add-to-list 'load-path "~/.emacs.d/lisp/company-english-helper")
+(require 'company-english-helper)
+
+
 ;; centaur-tabs
 (require 'centaur-tabs)
 (setq centaur-tabs-set-icons t)

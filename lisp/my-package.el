@@ -207,6 +207,7 @@
     protobuf-mode
     
     osx-dictionary
+    google-translate
     osx-trash
     exec-path-from-shell
     )
