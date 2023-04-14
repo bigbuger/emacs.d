@@ -9,8 +9,10 @@
 
 ;; (add-to-list 'load-path "~/.emacs.d/lisp/tomorrow-theme")
 ;; (require 'tomorrow-night-eighties-theme)
-(load-theme 'spacemacs-light t)
-
+;; (load-theme 'spacemacs-light t)
+(require 'doom-themes)
+(setq doom-themes-enable-bold nil)
+(load-theme 'doom-solarized-light t)
 
 (require 'doom-modeline)
 

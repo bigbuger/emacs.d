@@ -46,6 +46,7 @@
 
     ;; theme
     spacemacs-theme
+    doom-themes
     doom-modeline
     all-the-icons
     all-the-icons-dired
