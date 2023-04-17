@@ -80,10 +80,13 @@
  '(flycheck-posframe-face ((t (:inherit default :background "#efeae9"))))
  '(flycheck-warning ((t (:underline (:color "yellow4" :style wave)))))
  '(flymake-warning ((t (:underline (:color "yellow4" :style wave)))))
+ '(font-lock-constant-face ((t (:foreground "#6c71c4"))))
+ '(font-lock-function-name-face ((t (:foreground "#b58900"))))
+ '(font-lock-keyword-face ((t (:foreground "#3a81c3" :slant normal))))
+ '(font-lock-type-face ((t (:inherit italic :foreground "#859900"))))
  '(lsp-face-highlight-textual ((t (:inherit highlight :background "#e6ebeb"))))
  '(show-paren-match ((t (:inherit bold :foreground "royal blue" :underline t))))
- '(term-color-blue ((t (:background "SkyBlue3" :foreground "SkyBlue3"))))
- '(tooltip ((t (:background "#c8c6dd" :foreground "#655370" :underline nil :slant normal :weight normal :height 1.0)))))
+ '(term-color-blue ((t (:background "SkyBlue3" :foreground "SkyBlue3")))))
 
 
 

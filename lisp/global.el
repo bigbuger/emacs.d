@@ -378,6 +378,8 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (require 'magit)
 (require 'magit-todos)
 (magit-todos-mode)
+
+(setq magit-git-output-coding-system 'utf-8-unix)
 (add-to-list 'magit-process-password-prompt-regexps
 	     ".*verification code: ?$")
 
