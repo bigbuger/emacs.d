@@ -85,7 +85,8 @@
  '(font-lock-type-face ((t (:inherit italic :foreground "#859900"))))
  '(lsp-face-highlight-textual ((t (:inherit highlight :background "#e6ebeb"))))
  '(show-paren-match ((t (:inherit bold :foreground "royal blue" :underline t))))
- '(term-color-blue ((t (:background "SkyBlue3" :foreground "SkyBlue3")))))
+ '(term-color-blue ((t (:background "SkyBlue3" :foreground "SkyBlue3"))))
+ '(treemacs-directory-face ((t (:inherit bold)))))
 
 
 
