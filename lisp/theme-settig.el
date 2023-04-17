@@ -10,6 +10,10 @@
 ;; (add-to-list 'load-path "~/.emacs.d/lisp/tomorrow-theme")
 ;; (require 'tomorrow-night-eighties-theme)
 
+;; (add-to-list 'custom-theme-load-path "~/.emacs.d/lisp/emacs-color-theme-solarized")
+;; (set-frame-parameter nil 'background-mode 'light)
+;; (load-theme 'solarized t)
+
 (load-theme 'spacemacs-light t)
 
 (require 'doom-themes)

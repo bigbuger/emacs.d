@@ -82,11 +82,11 @@
  '(font-lock-constant-face ((t (:foreground "#6c71c4"))))
  '(font-lock-function-name-face ((t (:inherit default :foreground "#9a4622"))))
  '(font-lock-keyword-face ((t (:inherit nil :foreground "#3a81c3" :slant normal))))
- '(font-lock-type-face ((t (:inherit italic :foreground "#859900"))))
+ '(font-lock-type-face ((t (:inherit default :foreground "#859900"))))
  '(lsp-face-highlight-textual ((t (:inherit highlight :background "#e6ebeb"))))
  '(show-paren-match ((t (:inherit bold :foreground "royal blue" :underline t))))
  '(term-color-blue ((t (:background "SkyBlue3" :foreground "SkyBlue3"))))
- '(treemacs-directory-face ((t (:inherit bold)))))
+ '(treemacs-directory-face ((t (:inherit default)))))
 
 
 
