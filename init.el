@@ -80,7 +80,7 @@
  '(flycheck-posframe-face ((t (:inherit default :background "#efeae9"))))
  '(flycheck-warning ((t (:underline (:color "yellow4" :style wave)))))
  '(font-lock-constant-face ((t (:foreground "#6c71c4"))))
- '(font-lock-function-name-face ((t (:inherit nil :foreground "#b58900"))))
+ '(font-lock-function-name-face ((t (:inherit default :foreground "#9a4622"))))
  '(font-lock-keyword-face ((t (:inherit nil :foreground "#3a81c3" :slant normal))))
  '(font-lock-type-face ((t (:inherit italic :foreground "#859900"))))
  '(lsp-face-highlight-textual ((t (:inherit highlight :background "#e6ebeb"))))
