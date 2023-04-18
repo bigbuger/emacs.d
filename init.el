@@ -63,31 +63,6 @@
  '(package-selected-packages
    '(rainbow-mode doom-themes google-translate rmsbolt counsel-dash helpful elm-mode smart-compile xenops magit-delta regex-tool all-the-icons-ibuffer ivy-emoji centaur-tabs ibuffer-projectile bufler auto-highlight-symbol wucuo flyspell-correct-popup eldoc-box go-playground osx-trash protobuf-mode gorepl-mode ob-go go-tag go-fill-struct godoctor go-impl go-gen-test multiple-cursors pyim dap-mode ebnf-mode dumb-jump sqlformat yard-mode dirvish company-inf-ruby ejc-sql rustic ivy-hydra company-fuzzy impostman verb ob-restclient projectile-ripgrep tree-sitter-langs vterm magic-latex-buffer auctex counsel-fd doom-modeline all-the-icons-ivy-rich ztree dante csv-mode gnuplot-mode spacemacs-theme imenu-list org-bullets crux all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight aggressive-indent expand-region flycheck-rust go-guru auto-yasnippet move-text treemacs treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich company-restclient go-eldo))
  '(show-paren-mode t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ahs-face ((t (:background "#e6ebeb"))))
- '(aw-leading-char-face ((t (:foreground "red" :height 5.0))))
- '(diff-hl-change ((t (:background "blue3" :foreground "blue3"))))
- '(diff-hl-delete ((t (:inherit diff-removed :background "red3" :foreground "red3"))))
- '(diff-hl-insert ((t (:inherit diff-added :background "green4" :foreground "green4"))))
- '(flycheck-error ((t (:underline "Red1"))))
- '(flycheck-info ((t (:underline (:color "#3a81c3" :style wave)))))
- '(flycheck-posframe-error-face ((t (:inherit flycheck-posframe-face :foreground "VioletRed1"))))
- '(flycheck-posframe-face ((t (:inherit default :background "#efeae9"))))
- '(flycheck-warning ((t (:underline (:color "yellow4" :style wave)))))
- '(font-lock-constant-face ((t (:foreground "#6c71c4"))))
- '(font-lock-function-name-face ((t (:inherit default :foreground "#9a4622"))))
- '(font-lock-keyword-face ((t (:inherit nil :foreground "#3a81c3" :slant normal))))
- '(font-lock-type-face ((t (:inherit default :foreground "#859900"))))
- '(lsp-face-highlight-textual ((t (:inherit highlight :background "#e6ebeb"))))
- '(show-paren-match ((t (:inherit bold :foreground "royal blue" :underline t))))
- '(term-color-blue ((t (:background "SkyBlue3" :foreground "SkyBlue3"))))
- '(treemacs-directory-face ((t (:inherit default)))))
-
-
 
 
 (put 'narrow-to-region 'disabled nil)
