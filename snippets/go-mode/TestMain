@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: TestMain
+# key: testm
+# --
+func TestMain(m *testing.M) {
+   $0
+}
