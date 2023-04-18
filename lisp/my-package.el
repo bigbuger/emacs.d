@@ -206,7 +206,8 @@
     markdown-mode
     company-ansible
     protobuf-mode
-    
+
+    rainbow-mode
     osx-dictionary
     google-translate
     osx-trash
