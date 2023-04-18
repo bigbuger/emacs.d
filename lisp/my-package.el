@@ -25,7 +25,7 @@
     
     which-key
     hydra
-   
+    
     imenu-list
     centaur-tabs
 
@@ -35,13 +35,12 @@
     rmsbolt
 
     helpful
-   
+    
     ;; file manager
     treemacs
     dirvish
     
     ;; indent
-    aggressive-indent
     highlight-indent-guides
 
     ;; theme
@@ -87,7 +86,7 @@
 
     ;; flyspell
     flyspell-correct-popup
-   
+    
 
     ;; resetclient
     restclient
@@ -216,8 +215,8 @@
 (defun my-packages-installed-p ()
   "Install need packages."
   (cl-loop for p in my-packages
-        when (not (package-installed-p p)) do (cl-return nil)
-        finally (return t)))
+           when (not (package-installed-p p)) do (cl-return nil)
+           finally (return t)))
 
 (unless (my-packages-installed-p)
   ;; check for new packages (package versions)

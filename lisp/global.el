@@ -1,7 +1,7 @@
 ;;; global.el --- global config
 
 ;;; Commentary:
-;; 
+;;
 
 ;;; Code:
 
@@ -16,7 +16,7 @@
 
 (setq initial-major-mode 'org-mode)
 (setq initial-scratch-message
-     "# This buffer is for text that is not saved, and for Org-mode.
+      "# This buffer is for text that is not saved, and for Org-mode.
 # To create a file, visit it with <open> and enter text in its buffer.
 
 ")
@@ -46,10 +46,10 @@
 
 ;; 临时 buffer 根据后缀选择 major-mode
 (setq-default major-mode
-	     (lambda () (if buffer-file-name
-			    (fundamental-mode)
-			  (let ((buffer-file-name (buffer-name)))
-			    (set-auto-mode)))))
+	      (lambda () (if buffer-file-name
+			     (fundamental-mode)
+			   (let ((buffer-file-name (buffer-name)))
+			     (set-auto-mode)))))
 
 ;;(global-linum-mode 1)
 (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode +1)))
@@ -69,9 +69,9 @@
 	    (setq header-line-format
 		  '((which-func-mode ("" which-func-format " "))))))
 (setq mode-line-misc-info
-            ;; We remove Which Function Mode from the mode line, because it's mostly
-            ;; invisible here anyway.
-            (assq-delete-all 'which-function-mode mode-line-misc-info))
+      ;; We remove Which Function Mode from the mode line, because it's mostly
+      ;; invisible here anyway.
+      (assq-delete-all 'which-function-mode mode-line-misc-info))
 
 (add-hook 'prog-mode-hook
 	  (lambda ()
@@ -95,7 +95,7 @@
 ;;垂直分割缓冲区 Alt+3  ;; C-x 3
 (global-set-key (kbd "M-3") 'split-window-horizontally)
 
-;全屏函数
+					;全屏函数
 (defun toggle-fullscreen (&optional f)
   "Fullscreen."
   (interactive)
@@ -121,7 +121,7 @@
 
 ;;括号匹配
 (setq show-paren-delay 0
-     show-paren-style 'parenthesis)
+      show-paren-style 'parenthesis)
 (show-paren-mode 1)
 
 
@@ -352,10 +352,10 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 ;; ibuffer
 (require 'ibuffer-projectile)
 (defun ibuffer-projectile-filter ()
-    "Set up `ibuffer-projectile'."
-    (ibuffer-projectile-set-filter-groups)
-      (unless (eq ibuffer-sorting-mode 'alphabetic)
-        (ibuffer-do-sort-by-alphabetic)))
+  "Set up `ibuffer-projectile'."
+  (ibuffer-projectile-set-filter-groups)
+  (unless (eq ibuffer-sorting-mode 'alphabetic)
+    (ibuffer-do-sort-by-alphabetic)))
 
 (add-hook 'ibuffer-hook #'ibuffer-projectile-filter)
 
@@ -452,9 +452,9 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq flycheck-indication-mode 'right-fringe)
 
 (defvar-local flycheck-local-checkers nil)
-  (defun +flycheck-checker-get(fn checker property)
-    (or (alist-get property (alist-get checker flycheck-local-checkers))
-        (funcall fn checker property)))
+(defun +flycheck-checker-get(fn checker property)
+  (or (alist-get property (alist-get checker flycheck-local-checkers))
+      (funcall fn checker property)))
 (advice-add 'flycheck-checker-get :around '+flycheck-checker-get)
 
 (setq flycheck-checker-error-threshold 600)
@@ -557,7 +557,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (define-key prog-mode-map (kbd "s-r") 'smart-compile)
 (with-eval-after-load 'projectile
   (define-key projectile-command-map (kbd "r") 'projectile-run-project))
-  
+
 
 ;; multiple-cursors
 (require 'multiple-cursors)
@@ -640,8 +640,8 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 
      ;; Is not temp version
      (string-match-p "^.+\\.~.+~$" name)
-     
-     
+
+
      ;; Is not magit buffer.
      (and (string-prefix-p "magit" name)
           (not (file-name-extension name)))
@@ -651,7 +651,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
   "`centaur-tabs-buffer-groups' control buffers' group rules."
   (list
    (cond
-    
+
     ((or (derived-mode-p 'eshell-mode)
 	 (derived-mode-p 'term-mode)
 	 (derived-mode-p 'shell-mode)
@@ -659,10 +659,10 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 	 (derived-mode-p 'compilation-mode)
 	 (derived-mode-p 'comint-mode))
      "Execute")
-    
+
     ((derived-mode-p 'dired-mode)
      "Dired")
-    
+
     ((and (not (projectile-project-root))
 	  (memq major-mode '(org-mode org-agenda-mode diary-mode)))
      "OrgMode")
@@ -677,7 +677,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 			    magit-blame-mode
 			    )))
      "Emacs")
-    
+
     (t
      (centaur-tabs-get-group-name (current-buffer))))))
 
@@ -690,9 +690,6 @@ Use a prefix argument ARG to indicate creation of a new process instead."
   (global-set-key (kbd "C-c t") 'centaur-tabs-counsel-switch-group))
 
 ;; about indent
-;;(require 'aggressive-indent)
-;;(global-aggressive-indent-mode 1)
-
 (require 'highlight-indent-guides)
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 (setq highlight-indent-guides-method 'character)
@@ -719,10 +716,10 @@ Use a prefix argument ARG to indicate creation of a new process instead."
   ;; (setq dired-x-hands-off-my-keys nil)
   )
 (add-hook 'dired-mode-hook
-          (lambda ()
-            ;; Set dired-x buffer-local variables here.  For example:
-            (dired-omit-mode 1)
-            ))
+	  (lambda ()
+	    ;; Set dired-x buffer-local variables here.  For example:
+	    (dired-omit-mode 1)
+	    ))
 
 (require 'dirvish)
 (dirvish-override-dired-mode)
@@ -739,7 +736,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
   (kbd "/") 'dirvish-fd)
 
 (add-hook 'dirvish-find-entry-hook
-          (lambda (&rest _) (setq-local truncate-lines t)))
+	  (lambda (&rest _) (setq-local truncate-lines t)))
 
 (setq dirvish-reuse-session t)
 
