@@ -9,17 +9,7 @@
 
 (setq custom--inhibit-theme-enable nil)
 
-
-;; (add-to-list 'load-path "~/.emacs.d/lisp/tomorrow-theme")
-;; (require 'tomorrow-night-eighties-theme)
-
-;; (add-to-list 'custom-theme-load-path "~/.emacs.d/lisp/emacs-color-theme-solarized")
-;; (set-frame-parameter nil 'background-mode 'light)
-;; (load-theme 'solarized t)
-
 (require 'spacemacs-light-theme)
-
-
 (load-theme 'spacemacs-light t)
 (custom-theme-set-faces 'spacemacs-light
  '(ahs-face ((t (:background "#e6ebeb"))))
@@ -42,12 +32,7 @@
  '(treemacs-directory-face ((t (:inherit default)))))
 
 
-(require 'doom-themes)
-(setq doom-themes-enable-bold nil)
-;; (load-theme 'doom-solarized-light t)
-
 (require 'doom-modeline)
-
 ;; How tall the mode-line should be. It's only respected in GUI.
 ;; If the actual char height is larger, it respects the actual height.
 (setq doom-modeline-height 18)

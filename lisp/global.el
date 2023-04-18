@@ -388,9 +388,6 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (add-to-list 'magit-process-password-prompt-regexps
 	     ".*verification code: ?$")
 
-(custom-set-variables
- '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'"))
-
 (require 'magit-delta)
 (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))
 
