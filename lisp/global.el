@@ -25,7 +25,7 @@
 (add-hook 'after-init-hook
 	  (save-place-mode))
 
-
+(setq Man-notify-method 'pushy)
 
 ;; 关闭启动画面
 (setq inhibit-startup-message t)
@@ -61,6 +61,7 @@
 ;; disable bookmark fringe
 (setq bookmark-set-fringe-mark nil)
 
+;; whitch function mode
 (which-function-mode)
 
 (add-hook 'prog-mode-hook
@@ -76,6 +77,10 @@
 	  (lambda ()
 	    (font-lock-add-keywords nil
 				    '(("\\<\\(FIXME\\|fixme\\|TODO\\|todo\\|BUG\\|bug\\)\\>" 1 font-lock-warning-face t)))))
+
+;; enable narrow
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
 
 ;; make it split horizontal
 (setq split-width-threshold 1000)
@@ -312,7 +317,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 
 (global-set-key (kbd "<backtab>") 'company-complete)
 (global-set-key (kbd "<C-S-tab>") 'company-files)
-(global-set-key (kbd "<C-M-tab>") 'company-ispell)
+;; (global-set-key (kbd "<C-M-tab>") 'company-ispell)
 
 ;;(add-to-list 'company-backends 'company-yasnippet)
 (defvar company-mode/enable-yas t
@@ -383,8 +388,15 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (add-to-list 'magit-process-password-prompt-regexps
 	     ".*verification code: ?$")
 
+(custom-set-variables
+ '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'"))
+
 (require 'magit-delta)
 (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))
+
+;; ediff
+(setq ediff-split-window-function 'split-window-horizontally
+      ediff-window-setup-function 'ediff-setup-windows-plain)
 
 
 ;; diff-hl
@@ -447,6 +459,9 @@ _k_: kebab foo-bar          ^ _q_: cancel.
     (or (alist-get property (alist-get checker flycheck-local-checkers))
         (funcall fn checker property)))
 (advice-add 'flycheck-checker-get :around '+flycheck-checker-get)
+
+(setq flycheck-checker-error-threshold 600)
+
 
 ;; realgud
 (require 'realgud)
@@ -590,6 +605,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 
 (add-to-list 'load-path "~/.emacs.d/lisp/company-english-helper")
 (require 'company-english-helper)
+(global-set-key (kbd "<C-M-tab>") 'company-english-helper-search)
 
 
 ;; centaur-tabs

@@ -13,7 +13,8 @@
 
 
 (setq python-shell-interpreter "python3"
-      lsp-pyright-python-executable-cmd "python3")
+      lsp-pyright-python-executable-cmd "python3"
+      dap-python-executable "python3")
 
 
 (with-eval-after-load "lsp-mode"
