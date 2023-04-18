@@ -5,7 +5,7 @@
 
 ;;; Code:
 
-(set-face-attribute 'default nil :height 145)
+(set-face-attribute 'default nil :height 150)
 
 (setq custom--inhibit-theme-enable nil)
 
