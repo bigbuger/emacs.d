@@ -137,18 +137,18 @@
 (global-set-key (kbd "C-M-e") 'sp-end-of-sexp)
 (global-set-key (kbd "C-M-d") 'sp-clone-sexp)
 
-(require 'cl)
+(require 'cl-lib)
 (defmacro def-pairs (pairs)
- `(progn
-    ,@(loop for (key . val) in pairs
-	    collect
-	    `(defun ,(read (concat
-			    "wrap-with-"
-			    (prin1-to-string key)
-			    "s"))
-		 (&optional arg)
-	       (interactive "p")
-	       (sp-wrap-with-pair ,val)))))
+  `(progn
+     ,@(cl-loop for (key . val) in pairs
+		collect
+		`(defun ,(read (concat
+				"wrap-with-"
+				(prin1-to-string key)
+				"s"))
+		     (&optional arg)
+		   (interactive "p")
+		   (sp-wrap-with-pair ,val)))))
 
 (def-pairs ((paren . "(")
 	    (bracket . "[")
@@ -762,8 +762,6 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (setq ispell-program-name "aspell")
 (setq ispell-extra-args '("--sug-mode=ultra" "--camel-case"))
 
-;; (add-hook 'prog-mode-hook #'wucuo-start)
-;; (add-hook 'text-mode-hook #'wucuo-start)
 
 ;; dash doc
 (require 'counsel-dash)

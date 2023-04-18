@@ -87,7 +87,6 @@
 
     ;; flyspell
     flyspell-correct-popup
-    wucuo
    
 
     ;; resetclient
