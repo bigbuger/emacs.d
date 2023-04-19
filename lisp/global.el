@@ -136,15 +136,16 @@
 (global-set-key (kbd "C-M-a") 'sp-beginning-of-sexp)
 (global-set-key (kbd "C-M-e") 'sp-end-of-sexp)
 (global-set-key (kbd "C-M-d") 'sp-clone-sexp)
+(define-key smartparens-mode-map (kbd "C-M-<up>") 'sp-up-sexp)
 
-(defun sp-end-of-sexp-and-new-line (&optional arg)
+(defun sp-up-sexp-and-new-line (&optional arg)
   "Jump to end of the sexp the point is in and insert newline.
 ARG is pass to `sp-end-of-sexp'"
-  (interactive "^P")
+  (interactive)
   (progn
-    (sp-end-of-sexp arg)
+    (sp-up-sexp)
     (newline-and-indent)))
-(global-set-key (kbd "C-<return>") 'sp-end-of-sexp-and-new-line)
+(global-set-key (kbd "C-<return>") 'sp-up-sexp-and-new-line)
 
 (require 'cl-lib)
 (defmacro def-pairs (pairs)
