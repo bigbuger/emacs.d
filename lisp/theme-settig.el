@@ -11,7 +11,8 @@
 
 (require 'spacemacs-light-theme)
 (load-theme 'spacemacs-light t)
-(custom-theme-set-faces 'spacemacs-light
+(custom-theme-set-faces
+ 'spacemacs-light
  '(ahs-face ((t (:background "#e6ebeb"))))
  '(aw-leading-char-face ((t (:foreground "red" :height 5.0))))
  '(diff-hl-change ((t (:background "blue3" :foreground "blue3"))))

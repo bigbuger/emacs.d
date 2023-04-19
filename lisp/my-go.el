@@ -39,6 +39,8 @@
 
 (setq go-test-args "-v")
 
+(setq go-fontify-function-calls nil)
+
 (add-hook 'go-mode-hook
 	  (lambda ()
 	    (setq-local company-backends '((company-go :with company-yasnippet)
