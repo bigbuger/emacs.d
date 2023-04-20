@@ -14,6 +14,14 @@
 (define-key json-mode-map (kbd "C-c j") 'counsel-jq-ex)
 (define-key js-mode-map (kbd "C-c j") 'counsel-jq-ex)
 
+(advice-add 'json-mode-beautify :after
+	    #'(lambda (&rest _ignore)
+		(let ((deactivate deactivate-mark))
+		  (if (region-active-p)
+		      (indent-region (region-beginning) (region-end))
+		    (indent-region (point-min) (point-max)))
+		  (setq deactivate-mark deactivate))))
+
 
 
 (provide 'my-json)
