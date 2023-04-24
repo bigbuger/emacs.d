@@ -45,6 +45,7 @@
 
     ;; theme
     spacemacs-theme
+    color-theme-sanityinc-tomorrow
     doom-modeline
     all-the-icons
     all-the-icons-dired

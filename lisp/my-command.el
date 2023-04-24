@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(defun myselect-line (num)
+(defun my-select-line (num)
   "Select NUM lines."
   (interactive "p")
   (progn
@@ -16,19 +16,14 @@
     (set-mark (point))
     (forward-line num)))
 
-(global-set-key (kbd "C-c SPC") 'myselect-line)
+(global-set-key (kbd "C-c SPC") 'my-select-line)
 
 
-(defun mydelete-line (num)
+(defun my-delete-line (num)
   "Kill NUM lines."
   (interactive "p")
   (save-excursion
-    ;; (setq tnum num)
-    ;; (forward-line 0)
-    ;; (setq startline (line-number-at-pos))
-    ;; (set-mark (point))
-    ;; (forward-line num)
-    (myselect-line num)
+    (my-select-line num)
     (setq endline (if (= (point) (point-max))
 		      (+ (line-number-at-pos) 1)
 		    (line-number-at-pos)))
@@ -37,16 +32,11 @@
 
 (global-set-key (kbd "C-c d") 'mydelete-line)
 
-(defun mycopy-line (num)
+(defun my-copy-line (num)
   "Copy NUM lines into killring."
   (interactive "p")
   (save-excursion
-    ;; (setq tnum num)
-    ;; (forward-line 0)
-    ;; (setq startline (line-number-at-pos))
-    ;; (set-mark (point))
-    ;; (forward-line num)
-    (myselect-line num)
+    (my-select-line num)
     (copy-region-as-kill (region-beginning) (region-end))
     (cond ((= (point) (line-beginning-position))
 	   (forward-line -1)))
@@ -55,9 +45,9 @@
 	(message "Copy line%d into killring" startline)
       (message "Copy line%d to line%d into killring" startline endline))))
 
-(global-set-key (kbd "C-c y") 'mycopy-line)
+(global-set-key (kbd "C-c y") 'my-copy-line)
 
-(defun mycopy-one-word ()
+(defun my-copy-one-word ()
   "Copy one word after or in the point into killring."
   (interactive)
   (save-excursion
@@ -66,7 +56,7 @@
       (set-mark (point))
       (backward-word 1)
       (copy-region-as-kill (region-beginning) (region-end)))))
-(global-set-key (kbd "C-c M-d") 'mycopy-one-word)
+(global-set-key (kbd "C-c M-d") 'my-copy-one-word)
 
 (defun my-sed (sed-cmd)
   "Run the sed commond SED-CMD in current-butter and replace."
@@ -77,14 +67,13 @@
 	(test-cmd (concat "sed '" sed-cmd  "' 2>>/dev/null 1>>/dev/null"))
 	(buffer (current-buffer))
 	(old-point (point)))
-    ;;(save-excursion
     (setq testrun (shell-command-on-region start end test-cmd nil nil))
     (if (= testrun 0)
 	(progn
 	  (shell-command-on-region start end cmd buffer 1)
 	  (goto-char old-point)
 	  (message "ok!"))
-      (message "sed command :'%s' is error" sed-cmd))));)
+      (message "sed command :'%s' is error" sed-cmd))))
 
 (global-set-key (kbd "C-c :") 'my-sed)
 
