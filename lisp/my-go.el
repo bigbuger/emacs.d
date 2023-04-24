@@ -22,8 +22,8 @@
 ;; go install github.com/davidrjenni/reftools/cmd/fillstruct@latest
 ;; go install github.com/x-motemen/gore/cmd/gore@latest
 (require 'go-dlv)
-(require 'go-guru)
-(require 'go-rename)
+;; (require 'go-guru)
+;; (require 'go-rename)
 (require 'go-gen-test)
 (require 'go-impl)
 (require 'godoctor)
