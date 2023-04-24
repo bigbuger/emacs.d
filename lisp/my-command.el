@@ -30,7 +30,7 @@
     (kill-region (region-beginning) (region-end))
     (message "kill %d line[s]" (- endline startline))))
 
-(global-set-key (kbd "C-c d") 'mydelete-line)
+(global-set-key (kbd "C-c d") 'my-delete-line)
 
 (defun my-copy-line (num)
   "Copy NUM lines into killring."
