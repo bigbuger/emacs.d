@@ -17,8 +17,8 @@
 (add-hook 'org-mode-hook
 	  (lambda ()
 	    (when (not (string= (buffer-name) "*scratch*"))
-		(olivetti-mode 1))))
-(setq olivetti-body-width 95)
+	      (olivetti-mode 1))))
+(setq olivetti-body-width 120)
 (setq olivetti-style 'fancy)
 
 (defun org-babel-execute:passthrough (body params)
@@ -40,22 +40,22 @@
 
 
 (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((emacs-lisp . t)
-	(calc . t)
-	(scheme . t)
-        (ruby . t)
-	(perl . t)
-        (python . t)
-	(haskell . t)
-        (shell . t)
-	(go . t)
-	(js . t)
-	(passthrough . t)
-        (latex . t)
-	(dot . t)
-	(restclient . t)
-	(verb . t)))
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (calc . t)
+   (scheme . t)
+   (ruby . t)
+   (perl . t)
+   (python . t)
+   (haskell . t)
+   (shell . t)
+   (go . t)
+   (js . t)
+   (passthrough . t)
+   (latex . t)
+   (dot . t)
+   (restclient . t)
+   (verb . t)))
 
 ;; latex company
 (add-hook 'org-mode-hook
@@ -69,6 +69,22 @@
   (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
 
 (setq org-confirm-babel-evaluate nil)
+
+;; inline显示图片
+(setq org-startup-with-inline-images 1)
+
+(defun org-insert-image ()
+  (interactive)
+  (let* ((path (concat default-directory "img/"))
+	 (image-file (concat
+		      path
+		      (buffer-name)
+		      (format-time-string "_%Y%m%d_%H%M%S.png"))))
+    (if (not (file-exists-p path))
+	(mkdir path))
+    (shell-command (concat "pngpaste " image-file))
+    (org-insert-link nil (concat "file:" image-file) ""))
+  (org-display-inline-images))
 
 (provide 'my-org)
 
