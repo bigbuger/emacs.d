@@ -12,7 +12,7 @@
 (setq geiser-mode-start-repl-p t)
 
 (require 'smartparens)
-(sp-local-pair 'scheme-mode "(" nil :actions '(:rem insert skip))
+(sp-local-pair 'scheme-mode "(" nil :actions '(:rem skip))
 (define-key scheme-mode-map  (kbd "C-}") 'sp-forward-slurp-sexp)
 
 

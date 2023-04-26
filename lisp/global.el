@@ -127,7 +127,7 @@
 
 (require 'smartparens-config)
 (add-hook 'prog-mode-hook #'smartparens-mode)
-(sp-local-pair 'emacs-lisp-mode "(" nil :actions '(:rem insert autoskip))
+(sp-local-pair 'emacs-lisp-mode "(" nil :actions '(:rem autoskip))
 (sp-local-pair 'emacs-lisp-mode "'" nil :actions '(wrap))
 (global-set-key (kbd "C-}") 'sp-slurp-hybrid-sexp)
 (define-key emacs-lisp-mode-map  (kbd "C-}") 'sp-forward-slurp-sexp)
