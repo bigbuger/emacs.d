@@ -61,9 +61,9 @@
 
 
 (defun my-go-impl ()
-    (interactive)
-    (let ((completing-read-function 'completing-read-default))
-      (call-interactively 'go-impl)))
+  (interactive)
+  (let ((completing-read-function 'completing-read-default))
+    (call-interactively 'go-impl)))
 
 (lsp-register-custom-settings
  '(("go.linitTool" "golangci-lint" nil)
@@ -140,25 +140,64 @@
 
 
 (require 'rmsbolt)
-(with-eval-after-load 'rmsbolt
-  (cl-defun rmsbolt--go-compile-cmd (&key src-buffer)
-    "Process a compile command for go."
-    (rmsbolt--with-files
-     src-buffer
-     (let* ((cmd (buffer-local-value 'rmsbolt-command src-buffer))
-            (cmd (mapconcat #'identity
-                            (list cmd
-				  "build"
-				  "-gcflags=-S"
-                                  "-o" output-filename
-                                  src-filename)
-                            " ")))
-       cmd))))
+
+(cl-defun rmsbolt--go-plan9-compile-cmd (&key src-buffer)
+  "Process a compile command for go."
+  (rmsbolt--with-files
+   src-buffer
+   (let* ((cmd (buffer-local-value 'rmsbolt-command src-buffer))
+          (cmd (mapconcat #'identity
+                          (list cmd
+				"build"
+				"-gcflags=-S"
+                                "&>" output-filename
+                                src-filename)
+                          " ")))
+     cmd)))
+
+(cl-defun rmsbolt--process-go-plan9-lines (_src-buffer asm-lines)
+  (let ((source-linum nil)
+        (result nil))
+    (dolist (line asm-lines)
+      (if (not
+	   (string-match (rx bol "\t"
+			     (group "0x" (1+ hex))
+			     (1+ " ")
+			     (group (1+ digit))
+			     (1+ " ")
+			     "("
+			     (group (0+ (not ":"))) ":"
+			     (group (1+ digit))
+			     ")"
+			     (* any) eol)
+			 line))
+	  ;; just push the var with no linum
+	  (push line result)
+	;; Grab line numbers
+	(unless (string-empty-p (match-string 4 line))
+          (setq source-linum
+		(string-to-number (match-string 4 line))))
+	(when source-linum
+          (add-text-properties 0 (length line)
+                               `(rmsbolt-src-line ,source-linum) line))
+	;; Add line
+	(push line result)))
+    (nreverse result)))
 
 
 (add-hook 'go-mode-hook
-	  (lambda () (setq rmsbolt-default-directory
-			   (expand-file-name (string-replace "\n" "" (shell-command-to-string "dirname $(go env GOMOD)"))))))
+	  (lambda ()
+	    (setq rmsbolt-default-directory
+			   (expand-file-name (string-replace "\n" "" (shell-command-to-string "dirname $(go env GOMOD)"))))
+	    (setq-local rmsbolt-languages
+			`((go-mode
+			   . ,(make-rmsbolt-lang :compile-cmd "go"
+						 :supports-asm t
+						 :supports-disass t
+						 :objdumper nil
+						 :compile-cmd-function #'rmsbolt--go-plan9-compile-cmd
+						 :process-asm-custom-fn #'rmsbolt--process-go-plan9-lines))))))
+
 
 
 (provide 'my-go)
