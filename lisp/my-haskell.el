@@ -7,11 +7,14 @@
 
 (require 'haskell-mode)
 (require 'haskell-indent)
-;;(require 'haskell-interactive-mode)
-;;(require 'haskell-process)
 (require 'dante)
+(require 'lsp)
+(require 'lsp-haskell)
 
-;;(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+;; Hooks so haskell and literate haskell major modes trigger LSP setup
+(add-hook 'haskell-mode-hook #'lsp-deferred)
+(add-hook 'haskell-literate-mode-hook #'lsp-deferred)
+
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
@@ -20,12 +23,6 @@
   (add-hook 'haskell-mode-hook (lambda ()
 				 (highlight-indent-guides-mode -1))))
 
-;;(autoload 'ghc-init "ghc" nil t)
-;;(autoload 'ghc-debug "ghc" nil t)
-;;(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
-
-;;(require 'flymake-haskell-multi)
-;;(add-hook 'haskell-mode-hook 'flymake-haskell-multi-load)
 
 (add-hook 'haskell-interactive-mode-hook 'company-mode)
 (add-hook 'haskell-mode-hook
@@ -45,7 +42,7 @@
 ;; 	  (lambda ()
 ;; 	   (setq-local flycheck-disabled-checkers '(haskell-stack-ghc))))
 
-(add-hook 'haskell-mode-hook 'dante-mode)
+;; (add-hook 'haskell-mode-hook 'dante-mode)
 (flycheck-add-next-checker 'haskell-dante '(info . haskell-hlint))
 
 (setq haskell-font-lock-symbols 1)

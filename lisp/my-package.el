@@ -159,6 +159,7 @@
     ghc
     dante
     ;; flymake-haskell-multi
+    lsp-haskell
     
     ;; scheme
     geiser
