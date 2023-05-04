@@ -166,6 +166,12 @@
     geiser-guile
     flycheck-guile
     sicp
+
+    ;; clojure
+    clojure-mode
+    cider
+    clj-refactor
+    
     
     ;; python
     elpy

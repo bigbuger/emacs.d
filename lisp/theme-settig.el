@@ -14,6 +14,7 @@
 (custom-theme-set-faces
  'spacemacs-light
  '(ahs-face ((t (:background "#e6ebeb"))))
+ '(ahs-plugin-default-face ((t (:background "#efebfb"))))
  '(aw-leading-char-face ((t (:foreground "red" :height 5.0))))
  '(diff-hl-change ((t (:background "blue3" :foreground "blue3"))))
  '(diff-hl-delete ((t (:inherit diff-removed :background "red3" :foreground "red3"))))
