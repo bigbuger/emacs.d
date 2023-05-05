@@ -7,7 +7,7 @@
 
 (require 'haskell-mode)
 (require 'haskell-indent)
-(require 'dante)
+;; (require 'dante)
 (require 'lsp)
 (require 'lsp-haskell)
 
@@ -30,22 +30,17 @@
 				 (cl-adjoin '(company-ghc company-ghci :with company-yasnippet) company-backends :test #'equal))))
 
 (setq haskell-program-name "ghci")
-;; 添加菜单项
-(add-hook 'haskell-mode-hook 'imenu-add-menubar-index)
-
 
 
 (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile)
 (define-key haskell-mode-map (kbd "<f5>") 'haskell-process-load-file)
 
-;; (add-hook 'haskell-mode-hook
-;; 	  (lambda ()
-;; 	   (setq-local flycheck-disabled-checkers '(haskell-stack-ghc))))
 
 ;; (add-hook 'haskell-mode-hook 'dante-mode)
-(flycheck-add-next-checker 'haskell-dante '(info . haskell-hlint))
+;; (flycheck-add-next-checker 'haskell-dante '(info . haskell-hlint))
 
 (setq haskell-font-lock-symbols 1)
+
 (require 'smartparens)
 (sp-local-pair 'haskell-mode "(" nil :actions '(:rem insert))
 
