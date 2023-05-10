@@ -29,6 +29,11 @@
           (lambda () (setq-local company-backends
 				 (cl-adjoin '(company-ghc company-ghci :with company-yasnippet) company-backends :test #'equal))))
 
+(add-hook 'haskell-cabal-mode-hook
+          (lambda () (setq-local company-backends
+				 (cl-adjoin '(company-cabal :with company-yasnippet) company-backends :test #'equal))))
+
+
 (setq haskell-program-name "ghci")
 
 

@@ -160,6 +160,7 @@
     dante
     ;; flymake-haskell-multi
     lsp-haskell
+    company-cabal
     
     ;; scheme
     geiser
