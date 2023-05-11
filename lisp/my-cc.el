@@ -6,6 +6,7 @@
 ;;; Code:
 (require 'mode-local)
 (require 'dap-lldb)
+(require 'dap-cpptools)
 ;;(require 'dap-gdb-lldb)
 ;;(setq-mode-local c++-mode lsp-prefer-flymake nil lsp-ui-flycheck-enable t)
 ;;(setq-mode-local c-mode lsp-prefer-flymake nil lsp-ui-flycheck-enable t)

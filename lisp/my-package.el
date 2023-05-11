@@ -161,6 +161,7 @@
     ;; flymake-haskell-multi
     lsp-haskell
     company-cabal
+    idris-mode
     
     ;; scheme
     geiser

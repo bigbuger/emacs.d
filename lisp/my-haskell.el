@@ -38,7 +38,7 @@
 
 
 (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile)
-(define-key haskell-mode-map (kbd "<f5>") 'haskell-process-load-file)
+;; (define-key haskell-mode-map (kbd "<f5>") 'haskell-process-load-file)
 
 
 ;; (add-hook 'haskell-mode-hook 'dante-mode)
@@ -48,6 +48,9 @@
 
 (require 'smartparens)
 (sp-local-pair 'haskell-mode "(" nil :actions '(:rem insert))
+
+(with-eval-after-load 'smart-compile
+  (setf (alist-get "\\.hs\\'" smart-compile-alist nil nil #'string=) "runhaskell %f"))
 
 (provide 'my-haskell)
 
