@@ -334,6 +334,13 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (global-set-key (kbd "<C-S-tab>") 'company-files)
 ;; (global-set-key (kbd "<C-M-tab>") 'company-ispell)
 
+(setq company-backends
+      '(company-semantic
+	company-cmake
+	company-capf
+	company-files
+	(company-dabbrev-code company-gtags company-etags company-keywords)))
+
 ;;(add-to-list 'company-backends 'company-yasnippet)
 (defvar company-mode/enable-yas t
   "Enable yasnippet for all backends.")
