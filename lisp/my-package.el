@@ -70,6 +70,7 @@
     ;; yasnippet
     yasnippet
     auto-yasnippet
+    yatemplate
 
     ;; shell term
     vterm

@@ -315,6 +315,12 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (global-set-key (kbd "C-S-w") #'aya-create)
 (global-set-key (kbd "C-S-y") #'aya-expand)
 
+(require 'yatemplate)
+(setq auto-insert-query nil)
+(setq auto-insert-alist nil)
+(yatemplate-fill-alist)
+(auto-insert-mode t)
+
 
 ;;company
 (require 'company)
