@@ -29,7 +29,6 @@
 
 ;; 关闭启动画面
 (setq inhibit-startup-message t)
-(setq frame-title-format "%b")
 
 ;; 关闭蜂鸣
 (setq visible-bell t)
@@ -341,7 +340,6 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 	company-files
 	(company-dabbrev-code company-gtags company-etags company-keywords)))
 
-;;(add-to-list 'company-backends 'company-yasnippet)
 (defvar company-mode/enable-yas t
   "Enable yasnippet for all backends.")
 (defun company-mode/backend-with-yas (backend)
@@ -351,6 +349,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
     (append (if (consp backend) backend (list backend))
             '(:with company-yasnippet))))
 (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
+(add-to-list 'company-backends 'company-yasnippet)
 
 
 
@@ -369,6 +368,15 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (define-key projectile-command-map (kbd "g") 'counsel-projectile-rg)
 (define-key projectile-command-map (kbd "b") 'counsel-projectile-switch-to-buffer)
 (define-key projectile-command-map (kbd "f") 'counsel-projectile-find-file)
+
+
+(setq frame-title-format
+      '(""
+	"%b"
+	(:eval
+	 (let ((project-name (projectile-project-name)))
+           (unless (string= "-" project-name)
+             (format " in [%s]" project-name))))))
 
 
 ;; ibuffer
@@ -416,6 +424,14 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 ;; ediff
 (setq ediff-split-window-function 'split-window-horizontally
       ediff-window-setup-function 'ediff-setup-windows-plain)
+(defun ediff-copy-both-to-C ()
+  (interactive)
+  (ediff-copy-diff ediff-current-difference nil 'C nil
+                   (concat
+                    (ediff-get-region-contents ediff-current-difference 'A ediff-control-buffer)
+                    (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
+(defun add-d-to-ediff-mode-map () (define-key ediff-mode-map "d" 'ediff-copy-both-to-C))
+(add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
 
 
 ;; diff-hl

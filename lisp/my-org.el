@@ -60,7 +60,7 @@
 ;; latex company
 (add-hook 'org-mode-hook
           (lambda () (setq-local company-backends
-				 (cl-adjoin '(company-math-symbols-latex) company-backends :test #'equal))))
+				 (cl-adjoin '(company-math-symbols-latex :with company-yasnippet) company-backends :test #'equal))))
 
 (add-hook 'org-mode-hook #'smartparens-mode)
 (sp-local-pair 'org-mode "\\[" "\\]")
