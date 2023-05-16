@@ -12,14 +12,13 @@
 (require 'org-mouse)
 (require 'ob-go)
 
-
+(setq org-support-shift-select t)
 ;;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-(add-hook 'org-mode-hook
-	  (lambda ()
-	    (when (not (string= (buffer-name) "*scratch*"))
-	      (olivetti-mode 1))))
-(setq olivetti-body-width 120)
-(setq olivetti-style 'fancy)
+;; (add-hook 'org-mode-hook
+;; 	  (lambda ()
+;; 	    (when (not (string= (buffer-name) "*scratch*"))
+;; 	      (olivetti-mode 1))))
+;; (setq olivetti-body-width 220)
 
 (defun org-babel-execute:passthrough (body params)
   body)

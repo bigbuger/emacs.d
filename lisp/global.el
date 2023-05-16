@@ -337,6 +337,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
       '(company-semantic
 	company-cmake
 	company-capf
+	company-clang
 	company-files
 	(company-dabbrev-code company-gtags company-etags company-keywords)))
 
@@ -349,8 +350,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
     (append (if (consp backend) backend (list backend))
             '(:with company-yasnippet))))
 (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
-(add-to-list 'company-backends 'company-yasnippet)
-
+(setq company-backends (append company-backends '(company-yasnippet)))
 
 
 ;;projectile
