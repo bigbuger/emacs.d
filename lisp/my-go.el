@@ -77,12 +77,15 @@
 (require 'flycheck-golangci-lint)
 (eval-after-load 'flycheck
   '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
-(flycheck-add-next-checker 'go-build '(warning . golangci-lint) t)
-
+;; (flycheck-add-next-checker 'go-build '(warning . golangci-lint) t)
+(add-hook 'lsp-managed-mode-hook
+          (lambda ()
+            (when (derived-mode-p 'go-mode)
+              (setq flycheck-local-checkers '((lsp . ((next-checkers . ((warning . golangci-lint))))))))))
 
 (add-hook 'go-mode-hook
 	  (lambda ()
-	    (setq-local lsp-diagnostics-provider :none)
+	    ;; (setq-local lsp-diagnostics-provider :none)
 	    (setq-local flycheck-disabled-checkers
 			'(go-gofmt
 			  go-golint
@@ -92,8 +95,8 @@
 			  go-errcheck
 			  go-staticcheck
 			  go-unconvert))
-            (when (flycheck-may-use-checker 'go-build)
-	      (flycheck-select-checker 'go-build))
+            ;; (when (flycheck-may-use-checker 'go-build)
+	    ;;   (flycheck-select-checker 'go-build))
 	    (lsp-deferred)))
 
 (add-hook 'go-dot-mod-mode-hook
