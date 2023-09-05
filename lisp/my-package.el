@@ -38,6 +38,7 @@
     
     ;; file manager
     treemacs
+    treemacs-all-the-icons
     dirvish
     
     ;; indent
@@ -124,7 +125,7 @@
     inf-ruby
     robe
     rvm
-    rsense
+    ;; rsense
     realgud-byebug
     yard-mode
     company-inf-ruby
@@ -155,9 +156,9 @@
     
     ;; haskell
     haskell-mode
-    company-ghc
-    company-ghci
-    ghc
+    ;; company-ghc
+    ;; company-ghci
+    ;; ghc
     dante
     ;; flymake-haskell-multi
     lsp-haskell

@@ -562,6 +562,9 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq lsp-ivy-show-symbol-filename nil)
 (define-key lsp-command-map (kbd "s") 'lsp-ivy-workspace-symbol)
 
+(with-eval-after-load "lsp-mode"
+  (add-to-list 'lsp-disabled-clients 'semgrep-ls))
+
 ;; end of lsp setting
 
 
