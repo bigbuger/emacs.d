@@ -23,7 +23,7 @@
 
 (require 'exec-path-from-shell)
 (setq exec-path-from-shell-variables
-      (append exec-path-from-shell-variables '("GOPATH" "GEM_HOME" "GEM_PATH")))
+      (append exec-path-from-shell-variables '("LC_ALL" "LANG" "GOPATH" "GEM_HOME" "GEM_PATH")))
 (exec-path-from-shell-initialize)
 
 
@@ -56,7 +56,7 @@
  ;; If there is more than one, they won't work right.
  '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'")
  '(package-selected-packages
-   '(yatemplate realgud-lldb idris-mode clj-refactor color-theme-sanityinc-tomorrow company-fuzzy json-mode rainbow-mode google-translate rmsbolt counsel-dash helpful elm-mode smart-compile xenops magit-delta regex-tool all-the-icons-ibuffer ivy-emoji centaur-tabs ibuffer-projectile bufler auto-highlight-symbol flyspell-correct-popup eldoc-box go-playground osx-trash protobuf-mode gorepl-mode ob-go go-tag go-fill-struct godoctor go-impl go-gen-test pyim dap-mode ebnf-mode dumb-jump sqlformat yard-mode dirvish company-inf-ruby ejc-sql rustic ivy-hydra impostman verb ob-restclient projectile-ripgrep tree-sitter-langs vterm magic-latex-buffer auctex counsel-fd doom-modeline all-the-icons-ivy-rich ztree dante csv-mode gnuplot-mode spacemacs-theme imenu-list org-bullets crux all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight expand-region flycheck-rust auto-yasnippet move-text treemacs treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich company-restclient go-eldo)))
+   '(yatemplate realgud-lldb idris-mode clj-refactor color-theme-sanityinc-tomorrow company-fuzzy json-mode rainbow-mode google-translate rmsbolt counsel-dash helpful elm-mode smart-compile xenops magit-delta regex-tool all-the-icons-ibuffer ivy-emoji centaur-tabs ibuffer-projectile bufler auto-highlight-symbol flyspell-correct-popup eldoc-box go-playground osx-trash protobuf-mode gorepl-mode ob-go go-tag go-fill-struct godoctor go-impl go-gen-test pyim dap-mode ebnf-mode dumb-jump sqlformat yard-mode company-inf-ruby ejc-sql rustic ivy-hydra impostman verb ob-restclient projectile-ripgrep tree-sitter-langs vterm magic-latex-buffer auctex counsel-fd doom-modeline all-the-icons-ivy-rich ztree dante csv-mode gnuplot-mode spacemacs-theme imenu-list org-bullets crux all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight expand-region flycheck-rust auto-yasnippet move-text treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich company-restclient go-eldo)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
