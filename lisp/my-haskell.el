@@ -27,7 +27,7 @@
 (add-hook 'haskell-interactive-mode-hook 'company-mode)
 (add-hook 'haskell-mode-hook
           (lambda () (setq-local company-backends
-				 (cl-adjoin '(company-ghc company-ghci :with company-yasnippet) company-backends :test #'equal))))
+				 (cl-adjoin '(company-ghci :with company-yasnippet) company-backends :test #'equal))))
 
 (add-hook 'haskell-cabal-mode-hook
           (lambda () (setq-local company-backends

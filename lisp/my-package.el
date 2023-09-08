@@ -156,8 +156,7 @@
     
     ;; haskell
     haskell-mode
-    ;; company-ghc
-    ;; company-ghci
+    company-ghci
     ;; ghc
     dante
     ;; flymake-haskell-multi
