@@ -19,6 +19,7 @@
  '(diff-hl-change ((t (:background "blue3" :foreground "blue3"))))
  '(diff-hl-delete ((t (:inherit diff-removed :background "red3" :foreground "red3"))))
  '(diff-hl-insert ((t (:inherit diff-added :background "green4" :foreground "green4"))))
+ '(flycheck-pos-tip-max-width 20)
  '(flycheck-error ((t (:underline "Red1"))))
  '(flycheck-info ((t (:underline (:color "#3a81c3" :style wave)))))
  '(flycheck-posframe-error-face ((t (:inherit flycheck-posframe-face :foreground "VioletRed1"))))

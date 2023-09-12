@@ -54,7 +54,8 @@
    (latex . t)
    (dot . t)
    (restclient . t)
-   (verb . t)))
+   (verb . t)
+   (ditaa . t)))
 
 ;; latex company
 (add-hook 'org-mode-hook

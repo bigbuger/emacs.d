@@ -514,12 +514,12 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 
 (setq lsp-headerline-breadcrumb-enable t)
-(add-hook 'lsp-mode-hook
-	  '(lambda ()
-	     (setq-local header-line-format
-			 '((t
-			    (:eval
-			     (frame-parameter nil 'lsp-headerline--string)))))))
+;; (add-hook 'lsp-mode-hook
+;; 	  '(lambda ()
+;; 	     (setq-local header-line-format
+;; 			 '((t
+;; 			    (:eval
+;; 			     (frame-parameter nil 'lsp-headerline--string)))))))
 
 (setq lsp-ui-doc-enable t)
 (setq lsp-ui-doc-position 'at-point)
@@ -822,6 +822,21 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 		 display-buffer-in-direction
 		 (direction . right)
 		 (window-width . 0.5))))
+
+
+;; gitlab
+(use-package lab :ensure t)
+
+(defconst private-setting-dir "~/.emacs.d/private/")
+(if (file-directory-p private-setting-dir)
+    (progn
+      (let ((pfs (directory-files private-setting-dir)))
+	(progn
+	  (dolist (f pfs)
+	    (let ((l (concat private-setting-dir f)))
+	      (message "here%s" l)
+	      (if (file-regular-p l)
+		  (load-file l))))))))
 
 (provide 'global)
 

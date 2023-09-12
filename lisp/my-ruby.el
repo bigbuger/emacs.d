@@ -25,7 +25,7 @@
 
 ;;(add-hook 'ruby-mode-hook 'robe-mode)
 
-(rvm-use-default)
+;; (rvm-use-default)
 
 ;; gem install pry
 (setq inf-ruby-default-implementation "pry")
