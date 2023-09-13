@@ -834,7 +834,6 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 	(progn
 	  (dolist (f pfs)
 	    (let ((l (concat private-setting-dir f)))
-	      (message "here%s" l)
 	      (if (file-regular-p l)
 		  (load-file l))))))))
 
