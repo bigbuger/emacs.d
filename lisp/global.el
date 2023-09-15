@@ -837,6 +837,13 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 	      (if (file-regular-p l)
 		  (load-file l))))))))
 
+  (use-package pdf-tools
+   :ensure t
+   :config
+   (pdf-tools-install)
+   (custom-set-variables
+    '(pdf-tools-handle-upgrades t)))
+
 (provide 'global)
 
 ;;; global.el ends here
