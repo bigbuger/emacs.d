@@ -38,6 +38,7 @@
       org-src-preserve-indentation t)
 
 
+(setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.11.0_1/libexec/ditaa-0.11.0-standalone.jar")
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
