@@ -419,7 +419,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 	     ".*verification code: ?$")
 
 (require 'magit-delta)
-(add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))
+;; (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))
 
 ;; ediff
 (setq ediff-split-window-function 'split-window-horizontally
@@ -591,6 +591,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 
 (define-key projectile-command-map (kbd "v") 'projectile-run-vterm-other-window)
 
+(use-package multi-vterm :ensure t)
 
 ;; compile
 (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
