@@ -42,13 +42,25 @@
 (require 'my-octave)
 (require 'my-json)
 (require 'my-web)
-(require 'my-ejc)
+;;(require 'my-ejc)
 (require 'my-latex)
 (require 'my-liquid)
 (require 'my-protobuf)
 (require 'my-elm)
 (require 'my-scala)
+(require 'my-databaseclient)
 (require 'theme-settig)
+
+;; load private setting, like passowd, token etc
+(defconst private-setting-dir "~/.emacs.d/private/")
+(if (file-directory-p private-setting-dir)
+    (progn
+      (let ((pfs (directory-files private-setting-dir)))
+	(progn
+	  (dolist (f pfs)
+	    (let ((l (concat private-setting-dir f)))
+	      (if (file-regular-p l)
+		  (load-file l))))))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

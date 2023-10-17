@@ -828,22 +828,13 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 ;; gitlab
 (use-package lab :ensure t)
 
-(defconst private-setting-dir "~/.emacs.d/private/")
-(if (file-directory-p private-setting-dir)
-    (progn
-      (let ((pfs (directory-files private-setting-dir)))
-	(progn
-	  (dolist (f pfs)
-	    (let ((l (concat private-setting-dir f)))
-	      (if (file-regular-p l)
-		  (load-file l))))))))
+(use-package pdf-tools
+  :ensure t
+  :config
+  (pdf-tools-install)
+  (custom-set-variables
+   '(pdf-tools-handle-upgrades t)))
 
-  (use-package pdf-tools
-   :ensure t
-   :config
-   (pdf-tools-install)
-   (custom-set-variables
-    '(pdf-tools-handle-upgrades t)))
 
 (provide 'global)
 
