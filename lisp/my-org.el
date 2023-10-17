@@ -87,6 +87,15 @@
     (org-insert-link nil (concat "file:" image-file) ""))
   (org-display-inline-images))
 
+(use-package org-download
+  :ensure t
+  :defer t
+  :init
+  ;; Add handlers for drag-and-drop when Org is loaded.
+  (with-eval-after-load 'org
+    (org-download-enable)))
+
+
 (provide 'my-org)
 
 ;;; my-org.el ends here

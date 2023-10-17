@@ -743,7 +743,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (setq dired-dwim-target t)
 (setq wdired-allow-to-change-permissions t)
 (setq delete-by-moving-to-trash t)
-(setq dired-listing-switches (concat dired-listing-switches " -h --time-style=long-iso"))
+(setq dired-listing-switches "-l -h --time-style=long-iso")
 
 (require 'osx-trash)
 
