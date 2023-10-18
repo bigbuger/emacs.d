@@ -765,6 +765,10 @@ Use a prefix argument ARG to indicate creation of a new process instead."
   ;; (setq dired-guess-shell-gnutar "gtar")
   ;; (setq dired-x-hands-off-my-keys nil)
   )
+
+(setq dired-omit-files "\\`[.][.]?\\'")
+(setq dired-omit-extensions nil)
+
 (add-hook 'dired-mode-hook
 	  (lambda ()
 	    ;; Set dired-x buffer-local variables here.  For example:
