@@ -454,8 +454,14 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq auto-save-silent t)       ;; 自动保存的时候静悄悄的， 不要打扰我
 (setq auto-save-disable-predicates
       '((lambda ()
-	  (not (file-writable-p (buffer-file-name))) ;; 不可写文件不自动保存
-	  (tramp-tramp-file-p (buffer-file-name))))) ;; tramp 模式不自动保存
+	  (not (file-writable-p (buffer-file-name)))) ;; 不可写文件不自动保存
+	(lambda ()
+	  (tramp-tramp-file-p (buffer-file-name))) ;; tramp 模式不自动保存
+	(lambda ()
+	  (string-prefix-p "*" (buffer-file-name)))
+	(lambda ()
+	  (string-prefix-p "#" (buffer-file-name)))))
+
 
 ;; visual-regexp
 (require 'visual-regexp)
