@@ -415,6 +415,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (require 'magit-todos)
 (magit-todos-mode)
 
+(setq magit-log-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
 (setq magit-git-output-coding-system 'utf-8-unix)
 (add-to-list 'magit-process-password-prompt-regexps
 	     ".*verification code: ?$")
