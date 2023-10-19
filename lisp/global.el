@@ -703,7 +703,8 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (defun centaur-tabs-get-group-name-with-perfix (perfix)
   "Return group name start with PERFIX."
   (if (projectile-project-root)
-      (concat perfix (centaur-tabs-get-group-name (current-buffer)))))
+      (concat perfix "#" (centaur-tabs-get-group-name (current-buffer)))
+    perfix))
 
 (defun centaur-tabs-buffer-groups ()
   "`centaur-tabs-buffer-groups' control buffers' group rules."
@@ -716,10 +717,10 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 	 (derived-mode-p 'vterm-mode)
 	 (derived-mode-p 'compilation-mode)
 	 (derived-mode-p 'comint-mode))
-     (centaur-tabs-get-group-name-with-perfix "Execute#"))
+     (centaur-tabs-get-group-name-with-perfix "Execute"))
 
     ((derived-mode-p 'dired-mode)
-     (centaur-tabs-get-group-name-with-perfix "Dired#"))
+     (centaur-tabs-get-group-name-with-perfix "Dired"))
 
     ;; ((and (not (projectile-project-root))
     ;; 	  (memq major-mode '(org-mode org-agenda-mode diary-mode)))
