@@ -271,14 +271,14 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (setq ivy-re-builders-alist
       '((t . pyim-cregexp-ivy)))
 
-;; (require 'ivy-posframe)
-;; (setq ivy-display-function #'ivy-posframe-display)
-;; (setq ivy-display-function #'ivy-posframe-display-at-frame-center)
-;; (setq ivy-display-function #'ivy-posframe-display-at-window-center)
-;; (setq ivy-display-function #'ivy-posframe-display-at-frame-bottom-left)
-;; (setq ivy-display-function #'ivy-posframe-display-at-window-bottom-left)
-;; (setq ivy-display-function #'ivy-posframe-display-at-point)
-;; (ivy-posframe-enable)
+(use-package ivy-posframe
+  :ensure t
+  :init
+  (setq ivy-posframe-display-functions-alist
+	'((lsp-execute-code-action . ivy-posframe-display-at-point)
+          (t                       . ivy-display-function-fallback)))
+  :init
+  (ivy-posframe-mode 1))
 
 ;; end of ivy
 
@@ -713,10 +713,10 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 	 (derived-mode-p 'vterm-mode)
 	 (derived-mode-p 'compilation-mode)
 	 (derived-mode-p 'comint-mode))
-     (centaur-tabs-get-group-name-with-perfix "Execute@"))
+     (centaur-tabs-get-group-name-with-perfix "Execute#"))
 
     ((derived-mode-p 'dired-mode)
-     (centaur-tabs-get-group-name-with-perfix "Dired@"))
+     (centaur-tabs-get-group-name-with-perfix "Dired#"))
 
     ;; ((and (not (projectile-project-root))
     ;; 	  (memq major-mode '(org-mode org-agenda-mode diary-mode)))
