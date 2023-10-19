@@ -54,6 +54,9 @@
 (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode +1)))
 (column-number-mode 1)
 
+;; 长行不要切成两个显示
+(set-default 'truncate-lines t)
+
 ;; Auto delete region when typing
 (delete-selection-mode 1)
 

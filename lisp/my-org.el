@@ -20,6 +20,14 @@
 ;; 	      (olivetti-mode 1))))
 ;; (setq olivetti-body-width 220)
 
+(add-hook 'org-mode-hook
+	  (lambda ()
+	    "Beautify Org Checkbox Symbol"
+	    (push '("[ ]" .  "⬜") prettify-symbols-alist)
+	    (push '("[X]" . "✅" ) prettify-symbols-alist)
+	    (push '("[-]" . "🟩" ) prettify-symbols-alist)
+	    (prettify-symbols-mode)))
+
 (defun org-babel-execute:passthrough (body params)
   body)
 
