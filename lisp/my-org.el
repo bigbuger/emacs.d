@@ -32,7 +32,8 @@
 (setq org-imenu-depth 4
       org-src-fontify-natively t
       org-ellipsis " ⤵ " ;; folding symbol
-      org-format-latex-options (plist-put org-format-latex-options :scale 2.0)
+      org-format-latex-options (plist-put org-format-latex-options :scale 2.5)
+      org-preview-latex-default-process 'dvisvgm
       org-edit-src-content-indentation 0
       org-src-tab-acts-natively t
       org-src-preserve-indentation t)
@@ -56,7 +57,9 @@
    (dot . t)
    (restclient . t)
    (verb . t)
-   (ditaa . t)))
+   (ditaa . t)
+   (sql . t)))
+
 
 ;; latex company
 (add-hook 'org-mode-hook
