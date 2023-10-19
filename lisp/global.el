@@ -756,7 +756,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (setq dired-dwim-target t)
 (setq wdired-allow-to-change-permissions t)
 (setq delete-by-moving-to-trash t)
-(setq dired-listing-switches "-l -h --time-style=long-iso")
+(setq dired-listing-switches "-l -h --time-style=long-iso --group-directories-first")
 
 (require 'osx-trash)
 
@@ -786,13 +786,16 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (setq dirvish-mode-line-format nil)
 
 (define-key dirvish-mode-map
-  (kbd "TAB") 'dirvish-subtree-toggle)
+	    (kbd "TAB") 'dirvish-subtree-toggle)
 (define-key dirvish-mode-map
-  (kbd "C-c t") 'dirvish-layout-toggle)
+	    (kbd "C-c t") 'dirvish-layout-toggle)
 (define-key dirvish-mode-map
-  (kbd ".") 'dired-create-empty-file)
+	    (kbd ".") 'dired-create-empty-file)
 (define-key dirvish-mode-map
-  (kbd "/") 'dirvish-fd)
+	    (kbd "/") 'dirvish-fd)
+(define-key dirvish-mode-map
+	    (kbd "M-l") 'dirvish-ls-switches-menu)
+
 
 (add-hook 'dirvish-find-entry-hook
 	  (lambda (&rest _) (setq-local truncate-lines t)))
