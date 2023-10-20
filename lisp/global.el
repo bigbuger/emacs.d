@@ -415,6 +415,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 
 ;; magit
 (require 'magit)
+(global-set-key (kbd "C-c g") ' magit-file-dispatch)
 (global-set-key (kbd "C-c C-g") 'magit-dispatch)
 (require 'magit-todos)
 (magit-todos-mode)
