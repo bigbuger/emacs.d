@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: plantuml
+# key: >plantuml
+# --
+#+BEGIN_SRC plantuml :file ${1:plantuml}.svg
+@startuml
+skin rose
+$0
+@enduml
+#+END_SRC

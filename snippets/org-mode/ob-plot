@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ob-plot
+# key: >plot
+# --
+$0#+PLOT: title:${1:"title"} ind:${2:1} deps:(${3:2 3}) type:2d with:${4:$$(yas-choose-value '("lines" "points" "boxes" "histograms" "impulses"))} set:"yrange [0:]"

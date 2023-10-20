@@ -47,7 +47,9 @@
       org-src-preserve-indentation t)
 
 
-(setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.11.0_1/libexec/ditaa-0.11.0-standalone.jar")
+(setq org-ditaa-jar-path "~/tool/ditaa-0.11.0-standalone.jar")
+(setq org-plantuml-exec-mode 'plantuml)
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
@@ -85,6 +87,10 @@
 
 ;; inline显示图片
 (setq org-startup-with-inline-images 1)
+
+;; Always redisplay inline images after executing SRC block
+(eval-after-load 'org
+  (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images))
 
 (defun org-insert-image ()
   (interactive)

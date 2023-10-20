@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: dot
+# key: >dot
+# --
+#+BEGIN_SRC dot :file ${1:dot.svg}
+digraph G {
+	$0
+}
+#+END_SRC
