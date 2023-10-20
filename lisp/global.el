@@ -818,12 +818,21 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 
 (use-package plantuml-mode
   :ensure t
+  
   :init
-   (setq plantuml-executable-path "plantuml")
-   (setq plantuml-default-exec-mode 'executable)
-   (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
-   (add-to-list
-    'org-src-lang-modes '("plantuml" . plantuml)))
+  (setq plantuml-executable-path "plantuml")
+  (setq plantuml-default-exec-mode 'executable)
+  (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+  (add-to-list
+   'org-src-lang-modes '("plantuml" . plantuml))
+  (require 'company-plantuml)
+  
+  :hook (plantuml-mode
+	 . (lambda ()
+	     (setq-local company-backends
+			 (cl-adjoin '(company-plantuml :with company-yasnippet)
+				    company-backends
+				    :test #'equal)))))
 
 (flycheck-define-checker plantuml
   "A checker using plantuml.
