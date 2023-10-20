@@ -425,6 +425,13 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (add-to-list 'magit-process-password-prompt-regexps
 	     ".*verification code: ?$")
 
+(push '(margin
+	(margin-format    . ("%C %a %s%f"))
+	(margin-width     . 42)
+	(margin-face      . magit-blame-margin)
+	(margin-body-face . (magit-blame-dimmed)))
+      magit-blame-styles)
+
 (require 'magit-delta)
 ;; (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))
 
