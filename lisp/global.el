@@ -243,7 +243,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (global-set-key (kbd "C-c i") 'counsel-imenu)
 (global-set-key (kbd "C-c e") 'counsel-recentf)
 (global-set-key (kbd "C-c b") 'counsel-ibuffer)
-(global-set-key (kbd "C-c g") 'counsel-rg)
+(global-set-key (kbd "C-c s") 'counsel-rg)
 (global-set-key (kbd "C-c f") 'counsel-fzf)
 ;;(global-set-key (kbd "C-c j") 'counsel-file-jump)
 (global-set-key (kbd "C-c m") 'counsel-bookmark)
@@ -335,6 +335,9 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (global-set-key (kbd "<backtab>") 'company-complete)
 (global-set-key (kbd "<C-S-tab>") 'company-files)
 ;; (global-set-key (kbd "<C-M-tab>") 'company-ispell)
+(add-to-list 'load-path "~/.emacs.d/lisp/company-english-helper")
+(require 'company-english-helper)
+(global-set-key (kbd "<C-M-tab>") 'company-english-helper-search)
 
 (setq company-backends
       '(company-semantic
@@ -366,9 +369,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 
 (require 'counsel-projectile)
-;;(define-key projectile-command-map (kbd "p") 'counsel-projectile-switch-project)
-;;(define-key projectile-command-map (kbd "a") 'counsel-projectile-ag)
-(define-key projectile-command-map (kbd "g") 'counsel-projectile-rg)
+(define-key projectile-command-map (kbd "s") 'counsel-projectile-rg)
 (define-key projectile-command-map (kbd "b") 'counsel-projectile-switch-to-buffer)
 (define-key projectile-command-map (kbd "f") 'counsel-projectile-find-file)
 
@@ -581,7 +582,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 
 ;; vterm
 (require 'vterm)
-(global-set-key (kbd "C-c s") 'vterm-other-window)
+(global-set-key (kbd "C-c t") 'vterm-other-window)
 (add-to-list 'vterm-eval-cmds '("find-file-other-window" find-file-other-window))
 
 (defun projectile-run-vterm-other-window (&optional arg)
@@ -600,7 +601,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
         (vterm-other-window buffer)))
     (switch-to-buffer buffer)))
 
-(define-key projectile-command-map (kbd "v") 'projectile-run-vterm-other-window)
+(define-key projectile-command-map (kbd "t") 'projectile-run-vterm-other-window)
 
 (use-package multi-vterm :ensure t)
 
@@ -651,11 +652,6 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (require 'google-translate-default-ui)
 (setq google-translate-default-source-language "auto")
 (setq google-translate-default-target-language "zh-CN")
-
-
-(add-to-list 'load-path "~/.emacs.d/lisp/company-english-helper")
-(require 'company-english-helper)
-(global-set-key (kbd "<C-M-tab>") 'company-english-helper-search)
 
 
 ;; centaur-tabs
@@ -745,9 +741,6 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 	  (lambda ()
 	    (centaur-tabs-mode t)))
 
-(with-eval-after-load 'counsel
-  (global-set-key (kbd "C-c t") 'centaur-tabs-counsel-switch-group))
-
 ;; about indent
 (require 'highlight-indent-guides)
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
@@ -792,7 +785,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (define-key dirvish-mode-map
 	    (kbd "TAB") 'dirvish-subtree-toggle)
 (define-key dirvish-mode-map
-	    (kbd "C-c t") 'dirvish-layout-toggle)
+	    (kbd "C-c C-t") 'dirvish-layout-toggle)
 (define-key dirvish-mode-map
 	    (kbd ".") 'dired-create-empty-file)
 (define-key dirvish-mode-map

@@ -11,8 +11,8 @@
 (require 'counsel-jq-ex)
 
 (add-hook 'json-mode-hook 'hideshowvis-enable)
-(define-key json-mode-map (kbd "C-c j") 'counsel-jq-ex)
-(define-key js-mode-map (kbd "C-c j") 'counsel-jq-ex)
+(define-key json-mode-map (kbd "C-c C-j") 'counsel-jq-ex)
+(define-key js-mode-map (kbd "C-c C-j") 'counsel-jq-ex)
 
 (advice-add 'json-mode-beautify :after
 	    #'(lambda (&rest _ignore)
