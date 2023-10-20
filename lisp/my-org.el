@@ -66,6 +66,7 @@
    (restclient . t)
    (verb . t)
    (ditaa . t)
+   (plantuml . t)
    (sql . t)))
 
 

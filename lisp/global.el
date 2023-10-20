@@ -816,6 +816,26 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 ;; graphviz-dot
 (require 'graphviz-dot-mode)
 
+(use-package plantuml-mode
+  :ensure t
+  :init
+   (setq plantuml-executable-path "plantuml")
+   (setq plantuml-default-exec-mode 'executable)
+   (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+   (add-to-list
+    'org-src-lang-modes '("plantuml" . plantuml)))
+
+(flycheck-define-checker plantuml
+  "A checker using plantuml.
+
+See `http://plantuml.com"
+  :command ("plantuml" "-syntax")
+  :standard-input t
+  :error-patterns ((error line-start "ERROR" "\n" line "\n" (message) line-end))
+  :modes plantuml-mode)
+
+(add-to-list 'flycheck-checkers 'plantuml)
+
 ;; flyspell
 (setq flyspell-mark-duplications-flag nil)
 
