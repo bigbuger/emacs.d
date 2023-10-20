@@ -108,6 +108,9 @@
     (org-download-enable)))
 
 
+(use-package gnuplot
+  :ensure t)
+
 (provide 'my-org)
 
 ;;; my-org.el ends here
