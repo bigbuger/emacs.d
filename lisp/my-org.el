@@ -7,18 +7,33 @@
 
 (require 'org)
 (require 'smartparens)
-(require 'org-bullets)
 (require 'verb)
 (require 'org-mouse)
 (require 'ob-go)
 
 (setq org-support-shift-select t)
-;;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+(use-package org-superstar
+  :init
+  (setq org-superstar-remove-leading-stars t)
+  :hook
+  (org-mode . org-superstar-mode))
+
+(use-package org-fragtog
+  :hook
+  (org-mode . org-fragtog-mode))
+
 ;; (add-hook 'org-mode-hook
 ;; 	  (lambda ()
 ;; 	    (when (not (string= (buffer-name) "*scratch*"))
 ;; 	      (olivetti-mode 1))))
 ;; (setq olivetti-body-width 220)
+
+(setq org-hide-emphasis-markers t)
+(use-package org-appear
+  :init
+  (add-hook 'org-mode-hook 'org-appear-mode)
+  (setq org-appear-autolinks t))
 
 (add-hook 'org-mode-hook
 	  (lambda ()

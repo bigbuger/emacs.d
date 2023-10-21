@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: latex
-# key: >latex
+# name: equation
+# key: >eq
 # --
 \begin{equation}
 $2

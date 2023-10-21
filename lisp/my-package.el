@@ -83,7 +83,6 @@
     realgud
 
     ;; org
-    org-bullets
     gnuplot-mode
     olivetti
 
