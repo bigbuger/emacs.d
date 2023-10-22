@@ -12,6 +12,8 @@
 (require 'ob-go)
 
 (setq org-support-shift-select t)
+(setq org-src-tab-acts-natively t)
+(setq org-src-preserve-indentation nil)
 
 (use-package org-superstar
   :init
@@ -37,10 +39,15 @@
 
 (add-hook 'org-mode-hook
 	  (lambda ()
-	    "Beautify Org Checkbox Symbol"
-	    (push '("[ ]" .  "⬜") prettify-symbols-alist)
-	    (push '("[X]" . "✅" ) prettify-symbols-alist)
-	    (push '("[-]" . "🟩" ) prettify-symbols-alist)
+	    "Beautify Org Symbol"
+	    (setq prettify-symbols-alist
+		  '(("#+BEGIN_SRC" . "📝")
+                    ("#+END_SRC" . "∎")
+                    ("#+begin_src" . "📝")
+                    ("#+end_src" . "∎")
+		    ("[ ]" .  "⬜")
+		    ("[X]" . "✅")
+		    ("[-] . "🟩"")))
 	    (prettify-symbols-mode)))
 
 (defun org-babel-execute:passthrough (body params)
