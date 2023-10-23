@@ -14,6 +14,7 @@
 (setq org-support-shift-select t)
 (setq org-src-tab-acts-natively t)
 (setq org-src-preserve-indentation nil)
+(setq org-preview-latex-image-directory "~/.emacs.d/.org/ltximg/")
 
 (use-package org-superstar
   :init
