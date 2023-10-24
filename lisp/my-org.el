@@ -42,7 +42,10 @@
 	  (lambda ()
 	    "Beautify Org Symbol"
 	    (setq prettify-symbols-alist
-		  '(("#+BEGIN_SRC" . "📝")
+		  '(("#+title:" . "¶")
+		    ("#+TITLE:" . "¶")
+		    ("tags:" . "🏷️")
+		    ("#+BEGIN_SRC" . "📝")
                     ("#+END_SRC" . "∎")
                     ("#+begin_src" . "📝")
                     ("#+end_src" . "∎")
@@ -152,9 +155,7 @@
          ("C-c n f" . org-roam-node-find)
          ("C-c n g" . org-roam-graph)
          ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-capture)
-         ;; Dailies
-         ("C-c n j" . org-roam-dailies-capture-today))
+         ("C-c n c" . org-roam-capture))
   :config
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
   (setq org-roam-node-display-template (concat "${title:50} "(propertize "${tags:100}" 'face 'org-tag)))
@@ -169,12 +170,13 @@
   ;;         a hookable mode anymore, you're advised to pick something yourself
   ;;         if you don't care about startup time, use
   ;;  :hook (after-init . org-roam-ui-mode)
-  :bind (("C-c n u" . org-roam-ui-mode))
+  :bind (("C-c n u" . org-roam-ui-open))
   :config
   (setq org-roam-ui-sync-theme t
         org-roam-ui-follow t
         org-roam-ui-update-on-save t
-        org-roam-ui-open-on-start t))
+        org-roam-ui-open-on-start t
+	org-roam-ui-browser-function #'xwidget-webkit-browse-url))
 
 (use-package org-ql)
 

@@ -55,10 +55,13 @@
 (column-number-mode 1)
 
 ;; 长行不要切成两个显示
-(set-default 'truncate-lines t)
+;; (set-default 'truncate-lines t)
 
 ;; Auto delete region when typing
 (delete-selection-mode 1)
+
+;;像素滚动
+(pixel-scroll-precision-mode 1)
 
 ;; disable bookmark fringe
 (setq bookmark-set-fringe-mark nil)
