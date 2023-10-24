@@ -54,6 +54,22 @@
 		    ("[-] . "🟩"")))
 	    (prettify-symbols-mode)))
 
+(require 'org-colored-text)
+(org-add-link-type
+ "color"
+ (lambda (path)
+   (message (concat "color "
+                    (progn (add-text-properties
+                            0 (length path)
+                            (list 'face `((t (:foreground ,path))))
+                            path) path))))
+ (lambda (path desc format)
+   (cond
+    ((eq format 'html)
+     (format "<span style=\"color:%s;\">%s</span>" path desc))
+    ((eq format 'latex)
+     (format "{\\color{%s}%s}" path desc)))))
+
 (defun org-babel-execute:passthrough (body params)
   body)
 
