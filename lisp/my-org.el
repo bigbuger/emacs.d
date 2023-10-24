@@ -162,11 +162,13 @@
 (use-package org-roam
   :ensure t
   :init
-  (setq org-roam-directory (file-truename "~/note/roam"))
-  (setq org-directory (file-truename "~/note/roam"))
-  (setq org-roam-capture-templates '(("d" "default" plain "%?" :target
-				      (file+head "${slug}.org" "#+title: ${title}\n#+filetags: \n")
-				      :unnarrowed t)))
+  (progn
+    (setq org-directory (file-truename "~/note/roam"))
+    (setq org-roam-directory org-directory)
+    (setq org-id-locations-file (concat org-directory "/.org-id-locations"))
+    (setq org-roam-capture-templates '(("d" "default" plain "%?" :target
+					(file+head "${slug}.org" "#+title: ${title}\n#+filetags: \n")
+					:unnarrowed t))))
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
          ("C-c n g" . org-roam-graph)
