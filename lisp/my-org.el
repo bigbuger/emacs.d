@@ -11,6 +11,7 @@
 (require 'org-mouse)
 (require 'ob-go)
 
+(setq org-image-actual-width nil)
 (setq org-support-shift-select t)
 (setq org-src-tab-acts-natively t)
 (setq org-src-preserve-indentation nil)
@@ -130,26 +131,31 @@
 ;; inline显示图片
 (setq org-startup-with-inline-images 1)
 
+(setq org-file-apps
+      (append (mapcar (lambda (ext)
+			(cons (concat "\\." ext "\\'")
+			      'default))
+		      image-file-name-extensions)
+	      org-file-apps))
+
 ;; Always redisplay inline images after executing SRC block
 (eval-after-load 'org
   (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images))
 
-(defun org-insert-image ()
-  (interactive)
-  (let* ((path (concat default-directory "img/"))
-	 (image-file (concat
-		      path
-		      (buffer-name)
-		      (format-time-string "_%Y%m%d_%H%M%S.png"))))
-    (if (not (file-exists-p path))
-	(mkdir path))
-    (shell-command (concat "pngpaste " image-file))
-    (org-insert-link nil (concat "file:" image-file) ""))
-  (org-display-inline-images))
 
 (use-package org-download
   :ensure t
   :defer t
+  :bind (:map org-mode-map
+	      ("C-M-y" . org-download-clipboard))
+  
+  :config
+  (setq org-download-annotate-function (lambda (_link) ""))
+  (setq-default org-download-image-dir "./image")
+  (setq org-download-image-attr-list
+        '("#+ATTR_ORG: :width 80% :align center"))
+
+  
   :init
   ;; Add handlers for drag-and-drop when Org is loaded.
   (with-eval-after-load 'org
