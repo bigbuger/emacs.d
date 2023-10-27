@@ -10,12 +10,20 @@
 (require 'verb)
 (require 'org-mouse)
 (require 'ob-go)
+(require 'cl-lib)
+
 
 (setq org-image-actual-width nil)
 (setq org-support-shift-select t)
 (setq org-src-tab-acts-natively t)
 (setq org-src-preserve-indentation nil)
 (setq org-preview-latex-image-directory "~/.emacs.d/.org/ltximg/")
+
+;; localization time and calendar
+(setq system-time-locale "zh_CN")
+(setq calendar-week-start-day 1)
+(use-package cal-china-x)
+
 
 (use-package org-superstar
   :init
@@ -37,7 +45,8 @@
 (use-package org-appear
   :init
   (add-hook 'org-mode-hook 'org-appear-mode)
-  (setq org-appear-autolinks t))
+  (setq org-appear-autolinks t)
+  (setq org-appear-autokeywords t))
 
 (add-hook 'org-mode-hook
 	  (lambda ()
