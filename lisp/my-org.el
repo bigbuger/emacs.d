@@ -24,16 +24,14 @@
 ;; inline显示图片
 (setq org-startup-with-inline-images 1)
 (setq org-image-actual-width nil) ;; 设置图片自动宽度为 nil 才能用 org_attr 调整
+
+;; 设置图片用系统程序打开
 (setq org-file-apps
       (append (mapcar (lambda (ext)
 			(cons (concat "\\." ext "\\'")
 			      'default))
 		      image-file-name-extensions)
 	      org-file-apps))
-
-
-(add-hook 'org-mode-hook #'smartparens-mode)
-(sp-local-pair 'org-mode "\\[" "\\]")
 
 
 ;; loclization time andcalendar
@@ -45,6 +43,10 @@
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.5)
       org-preview-latex-image-directory "~/.emacs.d/.org/ltximg/"
       org-preview-latex-default-process 'dvisvgm)
+
+(add-hook 'org-mode-hook #'smartparens-mode)
+(sp-local-pair 'org-mode "\\[" "\\]")
+
 ;; latex company
 (add-hook 'org-mode-hook
           (lambda () (setq-local company-backends
