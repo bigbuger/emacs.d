@@ -48,6 +48,7 @@
 (sp-local-pair 'org-mode "\\[" "\\]")
 
 ;; latex company
+(setq org-highlight-latex-and-related '(latex script entities))
 (add-hook 'org-mode-hook
           (lambda () (setq-local company-backends
 				 (cl-adjoin '(company-math-symbols-latex :with company-yasnippet) company-backends :test #'equal))))
