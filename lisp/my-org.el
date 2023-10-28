@@ -13,34 +13,57 @@
 (require 'cl-lib)
 
 
-(setq org-image-actual-width nil)
-(setq org-support-shift-select t)
-(setq org-src-tab-acts-natively t)
-(setq org-src-preserve-indentation nil)
-(setq org-preview-latex-image-directory "~/.emacs.d/.org/ltximg/")
+(setq org-support-shift-select t
+      org-imenu-depth 4
+      org-src-fontify-natively t
+      org-ellipsis " ⤵ " ;; folding symbol
+      org-edit-src-content-indentation 0
+      org-src-tab-acts-natively t
+      org-src-preserve-indentation t)
 
-;; localization time and calendar
+;; inline显示图片
+(setq org-startup-with-inline-images 1)
+(setq org-image-actual-width nil) ;; 设置图片自动宽度为 nil 才能用 org_attr 调整
+(setq org-file-apps
+      (append (mapcar (lambda (ext)
+			(cons (concat "\\." ext "\\'")
+			      'default))
+		      image-file-name-extensions)
+	      org-file-apps))
+
+
+(add-hook 'org-mode-hook #'smartparens-mode)
+(sp-local-pair 'org-mode "\\[" "\\]")
+
+
+;; loclization time andcalendar
 (setq system-time-locale "zh_CN")
 (setq calendar-week-start-day 1)
 (use-package cal-china-x)
 
+;; org 内嵌 LaTeX 相关配置
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.5)
+      org-preview-latex-image-directory "~/.emacs.d/.org/ltximg/"
+      org-preview-latex-default-process 'dvisvgm)
+;; latex company
+(add-hook 'org-mode-hook
+          (lambda () (setq-local company-backends
+				 (cl-adjoin '(company-math-symbols-latex :with company-yasnippet) company-backends :test #'equal))))
+;; end of LaTeX
 
+;; superstart 美化标题样式
 (use-package org-superstar
   :init
   (setq org-superstar-remove-leading-stars t)
   :hook
   (org-mode . org-superstar-mode))
 
+;; fragtog 自动光标聚焦到 LaTex 预览时自动转为源码展示
 (use-package org-fragtog
   :hook
   (org-mode . org-fragtog-mode))
 
-;; (add-hook 'org-mode-hook
-;; 	  (lambda ()
-;; 	    (when (not (string= (buffer-name) "*scratch*"))
-;; 	      (olivetti-mode 1))))
-;; (setq olivetti-body-width 220)
-
+;; org-appear 聚焦斜体、删除线等文字格式时自动转为源码展示
 (setq org-hide-emphasis-markers t)
 (use-package org-appear
   :init
@@ -48,6 +71,7 @@
   (setq org-appear-autolinks t)
   (setq org-appear-autokeywords t))
 
+;; 自定义 prettify symbol
 (add-hook 'org-mode-hook
 	  (lambda ()
 	    "Beautify Org Symbol"
@@ -64,6 +88,7 @@
 		    ("[-] . "🟩"")))
 	    (prettify-symbols-mode)))
 
+;; org-colored-text 支持改变字体颜色
 (require 'org-colored-text)
 (org-add-link-type
  "color"
@@ -72,13 +97,22 @@
                     (progn (add-text-properties
                             0 (length path)
                             (list 'face `((t (:foreground ,path))))
-                            path) path))))
+                            path)
+			   path))))
  (lambda (path desc format)
    (cond
     ((eq format 'html)
      (format "<span style=\"color:%s;\">%s</span>" path desc))
     ((eq format 'latex)
      (format "{\\color{%s}%s}" path desc)))))
+
+
+;; about org balel
+(setq org-confirm-babel-evaluate nil)
+;; Always redisplay inline images after executing SRC block
+(eval-after-load 'org
+  (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images))
+
 
 (defun org-babel-execute:passthrough (body params)
   body)
@@ -87,16 +121,6 @@
 (defalias 'org-babel-execute:json 'org-babel-execute:passthrough)
 
 (provide 'ob-passthrough)
-
-
-(setq org-imenu-depth 4
-      org-src-fontify-natively t
-      org-ellipsis " ⤵ " ;; folding symbol
-      org-format-latex-options (plist-put org-format-latex-options :scale 2.5)
-      org-preview-latex-default-process 'dvisvgm
-      org-edit-src-content-indentation 0
-      org-src-tab-acts-natively t
-      org-src-preserve-indentation t)
 
 
 (setq org-ditaa-jar-path "~/tool/ditaa-0.11.0-standalone.jar")
@@ -122,36 +146,17 @@
    (ditaa . t)
    (plantuml . t)
    (sql . t)))
+;; end of org bale
 
-
-;; latex company
-(add-hook 'org-mode-hook
-          (lambda () (setq-local company-backends
-				 (cl-adjoin '(company-math-symbols-latex :with company-yasnippet) company-backends :test #'equal))))
-
-(add-hook 'org-mode-hook #'smartparens-mode)
-(sp-local-pair 'org-mode "\\[" "\\]")
-
+;; verb 网络请求客户端
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
 
-(setq org-confirm-babel-evaluate nil)
+;; gnuplot 用来给表格画图
+(use-package gnuplot
+  :ensure t)
 
-;; inline显示图片
-(setq org-startup-with-inline-images 1)
-
-(setq org-file-apps
-      (append (mapcar (lambda (ext)
-			(cons (concat "\\." ext "\\'")
-			      'default))
-		      image-file-name-extensions)
-	      org-file-apps))
-
-;; Always redisplay inline images after executing SRC block
-(eval-after-load 'org
-  (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images))
-
-
+;; org-download 拖图片自动下载和插入
 (use-package org-download
   :ensure t
   :defer t
@@ -163,17 +168,13 @@
   (setq-default org-download-image-dir "./image")
   (setq org-download-image-attr-list
         '("#+ATTR_ORG: :width 80% :align center"))
-
   
   :init
   ;; Add handlers for drag-and-drop when Org is loaded.
   (with-eval-after-load 'org
     (org-download-enable)))
 
-
-(use-package gnuplot
-  :ensure t)
-
+;; about org-roam
 (use-package org-roam
   :ensure t
   :init
@@ -210,6 +211,8 @@
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t
 	org-roam-ui-browser-function #'xwidget-webkit-browse-url))
+
+;; end of org-roam
 
 (use-package org-ql)
 
