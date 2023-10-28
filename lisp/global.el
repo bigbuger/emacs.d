@@ -305,7 +305,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 ;;yasnippet
 (require 'yasnippet)
 (yas-global-mode 1)
-(setq yas/root-directory "~/.emacs.d/snippets")
+(setq yas/root-directory '("~/.emacs.d/snippets"))
 ;;(yas/load-directory yas/root-directory)
 (global-set-key (kbd "<M-RET>") 'yas-expand)
 

@@ -1,5 +1,7 @@
-#contributor : Rodrigo Setti <rodrigosetti@gmail.com>
-#name : \begin{environment} ... \end{environment}
+# -*- modeL snippet -*-
+# contributor : Rodrigo Setti <rodrigosetti@gmail.com>
+# name : \begin{environment} ... \end{environment}
+# key: \begin
 # --
 
 \begin{${1:environment}}
