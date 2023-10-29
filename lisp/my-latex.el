@@ -22,7 +22,8 @@
   :after tex ; 保证 cdlatex 在 auctex 之后加载
   :ensure t
   :config
-  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex))
+  ;;(add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
+  )
 
 
 
