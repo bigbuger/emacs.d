@@ -15,6 +15,8 @@
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
 
+(setq custom-file (concat user-emacs-directory "custom.el"))
+
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (require 'my-package)
 
@@ -65,19 +67,4 @@
 	      (if (file-regular-p l)
 		  (load-file l))))))))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'")
- '(package-selected-packages
-   '(org-ql org-roam-ui org-roam org-fragtog org-superstar gnuplot plantuml-mode company-ghci yatemplate realgud-lldb idris-mode clj-refactor color-theme-sanityinc-tomorrow company-fuzzy json-mode rainbow-mode google-translate rmsbolt counsel-dash helpful elm-mode smart-compile xenops magit-delta regex-tool all-the-icons-ibuffer ivy-emoji centaur-tabs ibuffer-projectile bufler auto-highlight-symbol flyspell-correct-popup eldoc-box go-playground osx-trash protobuf-mode gorepl-mode ob-go go-tag go-fill-struct godoctor go-impl go-gen-test pyim dap-mode ebnf-mode dumb-jump sqlformat yard-mode company-inf-ruby ejc-sql rustic ivy-hydra impostman verb ob-restclient projectile-ripgrep tree-sitter-langs vterm magic-latex-buffer auctex counsel-fd doom-modeline all-the-icons-ivy-rich ztree dante csv-mode gnuplot-mode spacemacs-theme imenu-list crux all-the-icons-dired git-timemachine wgrep highlight-indent-guides diff-hl spotlight expand-region flycheck-rust auto-yasnippet move-text treemacs-projectile company-shell buffer-move smartparens string-inflection ace-window company-ansible docker-compose-mode dockerfile-mode ivy-rich company-restclient go-eldo))
- '(pdf-tools-handle-upgrades t)
- '(sql-mysql-login-params '(server databases port user password)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(load custom-file 'noerror)
