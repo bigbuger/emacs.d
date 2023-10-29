@@ -148,6 +148,13 @@ This function makes sure that dates are aligned for easy reading."
      (format "{\\color{%s}%s}" path desc)))))
 
 
+(use-package valign
+  :config
+  (setq valign-fancy-bar t)
+  :hook
+  (org-mode . valign-mode))
+
+
 ;; about org balel
 (setq org-confirm-babel-evaluate nil)
 ;; Always redisplay inline images after executing SRC block
