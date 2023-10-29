@@ -39,6 +39,43 @@
 (setq calendar-week-start-day 1)
 (use-package cal-china-x)
 
+;; agenda
+(require 'org-agenda)
+(global-set-key (kbd "C-c a") #'org-agenda)
+
+;; 加载日程文件
+(defun org-set-agenda-files-recursively (dir)
+  "Set agenda files from root DIR."
+  (setq org-agenda-files
+    (directory-files-recursively dir "\.org$")))
+
+(defcustom org-agenda-root-dir "~/Documents/工作"
+  "The root dir of `org-agenda'."
+  :type 'string)
+
+(org-set-agenda-files-recursively org-agenda-root-dir)
+(defun org-load-agenda-files ()
+  (interactive)
+  (org-set-agenda-files-recursively org-agenda-root-dir))
+
+;;日程显示日期为中文
+
+(setq org-agenda-format-date 'my-org-agenda-format-date-aligned)
+(defun my-org-agenda-format-date-aligned (date)
+  "Format a DATE string for display in the daily/weekly agenda, or timeline.
+This function makes sure that dates are aligned for easy reading."
+  (require 'cal-iso)
+  (let* ((dayname (aref cal-china-x-days
+                        (calendar-day-of-week date)))
+         (day (cadr date))
+         (month (car date))
+         (year (nth 2 date)))
+    (format "%04d-%02d-%02d 周%s" year month day dayname)))
+
+
+;; end agenda
+
+
 ;; org 内嵌 LaTeX 相关配置
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.5)
       org-preview-latex-image-directory "~/.emacs.d/.org/ltximg/"
