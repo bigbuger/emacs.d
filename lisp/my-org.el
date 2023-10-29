@@ -112,6 +112,7 @@ This function makes sure that dates are aligned for easy reading."
   (setq org-appear-autokeywords t))
 
 ;; 自定义 prettify symbol
+(setq prettify-symbols-unprettify-at-point t)
 (add-hook 'org-mode-hook
 	  (lambda ()
 	    "Beautify Org Symbol"
