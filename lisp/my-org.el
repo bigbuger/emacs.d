@@ -138,9 +138,11 @@ This function makes sure that dates are aligned for easy reading."
      (format "{\\color{%s}%s}" path desc)))))
 
 
+;; valign 表格对齐，支持中英文
 (use-package valign
-  :config
-  (setq valign-fancy-bar t)
+  ;; :config
+  ;; 美化表格分隔线
+  ;; (setq valign-fancy-bar t)
   :hook
   (org-mode . valign-mode))
 
