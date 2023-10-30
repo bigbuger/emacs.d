@@ -37,26 +37,30 @@
 ;; loclization time andcalendar
 (setq system-time-locale "zh_CN")
 (setq calendar-week-start-day 1)
-(use-package cal-china-x)
+(setq calendar-month-header `(propertize
+			      (format "%d 年 %2d 月" year month)
+			      'font-lock-face 'calendar-month-header))
+
 
 ;; agenda
 (require 'org-agenda)
 (global-set-key (kbd "C-c a") #'org-agenda)
 
-
 ;;日程显示日期为中文
-
 (setq org-agenda-format-date 'my-org-agenda-format-date-aligned)
+(defconst cal-china-days
+  ["日" "一" "二" "三" "四" "五" "六"])
 (defun my-org-agenda-format-date-aligned (date)
   "Format a DATE string for display in the daily/weekly agenda, or timeline.
 This function makes sure that dates are aligned for easy reading."
   (require 'cal-iso)
-  (let* ((dayname (aref cal-china-x-days
+  (let* ((day-of-week (calendar-day-of-week date))
+	 (dayname (aref cal-china-days
                         (calendar-day-of-week date)))
          (day (cadr date))
          (month (car date))
          (year (nth 2 date)))
-    (format "%04d-%02d-%02d 周%s" year month day dayname)))
+    (format "%04d-%02d-%02d 星期%s" year month day dayname)))
 
 
 ;; end agenda
@@ -211,20 +215,17 @@ This function makes sure that dates are aligned for easy reading."
 ;; about org-roam
 (use-package org-roam
   :ensure t
-  :init
-  (progn
-    (setq org-directory (file-truename "~/note/roam"))
-    (setq org-roam-directory org-directory)
-    (setq org-id-locations-file (concat org-directory "/.org-id-locations"))
-    (setq org-roam-capture-templates '(("d" "default" plain "%?" :target
-					(file+head "${slug}.org" "#+title: ${title}\n#+filetags: \n")
-					:unnarrowed t))))
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
          ("C-c n g" . org-roam-graph)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n c" . org-roam-capture))
   :config
+  (setq org-directory (file-truename "~/note/roam"))
+  (setq org-roam-directory org-directory)
+  (setq org-roam-capture-templates '(("d" "default" plain "%?" :target
+				      (file+head "${slug}.org" "#+title: ${title}\n#+filetags: \n")
+				      :unnarrowed t)))
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
   (setq org-roam-node-display-template (concat "${title:50} "(propertize "${tags:100}" 'face 'org-tag)))
   (org-roam-db-autosync-mode)
@@ -247,9 +248,6 @@ This function makes sure that dates are aligned for easy reading."
 	org-roam-ui-browser-function #'xwidget-webkit-browse-url))
 
 ;; end of org-roam
-
-(use-package org-ql)
-
 
 (provide 'my-org)
 
