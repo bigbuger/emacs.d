@@ -43,20 +43,6 @@
 (require 'org-agenda)
 (global-set-key (kbd "C-c a") #'org-agenda)
 
-;; 加载日程文件
-(defun org-set-agenda-files-recursively (dir)
-  "Set agenda files from root DIR."
-  (setq org-agenda-files
-    (directory-files-recursively dir "\.org$")))
-
-(defcustom org-agenda-root-dir "~/Documents/工作"
-  "The root dir of `org-agenda'."
-  :type 'string)
-
-(org-set-agenda-files-recursively org-agenda-root-dir)
-(defun org-load-agenda-files ()
-  (interactive)
-  (org-set-agenda-files-recursively org-agenda-root-dir))
 
 ;;日程显示日期为中文
 
