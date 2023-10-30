@@ -28,3 +28,11 @@ elpy/
 /projects
 /url/
 /custom.el
+/private/
+/.extension/
+/ac-comphist.dat
+/dap-ui-repl-go-history
+/games/
+/octave-workspace
+/smex-items
+/request/
