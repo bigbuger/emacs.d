@@ -47,21 +47,56 @@
 (global-set-key (kbd "C-c a") #'org-agenda)
 
 ;;日程显示日期为中文
+;; Month
+(setq calendar-month-name-array
+      ["1月" "2月" "3月" " 4月" "5月" "6月" "7月" "8月" "9月" "10月" "11月" "12月"])
+
+;; Week days
+(setq calendar-day-name-array
+      ["星期日" "星期一" "星期二" "星期三" "星期四" "星期五" "星期六"])
 (setq org-agenda-format-date 'my-org-agenda-format-date-aligned)
-(defconst cal-china-days
-  ["日" "一" "二" "三" "四" "五" "六"])
+
 (defun my-org-agenda-format-date-aligned (date)
   "Format a DATE string for display in the daily/weekly agenda, or timeline.
 This function makes sure that dates are aligned for easy reading."
   (require 'cal-iso)
   (let* ((day-of-week (calendar-day-of-week date))
-	 (dayname (aref cal-china-days
+	 (dayname (aref calendar-day-name-array
                         (calendar-day-of-week date)))
          (day (cadr date))
          (month (car date))
          (year (nth 2 date)))
-    (format "%04d-%02d-%02d 星期%s" year month day dayname)))
+    (format "%04d-%02d-%02d %s" year month day dayname)))
 
+
+(use-package calfw)
+(use-package calfw-org
+  :config
+  (setq cfw:display-calendar-holidays nil)
+  (setq cfw:fchar-junction ?╬
+	cfw:fchar-vertical-line ?║
+	cfw:fchar-horizontal-line ?═
+	cfw:fchar-left-junction ?╠
+	cfw:fchar-right-junction ?╣
+	cfw:fchar-top-junction ?╦
+	cfw:fchar-top-left-corner ?╔
+	cfw:fchar-top-right-corner ?╗)
+  (defun my-open-calendar ()
+    (interactive)
+    (cfw:open-calendar-buffer
+     :contents-sources
+     (list
+      (cfw:org-create-source "CadetBlue2")  ; org-agenda source
+      ))))
+
+(with-eval-after-load 'calfw
+  (defun width-buffer-face-mode-variable ()
+    (interactive)
+    (make-face 'width-font-face)
+    (set-face-attribute 'width-font-face nil :font "等距更纱黑体 SC 15") ;; 使用更纱黑体对齐表格，mac 安装命令  `brew install --cask font-sarasa-gothic'
+    (setq buffer-face-mode-face 'width-font-face)
+    (buffer-face-mode))
+  (add-hook 'cfw:calendar-mode-hook 'width-buffer-face-mode-variable))
 
 ;; end agenda
 
