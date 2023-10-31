@@ -54,6 +54,7 @@
 (require 'my-elm)
 (require 'my-scala)
 (require 'my-databaseclient)
+(require 'my-calendar)
 (require 'theme-settig)
 
 ;; load private setting, like passowd, token etc
