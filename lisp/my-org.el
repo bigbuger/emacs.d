@@ -73,6 +73,7 @@ This function makes sure that dates are aligned for easy reading."
 (use-package calfw-org
   :config
   (setq cfw:display-calendar-holidays nil)
+  (setq cfw:org-overwrite-default-keybinding t)
   (setq cfw:fchar-junction ?╬
 	cfw:fchar-vertical-line ?║
 	cfw:fchar-horizontal-line ?═
@@ -81,24 +82,49 @@ This function makes sure that dates are aligned for easy reading."
 	cfw:fchar-top-junction ?╦
 	cfw:fchar-top-left-corner ?╔
 	cfw:fchar-top-right-corner ?╗)
+  
   (defun cfw:org-get-timerange (text)
-  "Return a range object (begin end text).
+    "Return a range object (begin end text).
 If TEXT does not have a range, return nil."
-  (let* ((dotime (cfw:org-tp text 'dotime)))
-    (and (stringp dotime) (string-match org-ts-regexp dotime)
-	 (let* ((matches  (s-match-strings-all org-ts-regexp dotime))
-           (start-date (nth 1 (car matches)))
-           (end-date (nth 1 (nth 1 matches)))
-	       (extra (cfw:org-tp text 'extra)))
-	   (if (string-match "(\\([0-9]+\\)/\\([0-9]+\\)): " extra)
-       ( list( calendar-gregorian-from-absolute
-       (time-to-days
-       (org-read-date nil t start-date))
-       )
-       (calendar-gregorian-from-absolute
-       (time-to-days
-       (org-read-date nil t end-date))) text)
-	   )))))
+    (let* ((dotime (cfw:org-tp text 'dotime)))
+      (and (stringp dotime) (string-match org-ts-regexp dotime)
+	   (let* ((matches  (s-match-strings-all org-ts-regexp dotime))
+		  (start-date (nth 1 (car matches)))
+		  (end-date (nth 1 (nth 1 matches)))
+		  (extra (cfw:org-tp text 'extra)))
+	     (if (string-match "(\\([0-9]+\\)/\\([0-9]+\\)): " extra)
+		 ( list( calendar-gregorian-from-absolute
+			 (time-to-days
+			  (org-read-date nil t start-date))
+			 )
+		   (calendar-gregorian-from-absolute
+		    (time-to-days
+		     (org-read-date nil t end-date))) text)
+	       )))))
+
+  (defun cfw:org-onclick ()
+    "Jump to the clicked org item."
+    (interactive)
+    (let (
+	  (marker (get-text-property (point) 'org-marker))
+	  (link   (get-text-property (point) 'org-link))
+	  (file   (get-text-property (point) 'cfw:org-file))
+	  (beg    (get-text-property (point) 'cfw:org-h-beg))
+	  (loc    (get-text-property (point) 'cfw:org-loc)))
+      (when link
+	(org-open-link-from-string link))
+      (when (and marker (marker-buffer marker))
+	(org-mark-ring-push)
+	(switch-to-buffer-other-window (marker-buffer marker))
+	(widen)
+	(goto-char (marker-position marker))
+	(when (eq major-mode 'org-mode)
+          (org-reveal)))
+      (when beg
+	(find-file file)
+	(goto-char beg)
+	(org-cycle))))
+  
   (defun my-open-calendar ()
     (interactive)
     (cfw:open-calendar-buffer
