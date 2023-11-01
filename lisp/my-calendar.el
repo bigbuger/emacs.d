@@ -42,11 +42,15 @@ This function makes sure that dates are aligned for easy reading."
     (format "%04d-%02d-%02d %s" year month day dayname)))
 
 
-(use-package calfw)
+(use-package calfw
+  :config
+  ;; 关闭 holidays 展示
+  (setq cfw:display-calendar-holidays nil))
+
 (use-package calfw-org
   :config
-  (setq cfw:display-calendar-holidays nil) ;; 关闭 holidays 展示
   (setq cfw:org-overwrite-default-keybinding t) ;; 使用 org like 按键
+  
   ;; 日历边框
   (setq cfw:fchar-junction ?╬
 	cfw:fchar-vertical-line ?║
@@ -126,6 +130,12 @@ If TEXT does not have a range, return nil."
 (custom-set-faces
  '(cfw:face-sunday ((t :foreground "#cc9393" :background "grey95" :weight bold)))
  '(cfw:face-saturday ((t :foreground "#8cd0d3" :background "grey95" :weight bold))))
+
+(defun org-icalendar-open-ics-file (file)
+  "Auto open ics FILE and then delete it."
+  (start-process "org-icalendar-open-ics-file-process" nil "open" "-F" file))
+
+(add-hook 'org-icalendar-after-save-hook 'org-icalendar-open-ics-file)
 
 (provide 'my-calendar)
 

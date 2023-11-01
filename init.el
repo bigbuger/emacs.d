@@ -1,11 +1,8 @@
 (require 'package)
-;;(add-to-list 'package-archives
-;;             '("MELPA Stable" . "https://stable.melpa.org/packages/") t)
-;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 
- (setq package-archives '(("gnu"   . "http://1.15.88.122/gnu/")
-                          ("melpa" . "http://1.15.88.122/melpa/")
-			  ("org"   . "http://1.15.88.122/org/")))
+(setq package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
+                         ("melpa" . "http://melpa.org/packages/")
+			 ("org"   . "http://1.15.88.122/org/")))
 
 (package-initialize)
 
