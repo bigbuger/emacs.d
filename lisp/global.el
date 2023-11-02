@@ -5,6 +5,8 @@
 
 ;;; Code:
 
+;; 处理 symlinks，不然有一些包在访问 symlinks 时有问题，例如 org mode 的 latex 预览
+(setq find-file-visit-truename t)
 
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
       backup-by-copying t    ; Don't delink hardlinks
