@@ -1,4 +1,4 @@
-;;; my-rust.el --- rust config
+;;; init-rust.el --- rust config
 
 
 ;;; Commentary:
@@ -34,7 +34,7 @@
 
 
 
-(provide 'my-rust)
+(provide 'init-rust)
 
 
-;;; my-rust.el ends here
+;;; init-rust.el ends here

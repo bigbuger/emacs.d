@@ -1,4 +1,4 @@
-;;; my-ejc.el --- emacs ejc-sql config
+;;; init-ejc.el --- emacs ejc-sql config
 
 ;;; Commentary:
 ;; 
@@ -41,6 +41,6 @@
 (define-key sql-mode-map (kbd "C-c C-f") 'sqlfmt)
 
 
-(provide 'my-ejc)
+(provide 'init-ejc)
 
-;;; my-ejc.el ends here
+;;; init-ejc.el ends here

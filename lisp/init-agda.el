@@ -1,4 +1,4 @@
-;;; my-agda.el --- agda mode setting
+;;; init-agda.el --- agda mode setting
 
 ;;; Commentary:
 ;; 
@@ -9,6 +9,6 @@
   (load-file (let ((coding-system-for-read 'utf-8))
                (shell-command-to-string "agda-mode locate"))))
 
-(provide 'my-agda)
+(provide 'init-agda)
 
-;;; my-agda.el ends here
+;;; init-agda.el ends here

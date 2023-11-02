@@ -1,4 +1,4 @@
-;;; my-latex.el ---
+;;; init-latex.el ---
 
 ;;; Commentary:
 ;; 
@@ -31,7 +31,7 @@
 (require 'xenops)
 
 
-(provide 'my-latex)
+(provide 'init-latex)
 
 
-;;; my-latex.el ends here
+;;; init-latex.el ends here

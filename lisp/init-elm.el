@@ -1,4 +1,4 @@
-;;; my-elm.el --- elm lang setting
+;;; init-elm.el --- elm lang setting
 
 ;;; Commentary:
 ;;
@@ -13,6 +13,6 @@
 	  (lambda ()
 	    (lsp-deferred)))
 
-(provide 'my-elm)
+(provide 'init-elm)
 
-;;; my-elm.el ends here
+;;; init-elm.el ends here

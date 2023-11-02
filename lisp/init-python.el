@@ -1,4 +1,4 @@
-;;; my-python.el --- pytohon config
+;;; init-python.el --- pytohon config
 ;;;
 
 ;;; Commentary:
@@ -26,6 +26,6 @@
 	    (lsp-deferred)))
 (setq dap-python-debugger 'debugpy)
 
-(provide 'my-python)
+(provide 'init-python)
 
-;;; my-python.el ends here
+;;; init-python.el ends here

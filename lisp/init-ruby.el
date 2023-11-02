@@ -1,4 +1,4 @@
-;;; my-ruby.el --- ruby config
+;;; init-ruby.el --- ruby config
 
 ;;; Commentary:
 ;; 
@@ -42,6 +42,6 @@
 
 (add-hook 'ruby-mode-hook 'yard-mode)
 
-(provide 'my-ruby)
+(provide 'init-ruby)
 
-;;; my-ruby.el ends here
+;;; init-ruby.el ends here

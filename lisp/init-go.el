@@ -1,4 +1,4 @@
-;;; my-go.el --- golang config
+;;; init-go.el --- golang config
 
 ;;; Commentary:
 ;; 
@@ -203,6 +203,6 @@
 
 
 
-(provide 'my-go)
+(provide 'init-go)
 
-;;; my-go.el ends here
+;;; init-go.el ends here

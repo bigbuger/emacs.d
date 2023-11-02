@@ -1,4 +1,4 @@
-;;; my-liquid.el --- setting for editing liquid
+;;; init-liquid.el --- setting for editing liquid
 
 
 ;;; Commentary:
@@ -24,6 +24,6 @@
 
 (add-hook 'liquid-mode-hook #'lsp-deferred)
 
-(provide 'my-liquid)
+(provide 'init-liquid)
 
-;;; my-liquid.el ends here
+;;; init-liquid.el ends here

@@ -1,4 +1,4 @@
-;;; my-clojure.el --- my clojure setting
+;;; init-clojure.el --- init clojure setting
 
 
 
@@ -16,6 +16,6 @@
 ;; 	      (lsp-deferred)))
 (add-hook 'clojure-mode-hook 'clj-refactor-mode)
 
-(provide 'my-clojure)
+(provide 'init-clojure)
 
-;;; my-clojure.el ends here
+;;; init-clojure.el ends here

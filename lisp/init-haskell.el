@@ -1,4 +1,4 @@
-;;; my-haskell.el --- haskell config
+;;; init-haskell.el --- haskell config
 
 ;;; Commentary:
 ;; 
@@ -54,6 +54,6 @@
 (with-eval-after-load 'smart-compile
   (setf (alist-get "\\.hs\\'" smart-compile-alist nil nil #'string=) "runhaskell %f"))
 
-(provide 'my-haskell)
+(provide 'init-haskell)
 
-;;; my-haskell.el ends here
+;;; init-haskell.el ends here

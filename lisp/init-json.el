@@ -1,4 +1,4 @@
-;;; my-json.el --- my json mode config
+;;; init-json.el --- init json mode config
 
 
 ;;; Commentary:
@@ -24,6 +24,6 @@
 
 
 
-(provide 'my-json)
+(provide 'init-json)
 
-;;; my-json.el ends here
+;;; init-json.el ends here

@@ -1,4 +1,4 @@
-;;; my-scheme.el --- scheme config
+;;; init-scheme.el --- scheme config
 ;; 
 ;;; Commentary:
 ;; 
@@ -17,6 +17,6 @@
 
 
 
-(provide 'my-scheme)
+(provide 'init-scheme)
 
-;;; my-scheme.el ends here
+;;; init-scheme.el ends here

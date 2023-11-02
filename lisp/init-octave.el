@@ -1,4 +1,4 @@
-;;; my-octave.el --- octave setting
+;;; init-octave.el --- octave setting
 
 ;;; Commentary:
 ;; 
@@ -7,6 +7,6 @@
 
 (add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode))
 
-(provide 'my-octave)
+(provide 'init-octave)
 
-;;; my-octave.el ends here
+;;; init-octave.el ends here

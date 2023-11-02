@@ -1,4 +1,4 @@
-;;; my-protobuf.el --- protobuf setting
+;;; init-protobuf.el --- protobuf setting
 
 ;;; Commentary:
 ;; 
@@ -31,6 +31,6 @@
 				 (cl-adjoin '(company-proto :with company-yasnippet) company-backends :test #'equal))))
 
 
-(provide 'my-protobuf)
+(provide 'init-protobuf)
 
-;;; my-protobuf.el ends here
+;;; init-protobuf.el ends here

@@ -1,4 +1,4 @@
-;;; my-databaseclient.el --- database client setting
+;;; init-databaseclient.el --- database client setting
 ;;;###autoload
 
 ;;; Commentary:
@@ -109,6 +109,6 @@
      (add-to-sqls-connections "mysql" (format-mysql-sqls host port user password db))
      (add-to-sql-conection-alist 'mysql ,name host port user password db)))
 
-(provide 'my-databaseclient)
+(provide 'init-databaseclient)
 
-;;; my-databaseclient.el ends here
+;;; init-databaseclient.el ends here

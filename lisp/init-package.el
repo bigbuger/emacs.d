@@ -1,4 +1,4 @@
-;;; my-package.el --- package to install
+;;; init-package.el --- package to install
 
 ;;; Commentary:
 ;;
@@ -239,6 +239,6 @@
       (package-install p))))
 
 
-(provide 'my-package)
+(provide 'init-package)
 
-;;; my-package.el ends here
+;;; init-package.el ends here

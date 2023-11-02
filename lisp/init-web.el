@@ -1,4 +1,4 @@
-;;; my-web.el --- wirite web setting
+;;; init-web.el --- wirite web setting
 
 ;;; Commentary:
 ;; 
@@ -16,6 +16,6 @@
 				   (cl-adjoin '(company-web-html company-css :with company-yasnippet) company-backends :test #'equal)))))
 
 
-(provide 'my-web)
+(provide 'init-web)
 
-;;; my-web.el ends here
+;;; init-web.el ends here

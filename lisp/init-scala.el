@@ -1,4 +1,4 @@
-;;; my-scala.el --- scala config
+;;; init-scala.el --- scala config
 
 ;;; Commentary:
 ;; 
@@ -44,6 +44,6 @@
   (lsp-metals-enable-semantic-highlighting t)
   :hook (scala-mode . lsp))
 
-(provide 'my-scala)
+(provide 'init-scala)
 
-;;; my-scala.el ends here
+;;; init-scala.el ends here

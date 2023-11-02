@@ -1,4 +1,4 @@
-;;; my-calendar.el --- 日历配置
+;;; init-calendar.el --- 日历配置
 
 ;;; Commentary:
 ;; 
@@ -137,6 +137,6 @@ If TEXT does not have a range, return nil."
 
 (add-hook 'org-icalendar-after-save-hook 'org-icalendar-open-ics-file)
 
-(provide 'my-calendar)
+(provide 'init-calendar)
 
-;;; my-calendar.el ends here
+;;; init-calendar.el ends here

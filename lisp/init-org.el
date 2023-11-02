@@ -1,4 +1,4 @@
-;;; my-org.el --- org mode config
+;;; init-org.el --- org mode config
 
 ;;; Commentary:
 ;; 
@@ -228,6 +228,6 @@
 
 ;; end of org-roam
 
-(provide 'my-org)
+(provide 'init-org)
 
-;;; my-org.el ends here
+;;; init-org.el ends here

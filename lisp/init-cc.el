@@ -1,4 +1,4 @@
-;;; my-cc.el --- c mode config
+;;; init-cc.el --- c mode config
 
 ;;; Commentary:
 ;; 
@@ -19,6 +19,6 @@
 		     (require 'ccls)
 		     (lsp-deferred)))))
 
-(provide 'my-cc)
+(provide 'init-cc)
 
-;;; my-cc.el ends here
+;;; init-cc.el ends here
