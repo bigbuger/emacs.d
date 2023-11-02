@@ -35,7 +35,7 @@
 
 
 ;; org 内嵌 LaTeX 相关配置
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.5)
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0)
       org-preview-latex-image-directory "~/.emacs.d/.org/ltximg/"
       org-preview-latex-default-process 'dvisvgm)
 
@@ -47,6 +47,15 @@
 (add-hook 'org-mode-hook
           (lambda () (setq-local company-backends
 				 (cl-adjoin '(company-math-symbols-latex :with company-yasnippet) company-backends :test #'equal))))
+
+(use-package org-latex-impatient
+  :defer t
+  :hook (org-mode . org-latex-impatient-mode)
+  :init
+  (setq org-latex-impatient-tex2svg-bin
+        ;; location of tex2svg executable
+        "~/node_modules/mathjax-node-cli/bin/tex2svg"))
+
 ;; end of LaTeX
 
 ;; superstart 美化标题样式
