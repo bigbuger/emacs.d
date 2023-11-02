@@ -54,7 +54,7 @@
   :init
   (setq org-latex-impatient-tex2svg-bin
         ;; location of tex2svg executable
-        "~/node_modules/mathjax-node-cli/bin/tex2svg"))
+        "~/tool/MathJaxNode/node_modules/mathjax-node-cli/bin/tex2svg"))
 
 ;; end of LaTeX
 
