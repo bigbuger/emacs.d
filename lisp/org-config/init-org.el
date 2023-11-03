@@ -97,6 +97,7 @@
 	    (prettify-symbols-mode)))
 
 ;; org-colored-text 支持改变字体颜色
+(add-to-list 'load-path "~/.emacs.d/lisp/libs/org-colored-text")
 (require 'org-colored-text)
 (org-add-link-type
  "color"

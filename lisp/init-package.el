@@ -124,7 +124,6 @@
     inf-ruby
     robe
     rvm
-    ;; rsense
     realgud-byebug
     yard-mode
     company-inf-ruby
@@ -137,8 +136,6 @@
     go-dlv
     go-eldoc
     company-go
-    ;; go-guru
-    ;; go-rename
     go-gen-test
     go-impl
     godoctor
@@ -158,7 +155,6 @@
     company-ghci
     ;; ghc
     dante
-    ;; flymake-haskell-multi
     lsp-haskell
     company-cabal
     idris-mode
@@ -208,7 +204,6 @@
     ;; others
     csv-mode
     json-mode
-    graphviz-dot-mode
     yaml-mode
     markdown-mode
     company-ansible
