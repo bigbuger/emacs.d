@@ -48,12 +48,9 @@
 ;; load private setting, like passowd, token etc
 (defconst private-setting-dir "~/.emacs.d/private/")
 (if (file-directory-p private-setting-dir)
-    (progn
-      (let ((pfs (directory-files private-setting-dir)))
-	(progn
-	  (dolist (f pfs)
-	    (let ((l (concat private-setting-dir f)))
-	      (if (file-regular-p l)
-		  (load-file l))))))))
+    (let ((pfs (directory-files private-setting-dir "\\.el$")))
+      (dolist (f pfs)
+	(let ((l (concat private-setting-dir f)))
+	  (load-file l)))))
 
 (load custom-file 'noerror)
