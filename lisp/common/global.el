@@ -186,21 +186,6 @@
 (add-hook 'ibuffer-mode-hook #'all-the-icons-ibuffer-mode)
 
 
-;; treemacs
-(require 'treemacs)
-(require 'treemacs-all-the-icons)
-(treemacs-load-theme "all-the-icons")
-
-(setq treemacs-follow-after-init t)
-(treemacs-project-follow-mode)
-(global-set-key [f8] 'treemacs)
-(global-set-key (kbd "M-0") 'treemacs-select-window)
-
-(setq treemacs-filewatch-mode t)
-(setq treemacs-file-event-delay 50)
-
-
-
 ;; magit
 (require 'magit)
 (global-set-key (kbd "C-c g") ' magit-file-dispatch)
@@ -286,11 +271,6 @@
 (advice-add 'flycheck-checker-get :around '+flycheck-checker-get)
 
 (setq flycheck-checker-error-threshold 600)
-
-
-;; realgud
-(require 'realgud)
-(load-library "realgud")
 
 ;; lsp setting
 (require 'lsp-mode)
@@ -383,13 +363,6 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 
 (use-package multi-vterm :ensure t)
 
-;; compile
-(add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
-(define-key menu-bar-tools-menu [compile] '("Compile..." . smart-compile))
-(define-key prog-mode-map (kbd "s-r") 'smart-compile)
-(with-eval-after-load 'projectile
-  (define-key projectile-command-map (kbd "r") 'projectile-run-project))
-
 
 ;; restclient
 (require 'restclient)
@@ -443,17 +416,6 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 	  (xwidget-webkit-browse-url url args)
 	  (display-buffer xwidget-webkit-last-session-buffer)))
 (define-key prog-mode-map (kbd "C-c C-d") 'counsel-dash-at-point)
-
-
-;; rmsbolt
-(require 'rmsbolt)
-
-(with-eval-after-load 'rmsbolt
-  (add-to-list 'display-buffer-alist
-	       `(,rmsbolt-output-buffer
-		 display-buffer-in-direction
-		 (direction . right)
-		 (window-width . 0.5))))
 
 
 ;; gitlab
