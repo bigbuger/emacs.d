@@ -6,9 +6,6 @@
 ;;; Code:
 
 
-;;(require 'go-autocomplete)
-
-
 ;; go install github.com/go-delve/delve/cmd/dlv
 ;; go get golang.org/x/tools/cmd/guru
 ;; go get golang.org/x/tools/cmd/gorename
@@ -22,8 +19,6 @@
 ;; go install github.com/davidrjenni/reftools/cmd/fillstruct@latest
 ;; go install github.com/x-motemen/gore/cmd/gore@latest
 (require 'go-dlv)
-;; (require 'go-guru)
-;; (require 'go-rename)
 (require 'go-gen-test)
 (require 'go-impl)
 (require 'godoctor)
@@ -31,9 +26,6 @@
 (require 'go-fill-struct)
 (require 'gorepl-mode)
 
-
-;;(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
-;;(require 'golint)
 
 (require 'dap-dlv-go)
 
@@ -47,17 +39,8 @@
 					   (company-files :with company-yasnippet)
 					   (company-dabbrev :with company-yasnippet)))))
 ;;(setenv "GO111MODULE" "off")
-;;(require 'go-flymake)
-;;(require 'go-flycheck)
 (add-hook 'go-mode-hook 'flycheck-mode)
 (add-hook 'go-mode-hook 'go-eldoc-setup)
-
-;; (define-key go-mode-map
-;;   (kbd "M-.") 'godef-jump)
-
-;; (add-hook 'go-mode-hook (lambda ()
-;; 			  (setq-local flycheck-disabled-checkers '(go-staticcheck))))
-
 
 
 (defun my-go-impl ()

@@ -42,7 +42,6 @@
 (require-dir "~/.emacs.d/lisp/lang/")
 
 (require 'init-org)
-;;(require 'init-ejc)
 (require 'init-databaseclient)
 (require 'init-calendar)
 (require 'theme-settig)
