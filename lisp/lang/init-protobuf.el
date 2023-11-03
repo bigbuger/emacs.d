@@ -24,7 +24,7 @@
 	    (setq-local lsp-diagnostics-provider :none)
 	    (lsp-deferred)))
 
-(add-to-list 'load-path "~/.emacs.d/lisp/company-proto")
+(add-to-list 'load-path "~/.emacs.d/lisp/libs/company-proto")
 (require 'company-proto)
 (add-hook 'protobuf-mode-hook
           (lambda () (setq-local company-backends

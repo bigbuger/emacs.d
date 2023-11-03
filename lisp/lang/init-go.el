@@ -100,7 +100,7 @@
 ;; (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 
 
-(add-to-list 'load-path "~/.emacs.d/lisp/counsel-golangci-lint")
+(add-to-list 'load-path "~/.emacs.d/lisp/libs/counsel-golangci-lint")
 (require 'counsel-golangci-lint)
 
 (with-eval-after-load 'projectile

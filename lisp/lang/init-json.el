@@ -7,7 +7,7 @@
 ;;; Code:
 (require 'json-mode)
 
-(add-to-list 'load-path "~/.emacs.d/lisp/counsel-jq-ex/")
+(add-to-list 'load-path "~/.emacs.d/lisp/libs/counsel-jq-ex/")
 (require 'counsel-jq-ex)
 
 (add-hook 'json-mode-hook 'hideshowvis-enable)

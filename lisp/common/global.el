@@ -340,7 +340,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (global-set-key (kbd "<backtab>") 'company-complete)
 (global-set-key (kbd "<C-S-tab>") 'company-files)
 ;; (global-set-key (kbd "<C-M-tab>") 'company-ispell)
-(add-to-list 'load-path "~/.emacs.d/lisp/company-english-helper")
+(add-to-list 'load-path "~/.emacs.d/lisp/libs/company-english-helper")
 (require 'company-english-helper)
 (global-set-key (kbd "<C-M-tab>") 'company-english-helper-search)
 
@@ -467,7 +467,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 
 
 ;; 自动保存
-(add-to-list 'load-path "~/.emacs.d/lisp/auto-save/")
+(add-to-list 'load-path "~/.emacs.d/lisp/libs/auto-save/")
 (require 'auto-save)            ;; 加载自动保存模块
 (auto-save-enable)              ;; 开启自动保存功能
 (setq auto-save-silent t)       ;; 自动保存的时候静悄悄的， 不要打扰我
@@ -501,7 +501,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (require 'flycheck)
 (global-flycheck-mode)
 
-(add-to-list 'load-path "~/.emacs.d/lisp/flycheck-posframe")
+(add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-posframe")
 (require 'flycheck-posframe)
 (setq flycheck-posframe-warning-prefix "⚠ ")
 (setq flycheck-posframe-info-prefix "ℹ ")
@@ -582,7 +582,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
-(add-to-list 'load-path "~/.emacs.d/lisp/lsp-ivy")
+(add-to-list 'load-path "~/.emacs.d/lisp/libs/lsp-ivy")
 (require 'lsp-ivy)
 (setq lsp-ivy-show-symbol-filename nil)
 (define-key lsp-command-map (kbd "s") 'lsp-ivy-workspace-symbol)
@@ -813,7 +813,7 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 (setq dirvish-reuse-session t)
 
 ;; hideshowvis
-(add-to-list 'load-path "~/.emacs.d/lisp/hideshowvis/")
+(add-to-list 'load-path "~/.emacs.d/lisp/libs/hideshowvis/")
 (require 'hideshowvis)
 (hideshowvis-symbols)
 ;;(add-hook 'prog-mode-hook 'hideshowvis-enable)
