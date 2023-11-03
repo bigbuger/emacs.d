@@ -5,10 +5,6 @@
 
 ;;; Code:
 
-(require 'imenu-list)
-(global-set-key (kbd "<f9>") 'imenu-list)
-(setq imenu-auto-rescan t)
-
 ;;ivy
 (require 'ivy)
 (ivy-mode 1)
@@ -73,19 +69,6 @@
 
 ;; end of ivy
 
-(require 'helpful)
-(setq counsel-describe-function-function #'helpful-callable)
-(setq counsel-describe-variable-function #'helpful-variable)
-(global-set-key (kbd "C-h k") #'helpful-key)
-(global-set-key (kbd "C-h x") #'helpful-command)
-
-(define-key emacs-lisp-mode-map (kbd "C-c C-d") #'helpful-at-point)
-
-(require 'which-key)
-(which-key-mode)
-
-(require 'ace-window)
-(global-set-key (kbd "C-c o") 'ace-window)
 
 ;;yasnippet
 (require 'yasnippet)
@@ -182,18 +165,6 @@
 (add-hook 'ibuffer-hook #'ibuffer-projectile-filter)
 
 
-(require 'all-the-icons-ibuffer)
-(add-hook 'ibuffer-mode-hook #'all-the-icons-ibuffer-mode)
-
-;; dumb-jump
-(require 'dumb-jump)
-(setq dumb-jump-force-searcher 'rg)
-(add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
-(global-set-key (kbd "C-.") 'dumb-jump-go)
-(setq xref-show-definitions-function #'xref-show-definitions-completing-read)
-
-
-
 ;; flycheck
 ;;(eval-after-load 'flymake '(require 'flymake-cursor))
 (require 'flycheck)
@@ -284,95 +255,6 @@
   (add-to-list 'lsp-disabled-clients 'semgrep-ls))
 
 ;; end of lsp setting
-
-
-;; vterm
-(require 'vterm)
-(global-set-key (kbd "C-c t") 'vterm-other-window)
-(add-to-list 'vterm-eval-cmds '("find-file-other-window" find-file-other-window))
-
-(defun projectile-run-vterm-other-window (&optional arg)
-  "Invoke `vterm-other-window' in the project's root.
-
-Switch to the project specific term buffer if it already exists.
-
-Use a prefix argument ARG to indicate creation of a new process instead."
-  (interactive "P")
-  (let* ((project (projectile-acquire-root))
-         (buffer (projectile-generate-process-name "vterm" arg project)))
-    (unless (buffer-live-p (get-buffer buffer))
-      (unless (require 'vterm nil 'noerror)
-        (error "Package 'vterm' is not available"))
-      (projectile-with-default-dir project
-        (vterm-other-window buffer)))
-    (switch-to-buffer buffer)))
-
-(define-key projectile-command-map (kbd "t") 'projectile-run-vterm-other-window)
-
-(use-package multi-vterm :ensure t)
-
-
-;; restclient
-(require 'restclient)
-(require 'company-restclient)
-(add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
-(add-hook 'restclient-mode-hook
-          (lambda () (setq-local company-backends
-				 (cl-adjoin '(company-restclient :with company-yasnippet) company-backends :test #'equal))))
-
-
-;; docker
-(require 'docker)
-(setq docker-container-shell-file-name "/bin/bash")
-
-;; osx-dictionary
-(require 'pos-tip)
-(require 'osx-dictionary)
-(defun osx-dictionary-search-at-point-and-pop ()
-  "Search word around and display result with popup."
-  (interactive)
-  (let* ((word (osx-dictionary--region-or-word))
-	 (result (osx-dictionary--search word)))
-    (pos-tip-show result)))
-(global-set-key (kbd "C-S-d") 'osx-dictionary-search-at-point-and-pop)
-
-(require 'google-translate)
-(require 'google-translate-default-ui)
-(setq google-translate-default-source-language "auto")
-(setq google-translate-default-target-language "zh-CN")
-
-
-
-;; flyspell
-(setq flyspell-mark-duplications-flag nil)
-
-
-(require 'flyspell-correct-popup)
-(define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-wrapper)
-
-(setq ispell-program-name "aspell")
-(setq ispell-extra-args '("--sug-mode=ultra" "--camel-case"))
-
-
-;; dash doc
-(require 'counsel-dash)
-(setq dash-docs-enable-debugging nil)
-(setq counsel-dash-common-docsets '("Redis" "MySQL"))
-(setq counsel-dash-docsets-path  (expand-file-name "~/.docset/"))
-(setq counsel-dash-browser-func
-      #'(lambda (url &rest args)
-	  (xwidget-webkit-browse-url url args)
-	  (display-buffer xwidget-webkit-last-session-buffer)))
-(define-key prog-mode-map (kbd "C-c C-d") 'counsel-dash-at-point)
-
-
-(use-package pdf-tools
-  :ensure t
-  :config
-  (pdf-tools-install)
-  (custom-set-variables
-   '(pdf-tools-handle-upgrades t)))
-
 
 (provide 'global)
 

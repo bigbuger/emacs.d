@@ -187,7 +187,6 @@
     company-web
 
     ;; sql
-    ejc-sql
     sqlformat
     
     ;; laTeX
@@ -195,11 +194,6 @@
     auctex
     magic-latex-buffer
     xenops
-    
-    ;; docker
-    docker
-    docker-compose-mode
-    dockerfile-mode
     
     ;; others
     csv-mode
