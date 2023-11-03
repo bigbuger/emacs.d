@@ -28,31 +28,26 @@
       (append exec-path-from-shell-variables '("LC_ALL" "LANG" "GOPATH" "GEM_HOME" "GEM_PATH" "JAVA_HOME")))
 (exec-path-from-shell-initialize)
 
+(defun require-dir (dir)
+  "Require all file from DIR, not recursively."
+  (progn
+    (add-to-list 'load-path dir)
+    (let ((files (directory-files dir nil "\\.el$")))
+      (dolist (f files)
+	(require (intern (file-name-base f)))))))
+
 
 (require 'global)
 (require 'my-command)
+(require-dir "~/.emacs.d/lisp/lang/")
+
 (require 'init-org)
-(require 'init-go)
-(require 'init-haskell)
-(require 'init-agda)
-(require 'init-scheme)
-(require 'init-clojure)
-(require 'init-ruby)
-(require 'init-python)
-(require 'init-rust)
-(require 'init-cc)
-(require 'init-octave)
-(require 'init-json)
-(require 'init-web)
 ;;(require 'init-ejc)
-(require 'init-latex)
-(require 'init-liquid)
-(require 'init-protobuf)
-(require 'init-elm)
-(require 'init-scala)
 (require 'init-databaseclient)
 (require 'init-calendar)
 (require 'theme-settig)
+
+
 
 ;; load private setting, like passowd, token etc
 (defconst private-setting-dir "~/.emacs.d/private/")
