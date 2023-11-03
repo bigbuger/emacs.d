@@ -37,13 +37,10 @@
 	(require (intern (file-name-base f)))))))
 
 
-(require 'global)
 (require 'my-command)
-(require-dir "~/.emacs.d/lisp/lang/")
-
-(require 'init-org)
-(require 'init-databaseclient)
-(require 'init-calendar)
+(require-dir "~/.emacs.d/lisp/common")
+(require-dir "~/.emacs.d/lisp/lang")
+(require-dir "~/.emacs.d/lisp/org-config")
 (require 'theme-settig)
 
 
