@@ -15,7 +15,9 @@
   (with-eval-after-load 'org-src
     (add-to-list
      'org-src-lang-modes '("plantuml" . plantuml)))
-  (require 'company-plantuml)
+  (progn
+    (add-to-list 'load-path "~/.emacs.d/lisp/libs/company-plantuml")
+    (require 'company-plantuml))
   
   :hook (plantuml-mode
 	 . (lambda ()
