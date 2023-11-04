@@ -12,7 +12,7 @@
 + lsp: lsp-mode
 
 ** 主要目录说明
-#+BEGIN_QUOTE
+#+BEGIN_CENTER
 .
 ├── init.el              # 配置入口 \\
 ├── custom.el            # 不想 custom-set-variables 写到 init.el, 单独设了一个文件记录 \\
@@ -26,4 +26,4 @@
 │   └── theme-settig.el  # 主题相关配置 \\
 ├── snippets             # yasinppet 模版存放目录 \\
 └── templates            # yatemplate 模版存放目录 \\
-#+END_QUOTE
+#+END_CENTER
