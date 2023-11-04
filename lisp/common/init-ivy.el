@@ -54,7 +54,9 @@
 
 (require 'pyim-cregexp-utils)
 (setq ivy-re-builders-alist
-      '((t . pyim-cregexp-ivy)))
+      '((counsel-find-file . pyim-cregexp-ivy)
+	(counsel-recentf . pyim-cregexp-ivy)
+	(t . ivy--regex-plus)))
 
 (use-package ivy-posframe
   :ensure t
