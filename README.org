@@ -25,14 +25,10 @@
 主题相关配置
 *** lisp
 lisp 配置文件
-+ common
-通用配置存放在这里
-+ lang
-特定编程语言的配置存放在这里
-+ libs
-通过 git submodule 引用的包，以及自己写的一下包
-+ org-config
-org mode 相关配置
++ common 通用配置存放在这里
++ lang 特定编程语言的配置存放在这里
++ libs 通过 git submodule 引用的包，以及自己写的一下包
++ org-config org mode 相关配置
 *** snippets
 yasinppet 模版存放目录
 *** templates
