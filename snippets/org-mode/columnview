@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: columnview
+# key: >columnview
+# --
+#+BEGIN: columnview :hlines 1 :id local :format "%ITEM(task) %TIMESTAMP(time)" :skip-empty-rows t
+#+END:
