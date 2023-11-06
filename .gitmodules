@@ -1,24 +1,24 @@
-[submodule "lisp/auto-save"]
+[submodule "lisp/libs/auto-save"]
 	path = lisp/libs/auto-save
 	url = https://github.com/manateelazycat/auto-save.git
-[submodule "lisp/hideshowvis"]
+[submodule "lisp/libs/hideshowvis"]
 	path = lisp/libs/hideshowvis
 	url = https://github.com/sheijk/hideshowvis.git
-[submodule "lisp/counsel-jq-ex"]
+[submodule "lisp/libs/counsel-jq-ex"]
 	path = lisp/libs/counsel-jq-ex
 	url = git@github.com:bigbuger/counsel-jq.git
-[submodule "lisp/counsel-golangci-lint"]
+[submodule "lisp/libs/counsel-golangci-lint"]
 	path = lisp/libs/counsel-golangci-lint
 	url = git@github.com:bigbuger/counsel-golangci-lint.git
-[submodule "lisp/flycheck-posframe"]
+[submodule "lisp/libs/flycheck-posframe"]
 	path = lisp/libs/flycheck-posframe
 	url = git@github.com:bigbuger/flycheck-posframe.git
-[submodule "lisp/lsp-ivy"]
+[submodule "lisp/libs/lsp-ivy"]
 	path = lisp/libs/lsp-ivy
 	url = git@github.com:bigbuger/lsp-ivy.git
-[submodule "lisp/company-proto"]
+[submodule "lisp/libs/company-proto"]
 	path = lisp/libs/company-proto
 	url = git@github.com:bigbuger/company-proto.git
-[submodule "lisp/company-english-helper"]
+[submodule "lisp/libs/company-english-helper"]
 	path = lisp/libs/company-english-helper
 	url = git@github.com:manateelazycat/company-english-helper.git
