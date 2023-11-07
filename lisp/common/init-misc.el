@@ -101,6 +101,11 @@
 				 (cl-adjoin '(company-restclient :with company-yasnippet) company-backends :test #'equal))))
 
 
+;; vlf 打开文件
+(use-package vlf
+  :init
+  (require 'vlf-setup))
+
 (provide 'init-misc)
 
 ;;; init-misc.el ends here
