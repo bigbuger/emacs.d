@@ -36,3 +36,5 @@ elpy/
 /octave-workspace
 /smex-items
 /request/
+/.emacs.desktop
+/.emacs.desktop.lock

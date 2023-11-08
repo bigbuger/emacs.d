@@ -29,6 +29,9 @@
 (add-hook 'after-init-hook
 	  (save-place-mode))
 
+(desktop-save-mode 1)
+
+
 (setq Man-notify-method 'pushy)
 
 ;; 关闭启动画面
