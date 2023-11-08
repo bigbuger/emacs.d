@@ -45,6 +45,9 @@
 ;; 用 y 来回答，不用打全 yes
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; 不要用 gui 的 弹窗提示
+(setq use-dialog-box nil)
+
 
 ;; 保存命令历史
 (savehist-mode 1)
