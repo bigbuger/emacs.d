@@ -52,11 +52,11 @@
 (ivy-rich-mode 1)
 
 
-(require 'pyim-cregexp-utils)
-(setq ivy-re-builders-alist
-      '((counsel-find-file . pyim-cregexp-ivy)
-	(counsel-recentf . pyim-cregexp-ivy)
-	(t . ivy--regex-plus)))
+;; (require 'pyim-cregexp-utils)
+;; (setq ivy-re-builders-alist
+;;       '((counsel-find-file . pyim-cregexp-ivy)
+;; 	(counsel-recentf . pyim-cregexp-ivy)
+;; 	(t . ivy--regex-plus)))
 
 (use-package ivy-posframe
   :ensure t
