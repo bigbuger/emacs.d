@@ -76,6 +76,7 @@
   :init
   (add-hook 'org-mode-hook 'org-appear-mode)
   (setq org-appear-autolinks t)
+  (setq org-appear-autoentities t)
   (setq org-appear-autokeywords t))
 
 ;; 自定义 prettify symbol

@@ -30,6 +30,7 @@
 ;;(global-set-key (kbd "C-c j") 'counsel-file-jump)
 (global-set-key (kbd "C-c m") 'counsel-bookmark)
 (global-set-key (kbd "C-c c") 'counsel-git-checkout)
+(global-set-key (kbd "C-x 8") 'counsel-unicode-char)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
 
