@@ -7,10 +7,12 @@
 ;;; Code:
 (require 'json-mode)
 
+(add-hook 'json-mode-hook 'tree-sitter-mode)
+(add-hook 'json-mode-hook 'ts-fold-indicators-mode)
+
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/counsel-jq-ex/")
 (require 'counsel-jq-ex)
 
-(add-hook 'json-mode-hook 'hideshowvis-enable)
 (define-key json-mode-map (kbd "C-c C-j") 'counsel-jq-ex)
 (define-key js-mode-map (kbd "C-c C-j") 'counsel-jq-ex)
 

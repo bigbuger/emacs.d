@@ -178,6 +178,14 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 ;; (add-hook 'prog-mode-hook 'hideshowvis-enable)
 ;; end hideshowvis
 
+(use-package ts-fold
+  :load-path "~/.emacs.d/lisp/libs/ts-fold")
+
+(use-package fringe-helper)
+
+(use-package ts-fold-indicators
+  :load-path "~/.emacs.d/lisp/libs/ts-fold")
+
 (provide 'init-editor-enhance)
 
 ;;; init-editor-enhance.el ends here
