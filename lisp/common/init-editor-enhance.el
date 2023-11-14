@@ -102,6 +102,10 @@ ARG is pass to `sp-end-of-sexp'"
 (define-key mc/keymap (kbd "C-c C-g") 'mc/keyboard-quit)
 ;; end multiple-cursors
 
+
+(use-package iedit)
+
+
 ;; expland-regin
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
