@@ -59,7 +59,9 @@
     "`centaur-tabs-buffer-groups' control buffers' group rules."
     (list
      (cond
-
+      ((string-prefix-p org-roam-directory (buffer-file-name))
+       "Roam")
+      
       ((or (derived-mode-p 'eshell-mode)
 	   (derived-mode-p 'term-mode)
 	   (derived-mode-p 'shell-mode)

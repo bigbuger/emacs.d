@@ -48,6 +48,9 @@
           (lambda () (setq-local company-backends
 				 (cl-adjoin '(company-math-symbols-latex :with company-yasnippet) company-backends :test #'equal))))
 
+(define-key org-mode-map
+	    (kbd "C-\\") 'company-math-symbols-unicode)
+
 (use-package org-latex-impatient
   :defer t
   :hook (org-mode . org-latex-impatient-mode)
@@ -118,6 +121,7 @@
 
 
 ;; valign 表格对齐，支持中英文
+(setq org-startup-align-all-tables t)
 (use-package valign
   ;; :config
   ;; 美化表格分隔线

@@ -10,8 +10,9 @@
          ("C-c n f" . org-roam-node-find)
          ("C-c n g" . org-roam-graph)
          ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-capture))
-  :config
+         ("C-c n c" . org-roam-capture)
+	 ("C-c n t" . org-roam-tag-add))
+  :init
   (setq org-directory (file-truename "~/note/roam"))
   (setq org-roam-directory org-directory)
   (setq org-roam-capture-templates '(("d" "default" plain "%?" :target
@@ -19,6 +20,8 @@
 				      :unnarrowed t)))
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
   (setq org-roam-node-display-template (concat "${title:50} "(propertize "${tags:100}" 'face 'org-tag)))
+  
+  :config
   (org-roam-db-autosync-mode)
   ;; If using org-roam-protocol
   ;; (require 'org-roam-protocol)
