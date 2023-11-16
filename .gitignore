@@ -39,3 +39,4 @@ elpy/
 /.emacs.desktop
 /.emacs.desktop.lock
 /snippets/org-mode/sl-*
+/pyim/

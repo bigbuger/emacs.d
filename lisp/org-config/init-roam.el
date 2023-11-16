@@ -8,16 +8,33 @@
   :ensure t
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
-         ("C-c n g" . org-roam-graph)
          ("C-c n i" . org-roam-node-insert)
+	 ("C-c n I" . org-roam-node-insert-immediate)
          ("C-c n c" . org-roam-capture)
 	 ("C-c n t" . org-roam-tag-add))
   :init
+  (defun org-roam-node-insert-immediate (arg &rest args)
+    (interactive "P")
+    (let ((args (push arg args))
+          (org-roam-capture-templates (list (append (car org-roam-capture-templates)
+                                                    '(:immediate-finish t)))))
+    (apply #'org-roam-node-insert args)))
+
   (setq org-directory (file-truename "~/note/roam"))
   (setq org-roam-directory org-directory)
-  (setq org-roam-capture-templates '(("d" "default" plain "%?" :target
-				      (file+head "${slug}.org" "#+title: ${title}\n")
-				      :unnarrowed t)))
+  (setq org-roam-capture-templates
+	'(("n" "笔记" plain "%?"
+	   :if-new (file+head "笔记/${slug}.org" "#+title: ${title}\n")
+	   :unnarrowed t)
+	  ("s" "闪念随想" plain "%?"
+	   :if-new (file+head "闪念随想/${slug}.org" "#+title: ${title}\n#+filetags: :随想:\n")
+	   :unnarrowed t)
+	  ("r" "读书笔记" plain "%?"
+	   :if-new (file+head "读书笔记/${slug}.org" "#+title: ${title}\n#+filetags: :读书笔记:\n")
+	   :unnarrowed t)
+	  ("b" "备忘" plain "%?"
+	   :if-new (file+head "备忘/${slug}.org" "#+title: ${title}\n#+filetags: :备忘:\n")
+	   :unnarrowed t)))
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
   (setq org-roam-node-display-template (concat "${title:50} "(propertize "${tags:100}" 'face 'org-tag)))
   
