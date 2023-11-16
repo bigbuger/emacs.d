@@ -18,7 +18,7 @@
     (let ((args (push arg args))
           (org-roam-capture-templates (list (append (car org-roam-capture-templates)
                                                     '(:immediate-finish t)))))
-    (apply #'org-roam-node-insert args)))
+      (apply #'org-roam-node-insert args)))
 
   (setq org-directory (file-truename "~/note/roam"))
   (setq org-roam-directory org-directory)
@@ -36,9 +36,17 @@
 	   :if-new (file+head "备忘/${slug}.org" "#+title: ${title}\n#+filetags: :备忘:\n")
 	   :unnarrowed t)))
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
-  (setq org-roam-node-display-template (concat "${title:50} "(propertize "${tags:100}" 'face 'org-tag)))
+  (setq org-roam-node-display-template (concat "${type:20} ${title:50} "(propertize "${tags:100}" 'face 'org-tag)))
   
   :config
+  (cl-defmethod org-roam-node-type ((node org-roam-node))
+    "Return the TYPE of NODE."
+    (condition-case nil
+	(file-name-nondirectory
+	 (directory-file-name
+          (file-name-directory
+           (file-relative-name (org-roam-node-file node) org-roam-directory))))
+      (error "")))
   (org-roam-db-autosync-mode)
   ;; If using org-roam-protocol
   ;; (require 'org-roam-protocol)
