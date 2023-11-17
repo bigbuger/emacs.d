@@ -40,3 +40,4 @@ elpy/
 /.emacs.desktop.lock
 /snippets/org-mode/sl-*
 /pyim/
+/edraw-ui-state.config
