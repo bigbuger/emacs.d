@@ -23,18 +23,14 @@
 (global-set-key (kbd "C-c M-y") 'counsel-yank-pop)
 (global-set-key (kbd "C-c i") 'counsel-imenu)
 (global-set-key (kbd "C-c e") 'counsel-recentf)
-(global-set-key (kbd "C-c b") 'counsel-ibuffer)
 (global-set-key (kbd "C-c s") 'counsel-rg)
 (global-set-key (kbd "C-c f") 'counsel-fzf)
-;;(global-set-key (kbd "C-c j") 'counsel-file-jump)
 (global-set-key (kbd "C-c m") 'counsel-bookmark)
-(global-set-key (kbd "C-c c") 'counsel-git-checkout)
 (global-set-key (kbd "C-x 8") 'counsel-unicode-char)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
 
 (require 'counsel-fd)
-;;(global-set-key (kbd "C-c j") 'counsel-fd-file-jump)
 (require 'dired-x)
 (global-set-key (kbd "C-c j") 'counsel-fd-dired-jump)
 
