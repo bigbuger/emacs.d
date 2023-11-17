@@ -26,6 +26,15 @@
 
 
 
+(defun json-sort-keys ()
+  "Sort json by keys using jq."
+  (interactive)
+  (let ((cmd "jq --sort-keys --indent 4"))
+    (save-excursion
+      (shell-command-on-region (point-min) (point-max) cmd  (current-buffer) 1))))
+
+(define-key json-mode-map (kbd "C-c C-s") 'json-sort-keys)
+
 (provide 'init-json)
 
 ;;; init-json.el ends here
