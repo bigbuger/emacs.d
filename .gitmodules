@@ -25,3 +25,6 @@
 [submodule "lisp/libs/ts-fold"]
 	path = lisp/libs/ts-fold
 	url = https://github.com/emacs-tree-sitter/ts-fold
+[submodule "lisp/libs/el-easydraw"]
+	path = lisp/libs/el-easydraw
+	url = git@github.com:misohena/el-easydraw.git
