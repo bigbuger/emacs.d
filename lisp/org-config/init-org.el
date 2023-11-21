@@ -19,6 +19,7 @@
       org-ellipsis " ⤵ " ;; folding symbol
       org-edit-src-content-indentation 0
       org-src-tab-acts-natively t
+      org-fontify-quote-and-verse-blocks t ;;引用块也高亮
       org-src-preserve-indentation t)
 
 ;; inline显示图片

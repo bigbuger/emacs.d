@@ -11,7 +11,8 @@
          ("C-c n i" . org-roam-node-insert)
 	 ("C-c n I" . org-roam-node-insert-immediate)
          ("C-c n c" . org-roam-capture)
-	 ("C-c n t" . org-roam-tag-add))
+	 ("C-c n t" . org-roam-tag-add)
+	 ("C-c n s" . org-roam-extract-subtree))
   :init
   (defun org-roam-node-insert-immediate (arg &rest args)
     (interactive "P")
@@ -37,6 +38,7 @@
 	   :unnarrowed t)))
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
   (setq org-roam-node-display-template (concat "${type:20} ${title:50} "(propertize "${tags:100}" 'face 'org-tag)))
+  (setq org-roam-extract-new-file-path "${slug}.org")
   
   :config
   (cl-defmethod org-roam-node-type ((node org-roam-node))
@@ -47,10 +49,26 @@
           (file-name-directory
            (file-relative-name (org-roam-node-file node) org-roam-directory))))
       (error "")))
-  (org-roam-db-autosync-mode)
-  ;; If using org-roam-protocol
-  ;; (require 'org-roam-protocol)
-  )
+  (org-roam-db-autosync-mode))
+
+(use-package org-protocol
+  :ensure nil)
+
+(use-package org-roam-protocol
+  :after org-protocol
+  :ensure nil
+  :init
+
+  ;; 通过 org-roam-protocl 创建摘录
+  ;; 通过 js 保存网页内容:
+  ;; javascript:location.href = 'org-protocol://roam-ref?template=r&ref=%27 + encodeURIComponent(location.href) + %27&title=%27 + encodeURIComponent(document.title) + %27&body=%27 + encodeURIComponent(window.getSelection())
+  (setq org-roam-capture-ref-templates
+        '(("r" "ref"
+	   plain "#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n"
+           :if-new (file+head "摘要/webclip-${slug}.org" "#+title: ${title}\n#+filetags: :摘要:\n")
+	   :immediate-finish t
+           :unnarrowed t)))
+  (server-start))
 
 (use-package org-roam-ui
   :ensure t
