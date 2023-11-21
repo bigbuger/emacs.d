@@ -26,13 +26,13 @@
 	'(("n" "笔记" plain "%?"
 	   :if-new (file+head "笔记/${slug}.org" "#+title: ${title}\n")
 	   :unnarrowed t)
-	  ("s" "闪念随想" plain "%?"
+	  ("f" "闪念随想" plain "%?"
 	   :if-new (file+head "闪念随想/${slug}.org" "#+title: ${title}\n#+filetags: :随想:\n")
 	   :unnarrowed t)
-	  ("r" "读书笔记" plain "%?"
-	   :if-new (file+head "读书笔记/${slug}.org" "#+title: ${title}\n#+filetags: :读书笔记:\n")
+	  ("r" "摘抄" plain "%?"
+	   :if-new (file+head "摘抄/${slug}.org" "#+title: ${title}\n#+filetags: :摘抄:\n")
 	   :unnarrowed t)
-	  ("b" "备忘" plain "%?"
+	  ("m" "备忘" plain "%?"
 	   :if-new (file+head "备忘/${slug}.org" "#+title: ${title}\n#+filetags: :备忘:\n")
 	   :unnarrowed t)))
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
