@@ -64,10 +64,11 @@
   ;; javascript:location.href = 'org-protocol://roam-ref?template=r&ref=%27 + encodeURIComponent(location.href) + %27&title=%27 + encodeURIComponent(document.title) + %27&body=%27 + encodeURIComponent(window.getSelection())
   (setq org-roam-capture-ref-templates
         '(("r" "ref"
-	   plain "#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n"
+	   plain "#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n"
            :if-new (file+head "摘要/webclip-${slug}.org" "#+title: ${title}\n#+filetags: :摘要:\n")
 	   :immediate-finish t
-           :unnarrowed t)))
+           :unnarrowed t
+	   :empty-lines-before 1)))
   (server-start))
 
 (use-package org-roam-ui
