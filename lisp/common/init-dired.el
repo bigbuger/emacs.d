@@ -15,8 +15,9 @@
  
 (require 'osx-trash) ;; mac 垃圾桶支持
 (when (eq system-type 'darwin)
-  (setq insert-directory-program "gls") ;; mac 下时使用 gnu ls
-  (osx-trash-setup))
+   ;; mac 下时使用 gnu ls
+  (setq insert-directory-program "gls"))
+(osx-trash-setup)
 
 (setq dired-listing-switches "-l -h --time-style=long-iso --group-directories-first") ;; ls 默认参数，size 用xm/xg显示而不是 byte， 长时间格式，将文件夹显示在第一位
 

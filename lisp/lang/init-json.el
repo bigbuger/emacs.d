@@ -16,15 +16,12 @@
 (define-key json-mode-map (kbd "C-c C-j") 'counsel-jq-ex)
 (define-key js-mode-map (kbd "C-c C-j") 'counsel-jq-ex)
 
-(advice-add 'json-mode-beautify :after
-	    #'(lambda (&rest _ignore)
-		(let ((deactivate deactivate-mark))
-		  (if (region-active-p)
-		      (indent-region (region-beginning) (region-end))
-		    (indent-region (point-min) (point-max)))
-		  (setq deactivate-mark deactivate))))
 
-
+(add-hook 'json-mode-hook
+          (lambda ()
+            (make-local-variable 'js-indent-level)
+            (setq tab-width 4)
+            (setq js-indent-level 4)))
 
 (defun json-sort-keys ()
   "Sort json by keys using jq."
@@ -33,7 +30,17 @@
     (save-excursion
       (shell-command-on-region (point-min) (point-max) cmd  (current-buffer) 1))))
 
+(defun json-format-by-jq ()
+  "Format json by keys using jq."
+  (interactive)
+  (let ((cmd "jq --indent 4 ."))
+    (save-excursion
+      (shell-command-on-region (point-min) (point-max) cmd  (current-buffer) 1))))
+
 (define-key json-mode-map (kbd "C-c C-s") 'json-sort-keys)
+
+(if (executable-find "jq")
+    (define-key json-mode-map (kbd "C-c C-f") 'json-format-by-jq))
 
 (provide 'init-json)
 

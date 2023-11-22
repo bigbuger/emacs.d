@@ -42,7 +42,7 @@
   (global-set-key [(super +)] 'text-scale-adjust)
   (global-set-key [(super =)] 'text-scale-adjust)
   (global-set-key [(super -)] 'text-scale-adjust)
-  (global-set-key [(super 0)] 'text-scale-adjust))
+  (global-set-key (kbd "s-0") 'text-scale-adjust))
 
 (require 'exec-path-from-shell)
 (setq exec-path-from-shell-variables

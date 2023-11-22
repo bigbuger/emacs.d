@@ -30,7 +30,7 @@
 
      ;; Buffer name not match below blacklist.
      ;; just block all buffer start with *
-     (and (string-prefix-p "*" name)
+     (and (string-match-p "^[[:space:]]*\\*" name)
 	  (not (with-current-buffer x (derived-mode-p 'comint-mode)))
 	  (not (with-current-buffer x (derived-mode-p 'compilation-mode)))
 	  (not (string-prefix-p "*compilation" name))
@@ -95,7 +95,7 @@
 (add-hook 'after-init-hook
 	  (lambda ()
 	    (centaur-tabs-mode t)))
-
+(define-key centaur-tabs-mode-map (kbd "<C-tab>") 'centaur-tabs-switch-group)
 
 (provide 'init-tabbar)
 
