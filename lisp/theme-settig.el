@@ -34,9 +34,12 @@
  '(lsp-face-highlight-textual ((t (:inherit highlight :background "#e6ebeb"))))
  '(show-paren-match ((t (:inherit bold :foreground "royal blue" :underline t))))
  '(term-color-blue ((t (:background "SkyBlue3" :foreground "SkyBlue3"))))
- '(treemacs-directory-face ((t (:inherit default)))))
+ '(treemacs-directory-face ((t (:inherit default))))
+ ;; 设置代码块用上下边线包裹
+ '(org-block-begin-line ((t (:underline t :background unspecified))))
+ '(org-block-end-line ((t (:overline t :underline nil :background unspecified)))))
 
-
+ 
 (require 'doom-modeline)
 ;; How tall the mode-line should be. It's only respected in GUI.
 ;; If the actual char height is larger, it respects the actual height.
