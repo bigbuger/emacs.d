@@ -36,8 +36,8 @@
  '(term-color-blue ((t (:background "SkyBlue3" :foreground "SkyBlue3"))))
  '(treemacs-directory-face ((t (:inherit default))))
  ;; 设置代码块用上下边线包裹
- '(org-block-begin-line ((t (:underline t :background unspecified))))
- '(org-block-end-line ((t (:overline t :underline nil :background unspecified)))))
+ '(org-block-begin-line ((t (:underline "#cccccc" :background "#e1e0e1"))))
+ '(org-block-end-line ((t (:overline "#cccccc" :underline nil :background unspecified)))))
 
  
 (require 'doom-modeline)
