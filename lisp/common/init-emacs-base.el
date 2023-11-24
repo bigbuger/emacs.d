@@ -16,14 +16,6 @@
       kept-old-versions 5    ; and how many of the old
       )
 
-;; scrath buffer 模式设置为 org mode
-(setq initial-major-mode 'org-mode)
-(setq initial-scratch-message
-      "# This buffer is for text that is not saved, and for Org-mode.
-# To create a file, visit it with <open> and enter text in its buffer.
-
-")
-
 ;; 记录文件上次打开的位置
 (require 'saveplace)
 (add-hook 'after-init-hook

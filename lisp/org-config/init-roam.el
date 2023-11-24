@@ -82,13 +82,46 @@
   ;;         if you don't care about startup time, use
   ;;  :hook (after-init . org-roam-ui-mode)
   :bind (:map org-roam-command-map
-	 ("u" . org-roam-ui-open))
+	      ("u" . org-roam-ui-open))
   :config
   (setq org-roam-ui-sync-theme t
         org-roam-ui-follow t
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t
 	org-roam-ui-browser-function #'xwidget-webkit-browse-url))
+
+
+;; xeft 检索笔记
+(use-package xeft
+  :bind (:map org-roam-command-map
+	      ("s" . xeft))
+  :init
+  (setq xeft-recursive 'follow-symlinks
+	xeft-directory org-roam-directory
+	xeft-default-extension "org")
+
+  (defvar-local xeft--displayed-by-xeft-p nil)
+
+  (defun xeft--eager-preview()
+    (when-let* ((button (button-at (point)))
+		(path (button-get button 'path)))
+      ;; Kill previously displayed buffer.
+      (when (window-live-p xeft--preview-window)
+	(with-selected-window xeft--preview-window
+          (when xeft--displayed-by-xeft-p
+            (kill-buffer))))
+      ;; Show preview of current selection.
+      (xeft--preview-file path)))
+
+  (add-hook 'xeft-find-file-hook
+            (lambda () (setq xeft--displayed-by-xeft-p t)))
+
+  (advice-add 'xeft-next :after #'xeft--eager-preview)
+  (advice-add 'xeft-previous :after #'xeft--eager-preview)
+
+  :config
+  ;; 不想回车创建新文件
+  (unbind-key "RET" xeft-mode-map))
 
 
 (provide 'init-roam)
