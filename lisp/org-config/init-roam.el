@@ -6,14 +6,18 @@
 
 (use-package org-roam
   :ensure t
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n i" . org-roam-node-insert)
-	 ("C-c n I" . org-roam-node-insert-immediate)
-         ("C-c n c" . org-roam-capture)
-	 ("C-c n t" . org-roam-tag-add)
-	 ("C-c n s" . org-roam-extract-subtree))
+  :bind-keymap ("C-c n" . org-roam-command-map)
+  :bind-keymap ("s-n" . org-roam-command-map)
+  :bind (:map org-roam-command-map
+	 ("l" . org-roam-buffer-toggle)
+         ("f" . org-roam-node-find)
+         ("i" . org-roam-node-insert)
+	 ("I" . org-roam-node-insert-immediate)
+         ("c" . org-roam-capture)
+	 ("e" . org-roam-extract-subtree))
   :init
+  (define-prefix-command 'org-roam-command-map)
+  
   (defun org-roam-node-insert-immediate (arg &rest args)
     (interactive "P")
     (let ((args (push arg args))
@@ -77,7 +81,8 @@
   ;;         a hookable mode anymore, you're advised to pick something yourself
   ;;         if you don't care about startup time, use
   ;;  :hook (after-init . org-roam-ui-mode)
-  :bind (("C-c n u" . org-roam-ui-open))
+  :bind (:map org-roam-command-map
+	 ("u" . org-roam-ui-open))
   :config
   (setq org-roam-ui-sync-theme t
         org-roam-ui-follow t
