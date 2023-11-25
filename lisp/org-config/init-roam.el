@@ -157,9 +157,33 @@
   (advice-add 'xeft-next :after #'xeft--eager-preview)
   (advice-add 'xeft-previous :after #'xeft--eager-preview)
 
+  (defvar xeft-prompt "Search: ")
+  
+  (defun xeft-add-prompt ()
+    (progn
+      (goto-char (point-min))
+      (insert (propertize xeft-prompt
+			  'face 'font-lock-keyword-face
+			  'intangible t
+			  'read-only t
+			  'composition t
+			  'front-sticky t
+			  'rear-nonsticky t))))
+  
+  (add-hook 'xeft-mode-hook 'xeft-add-prompt)
+  
   :config
   ;; 不想回车创建新文件
-  (unbind-key "RET" xeft-mode-map))
+  (unbind-key "RET" xeft-mode-map)
+
+  ;; 配合 xeft-add-prompt，覆盖原来读取查询语句的方法，跳过 xeft-prompt, 一定要放在 :config 才能覆盖, use-package 懒加载
+  (defun xeft--get-search-phrase ()
+    "Return the search phrase. Assumes current buffer is a xeft buffer."
+    (save-excursion
+      (goto-char (point-min))
+      (forward-char (length xeft-prompt))
+      (string-trim
+       (buffer-substring-no-properties (point) (line-end-position))))))
 
 
 (provide 'init-roam)
