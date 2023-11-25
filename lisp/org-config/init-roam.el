@@ -9,12 +9,15 @@
   :bind-keymap ("C-c n" . org-roam-command-map)
   :bind-keymap ("s-n" . org-roam-command-map)
   :bind (:map org-roam-command-map
-	 ("l" . org-roam-buffer-toggle)
-         ("f" . org-roam-node-find)
-         ("i" . org-roam-node-insert)
-	 ("I" . org-roam-node-insert-immediate)
-         ("c" . org-roam-capture)
-	 ("e" . org-roam-extract-subtree))
+	      ("l" . org-roam-buffer-toggle)
+              ("f" . org-roam-node-find)
+              ("i" . org-roam-node-insert)
+	      ("e" . org-roam-extract-subtree)
+
+	      ("c" . my-roam-capture-flash)
+	      ("r" . my-roam-capture-clip)
+	      ("m" . my-roam-capture-memo))
+  
   :init
   (define-prefix-command 'org-roam-command-map)
   
@@ -28,11 +31,11 @@
   (setq org-directory (file-truename "~/note/roam"))
   (setq org-roam-directory org-directory)
   (setq org-roam-capture-templates
-	'(("n" "笔记" plain "%?"
+	'(("f" "笔记" plain "%?"
 	   :if-new (file+head "笔记/${slug}.org" "#+title: ${title}\n")
 	   :unnarrowed t)
-	  ("f" "闪念随想" plain "%?"
-	   :if-new (file+head "闪念随想/${slug}.org" "#+title: ${title}\n#+filetags: :随想:\n")
+	  ("c" "闪念随想" plain "%?"
+	   :if-new (file+head "闪念随想/${slug}.org" "#+title: ${title}\n#+filetags: :闪念随想:\n")
 	   :unnarrowed t)
 	  ("r" "摘抄" plain "%?"
 	   :if-new (file+head "摘抄/${slug}.org" "#+title: ${title}\n#+filetags: :摘抄:\n")
@@ -54,6 +57,41 @@
            (file-relative-name (org-roam-node-file node) org-roam-directory))))
       (error "")))
   (org-roam-db-autosync-mode))
+
+(defun my-roam-filter-by-type (type-name)
+  (lambda (node)
+    (string-equal type-name (org-roam-node-type node))))
+
+
+(defun my-roam-capture-by-type (type-name)
+  "捕获对应类型的笔记."
+  (org-roam-capture-
+   :node (org-roam-node-read
+          nil
+          (my-roam-filter-by-type type-name))
+   :templates `(("d" ,type-name plain nil
+                 :target (file+head+olp ,(concat type-name "/${slug}.org")
+					,(concat "#+title: ${title}\n#+filetags: " ":" type-name ":")
+					("")) ;; 通过 olp 加一个空标题让捕获已有文件时，在文件最后，应该有其它办法解决吧😂
+		 :empty-lines-before 1
+		 :unnarrowed t))))
+
+
+(defmacro def-my-roam-capture (pairs)
+  `(progn
+     ,@(cl-loop for (fun-name . type) in pairs
+		collect
+		`(defun ,(read (concat "my-roam-capture-" (prin1-to-string fun-name)))
+		     ()
+		   ,(concat "捕获" type)
+		   (interactive)
+		   (my-roam-capture-by-type ,type)))))
+
+(def-my-roam-capture ((memo . "备忘")
+		      (flash . "闪念随想")
+		      (clip . "摘抄")))
+  
+
 
 (use-package org-protocol
   :ensure nil)
