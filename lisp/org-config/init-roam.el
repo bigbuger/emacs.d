@@ -6,6 +6,7 @@
 
 (use-package org-roam
   :ensure t
+  :demand t
   :bind-keymap ("C-c n" . org-roam-command-map)
   :bind-keymap ("s-n" . org-roam-command-map)
   :bind (:map org-roam-command-map
@@ -99,6 +100,7 @@
 (use-package org-roam-protocol
   :after org-protocol
   :ensure nil
+  :demand t
   :init
 
   ;; 通过 org-roam-protocl 创建摘录
@@ -131,6 +133,7 @@
 
 ;; xeft 检索笔记
 (use-package xeft
+  :demand t
   :bind (:map org-roam-command-map
 	      ("s" . xeft))
   :init
