@@ -160,7 +160,7 @@
   (advice-add 'xeft-next :after #'xeft--eager-preview)
   (advice-add 'xeft-previous :after #'xeft--eager-preview)
 
-  (defvar xeft-prompt "Search: ")
+  (defvar xeft-prompt "🔎: ")
   
   (defun xeft-add-prompt ()
     (progn
@@ -174,6 +174,9 @@
 			  'rear-nonsticky t))))
   
   (add-hook 'xeft-mode-hook 'xeft-add-prompt)
+  (add-hook 'xeft-mode-hook
+	    #'(lambda ()
+		(setq header-line-format "Search node. Can use `AND' `OR' `XOR' `NOT'. ")))
   
   :config
   ;; 不想回车创建新文件
