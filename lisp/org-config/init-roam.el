@@ -176,7 +176,8 @@
   (add-hook 'xeft-mode-hook 'xeft-add-prompt)
   (add-hook 'xeft-mode-hook
 	    #'(lambda ()
-		(setq header-line-format "Search node. Can use `AND' `OR' `XOR' `NOT'. ")))
+		(setq header-line-format
+		      (concat "Search node. Can use " (propertize "`AND' `OR' `XOR' `NOT'" 'face 'font-lock-keyword-face) "."))))
   
   :config
   ;; 不想回车创建新文件
