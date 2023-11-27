@@ -21,28 +21,12 @@
 (setq use-package-always-ensure t)
 
 (when (memq window-system '(mac ns))
+  (setq mouse-wheel-flip-direction t)
   (set-fontset-font t nil (font-spec :family "Apple Color Emoji") nil 'append))
 
 ;; special set for emacs port
 (when (boundp 'mac-carbon-version-string)
-  (setq mac-option-modifier 'meta)
-  (setq mac-command-modifier 'super)
-  (setq ring-bell-function 'ignore)
-
-  ;; Keybonds
-  (global-set-key [(super a)] 'mark-whole-buffer)
-  (global-set-key [(super v)] 'yank)
-  (global-set-key [(super c)] 'kill-ring-save)
-  (global-set-key [(super s)] 'save-buffer)
-  (global-set-key [(super l)] 'goto-line)
-  (global-set-key [(super z)] 'undo)
-  (global-set-key [(super w)] 'delete-frame)
-  (global-set-key [(super x)] 'kill-region)
-  (global-set-key [(super z)] 'undo)
-  (global-set-key [(super +)] 'text-scale-adjust)
-  (global-set-key [(super =)] 'text-scale-adjust)
-  (global-set-key [(super -)] 'text-scale-adjust)
-  (global-set-key (kbd "s-0") 'text-scale-adjust))
+  (load "~/.emacs.d/init-for-emacsport" 'noerror))
 
 (require 'exec-path-from-shell)
 (setq exec-path-from-shell-variables

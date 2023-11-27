@@ -31,6 +31,8 @@
 
 ;; 关闭蜂鸣
 (setq visible-bell t)
+(setq ring-bell-function 'ignore)
+
 ;; alway hight light
 (global-font-lock-mode 1)
 
@@ -65,6 +67,8 @@
 
 ;;像素滚动
 (pixel-scroll-precision-mode 1)
+
+(setq mouse-wheel-tilt-scroll t)
 
 ;; disable bookmark fringe
 (setq bookmark-set-fringe-mark nil)
