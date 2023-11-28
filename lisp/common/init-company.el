@@ -27,7 +27,9 @@
 	company-capf
 	company-clang
 	company-files
-	(company-dabbrev-code company-gtags company-etags company-keywords)))
+	(company-dabbrev-code company-gtags company-etags company-keywords)
+	company-dabbrev))
+(setq company-dabbrev-char-regexp "[A-z]") ;; 限定 dabbre 只补全英文
 
 ;; make company combine with yasnippet
 (defvar company-mode/enable-yas t
