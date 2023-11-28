@@ -26,16 +26,22 @@
 (defun json-sort-keys ()
   "Sort json by keys using jq."
   (interactive)
-  (let ((cmd "jq --sort-keys --indent 4"))
-    (save-excursion
-      (shell-command-on-region (point-min) (point-max) cmd  (current-buffer) 1))))
+  (let* ((cmd "jq --sort-keys --indent 4")
+	 (test-cmd "jq . 1>>/dev/null")
+	 (test-run (shell-command-on-region (point-min) (point-max) test-cmd nil nil "*jq error log*" t)))
+    (if (= test-run 0)
+	(save-excursion
+	  (shell-command-on-region (point-min) (point-max) cmd  (current-buffer) 1)))))
 
 (defun json-format-by-jq ()
   "Format json by keys using jq."
   (interactive)
-  (let ((cmd "jq --indent 4 ."))
-    (save-excursion
-      (shell-command-on-region (point-min) (point-max) cmd  (current-buffer) 1))))
+  (let* ((cmd "jq --indent 4 .")
+	 (test-cmd "jq . 1>>/dev/null")
+	 (test-run (shell-command-on-region (point-min) (point-max) test-cmd nil nil "*jq error log*" t)))
+    (if (= test-run 0)
+	(save-excursion
+	  (shell-command-on-region (point-min) (point-max) cmd  (current-buffer) 1)))))
 
 (define-key json-mode-map (kbd "C-c C-s") 'json-sort-keys)
 
