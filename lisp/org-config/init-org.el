@@ -175,7 +175,8 @@
    (verb . t)
    (ditaa . t)
    (plantuml . t)
-   (sql . t)))
+   (sql . t)
+   (gnuplot . t)))
 ;; end of org bale
 
 ;; verb 网络请求客户端
