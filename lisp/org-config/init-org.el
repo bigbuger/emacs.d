@@ -85,6 +85,28 @@
   (setq org-appear-autoentities t)
   (setq org-appear-autokeywords t))
 
+;; 自带折叠
+(defun individual-visibility-source-blocks ()
+  "Fold some blocks in the current buffer."
+  (interactive)
+  (org-show-block-all)
+  (org-block-map
+   (lambda ()
+     (let ((case-fold-search t))
+       (when (and
+              (save-excursion
+                (beginning-of-line 1)
+                (looking-at org-block-regexp))
+              (cl-assoc
+               ':hidden
+               (cl-third
+                (org-babel-get-src-block-info))))
+         (org-hide-block-toggle))))))
+
+(add-hook
+ 'org-mode-hook
+ (function individual-visibility-source-blocks))
+
 ;; 自定义 prettify symbol
 (setq prettify-symbols-unprettify-at-point t)
 (add-hook 'org-mode-hook
