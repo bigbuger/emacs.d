@@ -10,7 +10,6 @@
 
 (require 'magit)
 (global-set-key (kbd "C-c g") ' magit-file-dispatch)
-(global-set-key (kbd "C-c C-g") 'magit-dispatch)
 (require 'magit-todos)
 (magit-todos-mode)
 
