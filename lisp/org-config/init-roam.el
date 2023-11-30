@@ -183,6 +183,8 @@
   ;; 不想回车创建新文件
   (unbind-key "RET" xeft-mode-map)
 
+  (setq xeft-ignore-extension image-file-name-extensions)
+  
   ;; 配合 xeft-add-prompt，覆盖原来读取查询语句的方法，跳过 xeft-prompt, 一定要放在 :config 才能覆盖, use-package 懒加载
   (defun xeft--get-search-phrase ()
     "Return the search phrase. Assumes current buffer is a xeft buffer."
