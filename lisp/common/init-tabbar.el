@@ -95,7 +95,6 @@
 (add-hook 'after-init-hook
 	  (lambda ()
 	    (centaur-tabs-mode t)))
-(define-key centaur-tabs-mode-map (kbd "<C-tab>") 'centaur-tabs-switch-group)
 
 (provide 'init-tabbar)
 
