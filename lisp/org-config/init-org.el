@@ -107,6 +107,7 @@
  'org-mode-hook
  (function individual-visibility-source-blocks))
 
+(setq prettify-symbols-unprettify-at-point t)
 ;; 自定义 prettify symbol
 (add-hook 'org-mode-hook
 	  (lambda ()
