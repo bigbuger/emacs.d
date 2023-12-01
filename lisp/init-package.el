@@ -27,7 +27,6 @@
     hydra
     
     imenu-list
-    centaur-tabs
 
     dumb-jump
 

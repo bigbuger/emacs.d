@@ -28,3 +28,6 @@
 [submodule "lisp/libs/el-easydraw"]
 	path = lisp/libs/el-easydraw
 	url = git@github.com:misohena/el-easydraw.git
+[submodule "lisp/libs/awesome-tab"]
+	path = lisp/libs/awesome-tab
+	url = git@github.com:manateelazycat/awesome-tab.git

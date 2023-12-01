@@ -6,22 +6,20 @@
 
 ;;; Code:
 
-(require 'centaur-tabs)
 
-(setq centaur-tabs-set-icons t)
-(setq centaur-tabs-style "alternate")
+(add-to-list 'load-path "~/.emacs.d/lisp/libs/awesome-tab")
+(require 'awesome-tab)
 
-(setq centaur-tabs-set-bar 'under)
 ;; Note: If you're not using Spacmeacs, in order for the underline to display
 ;; correctly you must add the following line:
 (setq x-underline-at-descent-line t)
-(setq centaur-tabs-show-navigation-buttons t)
-(setq centaur-tabs-forward-tab-text " ▸ ")
-(setq centaur-tabs-backward-tab-text " ◂ ")
-(setq centaur-tabs-down-tab-text  " ↯ ")
+
+(setq awesome-tab-height 150)
+(when (not (display-graphic-p))
+  (setq frame-background-mode light))
 
 
-(defun centaur-tabs-hide-tab (x)
+(defun awesome-tab-hide-tab (x)
   "Do no to show buffer X in tabs."
   (let ((name (format "%s" x)))
     (or
@@ -52,11 +50,11 @@
   (defun centaur-tabs-get-group-name-with-perfix (perfix)
     "Return group name start with PERFIX."
     (if (projectile-project-root)
-	(concat perfix "#" (centaur-tabs-get-group-name (current-buffer)))
+	(concat perfix "#" (awesome-tab-get-group-name (current-buffer)))
       perfix))
 
-  (defun centaur-tabs-buffer-groups ()
-    "`centaur-tabs-buffer-groups' control buffers' group rules."
+  (defun awesome-tab-buffer-groups ()
+    "Control buffers' tag group rules."
     (list
      (cond
       ((string-prefix-p org-roam-directory (buffer-file-name))
@@ -89,12 +87,17 @@
        "Emacs")
 
       (t
-       (centaur-tabs-get-group-name (current-buffer)))))))
-
+       (awesome-tab-get-group-name (current-buffer)))))))
 
 (add-hook 'after-init-hook
-	  (lambda ()
-	    (centaur-tabs-mode t)))
+	  (awesome-tab-mode t))
+
+(setq awesome-tab-active-bar-width 1)
+(setq awesome-tab-light-selected-foreground-color "#3a81c3")
+(setq awesome-tab-light-unselected-foreground-color "#a094a2")
+(setq awesome-tab-light-unselected-blend 0.98)
+(custom-set-faces
+ '(awesome-tab-selected-face ((t (:underline "#3a81c3" :weight bold)))))
 
 (provide 'init-tabbar)
 
