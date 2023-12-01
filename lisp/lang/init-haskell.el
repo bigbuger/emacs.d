@@ -47,6 +47,7 @@
 ;; (flycheck-add-next-checker 'haskell-dante '(info . haskell-hlint))
 
 (setq haskell-font-lock-symbols 1)
+(add-hook 'haskell-mode-hook (lambda () (setq-local prettify-symbols-unprettify-at-point t)))
 
 (require 'smartparens)
 (sp-local-pair 'haskell-mode "(" nil :actions '(:rem insert))
