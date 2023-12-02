@@ -1,5 +1,5 @@
 ;;; init-tabbar.el --- tab bar setting
-;; centaur-tabs
+;; 
 
 ;;; Commentary:
 ;; 
@@ -93,12 +93,60 @@
 (setq awesome-tab-icon-file-v-adjust 0)
 (setq awesome-tab-height 195)
 
+(defcustom centaur-tabs-close-button (make-string 1 #x00D7)
+  "Display appearance of the close buttons, if enabled."
+  :group 'centaur-tabs
+  :type 'string)
+
+(defun awesome-tab-get-tab-from-event (event)
+  "Given a mouse EVENT, extract the tab at the mouse point."
+  (let ((pos (posn-string (event-start event))))
+    (get-text-property (cdr pos) 'awesome-tabs-tab (car pos))))
+
+(defvar awesome-tabs-close-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (vector awesome-tab-display-line 'mouse-1) 'awesome-tab-do-close)
+    (define-key map (vector awesome-tab-display-line 'mouse-2) 'awesome-tab-do-close)
+    map)
+  "Keymap used for setting mouse events for close button.")
+
+(defsubst awesome-tabs-tab-value (tab)
+  "Return the value of tab TAB."
+  (car tab))
+
+;;; Events and event functions
+;;
+(defun awesome-tabs-buffer-close-tab (tab)
+  "Function for closing TAB."
+  (let ((buffer (awesome-tabs-tab-value tab)))
+    (with-current-buffer buffer
+      (kill-buffer buffer))
+    (awesome-tab-refresh-display)))
+
+(defun awesome-tab-do-close (event)
+  "Given a mouse EVENT, close the tab at the mouse point."
+  (interactive "e")
+  (let ((window (posn-window (event-start event))))
+    (with-selected-window window
+      (select-window window)
+      (let ((foreground-buffer-name (buffer-name)))
+	(awesome-tab-buffer-select-tab `,(awesome-tab-get-tab-from-event event))
+
+	(let* ((buffer             (window-buffer window))
+	       (target-buffer-name (buffer-name))
+	       (same-target-check  (string-equal foreground-buffer-name target-buffer-name))
+	       (window-num         (- (length (get-buffer-window-list buffer))
+				      (if same-target-check 0 1))))
+          (if (> window-num 1)
+              (delete-window window)
+            (awesome-tabs-buffer-close-tab `,(awesome-tab-get-tab-from-event event))))))))
+
 ;; bank the adjust color method.
 (defun awesome-tab-adjust-color-with-theme ()
   "We need adjust awesome-tab's colors when user switch new theme."
    (set-face-attribute awesome-tab-display-line nil :height awesome-tab-height))
 
-(defun awesome-tab-buffer-tab-label (tab)
+(defsubst awesome-tab-line-tab (tab)
   "Return a label for TAB.
 That is, a string used to represent it on the tab bar."
   (let* ((is-active-tab (awesome-tab-selected-p tab (awesome-tab-current-tabset)))
@@ -111,7 +159,27 @@ That is, a string used to represent it on the tab bar."
                 awesome-tab-all-the-icons-is-load-p)
        (awesome-tab-icon-for-tab tab tab-face))
      ;; Tab label.
-     (propertize (awesome-tab-tab-name tab) 'face tab-face))))
+     (propertize (awesome-tab-tab-name tab)
+		 'face tab-face
+		 'pointer 'hand
+		 'local-map (purecopy (awesome-tab-make-header-line-mouse-map
+				       'mouse-1
+				       `(lambda (event) (interactive "e")
+					  (let ((tab-window (window-at (cadr (mouse-position))
+								       (cddr (mouse-position))
+								       (car (mouse-position)))))
+					    (when tab-window
+					      (select-window tab-window)
+					      (awesome-tab-buffer-select-tab ',tab)))))))
+
+     ;; Close button.
+     (propertize
+	  centaur-tabs-close-button
+	  'face tab-face
+	  'point 'hand
+	  'help-echo "Close buffer"
+	  'awesome-tabs-tab tab
+	  'local-map awesome-tabs-close-map))))
 
 (defun awesome-tab-icon-for-tab (tab face)
   "When tab buffer's file is exists, use `all-the-icons-icon-for-file' to fetch file icon.
