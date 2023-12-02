@@ -176,10 +176,13 @@ That is, a string used to represent it on the tab bar."
      (propertize
 	  centaur-tabs-close-button
 	  'face tab-face
-	  'point 'hand
+	  'pointer 'hand
 	  'help-echo "Close buffer"
 	  'awesome-tabs-tab tab
-	  'local-map awesome-tabs-close-map))))
+	  'local-map awesome-tabs-close-map)
+
+     ;; right margin
+     (propertize " " 'face tab-face))))
 
 (defun awesome-tab-icon-for-tab (tab face)
   "When tab buffer's file is exists, use `all-the-icons-icon-for-file' to fetch file icon.
