@@ -89,15 +89,63 @@
       (t
        (awesome-tab-get-group-name (current-buffer)))))))
 
+(setq awesome-tab-icon-height 0.6)
+(setq awesome-tab-icon-file-v-adjust 0)
+(setq awesome-tab-height 195)
+
+;; bank the adjust color method.
+(defun awesome-tab-adjust-color-with-theme ()
+  "We need adjust awesome-tab's colors when user switch new theme."
+   (set-face-attribute awesome-tab-display-line nil :height awesome-tab-height))
+
+(defun awesome-tab-buffer-tab-label (tab)
+  "Return a label for TAB.
+That is, a string used to represent it on the tab bar."
+  (let* ((is-active-tab (awesome-tab-selected-p tab (awesome-tab-current-tabset)))
+         (tab-face (if is-active-tab 'awesome-tab-selected-face 'awesome-tab-unselected-face)))
+    (concat
+     ;; left margin
+     (propertize " " 'face tab-face)
+     ;; Tab icon.
+     (when (and awesome-tab-display-icon
+                awesome-tab-all-the-icons-is-load-p)
+       (awesome-tab-icon-for-tab tab tab-face))
+     ;; Tab label.
+     (propertize (awesome-tab-tab-name tab) 'face tab-face))))
+
+(defun awesome-tab-icon-for-tab (tab face)
+  "When tab buffer's file is exists, use `all-the-icons-icon-for-file' to fetch file icon.
+Otherwise use `all-the-icons-icon-for-buffer' to fetch icon for buffer."
+  (when (and awesome-tab-display-icon
+             awesome-tab-all-the-icons-is-load-p)
+    (let* ((tab-buffer (car tab))
+           (tab-file (buffer-file-name tab-buffer))
+           (background (face-background face))
+	   (underline (face-attribute face :underline))
+           (icon
+            (cond
+             ;; Use `all-the-icons-icon-for-file' if current file is exists.
+             ((and
+               tab-file
+               (file-exists-p tab-file))
+              (all-the-icons-icon-for-file tab-file :v-adjust awesome-tab-icon-file-v-adjust :height awesome-tab-icon-height))
+             ;; Use `all-the-icons-icon-for-mode' for current tab buffer at last.
+             (t
+              (with-current-buffer tab-buffer
+                (if (derived-mode-p tab-buffer 'eaf-mode)
+                    (all-the-icons-faicon "html5"  :v-adjust awesome-tab-icon-mode-v-adjust :height awesome-tab-icon-height)
+                  (all-the-icons-icon-for-mode major-mode :v-adjust awesome-tab-icon-mode-v-adjust :height awesome-tab-icon-height))
+                )))))
+      (when (and icon
+                 ;; `get-text-property' need icon is string type.
+                 (stringp icon))
+        ;; Thanks ema2159 for code block ;)
+        (propertize icon 'face `(:inherit ,(get-text-property 0 'face icon) :background ,background :underline ,underline))))))
+
+
 (add-hook 'after-init-hook
 	  (awesome-tab-mode t))
 
-(setq awesome-tab-active-bar-width 1)
-(setq awesome-tab-light-selected-foreground-color "#3a81c3")
-(setq awesome-tab-light-unselected-foreground-color "#a094a2")
-(setq awesome-tab-light-unselected-blend 0.98)
-(custom-set-faces
- '(awesome-tab-selected-face ((t (:underline "#3a81c3" :weight bold)))))
 
 (provide 'init-tabbar)
 
