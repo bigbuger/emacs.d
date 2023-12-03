@@ -46,48 +46,49 @@
           (not (file-name-extension name)))
      )))
 
-(with-eval-after-load 'projectile
-  (defun centaur-tabs-get-group-name-with-perfix (perfix)
-    "Return group name start with PERFIX."
-    (if (projectile-project-root)
-	(concat perfix "#" (awesome-tab-get-group-name (current-buffer)))
-      perfix))
 
-  (defun awesome-tab-buffer-groups ()
-    "Control buffers' tag group rules."
-    (list
-     (cond
-      ((string-prefix-p org-roam-directory (buffer-file-name))
-       "Roam")
-      
-      ((or (derived-mode-p 'eshell-mode)
-	   (derived-mode-p 'term-mode)
-	   (derived-mode-p 'shell-mode)
-	   (derived-mode-p 'vterm-mode)
-	   (derived-mode-p 'compilation-mode)
-	   (derived-mode-p 'comint-mode))
-       (centaur-tabs-get-group-name-with-perfix "Execute")) ;; 执行模式每个项目一个组
+(defun centaur-tabs-get-group-name-with-perfix (perfix)
+  "Return group name start with PERFIX."
+  (let ((project-group (awesome-tab-get-group-name (current-buffer))))
+    (if project-group
+	(concat perfix "#" project-group)
+      perfix)))
 
-      ((derived-mode-p 'dired-mode)
-       (centaur-tabs-get-group-name-with-perfix "Dired")) ;; dired 模式，每个项目一个组
+(defun awesome-tab-buffer-groups ()
+  "Control buffers' tag group rules."
+  (list
+   (cond
+    ((string-prefix-p org-roam-directory (buffer-file-name))
+     "Roam")
+    
+    ((or (derived-mode-p 'eshell-mode)
+	 (derived-mode-p 'term-mode)
+	 (derived-mode-p 'shell-mode)
+	 (derived-mode-p 'vterm-mode)
+	 (derived-mode-p 'compilation-mode)
+	 (derived-mode-p 'comint-mode))
+     (centaur-tabs-get-group-name-with-perfix "Execute")) ;; 执行模式每个项目一个组
 
-      ;; ((and (not (projectile-project-root))
-      ;; 	  (memq major-mode '(org-mode org-agenda-mode diary-mode)))
-      ;;  "OrgMode")
+    ((derived-mode-p 'dired-mode)
+     (centaur-tabs-get-group-name-with-perfix "Dired")) ;; dired 模式，每个项目一个组
 
-      ((or (string-equal "*" (substring (buffer-name) 0 1))
-	   (memq major-mode '(magit-process-mode
-			      magit-status-mode
-			      magit-diff-mode
-			      magit-log-mode
-			      magit-file-mode
-			      magit-blob-mode
-			      magit-blame-mode
-			      )))
-       "Emacs")
+    ;; ((and (not (projectile-project-root))
+    ;; 	  (memq major-mode '(org-mode org-agenda-mode diary-mode)))
+    ;;  "OrgMode")
 
-      (t
-       (awesome-tab-get-group-name (current-buffer)))))))
+    ((or (string-equal "*" (substring (buffer-name) 0 1))
+	 (memq major-mode '(magit-process-mode
+			    magit-status-mode
+			    magit-diff-mode
+			    magit-log-mode
+			    magit-file-mode
+			    magit-blob-mode
+			    magit-blame-mode
+			    )))
+     "Emacs")
+
+    (t
+     (awesome-tab-get-group-name (current-buffer))))))
 
 (setq awesome-tab-icon-height 0.6)
 (setq awesome-tab-icon-file-v-adjust 0)
@@ -203,16 +204,17 @@ Otherwise use `all-the-icons-icon-for-buffer' to fetch icon for buffer."
              ;; Use `all-the-icons-icon-for-mode' for current tab buffer at last.
              (t
               (with-current-buffer tab-buffer
-                (if (derived-mode-p tab-buffer 'eaf-mode)
-                    (all-the-icons-faicon "html5"  :v-adjust awesome-tab-icon-mode-v-adjust :height awesome-tab-icon-height)
-                  (all-the-icons-icon-for-mode major-mode :v-adjust awesome-tab-icon-mode-v-adjust :height awesome-tab-icon-height))
-                )))))
+                (all-the-icons-icon-for-mode major-mode :v-adjust awesome-tab-icon-mode-v-adjust :height awesome-tab-icon-height))))))
       (when (and icon
                  ;; `get-text-property' need icon is string type.
                  (stringp icon))
         ;; Thanks ema2159 for code block ;)
         (propertize icon 'face `(:inherit ,(get-text-property 0 'face icon) :background ,background :underline ,underline))))))
 
+(define-key awesome-tab-mode-map (kbd "s-t 1")
+	    'awesome-tab-kill-other-buffers-in-current-group)
+(define-key awesome-tab-mode-map (kbd "s-t g")
+	    'awesome-tab-counsel-switch-group)
 
 (add-hook 'after-init-hook
 	  (awesome-tab-mode t))
