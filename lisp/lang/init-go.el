@@ -33,11 +33,6 @@
 
 (setq go-fontify-function-calls nil)
 
-(add-hook 'go-mode-hook
-	  (lambda ()
-	    (setq-local company-backends '((company-go :with company-yasnippet)
-					   (company-files :with company-yasnippet)
-					   (company-dabbrev :with company-yasnippet)))))
 ;;(setenv "GO111MODULE" "off")
 (add-hook 'go-mode-hook 'flycheck-mode)
 (add-hook 'go-mode-hook 'go-eldoc-setup)
