@@ -49,8 +49,8 @@
 
 
 (require 'pyim-cregexp-utils)
-(setq ivy-preferred-re-builders
-      (append ivy-preferred-re-builders '((pyim-cregexp-ivy . "pyim"))))
+(add-to-list 'ivy-preferred-re-builders
+	     '(pyim-cregexp-ivy . "pyim"))
 
 (setq ivy-re-builders-alist
       '((org-roam-node-find . pyim-cregexp-ivy)

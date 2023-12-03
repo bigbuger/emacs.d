@@ -37,7 +37,7 @@
   "Require all file from DIR, not recursively."
   (progn
     (add-to-list 'load-path dir)
-    (let ((files (directory-files dir nil "\\.el$")))
+    (let ((files (directory-files dir nil "^init-.*\\.el$")))
       (dolist (f files)
 	(require (intern (file-name-base f)))))))
 
