@@ -48,11 +48,15 @@
 (ivy-rich-mode 1)
 
 
-;; (require 'pyim-cregexp-utils)
-;; (setq ivy-re-builders-alist
-;;       '((counsel-find-file . pyim-cregexp-ivy)
-;; 	(counsel-recentf . pyim-cregexp-ivy)
-;; 	(t . ivy--regex-plus)))
+(require 'pyim-cregexp-utils)
+(setq ivy-preferred-re-builders
+      (append ivy-preferred-re-builders '((pyim-cregexp-ivy . "pyim"))))
+
+(setq ivy-re-builders-alist
+      '((org-roam-node-find . pyim-cregexp-ivy)
+	(counsel-find-file . pyim-cregexp-ivy)
+	(counsel-recentf . pyim-cregexp-ivy)
+	(t . ivy--regex-plus)))
 
 (use-package ivy-posframe
   :ensure t
