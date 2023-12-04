@@ -68,6 +68,7 @@
 (use-package org-superstar
   :init
   (setq org-superstar-remove-leading-stars t)
+  (setq org-superstar-headline-bullets-list '("◉" "○" "❖" "◇" ))
   :hook
   (org-mode . org-superstar-mode))
 
