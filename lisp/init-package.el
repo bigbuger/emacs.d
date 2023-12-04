@@ -84,6 +84,7 @@
     ;; org
     gnuplot-mode
     olivetti
+    ov
 
     ;; flyspell
     flyspell-correct-popup
