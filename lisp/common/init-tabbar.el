@@ -21,7 +21,8 @@
 
 (defun awesome-tab-hide-tab (x)
   "Do no to show buffer X in tabs."
-  (let ((name (format "%s" x)))
+  (let* ((name (format "%s" x))
+	 (extension (file-name-extension name)))
     (or
      ;; Current window is not dedicated window.
      (window-dedicated-p (selected-window))
@@ -43,7 +44,8 @@
 
      ;; Is not magit buffer.
      (and (string-prefix-p "magit" name)
-	  (not (file-name-extension name)))
+	  (or (not extension)
+	      (string= extension "d")))
      )))
 
 
