@@ -89,6 +89,15 @@
   (setq org-appear-autokeywords t)
   (add-hook 'org-mode-hook 'org-appear-mode))
 
+;; org-tidy 隐藏 propertize
+(use-package org-tidy
+  :ensure t
+  :config
+  (setq org-tidy-property-drawer-property-whitelist '("ID" "id"))
+  (setq org-tidy-property-drawer-property-blacklist '("ROAM_REFS" "roam_refs"))
+  (setq org-tidy-general-drawer-name-whitelist '("setup" "SETUP"))
+  (add-hook 'org-mode-hook #'org-tidy-mode))
+
 ;; 自带折叠
 (defun individual-visibility-source-blocks ()
   "Fold some blocks in the current buffer."

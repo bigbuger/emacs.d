@@ -109,7 +109,7 @@
   (setq org-roam-capture-ref-templates
         '(("r" "ref"
 	   plain "#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n"
-           :if-new (file+head "摘要/webclip-${slug}.org" "#+title: ${title}\n#+filetags: :摘要:\n")
+           :if-new (file+head "摘要/webclip-${slug}.org" "#+title: ${title}\n#+filetags: :摘要:\n- ref :: %a")
 	   :immediate-finish t
            :unnarrowed t
 	   :empty-lines-before 1)))
