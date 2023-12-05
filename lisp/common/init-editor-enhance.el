@@ -70,7 +70,7 @@ ARG is pass to `sp-end-of-sexp'"
 (global-set-key (kbd "C-c (") 'wrap-with-parens)
 (global-set-key (kbd "C-c [") 'wrap-with-brackets)
 (global-set-key (kbd "C-c {") 'wrap-with-braces)
-(global-set-key (kbd "C-c '") 'wrap-with-single-quotes)
+;; (global-set-key (kbd "C-c '") 'wrap-with-single-quotes)
 (global-set-key (kbd "C-c \"") 'wrap-with-double-quotes)
 (global-set-key (kbd "C-c `") 'wrap-with-back-quotes)
 
