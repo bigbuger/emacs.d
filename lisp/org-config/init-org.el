@@ -130,6 +130,16 @@
 		    ("[-] . "🟩"")))
 	    (prettify-symbols-mode)))
 
+(use-package org-sticky-header
+  :demand t
+  :config
+  (setq org-sticky-header-full-path 'full)
+  (setq org-sticky-header-always-show-header t)
+  (setq org-sticky-header-prefix (propertize  "⁖ "
+					     'face 'org-level-1))
+  :hook
+  (org-mode . org-sticky-header-mode))
+
 ;; org-colored-text 支持改变字体颜色
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/org-colored-text")
 (require 'org-colored-text)
