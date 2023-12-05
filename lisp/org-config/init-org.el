@@ -79,12 +79,15 @@
 
 ;; org-appear 聚焦斜体、删除线等文字格式时自动转为源码展示
 (setq org-hide-emphasis-markers t)
+(setq org-pretty-entities t)
 (use-package org-appear
   :init
-  (add-hook 'org-mode-hook 'org-appear-mode)
   (setq org-appear-autolinks t)
-  (setq org-appear-autoentities t)
-  (setq org-appear-autokeywords t))
+  ;; (setq org-appear-autoentities t) ;; 在 latex 中它是整个展开，对于特殊字符不友好
+  (setq org-appear-autosubmarkers t)
+  (setq org-appear-inside-latex t)
+  (setq org-appear-autokeywords t)
+  (add-hook 'org-mode-hook 'org-appear-mode))
 
 ;; 自带折叠
 (defun individual-visibility-source-blocks ()

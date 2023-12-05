@@ -12,6 +12,7 @@
 (setq wdired-allow-to-change-permissions t) ;; 编辑模式允许修改文件权限
 
 (setq delete-by-moving-to-trash t) ;; 删除文件时，移到垃圾桶
+(setq dired-kill-when-opening-new-dired-buffer t) ;; RET 后仅保留一个 dired buffer
  
 (require 'osx-trash) ;; mac 垃圾桶支持
 (when (eq system-type 'darwin)
