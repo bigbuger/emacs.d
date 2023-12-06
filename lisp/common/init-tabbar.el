@@ -14,7 +14,7 @@
 ;; correctly you must add the following line:
 (setq x-underline-at-descent-line t)
 
-(setq awesome-tab-height 150)
+(setq awesome-tab-height 250)
 (when (not (display-graphic-p))
   (setq frame-background-mode light))
 

@@ -53,14 +53,14 @@
  ;; xeft 高亮色
  '(xeft-inline-highlight ((t (:inherit underline :extend t :foreground "#3a81c3"))))
  '(awesome-tab-selected-face ((t (:inherit default
-				  :height 155
+				  :height 160
 					  :underline "#3a81c3"
 					  :foreground "#3a81c3"
 					  :background "#fbf8ef"
 					  :distant-foreground "#3a81c3"
 					  :weight bold))))
  '(awesome-tab-unselected-face ((t (:inherit default
-				    :height 155
+				    :height 160
 					    :foreground "#a094a2"
 					    :background "#efeae9")))))
 
