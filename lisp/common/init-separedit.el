@@ -22,12 +22,16 @@ And then switch to prefer mode."
     (when (derived-mode-p 'separedit-single-quote-string-mode
                           'separedit-double-quote-string-mode)
       (let* ((language (language-detection-buffer))
-	     (mode (intern (concat (symbol-name language) "-mode"))))
+	     (mode (intern (concat (symbol-name language) "-mode")))
+	     (header-line-format-back header-line-format))
 	(if (fboundp mode)
-	    (funcall mode)))))
+	    (progn
+	      (funcall mode)
+	      (setq-local header-line-format header-line-format-back))))))
   
     (add-hook 'separedit-buffer-creation-hook 'my-separedit-guass-mode))
 
 (provide 'init-separedit)
+
 
 ;;; init-separedit.el ends here
