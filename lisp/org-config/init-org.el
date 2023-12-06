@@ -39,7 +39,7 @@
 
 ;; org 内嵌 LaTeX 相关配置
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0)
-      org-preview-latex-image-directory "~/.emacs.d/.org/ltximg/"
+      org-preview-latex-image-directory "~/.cache/emacs/data/org/ltximg/"
       org-preview-latex-default-process 'dvisvgm)
 
 (add-hook 'org-mode-hook #'smartparens-mode)
