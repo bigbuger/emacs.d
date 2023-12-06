@@ -33,6 +33,21 @@
       (append exec-path-from-shell-variables '("LC_ALL" "LANG" "GOPATH" "GEM_HOME" "GEM_PATH" "JAVA_HOME")))
 (exec-path-from-shell-initialize)
 
+
+;; Keep Folders Clean
+(setq no-littering-etc-directory
+      (expand-file-name "config/" "~/.cache/emacs"))
+(setq no-littering-var-directory
+      (expand-file-name "data/" "~/.cache/emacs"))
+(use-package no-littering
+  :ensure t
+  :demand t)
+
+;; no-littering doesn't set this by default so we must place
+;; auto save files in the same path as it uses for sessions
+(setq auto-save-file-name-transforms
+      `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+
 (defun require-dir (dir)
   "Require all file from DIR, not recursively."
   (progn

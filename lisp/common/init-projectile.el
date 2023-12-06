@@ -40,6 +40,17 @@
 
 (add-hook 'ibuffer-hook #'ibuffer-projectile-filter)
 
+(with-eval-after-load 'magit
+  (defun run-projectile-invalidate-cache (&rest _args)
+    ;; We ignore the args to `magit-checkout'.
+    (projectile-invalidate-cache nil))
+  (advice-add 'magit-checkout
+              :after #'run-projectile-invalidate-cache)
+  (advice-add 'magit-branch-and-checkout ; This is `b c'.
+              :after #'run-projectile-invalidate-cache)
+  (advice-add 'magit-pull
+	      :after #'run-projectile-invalidate-cache))
+
 (provide 'init-projectile)
 
 ;;; init-projectile.el ends here
