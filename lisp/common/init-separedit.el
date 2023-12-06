@@ -8,8 +8,13 @@
 (use-package separedit
   :ensure t
   :demand t
+  :config
+  (add-to-list 'separedit-string-quotes-alist
+	       '(ruby-mode "\"\"\"" "'''" "\"" "'" "`"))
   :init
-  (define-key prog-mode-map        (kbd "C-c '") #'separedit))
+  (defun bind-separedit-key()
+    (local-set-key (kbd "C-c '") #'separedit))
+  (add-hook 'prog-mode-hook 'bind-separedit-key))
 
 (use-package language-detection
   :ensure t
