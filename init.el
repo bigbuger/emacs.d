@@ -35,8 +35,6 @@
 
 
 ;; Keep Folders Clean
-(setq no-littering-etc-directory
-      (expand-file-name "config/" "~/.cache/emacs"))
 (setq no-littering-var-directory
       (expand-file-name "data/" "~/.cache/emacs"))
 (use-package no-littering
