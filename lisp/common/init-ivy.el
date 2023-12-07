@@ -14,8 +14,7 @@
 
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "C-S-s") 'swiper-isearch)
+(global-set-key (kbd "C-s") 'swiper-isearch)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
 (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 (global-set-key (kbd "<f1> l") 'counsel-find-library)
@@ -57,15 +56,6 @@
 	(counsel-find-file . pyim-cregexp-ivy)
 	(counsel-recentf . pyim-cregexp-ivy)
 	(t . ivy--regex-plus)))
-
-(use-package ivy-posframe
-  :ensure t
-  :init
-  (setq ivy-posframe-display-functions-alist
-	'((lsp-execute-code-action . ivy-posframe-display-at-point)
-          (t                       . ivy-display-function-fallback)))
-  :init
-  (ivy-posframe-mode 1))
 
 
 (provide 'init-ivy)
