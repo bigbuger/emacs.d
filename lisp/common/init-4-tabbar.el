@@ -229,8 +229,11 @@ Otherwise use `all-the-icons-icon-for-buffer' to fetch icon for buffer."
 	 (project-root (projectile-project-root))
 	 (tab-group-name (format "Project: %s" project-root)))
     (if (member tab-group-name exists-projects)
-	(awesome-tab-switch-group tab-group-name)
+	(let ((result (awesome-tab-switch-group tab-group-name)))
+	  (if (not (buffer-live-p result))
+	      (project-find-file)))
       (projectile-find-file))))
+
 (with-eval-after-load 'projectile
   (setq projectile-switch-project-action 'smart-switch-project))
 
