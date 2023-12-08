@@ -19,6 +19,6 @@
 (setq treemacs-filewatch-mode t)
 (setq treemacs-file-event-delay 50)
 
-(provide 'init-treemacs)
+
 
 ;;; init-treemacs.el ends here

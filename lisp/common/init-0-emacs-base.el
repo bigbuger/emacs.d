@@ -118,6 +118,6 @@
 				  'fullboth)))))
 (global-set-key [f11] 'toggle-fullscreen)
 
-(provide 'init-emacs-base)
+
 
 ;;; init-emacs-base.el ends here

@@ -68,6 +68,6 @@
 ;; gitlab
 (use-package lab :ensure t)
 
-(provide 'init-version-control)
+
 
 ;;; init-version-control.el ends here

@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(setq yas/root-directory '("~/.emacs.d/snippets"))
+(setq yas-snippet-dirs '("~/.emacs.d/snippets"))
 (require 'yasnippet)
 (yas-global-mode 1)
 ;;(yas/load-directory yas/root-directory)
@@ -29,6 +29,6 @@
 (yatemplate-fill-alist)
 (auto-insert-mode t)
 
-(provide 'init-snippet)
+
 
 ;;; init-snippet.el ends here

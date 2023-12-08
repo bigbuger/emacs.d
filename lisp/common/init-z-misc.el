@@ -108,6 +108,6 @@
   :init
   (require 'vlf-setup))
 
-(provide 'init-misc)
+
 
 ;;; init-misc.el ends here

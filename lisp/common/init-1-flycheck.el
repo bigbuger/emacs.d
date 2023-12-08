@@ -29,6 +29,6 @@
 (setq flycheck-checker-error-threshold 600)
 
 
-(provide 'init-flycheck)
+
 
 ;;; init-flycheck.el ends here

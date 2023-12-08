@@ -58,6 +58,6 @@
 	(t . ivy--regex-plus)))
 
 
-(provide 'init-ivy)
+
 
 ;;; init-ivy.el ends here

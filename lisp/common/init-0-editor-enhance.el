@@ -190,6 +190,6 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 (use-package ts-fold-indicators
   :load-path "~/.emacs.d/lisp/libs/ts-fold")
 
-(provide 'init-editor-enhance)
+
 
 ;;; init-editor-enhance.el ends here

@@ -10,6 +10,6 @@
   (setopt ellama-language "Chinese")
   (require 'llm-ollama))
 
-(provide 'init-ellama)
+
 
 ;;; init-ellama.el ends here
