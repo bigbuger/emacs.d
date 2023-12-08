@@ -8,11 +8,12 @@
 (setq find-file-visit-truename t)
 
 ;; emacs 文件备份系统配置
-(setq backup-directory-alist '(("." . "~/.cache/emacs/data/backup"))
-      backup-by-copying t    ; Don't delink hardlinks
-      version-control t      ; Use version numbers on backups
-      delete-old-versions t  ; Automatically delete excess backups
-      )
+;; (setq backup-directory-alist '(("." . "~/.cache/emacs/data/backup"))
+;;       backup-by-copying t    ; Don't delink hardlinks
+;;       version-control t      ; Use version numbers on backups
+;;       delete-old-versions t  ; Automatically delete excess backups
+;;       )
+(setq make-backup-files nil) ;; 基本没用过备份进行恢复，直接禁用了
 
 ;; 记录文件上次打开的位置
 (require 'saveplace)
