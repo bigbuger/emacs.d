@@ -20,10 +20,6 @@
 (setq undo-tree-auto-save-history nil)
 ;; end undo-tree
 
-;;括号匹配
-(setq show-paren-delay 0
-      show-paren-style 'parenthesis)
-(show-paren-mode 1)
 
 ;; smartparens
 (require 'smartparens-config)

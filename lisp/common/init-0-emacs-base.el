@@ -54,9 +54,15 @@
 			   (let ((buffer-file-name (buffer-name)))
 			     (set-auto-mode)))))
 
-;;(global-linum-mode 1)
+;; 显示行号
 (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode +1)))
 (column-number-mode 1)
+
+;; 高亮括号匹配
+(setq show-paren-delay 0
+      show-paren-style 'parenthesis)
+(show-paren-mode 1)
+
 
 ;; 长行不要切成两个显示
 ;; (set-default 'truncate-lines t)
