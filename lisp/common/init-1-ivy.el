@@ -57,6 +57,20 @@
 	(counsel-recentf . pyim-cregexp-ivy)
 	(t . ivy--regex-plus)))
 
+;; ivy support projectile
+(with-eval-after-load 'projectile
+  (setq projectile-completion-system 'ivy)
+  (require 'counsel-projectile)
+  (define-key projectile-command-map (kbd "s") 'counsel-projectile-rg)
+  (define-key projectile-command-map (kbd "b") 'counsel-projectile-switch-to-buffer))
+
+;; ivy support lsp
+
+(with-eval-after-load 'lsp-mode
+  (add-to-list 'load-path "~/.emacs.d/lisp/libs/lsp-ivy")
+  (require 'lsp-ivy)
+  (setq lsp-ivy-show-symbol-filename nil)
+  (define-key lsp-command-map (kbd "s") 'lsp-ivy-workspace-symbol))
 
 
 

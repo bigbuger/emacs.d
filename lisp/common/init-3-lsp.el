@@ -58,10 +58,6 @@
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
-(add-to-list 'load-path "~/.emacs.d/lisp/libs/lsp-ivy")
-(require 'lsp-ivy)
-(setq lsp-ivy-show-symbol-filename nil)
-(define-key lsp-command-map (kbd "s") 'lsp-ivy-workspace-symbol)
 
 (with-eval-after-load "lsp-mode"
   (add-to-list 'lsp-disabled-clients 'semgrep-ls))

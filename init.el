@@ -52,7 +52,7 @@
     (add-to-list 'load-path dir)
     (let ((files (directory-files dir nil "^init-.*\\.el$")))
       (dolist (f files)
-	(load f)))))
+	(load f nil t)))))
 
 
 (require 'my-command)
