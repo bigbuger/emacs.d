@@ -21,8 +21,7 @@
 
 (defun awesome-tab-hide-tab (x)
   "Do no to show buffer X in tabs."
-  (let* ((name (format "%s" x))
-	 (extension (file-name-extension name)))
+  (let ((name (format "%s" x)))
     (or
      ;; Current window is not dedicated window.
      (window-dedicated-p (selected-window))
@@ -40,12 +39,6 @@
 
      ;; Is not temp version
      (string-match-p "^.+\\.~.+~$" name)
-
-
-     ;; Is not magit buffer.
-     (and (string-prefix-p "magit" name)
-	  (or (not extension)
-	      (string= extension "d")))
      )))
 
 
@@ -82,6 +75,7 @@
 	 (memq major-mode '(magit-process-mode
 			    magit-status-mode
 			    magit-diff-mode
+			    magit-revision-mode
 			    magit-log-mode
 			    magit-file-mode
 			    magit-blob-mode
