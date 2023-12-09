@@ -26,7 +26,7 @@
 	(margin-body-face . (magit-blame-dimmed)))
       magit-blame-styles)
 
-(require 'magit-delta)
+;; (require 'magit-delta)
 ;; (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))
 
 ;; end magit
