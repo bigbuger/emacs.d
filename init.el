@@ -46,8 +46,8 @@
 (setq auto-save-file-name-transforms
       `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
 
-(defun require-dir (dir)
-  "Require all file from DIR, not recursively."
+(defun load-dir (dir)
+  "Load all file from DIR, not recursively."
   (progn
     (add-to-list 'load-path dir)
     (let ((files (directory-files dir nil "^init-.*\\.el$")))
@@ -56,9 +56,9 @@
 
 
 (require 'my-command)
-(require-dir "~/.emacs.d/lisp/common")
-(require-dir "~/.emacs.d/lisp/lang")
-(require-dir "~/.emacs.d/lisp/org-config")
+(load-dir "~/.emacs.d/lisp/common")
+(load-dir "~/.emacs.d/lisp/lang")
+(load-dir "~/.emacs.d/lisp/org-config")
 (require 'theme-settig)
 
 
