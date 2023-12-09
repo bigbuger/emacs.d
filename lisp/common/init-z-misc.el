@@ -19,7 +19,7 @@
 (require 'which-key)
 (which-key-mode)
 ;; 不要重新排序，按照按键绑定的先后顺序就行
-(setq which-key-sort-order nil)
+;; (setq which-key-sort-order nil)
 
 
 ;; imenu-list 侧边栏显示 imenu
