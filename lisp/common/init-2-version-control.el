@@ -9,7 +9,9 @@
 ;;; Code:
 
 (require 'magit)
-(global-set-key (kbd "C-c g") ' magit-file-dispatch)
+(global-set-key (kbd "C-c g") 'magit-file-dispatch)
+(global-set-key (kbd "C-c c") 'magit-branch-or-checkout)
+
 (require 'magit-todos)
 (magit-todos-mode)
 
