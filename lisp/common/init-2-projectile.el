@@ -43,6 +43,8 @@
               :after #'run-projectile-invalidate-cache)
   (advice-add 'magit-branch-and-checkout ; This is `b c'.
               :after #'run-projectile-invalidate-cache)
+  (advice-add 'magit-branch-or-checkout
+              :after #'run-projectile-invalidate-cache)
   (advice-add 'magit-pull
 	      :after #'run-projectile-invalidate-cache))
 
