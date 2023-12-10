@@ -45,6 +45,10 @@
 ;; 保存命令历史
 (savehist-mode 1)
 
+;; 搜索显示命中数量
+(setq isearch-lazy-count t)
+
+
 (auto-image-file-mode)
 
 ;; 临时 buffer 根据后缀选择 major-mode

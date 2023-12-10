@@ -35,9 +35,9 @@
 
  ;; 代码高亮色修改
  '(font-lock-constant-face ((t (:foreground "#6c71c4"))))
- '(font-lock-function-name-face ((t (:inherit default :foreground "#9a4622"))))
+ '(font-lock-function-name-face ((t (:inherit nil :foreground "#9a4622"))))
  '(font-lock-keyword-face ((t (:inherit nil :foreground "#3a81c3" :slant normal))))
- '(font-lock-type-face ((t (:inherit default :foreground "#859900"))))
+ '(font-lock-type-face ((t (:inherit nil :foreground "#859900"))))
 
  ;; lsp 当前变量高亮 
  '(lsp-face-highlight-textual ((t (:inherit highlight :background "#e6ebeb"))))
