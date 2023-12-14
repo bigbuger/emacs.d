@@ -160,7 +160,7 @@ _k_: kebab foo-bar          ^ _q_: cancel.
 ;; visual-regexp 正则替换可视化，替换时在原文本中预览替换后的结果
 (require 'visual-regexp)
 (global-set-key (kbd "C-c r") 'vr/replace)
-(global-set-key (kbd "C-c q") 'vr/query-replace)
+;; (global-set-key (kbd "C-c q") 'vr/query-replace)
 ;; end visual-regexp
 
 

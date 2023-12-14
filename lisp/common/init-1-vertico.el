@@ -72,6 +72,7 @@
   (global-set-key (kbd "C-c f") 'consult-fd)
   (global-set-key (kbd "C-c e") 'consult-recent-file)
   (global-set-key (kbd "C-c l") 'consult-line)
+  (global-set-key (kbd "C-h C-i") 'consult-info)
 
   (with-eval-after-load 'org
     (define-key org-mode-map (kbd "C-c i") 'consult-org-heading))
@@ -180,6 +181,10 @@ targets."
   :after (lsp)
   :init
   (define-key lsp-command-map (kbd "s") 'consult-lsp-symbols))
+
+(use-package vertico-calc
+  :load-path "~/.emacs.d/lisp/libs/"
+  :bind (("C-c q" . vertico-calc)))
 
 ;; TODO rewrite `counsel-jq-ex' in consult
 ;; TODO rewrite `counsel-golangci-lint' in consult
