@@ -187,7 +187,6 @@ targets."
   :bind (("C-c q" . vertico-calc)))
 
 ;; TODO rewrite `counsel-jq-ex' in consult
-;; TODO rewrite `counsel-golangci-lint' in consult
 
 
 (provide 'init-1-vertico)
