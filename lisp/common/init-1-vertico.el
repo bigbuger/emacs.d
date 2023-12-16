@@ -185,8 +185,6 @@ targets."
   :load-path "~/.emacs.d/lisp/libs/"
   :bind (("C-c q" . vertico-calc)))
 
-;; TODO rewrite `counsel-jq-ex' in consult
-
 
 (provide 'init-1-vertico)
 

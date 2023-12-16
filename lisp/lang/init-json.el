@@ -10,12 +10,10 @@
 (add-hook 'json-mode-hook 'tree-sitter-mode)
 (add-hook 'json-mode-hook 'ts-fold-indicators-mode)
 
-(add-to-list 'load-path "~/.emacs.d/lisp/libs/counsel-jq-ex/")
-(require 'counsel-jq-ex)
-
-(define-key json-mode-map (kbd "C-c C-j") 'counsel-jq-ex)
-(define-key js-mode-map (kbd "C-c C-j") 'counsel-jq-ex)
-
+(use-package consult-jq
+  :load-path "~/.emacs.d/lisp/libs/consult-jq/"
+  :bind (:map json-mode-map
+	      ("C-c C-j" . 'consult-jq)))
 
 (add-hook 'json-mode-hook
           (lambda ()

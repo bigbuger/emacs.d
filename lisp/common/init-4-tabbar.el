@@ -31,6 +31,7 @@
      (and (string-match-p "^[[:space:]]*\\*" name)
 	  (not (with-current-buffer x (derived-mode-p 'comint-mode)))
 	  (not (with-current-buffer x (derived-mode-p 'compilation-mode)))
+	  (not (with-current-buffer x (derived-mode-p 'json-mode)))
 	  (not (string-prefix-p "*compilation" name))
 	  (not (string-prefix-p "*vterm" name))
 	  (not (string-prefix-p "*term" name))
@@ -222,7 +223,8 @@ Otherwise use `all-the-icons-icon-for-buffer' to fetch icon for buffer."
   (let* ((exists-projects (awesome-tab-get-groups))
 	 (project-root (projectile-project-root))
 	 (tab-group-name (format "Project: %s" project-root)))
-    (if (member tab-group-name exists-projects)
+    (if (and awesome-tab-mode
+	     (member tab-group-name exists-projects))
 	(let ((result (awesome-tab-switch-group tab-group-name)))
 	  (if (not (buffer-live-p result))
 	      (project-find-file)))
