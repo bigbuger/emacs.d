@@ -60,7 +60,6 @@
 		 args)))
   
   
-  (setq consult-fd-args "fd --type f --hidden --follow --exclude .git --color never")
   (setq consult-narrow-key "C-+") ;; narrow 切换多个分组
   (setq consult-line-start-from-top t)
   
