@@ -26,6 +26,8 @@
 (recentf-mode 1)
 (setq recentf-max-menu-item 10)
 
+(winner-mode t)
+
 (setq Man-notify-method 'pushy)
 
 ;; 关闭启动画面
