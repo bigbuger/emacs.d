@@ -94,18 +94,13 @@
     dap-mode
     lsp-ui
 
-    ;; tree-sitter
-    tree-sitter
-    tree-sitter-langs
-
     ;; about vc
     magit
     magit-todos
     magit-delta
     diff-hl
     ztree
-    
-    
+        
     ;; about project
     projectile
     projectile-ripgrep
