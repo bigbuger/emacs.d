@@ -131,7 +131,10 @@
   (define-key go-mode-map (kbd "s-g r") #'go-run))
 
 (add-hook 'go-mode-hook
-	  (lambda () (setq-local counsel-dash-docsets '("Go"))))
+	  (lambda ()
+	    (when (functionp 'consult-dash)
+	      (setq-local consult-dash-docsets
+			  (append '("Go") consult-dash-docsets)))))
 
 
 (require 'rmsbolt)

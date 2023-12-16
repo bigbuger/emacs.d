@@ -50,17 +50,9 @@
     all-the-icons
     all-the-icons-dired
     all-the-icons-ibuffer
-    
-    ;; ivy
-    ivy
-    swiper
-    counsel
-    ivy-hydra
-    counsel-fd
+
+    ;; wgrep
     wgrep
-    ivy-rich
-    all-the-icons-ivy-rich
-    counsel-dash
 
     ;; company
     company
@@ -117,7 +109,6 @@
     ;; about project
     projectile
     projectile-ripgrep
-    counsel-projectile
     ibuffer-projectile
     
     ;; ruby

@@ -211,7 +211,7 @@ Otherwise use `all-the-icons-icon-for-buffer' to fetch icon for buffer."
 (define-key awesome-tab-mode-map (kbd "s-t 1")
 	    'awesome-tab-kill-other-buffers-in-current-group)
 (define-key awesome-tab-mode-map (kbd "s-t g")
-	    'awesome-tab-counsel-switch-group)
+	    'awesome-tab-switch-group)
 
 (add-hook 'after-init-hook
 	  (awesome-tab-mode t))

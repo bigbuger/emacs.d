@@ -29,8 +29,6 @@
 
 ;; helpful 更好的帮助文档
 (require 'helpful)
-(setq counsel-describe-function-function #'helpful-callable)
-(setq counsel-describe-variable-function #'helpful-variable)
 (global-set-key (kbd "C-h k") #'helpful-key)
 (global-set-key (kbd "C-h x") #'helpful-command)
 
@@ -38,15 +36,21 @@
 
 
 ;; dash doc 查 dash 文档
-(require 'counsel-dash)
-(setq dash-docs-enable-debugging nil)
-(setq counsel-dash-common-docsets '("Redis" "MySQL"))
-(setq counsel-dash-docsets-path  (expand-file-name "~/.docset/"))
-(setq counsel-dash-browser-func
+(use-package consult-dash
+  :demand t
+  :bind (("M-s d" . consult-dash))
+  :config
+  ;; Use the symbol at point as initial search term
+  (consult-customize consult-dash :initial (thing-at-point 'symbol))
+
+  (setq dash-docs-enable-debugging nil)
+  (setq dash-docs-browser-func
       #'(lambda (url &rest args)
 	  (xwidget-webkit-browse-url url args)
 	  (display-buffer xwidget-webkit-last-session-buffer)))
-(define-key prog-mode-map (kbd "C-c C-d") 'counsel-dash-at-point)
+  
+  :init
+  (setq-default consult-dash-docsets '("Redis" "MySql")))
 
 ;; ace-window 快速通过数字切换到指定窗口
 (require 'ace-window)
