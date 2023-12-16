@@ -30,6 +30,39 @@
     (advice-add 'company-capf :around #'company-completion-styles))
   )
 
+
+;; 中文拼音搜索
+(use-package pyim
+  :ensure t
+  :init
+  (defun pyim-orderless-regexp (orig_func component)
+    (let ((result (funcall orig_func component)))
+      (pyim-cregexp-build result)))
+
+  (defun toggle-chinese-search ()
+    (interactive)
+    (if (not (advice-member-p #'pyim-orderless-regexp 'orderless-regexp))
+	(advice-add 'orderless-regexp :around #'pyim-orderless-regexp)
+      (advice-remove 'orderless-regexp #'pyim-orderless-regexp)))
+
+  (defun disable-py-search (&optional _args)
+    (if (advice-member-p #'pyim-orderless-regexp 'orderless-regexp)
+	(advice-remove 'orderless-regexp #'pyim-orderless-regexp)))
+
+  (defun enable-py-search (&optional _args)
+    (if (not (advice-member-p #'pyim-orderless-regexp 'orderless-regexp))
+	(advice-add 'orderless-regexp :around #'pyim-orderless-regexp)))
+    
+  (add-hook 'minibuffer-exit-hook 'disable-py-search)
+
+  (defun using-py-search (fun)
+    (advice-add fun :before (lambda (&rest _args)
+			      (enable-py-search))))
+
+  (using-py-search 'find-file)
+  (using-py-search 'recentf))
+
+
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia
   :init
@@ -73,10 +106,11 @@
   (global-set-key (kbd "C-c l") 'consult-line)
   (global-set-key (kbd "C-h C-i") 'consult-info)
 
-  (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "C-c i") 'consult-org-heading))
   
-  (define-key minibuffer-local-map (kbd "C-r") 'consult-history))
+  (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
+
+  (using-py-search 'consult-line)
+  (using-py-search 'consult-recent-file))
 
 ;; consult 没有 isearch 支持, 用 isearch-mb 有更好的搜索体验
 (use-package isearch-mb
