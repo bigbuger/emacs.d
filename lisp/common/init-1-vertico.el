@@ -12,7 +12,7 @@
   (vertico-mode)
   (vertico-mouse-mode)
 
-  (defvar +vertico-current-arrow nil)
+  (defvar +vertico-current-arrow t)
 
   (cl-defmethod vertico--format-candidate :around
     (cand prefix suffix index start &context ((and +vertico-current-arrow
@@ -21,11 +21,11 @@
     (setq cand (cl-call-next-method cand prefix suffix index start))
     (if (bound-and-true-p vertico-grid-mode)
 	(if (= vertico--index index)
-            (concat #("➤" 0 1 (face vertico-current)) cand)
+            (concat #("➤ " 0 1 (face vertico-current)) cand)
           (concat #("_" 0 1 (display " ")) cand))
       (if (= vertico--index index)
-          (concat "➤ " cand)
-	(concat   "  " cand)))))
+          (concat #("➤ " 0 2 (face vertico-current)) cand)
+	(concat     "  " cand)))))
 
 ;; Do not allow the cursor in the minibuffer prompt
 (setq minibuffer-prompt-properties
