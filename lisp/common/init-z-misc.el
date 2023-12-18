@@ -42,7 +42,7 @@
   :config
   ;; Use the symbol at point as initial search term
   (consult-customize consult-dash :initial (thing-at-point 'symbol))
-
+  (setq dash-docs-docsets-path "~/.docset")
   (setq dash-docs-enable-debugging nil)
   (setq dash-docs-browser-func
       #'(lambda (url &rest args)
