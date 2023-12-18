@@ -12,7 +12,7 @@
   (vertico-mode)
   (vertico-mouse-mode)
 
-  (defvar +vertico-current-arrow t)
+  (defvar +vertico-current-arrow nil)
 
   (cl-defmethod vertico--format-candidate :around
     (cand prefix suffix index start &context ((and +vertico-current-arrow
