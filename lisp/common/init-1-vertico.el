@@ -118,7 +118,11 @@
   (global-set-key (kbd "C-c s") 'consult-ripgrep)
   (global-set-key (kbd "C-c f") 'consult-fd)
   (global-set-key (kbd "C-c e") 'consult-recent-file)
-  (global-set-key (kbd "C-c l") 'consult-line)
+  
+  (global-set-key (kbd "M-s l")  'consult-line)
+  (global-set-key (kbd "M-s k")  'consult-keep-lines)
+  (global-set-key (kbd "M-s f")  'consult-focus-lines)
+  
   (global-set-key (kbd "C-h C-i") 'consult-info)
 
   
