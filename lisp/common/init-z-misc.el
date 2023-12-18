@@ -31,6 +31,8 @@
 (require 'helpful)
 (global-set-key (kbd "C-h k") #'helpful-key)
 (global-set-key (kbd "C-h x") #'helpful-command)
+(global-set-key (kbd "C-h f") #'helpful-function)
+(global-set-key (kbd "C-h v") #'helpful-variable)
 
 (define-key emacs-lisp-mode-map (kbd "C-c C-d") #'helpful-at-point)
 
