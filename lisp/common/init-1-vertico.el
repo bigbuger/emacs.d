@@ -82,7 +82,11 @@
 (use-package marginalia
   :init
   (marginalia-mode)
-  (add-to-list 'marginalia-prompt-categories '("\\<file\\>" . file))
+  (setq marginalia-command-categories
+        (append '((projectile-find-file . project-file)
+                  (projectile-find-dir . project-file)
+                  (projectile-switch-project . file))
+                marginalia-command-categories))
   (add-to-list 'marginalia-prompt-categories '("\\<buffer\\>" . buffer)))
 
 (use-package nerd-icons-completion
