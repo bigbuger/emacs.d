@@ -7,6 +7,7 @@
 
 (use-package ellama
   :init
+  (setq ellama-keymap-prefix nil)
   (setopt ellama-language "Chinese")
   (require 'llm-ollama))
 
