@@ -127,7 +127,7 @@
   (global-set-key (kbd "M-s k")  'consult-keep-lines)
   (global-set-key (kbd "M-s f")  'consult-focus-lines)
   
-  (global-set-key (kbd "C-h C-i") 'consult-info)
+  (global-set-key (kbd "C-h I") 'consult-info)
 
   
   (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
