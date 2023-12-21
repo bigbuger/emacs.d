@@ -84,11 +84,15 @@
 
 ;; whitch function mode
 (which-function-mode)
+(eval-after-load "which-func"
+  '(setq which-func-modes '(emacs-lisp-mode scheme-mode lisp-mode)))
 
-(add-hook 'prog-mode-hook
-	  (lambda ()
-	    (setq header-line-format
-		  '((which-func-mode ("" which-func-format " "))))))
+(dolist (hook (list 'emacs-lisp-mode-hook 'scheme-mode-hook 'lisp-mode-hook))
+  (add-hook hook
+	    (lambda ()
+	      (setq header-line-format
+		    '((which-func-mode ("" which-func-format " ")))))))
+
 (setq mode-line-misc-info
       ;; We remove Which Function Mode from the mode line, because it's mostly
       ;; invisible here anyway.
