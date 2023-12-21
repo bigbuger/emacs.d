@@ -133,7 +133,26 @@
   (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
   (using-py-search 'consult-line)
-  (using-py-search 'consult-recent-file))
+  (using-py-search 'consult-recent-file)
+
+  ;; Use Consult to select xref locations with preview
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
+
+  :config
+  (consult-customize
+   consult-ripgrep consult-git-grep consult-grep
+   consult-bookmark consult-recent-file consult-xref
+   consult--source-bookmark consult--source-file-register
+   consult--source-recent-file consult--source-project-recent-file
+   :preview-key '(:debounce 0.4 any) ;; Option 1: Delay preview
+   ;; :preview-key "M-."             ;; Option 2: Manual preview
+   )
+  
+  (consult-customize consult-theme
+                     :preview-key
+                     '("M-."))
+  )
 
 ;; consult 没有 isearch 支持, 用 isearch-mb 有更好的搜索体验
 (use-package isearch-mb
