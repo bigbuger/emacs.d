@@ -12,6 +12,10 @@
 (setq custom--inhibit-theme-enable nil)
 
 (require 'spacemacs-light-theme)
+(custom-set-variables
+ '(spacemacs-theme-comment-bg nil)
+ '(spacemacs-theme-comment-italic t))
+
 (load-theme 'spacemacs-light t)
 (custom-theme-set-faces
  'spacemacs-light
