@@ -34,21 +34,27 @@
 
 (use-package orderless
   :demand t
+  :config
+  (setq orderless-matching-styles
+	'(orderless-literal
+	  orderless-regexp
+	  orderless-prefixes
+	  orderless-initialism
+	  ;; orderless-flex                       ; Basically fuzzy finding
+	  ;; orderless-without-literal          ; Recommended for dispatches instead
+	  ))
+  
   :init
-  (setq completion-styles '(orderless basic))
-
-  ;; disable orderless for company
-  (defun company-completion-styles (capf-fn &rest args)
-    (let ((completion-styles '(basic partial-completion)))
-      (apply capf-fn args)))
-  (with-eval-after-load 'company
-    (advice-add 'company-capf :around #'company-completion-styles))
+  (defun +orderless-completion-style()
+    (setq-local completion-styles '(orderless basic)))
+  (add-hook 'minibuffer-setup-hook '+orderless-completion-style)
   )
 
 
 ;; 中文拼音搜索
 (use-package pyim
   :ensure t
+  :after (orderless)
   :init
   (defun pyim-orderless-regexp (orig_func component)
     (let ((result (funcall orig_func component)))
@@ -90,7 +96,7 @@
   (add-to-list 'marginalia-prompt-categories '("\\<buffer\\>" . buffer)))
 
 (use-package nerd-icons-completion
-  :after marginalia
+  :after (marginalia)
   :config
   (nerd-icons-completion-mode)
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
