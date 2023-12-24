@@ -74,14 +74,14 @@
     (if (not (advice-member-p #'pyim-orderless-regexp 'orderless-regexp))
 	(advice-add 'orderless-regexp :around #'pyim-orderless-regexp)))
     
-  (add-hook 'minibuffer-exit-hook 'disable-py-search)
+  (defun using-py-search (fun &rest args)
+      "使用 pyim 进行中文搜索"
+      (enable-py-search)
+      (apply fun args)
+      (disable-py-search))
 
-  (defun using-py-search (fun)
-    (advice-add fun :before (lambda (&rest _args)
-			      (enable-py-search))))
-
-  (using-py-search 'find-file)
-  (using-py-search 'recentf))
+  (advice-add 'find-file :around #'using-py-search)
+  (advice-add 'recentf :around #'using-py-search))
 
 
 ;; Enable rich annotations using the Marginalia package
@@ -138,8 +138,8 @@
   
   (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
-  (using-py-search 'consult-line)
-  (using-py-search 'consult-recent-file)
+  (advice-add 'consult-line :around #'using-py-search)
+  (advice-add 'consult-recent-file :around #'using-py-search)
 
   ;; Use Consult to select xref locations with preview
   (setq xref-show-xrefs-function #'consult-xref
