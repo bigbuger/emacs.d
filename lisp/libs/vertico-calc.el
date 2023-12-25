@@ -49,7 +49,11 @@
 	(lambda(string predicate action)
           (setq string (minibuffer-contents))
           (setq out (if (> (length string) 0) (vertico-calc--eval string) '("")))
-          (complete-with-action action out (car out) predicate)))
+          (complete-with-action action out (car out) predicate))
+	nil
+	nil
+	nil
+	'vertico-calc-history)
        (car out))))
 
 
