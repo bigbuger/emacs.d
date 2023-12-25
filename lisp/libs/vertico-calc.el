@@ -17,8 +17,14 @@
             `(,(format  "%s at %s" (car (cdr out)) (- (car out) 10)))
           `(,out))))))
 
-(defvar vertico-calc-completion-table
-  '("sin" "cos" "tan" "solve"))
+(defun vertico-calc-completion-table()
+  "List all func of calc."
+  (let (all-calc-func)
+    (mapatoms (lambda (f)
+		(when (and (functionp f)
+			   (string-prefix-p "calcFunc-" (symbol-name f)))
+		  (setq all-calc-func (append `(,(substring (symbol-name f) (length "calcFunc-"))) all-calc-func)))))
+    all-calc-func))
 
 (defun vertico-calc-completion-at-point ()
   "This is the function to be used for the hook `completion-at-point-functions'."
@@ -26,7 +32,7 @@
   (let* ((bds (bounds-of-thing-at-point 'word))
          (start (car bds))
          (end (cdr bds)))
-    (list start end vertico-calc-completion-table . nil )))
+    (list start end (vertico-calc-completion-table) . nil )))
 
 
 (defvar-keymap calc-completion-map
@@ -55,9 +61,7 @@
 	(use-local-map calc-completion-map)
 	(add-hook 'completion-at-point-functions
 		  #'vertico-calc-completion-at-point nil t))
-    
-    (let ((completion-styles '(basic partial-completion emacs22)))
-      (vertico-calc-read-calc))))
+    (vertico-calc-read-calc)))
   
 
 (provide 'vertico-calc)
