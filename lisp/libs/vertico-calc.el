@@ -61,10 +61,12 @@
   "Read input and cal, with `TAB' as completion trigger."
   (interactive)
   (minibuffer-with-setup-hook
-      (lambda ()
-	(use-local-map calc-completion-map)
-	(add-hook 'completion-at-point-functions
-		  #'vertico-calc-completion-at-point nil t))
+      (:append
+       (lambda ()
+	 (use-local-map calc-completion-map)
+	 (add-hook 'completion-at-point-functions
+		   #'vertico-calc-completion-at-point nil t)
+	 (setq-local completion-styles '(basic partial-completion emacs22))))
     (vertico-calc-read-calc)))
   
 
