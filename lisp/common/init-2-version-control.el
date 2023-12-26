@@ -57,13 +57,15 @@
 (global-diff-hl-mode)
 (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
 (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-(require 'hydra)
-(defhydra hydra-diff-hl (global-map "C-c v")
-  "vc"
-  ("n" diff-hl-next-hunk "next hunk")
-  ("p" diff-hl-previous-hunk "previous hunk")
-  ("r" diff-hl-revert-hunk "revert hunk")
-  ("q" nil "exit"))
+
+(require 'transient)
+(transient-define-prefix diff-hl-transient ()
+  "Diff hl."
+  ["Jump to git change hunk:"
+   [("n" "Next hunk" diff-hl-next-hunk :transient t)]
+    [("p" "Previous hunk" diff-hl-previous-hunk :transient t)]
+    [("k" "Revert hunk" diff-hl-revert-hunk :transient t)]])
+(global-set-key (kbd "C-c v") 'diff-hl-transient)
 
 ;; end diff-hl
 
