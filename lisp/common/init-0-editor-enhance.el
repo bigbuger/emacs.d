@@ -110,21 +110,18 @@ ARG is pass to `sp-end-of-sexp'"
 ;; string-inflection 驼峰/下划线/横线风格自由切换
 (require 'string-inflection)
 (global-set-key (kbd "C-c u") 'string-inflection-toggle)
-(require 'hydra)
-(defhydra hydra-string-inflection (:hint nil :exit t)
-  "
-string inflection
-_c_: lower-camelcase fooVar  ^_C_: camelcase FooBar
-_u_: underscore foo__bar      _U_: upcase FOO__BAR
-_k_: kebab foo-bar          ^ _q_: cancel.
-"
-  ("c" string-inflection-lower-camelcase)
-  ("C" string-inflection-camelcase)
-  ("u" string-inflection-underscore)
-  ("U" string-inflection-upcase)
-  ("k" string-inflection-kebab-case)
-  ("q" nil))
-(global-set-key (kbd "C-c M-u") 'hydra-string-inflection/body)
+
+(require 'transient)
+(transient-define-prefix string-inflection-transient ()
+  "String inflection."
+  ["string inflection:"
+   ("c" "lower camelcase fooVar"  string-inflection-lower-camelcase)
+   ("C" "camelcase       FooBar"  string-inflection-camelcase)
+   ("u" "underscore      foo_bar" string-inflection-underscore)
+   ("U" "upcase          FOO_BAR" string-inflection-upcase)
+   ("k" "kebab           foo-bar" string-inflection-kebab-case)
+   ])
+(global-set-key (kbd "C-c M-u") 'string-inflection-transient)
 ;; end string-inflection
 
 
