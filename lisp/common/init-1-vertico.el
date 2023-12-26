@@ -50,9 +50,13 @@
   
   :init
   (defun +orderless-completion-style()
-    (setq-local completion-styles '(orderless basic)))
+    (setq-local completion-styles '(orderless basic partial-completion emacs22)))
   (add-hook 'minibuffer-setup-hook '+orderless-completion-style)
-  )
+
+  (defun using-orderless(orig_fun &rest args)
+    "Using orderless for sepecial function."
+    (let ((completion-styles '(orderless)))
+      (apply orig_fun args))))
 
 
 ;; 中文拼音搜索
@@ -162,13 +166,20 @@
   (consult-customize consult-theme
                      :preview-key
                      '("M-."))
-  )
+
+  (advice-add #'consult-focus-lines :around #'using-orderless)
+  (advice-add #'consult-keep-lines :around #'using-orderless))
 
 ;; consult 没有 isearch 支持, 用 isearch-mb 有更好的搜索体验
 (use-package isearch-mb
+  :bind (("C-s" . isearch-forward-regexp)
+	 ("C-r" . isearch-backward-regexp))
+
+  :config
+  (add-to-list 'isearch-mb--with-buffer #'isearch-yank-word)
+  (define-key isearch-mb-minibuffer-map (kbd "C-w") #'isearch-yank-word)
+
   :init
-  (global-set-key (kbd "C-s") 'isearch-forward-regexp)
-  (global-set-key (kbd "C-r") 'isearch-backward-regexp)
   (isearch-mb-mode))
 
 (use-package embark

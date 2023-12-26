@@ -42,7 +42,7 @@
 
 (setq lsp-completion-provider :none)
 (add-hook 'lsp-completion-mode-hook
-	  '(lambda ()
+	  #'(lambda ()
 	     (setq-local company-backends
 			 (cl-adjoin '(company-capf :separate company-yasnippet)
 				    company-backends :test #'equal))))

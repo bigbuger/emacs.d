@@ -65,8 +65,7 @@
        (lambda ()
 	 (use-local-map calc-completion-map)
 	 (add-hook 'completion-at-point-functions
-		   #'vertico-calc-completion-at-point nil t)
-	 (setq-local completion-styles '(basic partial-completion emacs22))))
+		   #'vertico-calc-completion-at-point nil t)))
     (vertico-calc-read-calc)))
   
 
