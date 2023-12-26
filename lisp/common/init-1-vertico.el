@@ -8,6 +8,10 @@
 (setq enable-recursive-minibuffers t)
 
 (use-package vertico
+  :bind (:map vertico-map
+	      ("C-M-n" . vertico-next-group)
+	      ("C-M-p" . vertico-previous-group))
+  
   :init
   (vertico-mode)
   (vertico-mouse-mode)
