@@ -9,12 +9,13 @@
 (defun my-select-line (num)
   "Select NUM lines."
   (interactive "p")
-  (progn
-    (setq tnum num)
-    (forward-line 0)
-    (setq startline (line-number-at-pos))
-    (set-mark (point))
-    (forward-line num)))
+  (let (startline)
+    (progn
+      (forward-line 0)
+      (setq startline (line-number-at-pos))
+      (set-mark (point))
+      (forward-line num)
+      startline)))
 
 (global-set-key (kbd "C-c SPC") 'my-select-line)
 
@@ -23,12 +24,12 @@
   "Kill NUM lines."
   (interactive "p")
   (save-excursion
-    (my-select-line num)
-    (setq endline (if (= (point) (point-max))
-		      (+ (line-number-at-pos) 1)
-		    (line-number-at-pos)))
-    (kill-region (region-beginning) (region-end))
-    (message "kill %d line[s]" (- endline startline))))
+    (let ((startline (my-select-line num))
+	  (endline (if (= (point) (point-max))
+		       (+ (line-number-at-pos) 1)
+		     (line-number-at-pos))))
+      (kill-region (region-beginning) (region-end))
+      (message "kill %d line[s]" (- endline startline)))))
 
 (global-set-key (kbd "C-c d") 'my-delete-line)
 
@@ -36,38 +37,28 @@
   "Copy NUM lines into killring."
   (interactive "p")
   (save-excursion
-    (my-select-line num)
-    (copy-region-as-kill (region-beginning) (region-end))
-    (cond ((= (point) (line-beginning-position))
-	   (forward-line -1)))
-    (setq endline (line-number-at-pos))
-    (if (= endline startline)
-	(message "Copy line%d into killring" startline)
-      (message "Copy line%d to line%d into killring" startline endline))))
+    (let  ((startline (my-select-line num))
+	   endline)
+      (copy-region-as-kill (region-beginning) (region-end))
+      (cond ((= (point) (line-beginning-position))
+	     (forward-line -1)))
+      (setq endline (line-number-at-pos))
+      (if (= endline startline)
+	  (message "Copy line%d into killring" startline)
+	(message "Copy line%d to line%d into killring" startline endline)))))
 
 (global-set-key (kbd "C-c y") 'my-copy-line)
-
-(defun my-copy-one-word ()
-  "Copy one word after or in the point into killring."
-  (interactive)
-  (save-excursion
-    (progn
-      (forward-word 1)
-      (set-mark (point))
-      (backward-word 1)
-      (copy-region-as-kill (region-beginning) (region-end)))))
-(global-set-key (kbd "C-c M-d") 'my-copy-one-word)
 
 (defun my-sed (sed-cmd)
   "Run the sed commond SED-CMD in current-butter and replace."
   (interactive "ssed:")
-  (let ((start (point-min))
-	(end (point-max))
-	(cmd (concat "sed '" sed-cmd "'" " 2>>/dev/null"))
-	(test-cmd (concat "sed '" sed-cmd  "' 2>>/dev/null 1>>/dev/null"))
-	(buffer (current-buffer))
-	(old-point (point)))
-    (setq testrun (shell-command-on-region start end test-cmd nil nil))
+  (let* ((start (point-min))
+	 (end (point-max))
+	 (cmd (concat "sed '" sed-cmd "'" " 2>>/dev/null"))
+	 (test-cmd (concat "sed '" sed-cmd  "' 2>>/dev/null 1>>/dev/null"))
+	 (buffer (current-buffer))
+	 (old-point (point))
+	 (testrun (shell-command-on-region start end test-cmd nil nil)))
     (if (= testrun 0)
 	(progn
 	  (shell-command-on-region start end cmd buffer 1)
