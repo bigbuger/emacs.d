@@ -1,4 +1,4 @@
-;;; them-settig.el --- theme setting
+;;; them-settig.el --- theme setting  -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 ;; 

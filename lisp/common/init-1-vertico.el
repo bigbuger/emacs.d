@@ -146,6 +146,9 @@
   
   (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
+  (with-eval-after-load "org"
+    (define-key org-mode-map (kbd "C-c i") #'counsel-outline))
+  
   (advice-add 'consult-line :around #'using-py-search)
   (advice-add 'consult-recent-file :around #'using-py-search)
 
@@ -169,6 +172,21 @@
 
   (advice-add #'consult-focus-lines :around #'using-orderless)
   (advice-add #'consult-keep-lines :around #'using-orderless))
+
+(use-package consult
+  :after projectile
+  :defines consult-buffer-sources
+  :config
+  (projectile-load-known-projects)
+  (setq my-consult-source-projectile-projects
+        `(:name "Projectile projects"
+                :narrow   ?p
+                :category project
+                :action   ,#'projectile-switch-project-by-name
+                :items    ,projectile-known-projects))
+  (add-to-list 'consult-buffer-sources my-consult-source-projectile-projects 'append)
+  
+  )
 
 ;; consult 没有 isearch 支持, 用 isearch-mb 有更好的搜索体验
 (use-package isearch-mb
