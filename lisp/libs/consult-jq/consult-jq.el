@@ -24,7 +24,7 @@
 
 (require 'consult)
 
-(defcustom consult-jq-json-buffer-mode 'json-mode
+(defcustom consult-jq-json-buffer-mode 'js-mode
   "Major mode for the resulting `consult-jq-buffer' buffer."
   :type '(function)
   :require 'consult-jq
