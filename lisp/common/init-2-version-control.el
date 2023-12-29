@@ -70,7 +70,68 @@
 ;; end diff-hl
 
 ;; gitlab
-(use-package lab :ensure t)
+(use-package lab
+  :ensure t
+  :demand t
+  
+  :config
+  
+  (cl-defun lab--completing-read-multiple-object (prompt objects &key (formatter #'identity) category predicate require-match initial-input hist def inherit-input-method (sort? t))
+    "`completing-read-multiple' with formatter and sort control.
+Applies FORMATTER to every object in OBJECTS and propertizes
+candidates with the actual object so that they can be retrieved
+later by embark actions.  Also adds category metadata to each
+candidate, if given.  PROMPT passed to `completing-read-multiple' as is."
+    (let* ((object-table
+            (make-hash-table :test 'equal :size (length objects)))
+           (object-strings
+	    (mapcar
+             (lambda (object)
+               (let ((formatted-object (funcall formatter object)))
+		 (puthash formatted-object object object-table)
+		 (propertize formatted-object 'lab--completing-read-object object)))
+             objects))
+           (selecteds
+            (completing-read-multiple
+             prompt
+             object-strings
+             predicate require-match initial-input hist def inherit-input-method)))
+      (mapcar (lambda (selected) (gethash selected object-table selected)) selecteds)))
+
+  
+  (defun lab--create-branch-multiple (projects ref branch)
+    (dolist (p projects)
+      (let ((project-title (lab--format-project-title p)))
+	(condition-case err
+	    (progn
+	      (lab--request
+	       (format "projects/%s/repository/branches" (alist-get 'id p))
+	       :branch branch
+	       :ref ref
+	       :%type "POST"
+	       :%raw? t)
+	      (message "Create branch %s success: for project %s " branch project-title))
+	  (error
+	   (message "Create branch %s fail for project %s : %s" branch project-title (error-message-string err)))))))
+
+  (defun lab--read-and-create-branch-multiple (all-projects)
+    (let* ((base-prompt "Create branch multiple, ")
+	   (projects (lab--completing-read-multiple-object (concat "Create branch for projects: ")
+							   all-projects
+							   :formatter #'lab--format-project-title
+							   :hist 'creat-branch-multiple))
+	   (ref (read-string (concat base-prompt "Base branch: ")))
+	   (branch (read-string (concat base-prompt "Target branch: "))))
+      (lab--create-branch-multiple projects ref branch)))
+
+  (defun lab-create-branch-multiple-for-owned-projects ()
+    (interactive)
+    (lab--read-and-create-branch-multiple (lab-get-all-owned-projects)))
+
+  (defun lab-create-branch-multiple-for-group-projects ()
+    (interactive)
+    (lab--read-and-create-branch-multiple (lab-get-all-group-projects)))
+  )
 
 
 
