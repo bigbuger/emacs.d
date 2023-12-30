@@ -42,15 +42,28 @@
   (setq orderless-matching-styles
 	'(orderless-literal
 	  orderless-regexp
-	  orderless-prefixes
-	  orderless-initialism
-	  ;; orderless-flex                       ; Basically fuzzy finding
-	  ;; orderless-without-literal          ; Recommended for dispatches instead
+	  ;; orderless-prefixes          ; f-d.t matches final-draft.txt
+	  ;; orderless-initialism        ; This maps abc to \<a.*\<b.*\c
+	  ;; orderless-flex              ; This maps abc to a.*b.*c
 	  ))
+
+  (orderless-define-completion-style orderless+initialism
+    (orderless-matching-styles '(orderless-literal
+				 orderless-regexp
+				 orderless-initialism)))
+  (setq orderless-component-separator #'orderless-escapable-split-on-space)
+  
+  ;; use initialism for command, buffer and file
+  (setq completion-category-overrides
+	'((command (styles orderless+initialism))
+          (buffer (styles orderless+initialism))
+	  (file (styles basic partial-completion emacs22 orderless+initialism))
+	  (project-file (styles basic partial-completion emacs22 orderless+initialism))))
+  
   
   :init
   (defun +orderless-completion-style()
-    (setq-local completion-styles '(orderless basic partial-completion emacs22)))
+    (setq-local completion-styles '(basic partial-completion emacs22 orderless)))
   (add-hook 'minibuffer-setup-hook '+orderless-completion-style)
 
   (defun using-orderless(orig_fun &rest args)
