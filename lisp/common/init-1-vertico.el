@@ -63,7 +63,7 @@
   
   :init
   (defun +orderless-completion-style()
-    (setq-local completion-styles '(basic partial-completion emacs22 orderless)))
+    (setq-local completion-styles '(orderless basic partial-completion emacs22)))
   (add-hook 'minibuffer-setup-hook '+orderless-completion-style)
 
   (defun using-orderless(orig_fun &rest args)
