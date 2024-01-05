@@ -174,14 +174,5 @@ ARG is pass to `sp-end-of-sexp'"
 ;; (add-hook 'prog-mode-hook 'hideshowvis-enable)
 ;; end hideshowvis
 
-(use-package ts-fold
-  :load-path "~/.emacs.d/lisp/libs/ts-fold")
-
-(use-package fringe-helper)
-
-(use-package ts-fold-indicators
-  :load-path "~/.emacs.d/lisp/libs/ts-fold")
-
-
 
 ;;; init-editor-enhance.el ends here

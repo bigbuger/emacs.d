@@ -7,8 +7,7 @@
 ;;; Code:
 (require 'json-mode)
 
-(add-hook 'json-mode-hook 'tree-sitter-mode)
-(add-hook 'json-mode-hook 'ts-fold-indicators-mode)
+(add-hook 'json-mode-hook #'hideshowvis-enable)
 
 (use-package consult-jq
   :load-path "~/.emacs.d/lisp/libs/consult-jq/"
