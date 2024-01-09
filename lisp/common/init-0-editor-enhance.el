@@ -133,7 +133,8 @@ ARG is pass to `sp-end-of-sexp'"
 	  #'(lambda ()
 	      (assq-delete-all 'auto-highlight-symbol-mode minor-mode-map-alist)))
 
-(global-auto-highlight-symbol-mode t)
+(dolist (hook (list 'emacs-lisp-mode-hook 'scheme-mode-hook 'lisp-mode-hook))
+  (add-hook hook #'auto-highlight-symbol-mode))
 ;; end auto-highlight-symbol-mode
 
 
