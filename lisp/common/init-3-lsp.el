@@ -42,13 +42,13 @@
 
 (setq lsp-completion-provider :none)
 (add-hook 'lsp-completion-mode-hook
-	  '(lambda ()
+	  #'(lambda ()
 	     (setq-local company-backends
 			 (cl-adjoin '(company-capf :separate company-yasnippet)
 				    company-backends :test #'equal))))
 
 (setq dap-auto-configure-features '(locals controls tooltip))
-(define-key lsp-mode-map (kbd "M-?") 'lsp-ui-peek-find-references)
+;; (define-key lsp-mode-map (kbd "M-?") 'lsp-ui-peek-find-references)
 (define-key lsp-mode-map [f5] 'dap-debug)
 (define-key lsp-mode-map (kbd "C-<f5>") 'dap-hydra)
 ;; (add-hook 'dap-stopped-hook

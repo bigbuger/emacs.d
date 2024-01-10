@@ -20,6 +20,7 @@
 	      ("m" . my-roam-capture-memo))
   
   :init
+  (advice-add 'org-roam-node-find :around #'using-py-search)
   (define-prefix-command 'org-roam-command-map)
   
   (defun org-roam-node-insert-immediate (arg &rest args)

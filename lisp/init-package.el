@@ -50,17 +50,9 @@
     all-the-icons
     all-the-icons-dired
     all-the-icons-ibuffer
-    
-    ;; ivy
-    ivy
-    swiper
-    counsel
-    ivy-hydra
-    counsel-fd
+
+    ;; wgrep
     wgrep
-    ivy-rich
-    all-the-icons-ivy-rich
-    counsel-dash
 
     ;; company
     company
@@ -102,22 +94,16 @@
     dap-mode
     lsp-ui
 
-    ;; tree-sitter
-    tree-sitter
-    tree-sitter-langs
-
     ;; about vc
     magit
     magit-todos
     magit-delta
     diff-hl
     ztree
-    
-    
+        
     ;; about project
     projectile
     projectile-ripgrep
-    counsel-projectile
     ibuffer-projectile
     
     ;; ruby

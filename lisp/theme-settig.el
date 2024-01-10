@@ -1,4 +1,4 @@
-;;; them-settig.el --- theme setting
+;;; them-settig.el --- theme setting  -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 ;; 
@@ -66,7 +66,9 @@
  '(awesome-tab-unselected-face ((t (:inherit default
 				    :height 160
 					    :foreground "#a094a2"
-					    :background "#efeae9")))))
+					    :background "#efeae9"))))
+
+ '(consult-file ((t (:inherit font-lock-keyword-face)))))
 
  
 (require 'doom-modeline)

@@ -1,7 +1,8 @@
 #+STARTUP: indent
 * 我自己的 emacs 配置
 ** 主要功能框架
-+ 搜索: ivy, counsel, swiper  三件套
++ +搜索: ivy, counsel, swiper  三件套+
++ 交互式补全: vertico, consult, embark 三件套
 + 补全: company
 + 模版: yasnippet, yatemplate
 + 项目管理: projectile

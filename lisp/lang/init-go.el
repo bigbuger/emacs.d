@@ -38,11 +38,6 @@
 (add-hook 'go-mode-hook 'go-eldoc-setup)
 
 
-(defun my-go-impl ()
-  (interactive)
-  (let ((completing-read-function 'completing-read-default))
-    (call-interactively 'go-impl)))
-
 (lsp-register-custom-settings
  '(("go.linitTool" "golangci-lint" nil)
    ("gopls.analyses.simplifycompositelit" t t)
@@ -94,9 +89,23 @@
 ;;   (add-hook 'before-save-hook #'lsp-organize-imports t t))
 ;; (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 
+(defvar golangci-lint-cmd "LOG_LEVEL=error golangci-lint run --print-issued-lines=false --out-format=line-number ./..."
+  "Command for `consult-golangci-lint'.")
 
-(add-to-list 'load-path "~/.emacs.d/lisp/libs/counsel-golangci-lint")
-(require 'counsel-golangci-lint)
+(defun consult--go-root ()
+  "Find go mod root."
+  (expand-file-name (string-replace "\n" "" (shell-command-to-string "dirname $(go env GOMOD)"))))
+
+(defun golangci-lint ()
+  "Run golangci-lint, and diplay the result by `grep-mode'."
+  (interactive)
+  (let ((default-directory (or (consult--go-root)
+			       default-directory))
+	(cmd (read-shell-command
+	      "Run golangci-lint like this: "
+	      golangci-lint-cmd)))
+    (grep cmd)))
+
 
 (with-eval-after-load 'projectile
   (projectile-register-project-type 'go-mod '("go.mod")
@@ -106,18 +115,20 @@
 				    :test-suffix "_test.go"))
 
 (with-eval-after-load 'go-mode
-  (define-key go-mode-map (kbd "C-c C-d") #'counsel-dash-at-point)
   (define-key go-mode-map (kbd "s-g t") #'go-tag-add)
   (define-key go-mode-map (kbd "s-g T") #'go-tag-remove)
-  (define-key go-mode-map (kbd "s-g i") #'my-go-impl)
+  (define-key go-mode-map (kbd "s-g i") #'go-impl)
   (define-key go-mode-map (kbd "s-g f") #'gofmt)
-  (define-key go-mode-map (kbd "s-g l") #'counsel-golangci-lint)
-  (define-key go-dot-mod-mode-map (kbd "s-g l") #'counsel-golangci-lint)
-  (define-key go-dot-work-mode-map (kbd "s-g l") #'counsel-golangci-lint)
+  (define-key go-mode-map (kbd "s-g l") #'golangci-lint)
+  (define-key go-dot-mod-mode-map (kbd "s-g l") #'golangci-lint)
+  (define-key go-dot-work-mode-map (kbd "s-g l") #'golangci-lint)
   (define-key go-mode-map (kbd "s-g r") #'go-run))
 
 (add-hook 'go-mode-hook
-	  (lambda () (setq-local counsel-dash-docsets '("Go"))))
+	  (lambda ()
+	    (when (functionp 'consult-dash)
+	      (setq-local consult-dash-docsets
+			  (append '("Go") consult-dash-docsets)))))
 
 
 (require 'rmsbolt)
