@@ -10,10 +10,9 @@
 (require 'cider)
 
 
-;; (add-hook 'clojure-mode-hook
-;; 	  #'(lambda ()
-;; 	      (setq-local lsp-enable-indentation nil)
-;; 	      (lsp-deferred)))
+(add-hook 'clojure-mode-hook 'lsp)
+(add-hook 'clojurescript-mode-hook 'lsp)
+(add-hook 'clojurec-mode-hook 'lsp)
 (add-hook 'clojure-mode-hook 'clj-refactor-mode)
 
 (provide 'init-clojure)
