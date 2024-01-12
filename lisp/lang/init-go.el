@@ -190,6 +190,12 @@
 						 :compile-cmd-function #'rmsbolt--go-plan9-compile-cmd
 						 :process-asm-custom-fn #'rmsbolt--process-go-plan9-lines))))))
 
+;; overwrite godoctor--get-pos-region for utf-8 charset
+(defun godoctor--get-pos-region ()
+  (let* ((start (position-bytes (region-beginning)))
+	 (end (position-bytes (region-end)))
+         (len (- end start)))
+    (format "%d,%d" start len)))
 
 
 (provide 'init-go)
