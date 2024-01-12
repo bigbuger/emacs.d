@@ -57,8 +57,8 @@
   (setq completion-category-overrides
 	'((command (styles orderless+initialism))
           (buffer (styles orderless+initialism))
-	  (file (styles basic partial-completion emacs22 orderless+initialism))
-	  (project-file (styles basic partial-completion emacs22 orderless+initialism))))
+	  (file (styles orderless+initialism))
+	  (project-file (styles orderless+initialism))))
   
   
   :init
