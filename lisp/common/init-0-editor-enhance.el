@@ -25,14 +25,14 @@
 (require 'smartparens-config)
 (add-hook 'prog-mode-hook #'smartparens-mode)
 (sp-local-pair 'emacs-lisp-mode "'" nil :actions '(wrap))
-(global-set-key (kbd "C-}") 'sp-slurp-hybrid-sexp) ;; 吃掉下一个 sexp
-(define-key emacs-lisp-mode-map  (kbd "C-}") 'sp-forward-slurp-sexp) ;; 吐出最后一个 sexp
-(global-set-key (kbd "C-{") 'sp-forward-barf-sexp)
-(global-set-key (kbd "C-c <backspace>") 'sp-raise-sexp) ;; 去掉最高层 sexp
-(global-set-key (kbd "C-M-a") 'sp-beginning-of-sexp)
-(global-set-key (kbd "C-M-e") 'sp-end-of-sexp)
-(global-set-key (kbd "C-M-d") 'sp-clone-sexp)
-(define-key smartparens-mode-map (kbd "C-M-<up>") 'sp-up-sexp)
+(define-key smartparens-mode-map (kbd "C-}") 'sp-slurp-hybrid-sexp) ;; 吃掉下一个 sexp
+(define-key emacs-lisp-mode-map  (kbd "C-}") 'sp-forward-slurp-sexp) ;; 吃掉一个 sexp
+(define-key smartparens-mode-map (kbd "C-{") 'sp-forward-barf-sexp)
+(define-key smartparens-mode-map (kbd "C-c <backspace>") 'sp-raise-sexp) ;; 去掉最高层 sexp
+(define-key smartparens-mode-map (kbd "C-M-a") 'sp-beginning-of-sexp)
+(define-key smartparens-mode-map (kbd "C-M-e") 'sp-end-of-sexp)
+(define-key smartparens-mode-map (kbd "C-M-d") 'sp-clone-sexp)
+(define-key smartparens-mode-map (kbd "C-M-u") 'sp-backward-up-sexp)
 
 ;; sexp 新开一行
 (defun sp-up-sexp-and-new-line (&optional arg)
