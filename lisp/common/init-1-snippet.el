@@ -9,7 +9,7 @@
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
 (require 'yasnippet)
 (yas-global-mode 1)
-;;(global-set-key (kbd "<M-RET>") 'yas-expand)
+(global-set-key (kbd "<M-RET>") 'yas-expand)
 
 (require 'shell)
 (dolist (hook (list
