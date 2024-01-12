@@ -154,7 +154,7 @@
     ;; clojure
     clojure-mode
     cider
-    clj-refactor
+    ;;clj-refactor
     
     
     ;; python
