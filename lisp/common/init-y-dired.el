@@ -62,6 +62,13 @@
 
 (setq dirvish-reuse-session t)
 
+;; support embark-export, see https://github.com/alexluigit/dirvish/issues/179
+(advice-add 'dirvish-dired-noselect-a
+            :before-until
+            (defun my/dirvish-dired-noselect-on-lists (&rest args)
+              (and (listp (cadr args))
+                  (apply (car args) (cdr args)))))
+
 (provide 'init-y-dired)
 
 ;;; init-y-dired.el ends here
