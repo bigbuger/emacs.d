@@ -30,5 +30,6 @@
 
 
 
+(provide 'init-1-flycheck)
 
-;;; init-flycheck.el ends here
+;;; init-1-flycheck.el ends here

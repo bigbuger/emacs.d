@@ -36,7 +36,6 @@ And then switch to prefer mode."
   
     (add-hook 'separedit-buffer-creation-hook 'my-separedit-guass-mode))
 
+(provide 'init-z-separedit)
 
-
-
-;;; init-separedit.el ends here
+;;; init-z-separedit.el ends here

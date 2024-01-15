@@ -114,6 +114,6 @@
   :init
   (require 'vlf-setup))
 
+(provide 'init-z-misc)
 
-
-;;; init-misc.el ends here
+;;; init-z-misc.el ends here

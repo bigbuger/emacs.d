@@ -176,4 +176,6 @@ ARG is pass to `sp-end-of-sexp'"
 ;; end hideshowvis
 
 
-;;; init-editor-enhance.el ends here
+(provide 'init-0-editor-enhance)
+
+;;; init-0-editor-enhance.el ends here

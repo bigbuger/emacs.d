@@ -233,6 +233,6 @@ Otherwise use `all-the-icons-icon-for-buffer' to fetch icon for buffer."
 (with-eval-after-load 'projectile
   (setq projectile-switch-project-action 'smart-switch-project))
 
+(provide 'init-4-tabbar)
 
-
-;;; init-tabbar.el ends here
+;;; init-4-tabbar.el ends here

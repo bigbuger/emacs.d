@@ -21,5 +21,6 @@
 		 :models '("zephyr:latest")            ;Installed models
 		 :stream t)))
 
+(provide 'init-z-ellama)
 
-;;; init-ellama.el ends here
+;;; init-z-ellama.el ends here

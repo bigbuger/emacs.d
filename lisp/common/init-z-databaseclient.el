@@ -109,6 +109,6 @@
      (add-to-sqls-connections "mysql" (format-mysql-sqls host port user password db))
      (add-to-sql-conection-alist 'mysql ,name host port user password db)))
 
+(provide 'init-z-databaseclient)
 
-
-;;; init-databaseclient.el ends here
+;;; init-z-databaseclient.el ends here

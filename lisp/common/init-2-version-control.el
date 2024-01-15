@@ -133,6 +133,6 @@ candidate, if given.  PROMPT passed to `completing-read-multiple' as is."
     (lab--read-and-create-branch-multiple (lab-get-all-group-projects)))
   )
 
+(provide 'init-2-version-control)
 
-
-;;; init-version-control.el ends here
+;;; init-2-version-control.el ends here

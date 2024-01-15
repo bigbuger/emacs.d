@@ -17,7 +17,6 @@
 (use-package docker-compose-mode
   :ensure t)
 
+(provide 'init-z-docker)
 
-
-
-;;; init-docker.el ends here
+;;; init-z-docker.el ends here

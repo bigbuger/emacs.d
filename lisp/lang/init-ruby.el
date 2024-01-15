@@ -35,7 +35,7 @@
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
 
 ;; gem install byebug
-(load-library "realgud-byebug")
+;;(load-library "realgud-byebug")
 
 ;; gem install solargraph
 (add-hook 'ruby-mode-hook #'lsp-deferred)

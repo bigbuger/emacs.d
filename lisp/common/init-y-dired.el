@@ -62,7 +62,6 @@
 
 (setq dirvish-reuse-session t)
 
+(provide 'init-y-dired)
 
-
-
-;;; init-dired.el ends here
+;;; init-y-dired.el ends here

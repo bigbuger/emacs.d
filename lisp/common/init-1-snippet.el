@@ -28,6 +28,6 @@
 (yatemplate-fill-alist)
 (auto-insert-mode t)
 
+(provide 'init-1-snippet)
 
-
-;;; init-snippet.el ends here
+;;; init-1-snippet.el ends here

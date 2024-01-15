@@ -17,7 +17,7 @@
 
 ;; realgud
 (require 'realgud)
-(load-library "realgud")
+;; (load-library "realgud")
 
 ;; end realgud
 
@@ -32,8 +32,6 @@
 		 (window-width . 0.5))))
 ;; end rmsbolt
 
+(provide 'init-z-compile)
 
-
-
-
-;;; init-compile.el ends here
+;;; init-z-compile.el ends here

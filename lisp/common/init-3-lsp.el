@@ -62,6 +62,6 @@
 (with-eval-after-load "lsp-mode"
   (add-to-list 'lsp-disabled-clients 'semgrep-ls))
 
+(provide 'init-3-lsp)
 
-
-;;; init-lsp.el ends here
+;;; init-3-lsp.el ends here

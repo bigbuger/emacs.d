@@ -43,6 +43,6 @@
 (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
 (setq company-backends (append company-backends '(company-yasnippet)))
 
+(provide 'init-2-company)
 
-
-;;; init-company.el ends here
+;;; init-2-company.el ends here
