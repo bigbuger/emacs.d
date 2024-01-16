@@ -25,6 +25,7 @@
 (require 'go-tag)
 (require 'go-fill-struct)
 (require 'gorepl-mode)
+(require 'gotest)
 
 
 (require 'dap-dlv-go)

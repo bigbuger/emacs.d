@@ -14,6 +14,8 @@
 
 (require 'magit-todos)
 (magit-todos-mode)
+;; magit-todos bug see https://github.com/alphapapa/magit-todos/issues/153
+(setq magit-todos-nice nil)
 
 (setq magit-log-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
 (setq magit-git-output-coding-system 'utf-8-unix)
