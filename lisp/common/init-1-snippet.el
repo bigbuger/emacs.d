@@ -10,7 +10,15 @@
 (require 'yasnippet)
 (yas-global-mode 1)
 
-(add-hook 'hippie-expand-try-functions-list 'yas-hippie-try-expand)
+(setq hippie-expand-try-functions-list
+      '(yas-hippie-try-expand
+        try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-dabbrev
+        try-expand-dabbrev-from-kill
+        try-expand-dabbrev-all-buffers
+        try-expand-list
+        try-expand-line))
 (define-key yas-minor-mode-map [remap dabbrev-expand] 'hippie-expand)
 
 (require 'shell)
