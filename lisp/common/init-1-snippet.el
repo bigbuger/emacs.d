@@ -9,7 +9,9 @@
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
 (require 'yasnippet)
 (yas-global-mode 1)
-(global-set-key (kbd "<M-RET>") 'yas-expand)
+
+(add-hook 'hippie-expand-try-functions-list 'yas-hippie-try-expand)
+(define-key yas-minor-mode-map [remap dabbrev-expand] 'hippie-expand)
 
 (require 'shell)
 (dolist (hook (list
