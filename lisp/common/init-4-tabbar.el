@@ -15,9 +15,6 @@
 (setq x-underline-at-descent-line t)
 
 (setq awesome-tab-height 250)
-(when (not (display-graphic-p))
-  (setq frame-background-mode light))
-
 
 (defun awesome-tab-hide-tab (x)
   "Do no to show buffer X in tabs."
