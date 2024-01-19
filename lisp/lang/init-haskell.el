@@ -27,14 +27,6 @@
 
 
 (add-hook 'haskell-interactive-mode-hook 'company-mode)
-(add-hook 'haskell-mode-hook
-          (lambda () (setq-local company-backends
-				 (cl-adjoin '(company-ghci :with company-yasnippet) company-backends :test #'equal))))
-
-(add-hook 'haskell-cabal-mode-hook
-          (lambda () (setq-local company-backends
-				 (cl-adjoin '(company-cabal :with company-yasnippet) company-backends :test #'equal))))
-
 
 (setq haskell-program-name "ghci")
 
@@ -54,6 +46,9 @@
 
 (with-eval-after-load 'smart-compile
   (setf (alist-get "\\.hs\\'" smart-compile-alist nil nil #'string=) "runhaskell %f"))
+
+(use-package consult-hoogle
+  :load-path "~/.emacs.d/lisp/libs/consult-hoogle")
 
 (provide 'init-haskell)
 

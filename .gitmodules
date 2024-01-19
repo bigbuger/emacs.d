@@ -28,3 +28,6 @@
 [submodule "lisp/libs/awesome-tab"]
 	path = lisp/libs/awesome-tab
 	url = git@github.com:manateelazycat/awesome-tab.git
+[submodule "lisp/libs/consult-hoogle"]
+	path = lisp/libs/consult-hoogle
+	url = https://codeberg.org/rahguzar/consult-hoogle.git
