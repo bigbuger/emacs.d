@@ -24,7 +24,9 @@
 
 (require 'recentf)
 (recentf-mode 1)
-(setq recentf-max-menu-item 10)
+(setq recentf-max-menu-items 50)
+(add-to-list 'recentf-exclude
+             (recentf-expand-file-name "~/.cache/emacs/data/bookmark-default.el"))
 
 (winner-mode t)
 
