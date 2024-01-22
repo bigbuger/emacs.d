@@ -160,7 +160,7 @@
   (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
   (with-eval-after-load "org"
-    (define-key org-mode-map (kbd "C-c i") #'counsel-outline))
+    (define-key org-mode-map (kbd "C-c i") #'consult-outline))
   
   (advice-add 'consult-line :around #'using-py-search)
   (advice-add 'consult-recent-file :around #'using-py-search)
