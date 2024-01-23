@@ -222,7 +222,8 @@
    (ditaa . t)
    (plantuml . t)
    (sql . t)
-   (gnuplot . t)))
+   (gnuplot . t)
+   (maxima . t)))
 ;; end of org bale
 
 ;; verb 网络请求客户端
