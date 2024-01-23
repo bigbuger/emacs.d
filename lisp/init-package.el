@@ -158,8 +158,7 @@
     
     
     ;; python
-    elpy
-    company-jedi
+    pyvenv
     lsp-pyright
 
     ;; c lang
@@ -179,7 +178,6 @@
     company-math
     auctex
     magic-latex-buffer
-    xenops
     
     ;; others
     csv-mode
