@@ -1,10 +1,9 @@
 # -*- mode: snippet -*-
-# name: org bale tikz
+# name: org babel tikz
 # key: >ob-tikz
 # --
-#+HEADER: :file ${1:tikz.png} :imagemagick yes
+#+HEADER: :file ${1:tikz.svg}
 #+HEADER: :results file graphics :headers '("\\\\usepackage{tikz}" "\\\\usetikzlibrary{arrows,graphs}") 
-#+HEADER: :fit yes :iminoptions -density 180
 #+BEGIN_SRC latex
 \begin{tikzpicture}
 $0

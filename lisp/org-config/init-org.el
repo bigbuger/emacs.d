@@ -45,6 +45,13 @@
 (add-hook 'org-mode-hook #'smartparens-mode)
 (sp-local-pair 'org-mode "\\[" "\\]")
 
+;; ob latex tikz
+(setq org-babel-latex-preamble
+  (lambda (_)
+    "\\documentclass[tikz]{standalone}
+"))
+
+
 ;; latex company
 (setq org-highlight-latex-and-related '(latex script entities))
 (add-hook 'org-mode-hook
