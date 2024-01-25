@@ -61,6 +61,7 @@
 (define-key org-mode-map
 	    (kbd "C-\\") 'company-math-symbols-unicode)
 
+;; 实时预览 LaTex
 (use-package org-latex-impatient
   :defer t
   :hook (org-mode . org-latex-impatient-mode)

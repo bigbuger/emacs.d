@@ -90,16 +90,6 @@
 
 ;; end flyspell
 
-
-;; pdf-tools
-(use-package pdf-tools
-  :ensure t
-  :config
-  (pdf-tools-install)
-  (custom-set-variables
-   '(pdf-tools-handle-upgrades t)))
-
-
 ;; restclient 发起 http 请求
 (require 'restclient)
 (require 'company-restclient)
