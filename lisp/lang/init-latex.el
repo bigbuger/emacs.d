@@ -49,7 +49,7 @@
 (use-package xenops
   :config
   (setq xenops-reveal-on-entry t)
-  (setq xenops-math-image-scale-factor 2.0)
+  (setq xenops-math-image-scale-factor 1.7)
   :hook
   (LaTeX-mode . xenops-mode))
 
@@ -58,10 +58,20 @@
 buffer's text scale."
   (pcase major-mode
     ('latex-mode
-     (dolist (ov (overlays-in (point-min) (point-max)))
-       (if (eq (overlay-get ov 'category)
-               'preview-overlay)
-           (my/text-scale--resize-fragment ov))))
+     (cond
+      (xenops-mode
+       (cond ((= 0 text-scale-mode-amount)
+	      (progn (xenops-reveal)
+		     (xenops-render)))
+	     ((> text-scale-mode-amount 0)
+	      (dotimes (_ text-scale-mode-amount)
+		(xenops-increase-size)))
+	     (t (dotimes (_ (abs text-scale-mode-amount))
+		(xenops-decrease-size)))))
+      (t (dolist (ov (overlays-in (point-min) (point-max)))
+	   (if (eq (overlay-get ov 'category)
+		   'preview-overlay)
+               (my/text-scale--resize-fragment ov))))))
     ('org-mode
      (dolist (ov (overlays-in (point-min) (point-max)))
        (if (eq (overlay-get ov 'org-overlay-type)
