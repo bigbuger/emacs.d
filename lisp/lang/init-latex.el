@@ -45,12 +45,13 @@
             #'TeX-revert-document-buffer))
 
 ;; xenops 支持 svg 预览
-;; (use-package xenops
-;;   :config
-;;   (setq xenops-reveal-on-entry t)
-;;   (setq xenops-math-image-scale-factor 2.0)
-;;   :hook
-;;   (LaTeX-mode . xenops-mode))
+;; 如果 tikz 预览失败，需配置 export LIBGS=/opt/homebrew/Cellar/ghostscript/10.02.1/lib/libgs.dylib
+(use-package xenops
+  :config
+  (setq xenops-reveal-on-entry t)
+  (setq xenops-math-image-scale-factor 2.0)
+  :hook
+  (LaTeX-mode . xenops-mode))
 
 (defun my/text-scale-adjust-latex-previews ()
   "Adjust the size of latex preview fragments when changing the

@@ -30,7 +30,7 @@
 
 (require 'exec-path-from-shell)
 (setq exec-path-from-shell-variables
-      (append exec-path-from-shell-variables '("LC_ALL" "LANG" "GOPATH" "GEM_HOME" "GEM_PATH" "JAVA_HOME")))
+      (append exec-path-from-shell-variables '("LC_ALL" "LANG" "GOPATH" "GEM_HOME" "GEM_PATH" "JAVA_HOME" "LIBGS")))
 (exec-path-from-shell-initialize)
 
 
