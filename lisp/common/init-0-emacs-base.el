@@ -28,6 +28,9 @@
 (add-to-list 'recentf-exclude
              (recentf-expand-file-name "~/.cache/emacs/data/bookmark-default.el"))
 
+;; 硬盘文件更改时，自动同步
+(global-auto-revert-mode)
+
 (winner-mode t)
 
 (setq Man-notify-method 'pushy)

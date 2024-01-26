@@ -19,6 +19,7 @@
   :config
   (eval-after-load "preview"
     '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t)) ;; 预览 tikz
+
   (setq-default TeX-master t) ;; 默认询问主文件
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
 
@@ -43,6 +44,13 @@
   (add-hook 'TeX-after-compilation-finished-functions
             #'TeX-revert-document-buffer))
 
+;; xenops 支持 svg 预览
+;; (use-package xenops
+;;   :config
+;;   (setq xenops-reveal-on-entry t)
+;;   (setq xenops-math-image-scale-factor 2.0)
+;;   :hook
+;;   (LaTeX-mode . xenops-mode))
 
 (defun my/text-scale-adjust-latex-previews ()
   "Adjust the size of latex preview fragments when changing the
