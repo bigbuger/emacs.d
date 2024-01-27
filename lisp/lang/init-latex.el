@@ -21,7 +21,8 @@
     '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t)) ;; 预览 tikz
 
   (setq-default TeX-master t) ;; 默认询问主文件
-  (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
+  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+  (add-hook 'LaTeX-mode-hook 'prettify-symbols-mode))
 
 (use-package cdlatex
   :demand t
