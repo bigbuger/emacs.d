@@ -9,10 +9,10 @@
 (use-package tex
   :ensure auctex
   :custom
-  (TeX-parse-self t) ; 自动解析 tex 文件
+  (TeX-parse-self t)			; 自动解析 tex 文件
   (TeX-PDF-mode t)
   (TeX-DVI-via-PDFTeX t)
-  (TeX-source-correlate-mode t) ;; 编译后开启正反向搜索
+  (TeX-source-correlate-mode t)		 ;; 编译后开启正反向搜索
   (TeX-source-correlate-method 'synctex) ;; 正反向搜索的执行方式
   (TeX-source-correlate-start-server t) ;; 不再询问是否开启服务器以执行反向搜索
   
@@ -22,7 +22,12 @@
 
   (setq-default TeX-master t) ;; 默认询问主文件
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-  (add-hook 'LaTeX-mode-hook 'prettify-symbols-mode))
+
+  (with-eval-after-load 'tex-mode
+    (assoc-delete-all "--" tex--prettify-symbols-alist)
+    (assoc-delete-all "---" tex--prettify-symbols-alist))
+  (setq prettify-symbols-unprettify-at-point 'right-edge)
+  (add-hook 'LaTeX-mode-hook #'prettify-symbols-mode))
 
 (use-package cdlatex
   :demand t
