@@ -51,8 +51,8 @@
  '(treemacs-directory-face ((t (:inherit default))))
 
  ;; org 设置代码块用上下边线包裹
- '(org-block-begin-line ((t (:underline "#cccccc" :background nil))))
- '(org-block ((t :background nil)))
+ '(org-block-begin-line ((t (:underline "#cccccc" :background unspecified))))
+ '(org-block ((t :background unspecified)))
  '(org-block-end-line ((t (:overline "#cccccc" :underline nil :background unspecified))))
 
  ;; xeft 高亮色

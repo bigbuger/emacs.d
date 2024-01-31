@@ -18,11 +18,11 @@
 
 (setq frame-title-format
       '(""
-	"%b"
 	(:eval
 	 (let ((project-name (projectile-project-name)))
            (unless (string= "-" project-name)
-             (format " in [%s]" project-name))))))
+             (format " [%s] - " project-name))))
+	"%b"))
 
 
 (with-eval-after-load 'consult
