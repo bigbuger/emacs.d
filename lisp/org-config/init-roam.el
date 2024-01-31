@@ -9,16 +9,17 @@
   :demand t
   :bind-keymap ("C-c n" . org-roam-command-map)
   :bind-keymap ("s-n" . org-roam-command-map)
-  :bind (:map org-roam-command-map
-	      ("l" . org-roam-buffer-toggle)
-              ("f" . org-roam-node-find)
-              ("i" . org-roam-node-insert)
-	      ("e" . org-roam-extract-subtree)
-	      ("u" . org-roam-ui-open)
-
-	      ("c" . my-roam-capture-flash)
-	      ("r" . my-roam-capture-clip)
-	      ("m" . my-roam-capture-memo))
+  :config
+  (define-key org-roam-command-map "f" '("查询笔记" . org-roam-node-find))
+  (define-key org-roam-command-map "i" '("插入笔记链接" . org-roam-node-insert))
+  (define-key org-roam-command-map "t" '("插入标签" . org-roam-tag-add))
+  (define-key org-roam-command-map "e" '("抽取笔记" . org-roam-extract-subtree))
+  (define-key org-roam-command-map "u" '("笔记ui" . org-roam-ui-open))
+  
+  (define-key org-roam-command-map "c" '("闪念" . my-roam-capture-flash))
+  (define-key org-roam-command-map "r" '("摘要" . my-roam-capture-clip))
+  (define-key org-roam-command-map "m" '("备忘" . my-roam-capture-memo))
+  
   
   :init
   (advice-add 'org-roam-node-find :around #'using-py-search)
