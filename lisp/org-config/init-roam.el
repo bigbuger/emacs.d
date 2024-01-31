@@ -14,6 +14,7 @@
               ("f" . org-roam-node-find)
               ("i" . org-roam-node-insert)
 	      ("e" . org-roam-extract-subtree)
+	      ("u" . org-roam-ui-open)
 
 	      ("c" . my-roam-capture-flash)
 	      ("r" . my-roam-capture-clip)
@@ -53,10 +54,9 @@
   (cl-defmethod org-roam-node-type ((node org-roam-node))
     "Return the TYPE of NODE."
     (condition-case nil
-	(file-name-nondirectory
-	 (directory-file-name
-          (file-name-directory
-           (file-relative-name (org-roam-node-file node) org-roam-directory))))
+	(directory-file-name
+         (file-name-directory
+          (file-relative-name (org-roam-node-file node) org-roam-directory)))
       (error "")))
   (org-roam-db-autosync-mode))
 
@@ -122,8 +122,8 @@
   ;;         a hookable mode anymore, you're advised to pick something yourself
   ;;         if you don't care about startup time, use
   ;;  :hook (after-init . org-roam-ui-mode)
-  :bind (:map org-roam-command-map
-	      ("u" . org-roam-ui-open))
+  ;; :bind (:map org-roam-command-map
+  ;; 	      ("u" . org-roam-ui-open))
   :config
   (setq org-roam-ui-sync-theme t
         org-roam-ui-follow t
