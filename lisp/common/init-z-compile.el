@@ -16,7 +16,7 @@
 ;; end smart-compile
 
 ;; realgud
-(require 'realgud)
+;; (require 'realgud)
 ;; (load-library "realgud")
 
 ;; end realgud
