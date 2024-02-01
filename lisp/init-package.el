@@ -108,11 +108,8 @@
     
     ;; ruby
     inf-ruby
-    robe
     rvm
-    realgud-byebug
     yard-mode
-    company-inf-ruby
     
     ;; go
     go-mode
@@ -121,7 +118,6 @@
     go-playground
     go-dlv
     go-eldoc
-    company-go
     go-gen-test
     go-impl
     godoctor
