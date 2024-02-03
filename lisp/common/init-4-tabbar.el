@@ -37,6 +37,7 @@
 
      ;; Is not temp version
      (string-match-p "^.+\\.~.+~$" name)
+     (string-prefix-p "xenops" name)
      )))
 
 
