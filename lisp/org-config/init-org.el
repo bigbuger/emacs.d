@@ -45,7 +45,15 @@
 
 ;; 默认添加 tikz 头
 (with-eval-after-load 'org
-    (add-to-list 'org-latex-packages-alist '("" "tikz" t)))
+  (add-to-list 'org-latex-packages-alist '("" "tikz" t))
+  (add-to-list 'org-latex-packages-alist '("" "ctex" t))
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (add-to-list 'org-latex-packages-alist '("" "listingsutf8")))
+
+
+(setq org-latex-compiler "xelatex")
+(setq org-latex-pdf-process '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+(setq org-latex-listings 'minted)
 
 (add-hook 'org-mode-hook #'smartparens-mode)
 (sp-local-pair 'org-mode "\\[" "\\]")
@@ -265,7 +273,6 @@
   ;; Add handlers for drag-and-drop when Org is loaded.
   (with-eval-after-load 'org
     (org-download-enable)))
-
 
 (provide 'init-org)
 
