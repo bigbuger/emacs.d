@@ -13,6 +13,7 @@
 
 
 (setq python-shell-interpreter "python3"
+      python-shell-completion-native-disabled-interpreters '("python3")
       lsp-pyright-python-executable-cmd "python3"
       dap-python-executable "python3")
 

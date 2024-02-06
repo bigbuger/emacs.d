@@ -215,6 +215,7 @@
 (setq org-ditaa-jar-path "~/tool/ditaa-0.11.0-standalone.jar")
 (setq org-plantuml-exec-mode 'plantuml)
 
+(setq org-babel-python-command "python3")
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
