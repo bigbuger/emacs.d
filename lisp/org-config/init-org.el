@@ -46,8 +46,8 @@
 ;; 默认添加 tikz 头
 (with-eval-after-load 'org
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
-  (add-to-list 'org-latex-packages-alist '("" "ctex" t))
-  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (add-to-list 'org-latex-packages-alist '("" "ctex" t)) ;; 支持中文
+  (add-to-list 'org-latex-packages-alist '("" "minted")) ;; 支持代码高亮
   (add-to-list 'org-latex-packages-alist '("" "listingsutf8")))
 
 
@@ -119,7 +119,7 @@
   (setq org-tidy-general-drawer-name-whitelist '("setup" "SETUP"))
   (add-hook 'org-mode-hook #'org-tidy-mode))
 
-;; 自带折叠
+;; 自带折叠, 往 block 加 :hidden
 (defun individual-visibility-source-blocks ()
   "Fold some blocks in the current buffer."
   (interactive)
