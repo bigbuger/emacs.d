@@ -6,3 +6,5 @@ elpa
 /snippets/org-mode/sl-schedule
 /snippets/org-mode/sl-task
 *.elc
+/etc/
+/xenops/
