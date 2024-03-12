@@ -47,15 +47,15 @@
 
 (setq go-test-args "-v -count=1")
 
-(add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
-(require 'flycheck-golangci-lint)
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
-;; (flycheck-add-next-checker 'go-build '(warning . golangci-lint) t)
-(add-hook 'lsp-managed-mode-hook
-          (lambda ()
-            (when (derived-mode-p 'go-mode)
-              (setq flycheck-local-checkers '((lsp . ((next-checkers . ((warning . golangci-lint))))))))))
+;; (add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
+;; (require 'flycheck-golangci-lint)
+;; (eval-after-load 'flycheck
+;;   '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
+
+;; (add-hook 'lsp-managed-mode-hook
+;;           (lambda ()
+;;             (when (derived-mode-p 'go-mode)
+;;               (setq flycheck-local-checkers '((lsp . ((next-checkers . ((warning . golangci-lint))))))))))
 
 (add-hook 'go-mode-hook
 	  (lambda ()
