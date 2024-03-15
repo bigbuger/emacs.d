@@ -14,11 +14,10 @@
 (global-set-key (kbd "C-c M-r") #'crux-rename-file-and-buffer)
 ;; end curx
 
-;; undo-tree
-(require 'undo-tree)
-(global-undo-tree-mode)
-(setq undo-tree-auto-save-history nil)
-;; end undo-tree
+(use-package vundo
+  :ensure t
+  :custom
+  (vundo-glyph-alist vundo-unicode-symbols))
 
 
 ;; smartparens

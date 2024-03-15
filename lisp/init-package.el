@@ -8,7 +8,6 @@
 (defvar my-packages
   '(
     ;; base
-    undo-tree
     popup
     crux
     string-inflection
