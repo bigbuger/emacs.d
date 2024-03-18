@@ -225,6 +225,7 @@
 (setq org-plantuml-exec-mode 'plantuml)
 
 (setq org-babel-python-command "python3")
+(setq org-babel-awk-command "gawk")
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
@@ -245,6 +246,7 @@
    (ditaa . t)
    (plantuml . t)
    (sql . t)
+   (awk . t)
    (gnuplot . t)
    (maxima . t)
    (gmpl . t)))
