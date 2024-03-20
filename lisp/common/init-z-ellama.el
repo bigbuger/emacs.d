@@ -14,11 +14,11 @@
 
 (use-package gptel
   :init
-  (setq-default gptel-model "zephyr:latest"
+  (setq-default gptel-model "gemma:2b"
 		gptel-backend (gptel-make-ollama
 		 "Ollama"                               ;Any name of your choosing
 		 :host "localhost:11434"                ;Where it's running
-		 :models '("zephyr:latest")            ;Installed models
+		 :models '("gemma:2b")            ;Installed models
 		 :stream t)))
 
 (provide 'init-z-ellama)
