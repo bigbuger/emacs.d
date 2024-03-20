@@ -249,6 +249,7 @@
    (awk . t)
    (gnuplot . t)
    (maxima . t)
+   (sagemath . t)
    (gmpl . t)))
 ;; end of org bale
 

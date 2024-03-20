@@ -22,10 +22,7 @@
   (add-to-list 'lsp-disabled-clients 'mspyls)
   (add-to-list 'lsp-disabled-clients 'pyright))
 
-(add-hook 'python-mode-hook
-	  (lambda ()
-	    ;; (setq-local lsp-diagnostics-provider :none) ;; disable lsp flycheck
-	    (lsp-deferred)))
+(add-hook 'python-mode-hook #'lsp-deferred)
 (setq dap-python-debugger 'debugpy)
 
 ;; pip install importmagic

@@ -31,3 +31,6 @@
 [submodule "lisp/libs/consult-hoogle"]
 	path = lisp/libs/consult-hoogle
 	url = https://codeberg.org/rahguzar/consult-hoogle.git
+[submodule "lisp/libs/company-sage"]
+	path = lisp/libs/company-sage
+	url = git@github.com:sagemath/company-sage.git

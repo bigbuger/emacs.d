@@ -8,7 +8,7 @@
 (require 'lsp-ui)
 (require 'dap-mode)
 
-
+(setq lsp-warn-no-matched-clients nil)
 (setq lsp-auto-guess-root t)
 (setq lsp-prefer-flymake :none)
 (setq lsp-ui-flycheck-enable t)
