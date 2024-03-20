@@ -77,7 +77,7 @@
 ;; 实时预览 LaTex
 (use-package org-latex-impatient
   :defer t
-  :hook (org-mode . org-latex-impatient-mode)
+  ;; :hook (org-mode . org-latex-impatient-mode)
   :init
   (setq org-latex-impatient-tex2svg-bin
         ;; location of tex2svg executable
@@ -259,7 +259,15 @@
 
 ;; gnuplot 用来给表格画图
 (use-package gnuplot
-  :ensure t)
+  :ensure t
+  :init
+  ;; 通过 gnuplot 源码中的 doc/doc2texi.el 生成 gnuplot-eldoc 和 gnuplot.info:
+  ;; #+begin_src
+  ;; emacs -batch -l doc2texi.el -f d2t-doc-to-texi
+  ;; makeinfo gnuplot,info --no-split
+  ;; #+end_src
+  (load-file "~/.emacs.d/lisp/libs/gnuplot-eldoc.el")
+  (setq gnuplot-eldoc-mode t))
 
 ;; org-download 拖图片自动下载和插入
 (use-package org-download
