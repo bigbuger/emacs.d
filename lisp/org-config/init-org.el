@@ -287,6 +287,10 @@
   (with-eval-after-load 'org
     (org-download-enable)))
 
+;; 支持 gif 播放
+(use-package org-inline-anim
+  :hook (org-mode . org-inline-anim-mode))
+
 (provide 'init-org)
 
 ;;; init-org.el ends here
