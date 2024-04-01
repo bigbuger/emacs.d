@@ -89,7 +89,7 @@
 (use-package org-superstar
   :init
   (setq org-superstar-remove-leading-stars t)
-  (setq org-superstar-headline-bullets-list '("◉" "⌘" "○" "△" "◇" "⬡"))
+  (setq org-superstar-headline-bullets-list '("◉" "⌘" "○" "◌"  "◇" "⬡" "⏺"))
   (setq org-superstar-cycle-headline-bullets nil)
   :hook
   (org-mode . org-superstar-mode))
