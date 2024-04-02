@@ -7,6 +7,15 @@
 (use-package gmpl-mode
   :init
   (add-to-list 'auto-mode-alist '("\\.mod\\'" . gmpl-mode))
+  (with-eval-after-load 'flycheck
+    (flycheck-define-checker gmpl
+      "A gplk/gmpl syntax checker."
+      :command ("glpsol" "--check" "-m" source)
+      :error-patterns
+      (
+       (error line-start (file-name) ":" line ":" (message)  line-end))
+      :modes gmpl-mode)
+    (add-to-list 'flycheck-checkers 'gmpl))
 
   :config
   (with-eval-after-load 'company-keywords
