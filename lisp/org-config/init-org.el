@@ -25,6 +25,7 @@
       )
 
 ;; inline显示图片
+(setq auto-window-vscroll nil) ;; 关掉，auto-window-vscroll, 不然有图片时按 C-n 要等图片显示完，😩
 (setq org-startup-with-inline-images 1)
 (setq org-image-actual-width nil) ;; 设置图片自动宽度为 nil 才能用 org_attr 调整
 
