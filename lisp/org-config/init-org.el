@@ -251,7 +251,8 @@
    (gnuplot . t)
    (maxima . t)
    (sagemath . t)
-   (gmpl . t)))
+   (gmpl . t)
+   (R . t)))
 ;; end of org bale
 
 ;; verb 网络请求客户端
