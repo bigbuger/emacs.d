@@ -5,6 +5,7 @@
 
 ;;; Code:
 
+(require 'go-ts-mode)
 
 ;; go install github.com/go-delve/delve/cmd/dlv
 ;; go get golang.org/x/tools/cmd/guru
@@ -14,14 +15,12 @@
 ;; go install golang.org/x/tools/cmd/goimports@latest
 ;; go install github.com/cweill/gotests/...@latest
 ;; go install github.com/josharian/impl@latest
-;; go install github.com/godoctor/godoctor@latest
 ;; go install github.com/fatih/gomodifytags@latest
 ;; go install github.com/davidrjenni/reftools/cmd/fillstruct@latest
 ;; go install github.com/x-motemen/gore/cmd/gore@latest
 (require 'go-dlv)
 (require 'go-gen-test)
 (require 'go-impl)
-(require 'godoctor)
 (require 'go-tag)
 (require 'go-fill-struct)
 (require 'gorepl-mode)
@@ -30,13 +29,21 @@
 
 (require 'dap-dlv-go)
 
+(add-to-list 'major-mode-remap-alist
+             '(go-mode . go-ts-mode))
+(add-to-list 'major-mode-remap-alist
+             '(go-dot-mod . go-mod-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
+(add-to-list 'auto-mode-alist '("/go\\.mod\\'" . go-mod-ts-mode))
+
+
 (setq go-test-args "-v")
 
 (setq go-fontify-function-calls nil)
 
 ;;(setenv "GO111MODULE" "off")
-(add-hook 'go-mode-hook 'flycheck-mode)
-(add-hook 'go-mode-hook 'go-eldoc-setup)
+(add-hook 'go-ts-mode-hook 'flycheck-mode)
+(add-hook 'go-ts-mode-hook 'go-eldoc-setup)
 
 
 (lsp-register-custom-settings
@@ -57,7 +64,7 @@
 ;;             (when (derived-mode-p 'go-mode)
 ;;               (setq flycheck-local-checkers '((lsp . ((next-checkers . ((warning . golangci-lint))))))))))
 
-(add-hook 'go-mode-hook
+(add-hook 'go-ts-mode-hook
 	  (lambda ()
 	    ;; (setq-local lsp-diagnostics-provider :none)
 	    (setq-local flycheck-disabled-checkers
@@ -73,7 +80,7 @@
 	    ;;   (flycheck-select-checker 'go-build))
 	    (lsp-deferred)))
 
-(add-hook 'go-dot-mod-mode-hook
+(add-hook 'go-ts-dot-mod-mode-hook
 	  (lambda ()
 	    (linum-mode)
 	    (lsp-deferred)))
@@ -115,17 +122,17 @@
 				    :run "go run ."
 				    :test-suffix "_test.go"))
 
-(with-eval-after-load 'go-mode
-  (define-key go-mode-map (kbd "s-g t") #'go-tag-add)
-  (define-key go-mode-map (kbd "s-g T") #'go-tag-remove)
-  (define-key go-mode-map (kbd "s-g i") #'go-impl)
-  (define-key go-mode-map (kbd "s-g f") #'gofmt)
-  (define-key go-mode-map (kbd "s-g l") #'golangci-lint)
-  (define-key go-dot-mod-mode-map (kbd "s-g l") #'golangci-lint)
+(with-eval-after-load 'go-ts-mode
+  (define-key go-ts-mode-map (kbd "s-g t") #'go-tag-add)
+  (define-key go-ts-mode-map (kbd "s-g T") #'go-tag-remove)
+  (define-key go-ts-mode-map (kbd "s-g i") #'go-impl)
+  (define-key go-ts-mode-map (kbd "s-g f") #'gofmt)
+  (define-key go-ts-mode-map (kbd "s-g l") #'golangci-lint)
+  (define-key go-mod-ts-mode-map (kbd "s-g l") #'golangci-lint)
   (define-key go-dot-work-mode-map (kbd "s-g l") #'golangci-lint)
-  (define-key go-mode-map (kbd "s-g r") #'go-run))
+  (define-key go-ts-mode-map (kbd "s-g r") #'go-run))
 
-(add-hook 'go-mode-hook
+(add-hook 'go-ts-mode-hook
 	  (lambda ()
 	    (when (functionp 'consult-dash)
 	      (setq-local consult-dash-docsets
@@ -178,12 +185,12 @@
     (nreverse result)))
 
 
-(add-hook 'go-mode-hook
+(add-hook 'go-ts-mode-hook
 	  (lambda ()
 	    (setq rmsbolt-default-directory
 			   (expand-file-name (string-replace "\n" "" (shell-command-to-string "dirname $(go env GOMOD)"))))
 	    (setq-local rmsbolt-languages
-			`((go-mode
+			`((go-ts-mode
 			   . ,(make-rmsbolt-lang :compile-cmd "go"
 						 :supports-asm t
 						 :supports-disass t
@@ -191,13 +198,16 @@
 						 :compile-cmd-function #'rmsbolt--go-plan9-compile-cmd
 						 :process-asm-custom-fn #'rmsbolt--process-go-plan9-lines))))))
 
-;; overwrite godoctor--get-pos-region for utf-8 charset
-(defun godoctor--get-pos-region ()
-  (let* ((start (position-bytes (region-beginning)))
-	 (end (position-bytes (region-end)))
-         (len (- end start)))
-    (format "%d,%d" start len)))
 
+;; go install github.com/godoctor/godoctor@latest
+
+;; (require 'godoctor)
+;; overwrite godoctor--get-pos-region for utf-8 charset
+;; (defun godoctor--get-pos-region ()
+;;   (let* ((start (position-bytes (region-beginning)))
+;; 	 (end (position-bytes (region-end)))
+;;          (len (- end start)))
+;;     (format "%d,%d" start len)))
 
 (provide 'init-go)
 
