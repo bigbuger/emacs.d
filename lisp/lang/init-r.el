@@ -7,7 +7,10 @@
 
 ;;; Code:
 
-(use-package ess)
+(use-package ess
+  :demand t
+  :hook
+  (ess-r-mode . prettify-symbols-mode))
 
 (provide 'init-r)
 
