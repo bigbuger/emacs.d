@@ -11,6 +11,15 @@
 ;;(require 'lsp-pyright)
 (require 'dap-python)
 
+(use-package elpy
+  :ensure t
+  :defer t
+  :init
+  (advice-add 'python-mode :before 'elpy-enable)
+
+  :config
+  (setq elpy-rpc-python-command "python3"))
+
 
 (setq python-shell-interpreter "python3"
       python-shell-completion-native-disabled-interpreters '("python3")
