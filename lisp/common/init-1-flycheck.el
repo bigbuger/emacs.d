@@ -5,6 +5,8 @@
 ;;; Code:
 
 (require 'flycheck)
+
+(setq flycheck-global-modes '(not org-mode))
 (global-flycheck-mode)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-posframe")

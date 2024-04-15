@@ -45,6 +45,8 @@
 (if (executable-find "jq")
     (define-key json-mode-map (kbd "C-c C-f") 'json-format-by-jq))
 
+(use-package jq-mode)
+
 (provide 'init-json)
 
 ;;; init-json.el ends here
