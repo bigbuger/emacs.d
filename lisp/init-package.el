@@ -73,7 +73,6 @@
     realgud
 
     ;; org
-    gnuplot-mode
     olivetti
     ov
 

@@ -8,3 +8,5 @@ elpa
 *.elc
 /etc/
 /xenops/
+/elpy/
+/tree-sitter/

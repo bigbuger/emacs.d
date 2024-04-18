@@ -227,6 +227,12 @@
 
 (setq org-babel-python-command "python3")
 (setq org-babel-awk-command "gawk")
+
+(use-package ob-svgbob
+  :init
+  (add-to-list 'org-src-lang-modes
+	       '("svgbob" . artist)))
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
@@ -252,7 +258,8 @@
    (maxima . t)
    (sagemath . t)
    (gmpl . t)
-   (R . t)))
+   (R . t)
+   (svgbob . t)))
 ;; end of org bale
 
 ;; verb 网络请求客户端
