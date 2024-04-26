@@ -104,6 +104,11 @@
   :init
   (require 'vlf-setup))
 
+;; calc 菜单
+(use-package casual
+  :ensure t
+  :bind (:map calc-mode-map ("C-o" . 'casual-main-menu)))
+
 (provide 'init-z-misc)
 
 ;;; init-z-misc.el ends here
