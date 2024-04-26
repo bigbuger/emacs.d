@@ -55,6 +55,9 @@
  '(org-block ((t :background "#fef9eb")))
  '(org-block-end-line ((t (:overline "#cccccc" :underline nil :background unspecified))))
 
+ ;; magit 当前选择高亮
+ '(magit-section-highlight ((t :inherit highlight)))
+
  ;; xeft 高亮色
  '(xeft-inline-highlight ((t (:inherit underline :extend t :foreground "#3a81c3"))))
  '(awesome-tab-selected-face ((t (:inherit default
