@@ -4,6 +4,9 @@
 
 ;;; Code:
 
+;; 光标样式
+(setq-default cursor-type '(bar . 2))
+
 ;; 处理 symlinks，不然有一些包在访问 symlinks 时有问题，例如 org mode 的 latex 预览
 (setq find-file-visit-truename t)
 
