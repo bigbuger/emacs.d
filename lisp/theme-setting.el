@@ -95,6 +95,6 @@
 (setq doom-modeline-vcs-max-length 50)
 (add-hook 'after-init-hook #'doom-modeline-mode)
 
-(provide 'theme-settig)
+(provide 'theme-setting)
 
-;;; theme-settig.el ends here
+;;; theme-setting.el ends here

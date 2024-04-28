@@ -59,7 +59,7 @@
 (load-dir "~/.emacs.d/lisp/common")
 (load-dir "~/.emacs.d/lisp/lang")
 (load-dir "~/.emacs.d/lisp/org-config")
-(require 'theme-settig)
+(require 'theme-setting)
 
 
 
