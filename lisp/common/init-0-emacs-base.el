@@ -28,6 +28,7 @@
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 150)
+(setq recentf-max-saved-items 150)
 (add-to-list 'recentf-exclude
              (recentf-expand-file-name "~/.cache/emacs/data/bookmark-default.el"))
 
@@ -86,6 +87,9 @@
 
 ;; 选中文字后，粘贴或者输入自动覆盖选中内容，默认是不开，选中后输入还是追加进去，坑 >_<
 (delete-selection-mode 1)
+
+;; 允许执行清空 buffer 命令
+(put 'erase-buffer 'disabled nil)
 
 ;;像素滚动
 (pixel-scroll-precision-mode 1)
