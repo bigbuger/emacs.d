@@ -43,7 +43,7 @@
  '(font-lock-keyword-face ((t (:inherit nil :foreground "#3a81c3" :slant normal))))
  '(font-lock-type-face ((t (:inherit nil :foreground "#859900"))))
 
- ;; lsp 当前变量高亮 
+ ;; lsp 当前变量高亮
  '(lsp-face-highlight-textual ((t (:inherit highlight :background "#e6ebeb"))))
 
  '(show-paren-match ((t (:inherit bold :foreground "royal blue" :underline t))))
@@ -56,7 +56,7 @@
  '(org-block-end-line ((t (:overline "#cccccc" :underline nil :background unspecified))))
 
  ;; magit 当前选择高亮
- '(magit-section-highlight ((t :inherit highlight)))
+ '(magit-section-highlight ((t :background "#d3d3e7")))
 
  ;; xeft 高亮色
  '(xeft-inline-highlight ((t (:inherit underline :extend t :foreground "#3a81c3"))))
