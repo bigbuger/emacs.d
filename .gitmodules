@@ -34,3 +34,6 @@
 [submodule "lisp/libs/company-sage"]
 	path = lisp/libs/company-sage
 	url = git@github.com:sagemath/company-sage.git
+[submodule "lisp/libs/j-mode"]
+	path = lisp/libs/j-mode
+	url = git@github.com:LdBeth/j-mode.git
