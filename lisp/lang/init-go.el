@@ -50,7 +50,15 @@
  '(("go.linitTool" "golangci-lint" nil)
    ("gopls.analyses.simplifycompositelit" t t)
    ("gopls.completeUnimported" t t)
-   ("gopls.staticcheck" t t)))
+   ("gopls.staticcheck" t t)
+   
+   ("gopls.hints.assignVariableTypes" nil t)
+   ("gopls.hints.compositeLiteralFields" nil t)
+   ("gopls.hints.compositeLiteralTypes" nil t)
+   ("gopls.hints.constantValues" t t)
+   ("gopls.hints.functionTypeParameters" nil t)
+   ("gopls.hints.parameterNames" nil t)
+   ("gopls.hints.rangeVariableTypes" nil t)))
 
 (setq go-test-args "-v -count=1")
 

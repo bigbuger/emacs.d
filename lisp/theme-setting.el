@@ -45,6 +45,8 @@
 
  ;; lsp 当前变量高亮
  '(lsp-face-highlight-textual ((t (:inherit highlight :background "#e6ebeb"))))
+ ;; lsp inlay hint
+ '(lsp-inlay-hint-face ((t (:background "#E3E0CE"  :foreground "#839496"))))
 
  '(show-paren-match ((t (:inherit bold :foreground "royal blue" :underline t))))
  '(term-color-blue ((t (:background "SkyBlue3" :foreground "SkyBlue3"))))
