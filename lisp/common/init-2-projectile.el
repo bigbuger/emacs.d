@@ -22,7 +22,9 @@
 	 (let ((project-name (projectile-project-name)))
            (unless (string= "-" project-name)
              (format " [%s] - " project-name))))
-	"%b"))
+	"%b"
+	(:eval
+	 (format " <%s> "(abbreviate-file-name buffer-file-name)))))
 
 
 (with-eval-after-load 'consult
