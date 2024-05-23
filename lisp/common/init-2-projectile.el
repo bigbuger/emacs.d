@@ -24,7 +24,8 @@
              (format " [%s] - " project-name))))
 	"%b"
 	(:eval
-	 (format " <%s> "(abbreviate-file-name buffer-file-name)))))
+	 (if buffer-file-name
+	     (format " <%s> "(abbreviate-file-name buffer-file-name))))))
 
 
 (with-eval-after-load 'consult

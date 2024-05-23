@@ -30,11 +30,18 @@
 
 (setq flycheck-checker-error-threshold 600)
 
+(setq flycheck-error-list-format
+      [("File" 6)
+       ("Line" 5 flycheck-error-list-entry-< :right-align t)
+       ("Col" 3 nil :right-align t)
+       ("Level" 20 flycheck-error-list-entry-level-<)
+       ("ID" 20 t)
+       (#("Message (Checker)" 0 7 (face flycheck-error-list-error-message) 9 16 (face flycheck-error-list-checker-name)) 0 t)])
+
 (use-package consult-flycheck
   :after consult
   :bind (:map flycheck-mode-map
 	      ("M-g e" . consult-flycheck)))
-
 
 (provide 'init-1-flycheck)
 
