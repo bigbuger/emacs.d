@@ -5,6 +5,11 @@
 
 ;;; Code:
 
+
+;; 允许对选中区域进行大小写转换
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+
 ;; crux
 (require 'crux)
 (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
