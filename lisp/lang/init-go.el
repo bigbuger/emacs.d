@@ -96,9 +96,14 @@
 	  (lambda ()
 	    (linum-mode)))
 
-(with-eval-after-load 'projectile
-  (add-to-list 'projectile-project-root-files "go.mod")
-  (add-to-list 'projectile-project-root-files-bottom-up "go.mod"))
+;; (with-eval-after-load 'projectile
+;;   (add-to-list 'projectile-project-root-files "go.mod")
+;;   (add-to-list 'projectile-project-root-files-bottom-up "go.mod"))
+
+(with-eval-after-load 'compile
+  (add-to-list 'compilation-error-regexp-alist-alist
+	       '(gopanic . ("^\t\\([[:alnum:]-_/@\\\\.]+.go\\):\\([0-9]+\\) \\+0x\\(?:[0-9a-f]+\\)" 1 2)))
+  (add-to-list 'compilation-error-regexp-alist 'gopanic))
 
 
 (setq gofmt-command "goimports")
