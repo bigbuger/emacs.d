@@ -43,10 +43,10 @@
 (defun company-go-tag--candidates (prefix)
   (let* ((node (treesit-node-at (point)))
 	 (k (when (save-excursion
-		    (re-search-backward "\\<\\([_[:alnum:]]+:?\\)\""
+		    (re-search-backward "[` ,\"]\\(.+\\):?\""
 		     (treesit-node-start node) t 1))
 	      (match-string 1)))
-	 (scope (string-replace ":" "" k))
+	 (scope (when k (string-replace ":" "" k)))
 	 (candidates (cdr (assoc scope company-go-tag-alist))))
     (cl-remove-if-not (lambda (c) (string-prefix-p prefix c))
 		      (if (not (string-suffix-p ":" k))
