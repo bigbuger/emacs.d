@@ -13,7 +13,32 @@
 
 (defcustom company-go-tag-alist
   '(("json" . ("omitempty"
-	     "string"))
+	       "string"))
+    ("gorm" . ("column" "type" "serializer" "size" "primaryKey"
+			     "unique" "default" "precision" "scale" "not null"
+			     "autoIncrement" "autoIncrementIncrement" "embedded" "embeddedPrefix"
+			     "autoCreateTime" "autoUpdateTime"
+			     "index" "uniqueIndex" "check"
+			     "-" "<-" "->"))
+    ;; https://github.com/go-playground/validator?tab=readme-ov-file
+    ("validate" . ("required"
+		   ;;Fields
+		   "eqcsfield" "eqfield" "fieldcontains" "fieldexcludes" "gtcsfield" "gtecsfield" "gtefield" "gtfield" "ltcsfield" "ltecsfield" "ltefield" "ltfield" "necsfield" "nefield"
+		   ;;Network
+		   "cidr" "cidrv4" "cidrv6" "datauri" "fqdn" "hostname" "hostname_port" "hostname_rfc1123" "ip" "ip4_addr" "ip6_addr" "ip_addr" "ipv4" "ipv6" "mac" "tcp4_addr" "tcp6_addr" "tcp_addr" "udp4_addr" "udp6_addr" "udp_addr" "unix_addr" "uri" "url" "http_url" "url_encoded" "urn_rfc2141"
+
+		   ;;Strings
+		   "alpha" "alphanum" "alphanumunicode" "alphaunicode" "ascii" "boolean" "contains" "containsany" "containsrune" "endsnotwith" "endswith" "excludes" "excludesall" "excludesrune" "lowercase" "multibyte" "number" "numeric" "printascii" "startsnotwith" "startswith" "uppercase"
+
+		   ;;Format
+		   "base64" "base64url" "base64rawurl" "bic" "bcp47_language_tag" "btc_addr" "btc_addr_bech32" "credit_card" "mongodb" "cron" "spicedb" "datetime" "e164" "email" "eth_addr" "hexadecimal" "hexcolor" "hsl" "hsla" "html" "html_encoded" "isbn" "isbn10" "isbn13" "issn" "iso3166_1_alpha2" "iso3166_1_alpha3" "iso3166_1_alpha_numeric" "iso3166_2" "iso4217" "json" "jwt" "latitude" "longitude" "luhn_checksum" "postcode_iso3166_alpha2" "postcode_iso3166_alpha2_field" "rgb" "rgba" "ssn" "timezone" "uuid" "uuid3" "uuid3_rfc4122" "uuid4" "uuid4_rfc4122" "uuid5" "uuid5_rfc4122" "uuid_rfc4122" "md4" "md5" "sha256" "sha384" "sha512" "ripemd128" "ripemd128" "tiger128" "tiger160" "tiger192" "semver" "ulid" "cve"
+
+		   ;;Comparisons
+		   "eq" "eq_ignore_case" "gt" "gte" "lt" "lte" "ne" "ne_ignore_case"
+
+		   ;;Other
+		   "dir" "dirpath" "file" "filepath" "image" "isdefault" "len" "max" "min" "oneof" "required" "required_if" "required_unless" "required_with" "required_with_all" "required_without" "required_without_all" "excluded_if" "excluded_unless" "excluded_with" "excluded_with_all" "excluded_without" "excluded_without_all" "unique"
+		   ))
     ("form"))
   "Company go tag alist."
   :type 'list
