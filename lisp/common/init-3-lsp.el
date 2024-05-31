@@ -43,11 +43,11 @@
 (setq lsp-modeline-code-actions-segments '(count icon))
 
 (setq lsp-completion-provider :none)
-(add-hook 'lsp-completion-mode-hook
-	  #'(lambda ()
-	     (setq-local company-backends
-			 (cl-adjoin '(company-capf :separate company-yasnippet)
-				    company-backends :test #'equal))))
+;; (add-hook 'lsp-completion-mode-hook
+;; 	  #'(lambda ()
+;; 	     (setq-local company-backends
+;; 			 (cl-adjoin '(company-capf :separate company-yasnippet)
+;; 				    company-backends :test #'equal))))
 
 (setq dap-auto-configure-features '(locals controls tooltip))
 ;; (define-key lsp-mode-map (kbd "M-?") 'lsp-ui-peek-find-references)

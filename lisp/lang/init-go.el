@@ -102,7 +102,8 @@
 
 (with-eval-after-load 'compile
   (add-to-list 'compilation-error-regexp-alist-alist
-	       '(gopanic . ("^\t\\([[:alnum:]-_/@\\\\.]+.go\\):\\([0-9]+\\) \\+0x\\(?:[0-9a-f]+\\)" 1 2)))
+	       '(gopanic . ("^\t\\([[:alnum:]-_/@\\\\.]+.go\\):\\([0-9]+\\)" 1 2))
+	       '(gocompile . ("^\\([[:alnum:]-_/@\\\\.]+.go\\):\\([0-9]+\\)")))
   (add-to-list 'compilation-error-regexp-alist 'gopanic))
 
 
@@ -225,6 +226,12 @@
 ;; 	 (end (position-bytes (region-end)))
 ;;          (len (- end start)))
 ;;     (format "%d,%d" start len)))
+
+(require 'company-go-tag)
+(add-hook 'go-ts-mode-hook
+          (lambda ()
+	    (setq-local company-backends
+			(cl-adjoin 'company-go-tag company-backends :test #'equal))))
 
 (provide 'init-go)
 
