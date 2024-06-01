@@ -12,7 +12,8 @@
 (require 'treesit)
 
 (defcustom company-go-tag-alist
-  '(("json" . ("omitempty"
+  '(("json" . (company-go-tag-field-name
+	       "omitempty"
 	       "string"))
     ("gorm" . ("column" "type" "serializer" "size" "primaryKey"
 			     "unique" "default" "precision" "scale" "not null"
@@ -50,8 +51,16 @@
 	 (node-parent (treesit-node-parent node))
 	 (node-parent-type (treesit-node-type node-parent)))
     (if (string-equal "field_declaration" node-parent-type)
-	(let ((identifier (treesit-node-child node-parent 0)))
-	  (treesit-node-text identifier)))))
+	(let* ((identifier (treesit-node-child node-parent 0))
+	       (text (treesit-node-text identifier t)))
+	  (cl-delete-duplicates
+	   `(,text ,(upcase text) ,(downcase text)
+		   ,@(if (featurep 'string-inflection)
+			 (list (string-inflection-camelcase-function text)
+			       (string-inflection-underscore-function text)
+			       (string-inflection-upper-camelcase-function text)
+			       (string-inflection-capital-underscore-function text))))
+	   :test #'string-equal)))))
 
 
 (defun company-go-tag--prefix ()
@@ -76,8 +85,11 @@
     (cl-remove-if-not (lambda (c) (string-prefix-p prefix c))
 		      (if (not (string-suffix-p ":" k))
 			  (mapcar #'car company-go-tag-alist)
-			;; TODO support function
-			candidates))))
+			(flatten-list (mapcar (lambda (e)
+						(cl-typecase e
+						  (string e)
+						  (symbol (funcall e))))
+					      candidates))))))
 
 
 ;;;###autoload
