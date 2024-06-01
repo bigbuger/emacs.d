@@ -15,6 +15,9 @@
   '(("json" . (company-go-tag-field-name
 	       "omitempty"
 	       "string"))
+    ("mapstructure" . (company-go-tag-field-name
+		       "omitempty"
+		       "remain"))
     ("gorm" . ("column" "type" "serializer" "size" "primaryKey"
 			     "unique" "default" "precision" "scale" "not null"
 			     "autoIncrement" "autoIncrementIncrement" "embedded" "embeddedPrefix"
