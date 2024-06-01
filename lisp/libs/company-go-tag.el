@@ -43,7 +43,7 @@
 		   ;;Other
 		   "dir" "dirpath" "file" "filepath" "image" "isdefault" "len" "max" "min" "oneof" "required" "required_if" "required_unless" "required_with" "required_with_all" "required_without" "required_without_all" "excluded_if" "excluded_unless" "excluded_with" "excluded_with_all" "excluded_without" "excluded_without_all" "unique"
 		   ))
-    ("form"))
+    ("form" . (company-go-tag-field-name)))
   "Company go tag alist."
   :type 'list
   :group 'company-go-tag)
