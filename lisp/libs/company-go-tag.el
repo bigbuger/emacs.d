@@ -64,7 +64,7 @@
 
 
 (defun company-go-tag--prefix ()
-  "Check if is company prefix."
+  "Check can company and return prefix."
   (if (eq major-mode 'go-ts-mode)
       (let* ((node (treesit-node-at (point)))
 	     (node-type (treesit-node-type node))
@@ -75,6 +75,8 @@
 	     (company-grab-symbol)))))
 
 (defun company-go-tag--candidates (prefix)
+  "Get go tag candidates from `company-go-tag--candidates'.
+Match the element with start with PREFIX."
   (let* ((node (treesit-node-at (point)))
 	 (k (when (save-excursion
 		    (re-search-backward "[` ,\"]\\(.+\\):?\""
@@ -94,7 +96,7 @@
 
 ;;;###autoload
 (defun company-go-tag (command &optional arg &rest ignored)
-  "Companybackend for protobuf."
+  "Companybackend for go tag."
   (interactive (list 'interactive))
   (cl-case command
     (interactive (company-begin-backend 'company-go-tag))
