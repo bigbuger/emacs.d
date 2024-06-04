@@ -109,6 +109,12 @@
   :ensure t
   :bind (:map calc-mode-map ("C-o" . 'casual-main-menu)))
 
+(use-package consult-dasel
+  :load-path "~/.emacs.d/lisp/libs/"
+  :init
+  (with-eval-after-load 'conf-mode
+    (define-key conf-toml-mode-map (kbd "C-c C-j") #'consult-dasel)))
+
 (provide 'init-z-misc)
 
 ;;; init-z-misc.el ends here
