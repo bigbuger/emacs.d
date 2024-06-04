@@ -62,27 +62,6 @@
 	       (slot . 1)
 	       (window-width . 0.5)))
 
-
-(defcustom consult-jq-path-query
-  "[ path(..) | map(select(type == \"string\") // \"[]\") | join(\".\") ] | sort | unique | .[] | split(\".[]\") | join(\"[]\") | \".\" + ."
-  "Use jq to get all json path."
-  :type '(string)
-  :require 'consult-jq
-  :group 'consult-jq)
-
-(defcustom consult-jq-buffer "*consult-jq-result*"
-  "Buffer for the `consult-jq' query results."
-  :type '(string)
-  :require 'consult-jq
-  :group 'consult-jq)
-
-(add-to-list 'display-buffer-alist
-	     `(,consult-jq-buffer
-	       display-buffer-in-side-window
-	       (side . right)
-	       (slot . 1)
-	       (window-width . 0.5)))
-
 (defun consult-jq-get-custom-function ()
   "Retrun all jq custom function which define in .jq file."
   (let ((jq-file (file-truename "~/.jq"))
