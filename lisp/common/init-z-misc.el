@@ -115,6 +115,9 @@
   (with-eval-after-load 'conf-mode
     (define-key conf-toml-mode-map (kbd "C-c C-j") #'consult-dasel)))
 
+(use-package skeleton
+  :ensure t)
+
 (provide 'init-z-misc)
 
 ;;; init-z-misc.el ends here
