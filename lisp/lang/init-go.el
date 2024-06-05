@@ -140,16 +140,6 @@
 				    :run "go run ."
 				    :test-suffix "_test.go"))
 
-(with-eval-after-load 'go-ts-mode
-  (define-key go-ts-mode-map (kbd "s-g t") #'go-tag-add)
-  (define-key go-ts-mode-map (kbd "s-g T") #'go-tag-remove)
-  (define-key go-ts-mode-map (kbd "s-g i") #'go-impl)
-  (define-key go-ts-mode-map (kbd "s-g f") #'gofmt)
-  (define-key go-ts-mode-map (kbd "s-g l") #'golangci-lint)
-  (define-key go-mod-ts-mode-map (kbd "s-g l") #'golangci-lint)
-  (define-key go-dot-work-mode-map (kbd "s-g l") #'golangci-lint)
-  (define-key go-ts-mode-map (kbd "s-g r") #'go-run))
-
 (add-hook 'go-ts-mode-hook
 	  (lambda ()
 	    (when (functionp 'consult-dash)
@@ -232,6 +222,40 @@
           (lambda ()
 	    (setq-local company-backends
 			(cl-adjoin 'company-go-tag company-backends :test #'equal))))
+
+(defconst go-time-format-alist
+  '(("yyyy" . "2006")	 ;; long year
+    ("yy" . "06")	 ;; year
+    ("MM" . "01") ;; zero month
+    ("dd" . "02") ;; zero day
+    ("HH" . "15") ;; hour
+    ("hh" . "03") ;; zero hour 12
+    ("mm" . "04") ;; zero minute
+    ("ss" . "05") ;; zero second
+    ("a" . "PM") ;; pm
+    ))
+
+(defun convert-to-go-time-format (str &optional not-insert)
+  "Convert `STR' to go time format."
+  (interactive (list (read-string "Format: " "yyyy-MM-dd HH:mm:ss")))
+  (let ((result str))
+    (dolist (r go-time-format-alist)
+      (setq result (string-replace (car r) (cdr r) result)))
+    (unless not-insert
+      (insert result))
+    result))
+
+(with-eval-after-load 'go-ts-mode
+  (define-key go-ts-mode-map (kbd "s-g t") #'go-tag-add)
+  (define-key go-ts-mode-map (kbd "s-g T") #'go-tag-remove)
+  (define-key go-ts-mode-map (kbd "s-g i") #'go-impl)
+  (define-key go-ts-mode-map (kbd "s-g f") #'gofmt)
+  (define-key go-ts-mode-map (kbd "s-g l") #'golangci-lint)
+  (define-key go-mod-ts-mode-map (kbd "s-g l") #'golangci-lint)
+  (define-key go-dot-work-mode-map (kbd "s-g l") #'golangci-lint)
+  (define-key go-ts-mode-map (kbd "s-g r") #'go-run)
+  (define-key go-ts-mode-map (kbd "s-g s-t") #'convert-to-go-time-format))
+
 
 (provide 'init-go)
 
