@@ -149,6 +149,12 @@
 				  'fullboth)))))
 (global-set-key [f11] 'toggle-fullscreen)
 
+;;强制 align-regexp 使用空格
+(defadvice align-regexp (around align-regexp-with-spaces)
+  "Never use tabs for alignment."
+  (let ((indent-tabs-mode nil))
+    ad-do-it))
+(ad-activate 'align-regexp)
 
 (provide 'init-0-emacs-base)
 
