@@ -52,10 +52,8 @@
 
 (add-to-list 'display-buffer-alist
 	     `(,consult-dasel-buffer
-	       display-buffer-in-side-window
-	       (side . right)
-	       (slot . 1)
-	       (window-width . 0.5)))
+	       display-buffer-in-direction
+	       (direction . right)))
 
 
 (defun consult-dasel-path (buffer)

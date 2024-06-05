@@ -57,10 +57,8 @@
 
 (add-to-list 'display-buffer-alist
 	     `(,consult-jq-buffer
-	       display-buffer-in-side-window
-	       (side . right)
-	       (slot . 1)
-	       (window-width . 0.5)))
+	       display-buffer-in-direction
+	       (direction . right)))
 
 (defun consult-jq-get-custom-function ()
   "Retrun all jq custom function which define in .jq file."
