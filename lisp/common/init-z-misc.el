@@ -116,7 +116,10 @@
     (define-key conf-toml-mode-map (kbd "C-c C-j") #'consult-dasel)))
 
 (use-package skeleton
-  :ensure t)
+  :ensure t
+  :custom
+  (skeletor-completing-read-function #'completing-read-default) ;; use default, aka: ivy or vertical or what every activate.
+  :bind (("s-n" . skeletor-create-project-at)))
 
 (provide 'init-z-misc)
 

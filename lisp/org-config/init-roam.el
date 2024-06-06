@@ -8,7 +8,6 @@
   :ensure t
   :demand t
   :bind-keymap ("C-c n" . org-roam-command-map)
-  :bind-keymap ("s-n" . org-roam-command-map)
   :config
   (define-key org-roam-command-map "f" '("查询笔记" . org-roam-node-find))
   (define-key org-roam-command-map "i" '("插入笔记链接" . org-roam-node-insert))
