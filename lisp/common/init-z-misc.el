@@ -115,7 +115,7 @@
   (with-eval-after-load 'conf-mode
     (define-key conf-toml-mode-map (kbd "C-c C-j") #'consult-dasel)))
 
-(use-package skeleton
+(use-package skeletor
   :ensure t
   :custom
   (skeletor-completing-read-function #'completing-read-default) ;; use default, aka: ivy or vertical or what every activate.
