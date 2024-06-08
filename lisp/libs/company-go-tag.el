@@ -48,42 +48,48 @@
   :type 'list
   :group 'company-go-tag)
 
-(defun company-go-tag-field-name ()
-  (let* ((node (treesit-node-at (point)))
-	 (node-type (treesit-node-type node))
-	 (node-parent (treesit-node-parent node))
-	 (node-parent-type (treesit-node-type node-parent)))
-    (if (string-equal "field_declaration" node-parent-type)
-	(let* ((identifier (treesit-node-child node-parent 0))
-	       (text (treesit-node-text identifier t)))
-	  (cl-delete-duplicates
-	   `(,text ,(upcase text) ,(downcase text)
-		   ,@(if (featurep 'string-inflection)
-			 (list (string-inflection-camelcase-function text)
-			       (string-inflection-underscore-function text)
-			       (string-inflection-upper-camelcase-function text)
-			       (string-inflection-capital-underscore-function text))))
-	   :test #'string-equal)))))
+(defconst company-go-tag--field-regex
+  "^\\s-*\\([[:alnum:]_]+\\)\\s-+[A-z\\*]+\\s-?`")
 
+(defun company-go-tag-field-name ()
+  (let* ((text (when (save-excursion
+		       (re-search-backward company-go-tag--field-regex
+					   (line-beginning-position) t 1))
+		 (match-string 1))))
+    (cl-delete-duplicates
+     `(,text ,(upcase text) ,(downcase text)
+	     ,@(if (featurep 'string-inflection)
+		   (list (string-inflection-camelcase-function text)
+			 (string-inflection-underscore-function text)
+			 (string-inflection-upper-camelcase-function text)
+			 (string-inflection-capital-underscore-function text))))
+     :test #'string-equal)))
+
+(defun company-go-tag--is-tag-node ()
+  "Check is at go tag."
+  (cond ((eq major-mode 'go-ts-mode)
+	 (let* ((node (treesit-node-at (point)))
+		(node-type (treesit-node-type node))
+		(node-parent (treesit-node-parent node))
+		(node-parent-type (treesit-node-type node-parent)))
+	   (and (string-equal "raw_string_literal" node-type)
+		(string-equal "field_declaration" node-parent-type))))
+	((eq major-mode 'go-mode)
+	 (save-excursion
+	   (re-search-backward company-go-tag--field-regex (line-beginning-position) t 1)))))
+				  
 
 (defun company-go-tag--prefix ()
   "Check can company and return prefix."
-  (if (eq major-mode 'go-ts-mode)
-      (let* ((node (treesit-node-at (point)))
-	     (node-type (treesit-node-type node))
-	     (node-parent (treesit-node-parent node))
-	     (node-parent-type (treesit-node-type node-parent)))
-	(and (string-equal "raw_string_literal" node-type)
-	     (string-equal "field_declaration" node-parent-type)
-	     (company-grab-symbol)))))
+  (if (company-go-tag--is-tag-node)
+      (company-grab-symbol)))
 
 (defun company-go-tag--candidates (prefix)
   "Get go tag candidates from `company-go-tag--candidates'.
 Match the element with start with PREFIX."
-  (let* ((node (treesit-node-at (point)))
-	 (k (when (save-excursion
+  (let* ((k (when (save-excursion
 		    (re-search-backward "[` ,\"]\\(.+\\):?\""
-		     (treesit-node-start node) t 1))
+					(line-beginning-position) t 1))
 	      (match-string 1)))
 	 (scope (when k (string-replace ":" "" k)))
 	 (candidates (cdr (assoc scope company-go-tag-alist))))
