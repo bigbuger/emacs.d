@@ -19,7 +19,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/company-english-helper")
 (require 'company-english-helper)
-(global-set-key (kbd "<C-M-tab>") 'company-english-helper-search)
+;; (global-set-key (kbd "<C-M-tab>") 'company-english-helper-search)
 
 (setq company-backends
       '(company-semantic
