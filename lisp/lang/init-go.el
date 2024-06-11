@@ -39,8 +39,6 @@
 ;; (add-to-list 'auto-mode-alist '("/go\\.mod\\'" . go-mod-ts-mode))
 
 
-(setq go-test-args "-v")
-
 (setq go-fontify-function-calls nil)
 
 ;;(setenv "GO111MODULE" "off")
@@ -62,8 +60,6 @@
    ("gopls.hints.parameterNames" nil t)
    ("gopls.hints.rangeVariableTypes" nil t)))
 
-(setq go-test-args "-v -count=1")
-
 ;; (add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
 ;; (require 'flycheck-golangci-lint)
 ;; (eval-after-load 'flycheck
@@ -77,15 +73,15 @@
 (add-hook 'go-mode-hook
 	  (lambda ()
 	    ;; (setq-local lsp-diagnostics-provider :none)
-	    (setq-local flycheck-disabled-checkers
-			'(go-gofmt
-			  go-golint
-			  go-vet
-			  ;; go-build
-			  ;; go-test
-			  go-errcheck
-			  go-staticcheck
-			  go-unconvert))
+	    (setq-local flycheck-disabled-checkers '(go-gofmt
+						     go-golint
+						     go-vet
+						     ;; go-build
+						     ;; go-test
+						     go-errcheck
+						     go-staticcheck
+						     go-unconvert)
+			go-test-args "-v -count=1")
             ;; (when (flycheck-may-use-checker 'go-build)
 	    ;;   (flycheck-select-checker 'go-build))
 	    (lsp-deferred)))

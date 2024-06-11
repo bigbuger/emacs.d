@@ -81,6 +81,9 @@
       show-paren-style 'parenthesis)
 (show-paren-mode 1)
 
+;; 搜索替换时，不要忽略大小写
+(setq case-replace nil)
+
 
 ;; 长行不要切成两个显示
 ;; (set-default 'truncate-lines t)
