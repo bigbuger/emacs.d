@@ -37,7 +37,7 @@
 ;;              '(go-dot-mod . go-mod-ts-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
 ;; (add-to-list 'auto-mode-alist '("/go\\.mod\\'" . go-mod-ts-mode))
-
+(add-to-list 'auto-mode-alist '("/go\\.mod\\'" . go-dot-mod-mode))
 
 (setq go-fontify-function-calls nil)
 
@@ -88,11 +88,12 @@
 
 (add-hook 'go-dot-mod-mode-hook
 	  (lambda ()
-	    (linum-mode)
+	    (display-line-numbers-mode t)
 	    (lsp-deferred)))
 (add-hook 'go-dot-work-mode-hook
 	  (lambda ()
-	    (linum-mode)))
+	    (display-line-numbers-mode t)
+	    (lsp-deferred)))
 
 ;; (with-eval-after-load 'projectile
 ;;   (add-to-list 'projectile-project-root-files "go.mod")
