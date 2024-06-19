@@ -43,6 +43,12 @@
 (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
 (setq company-backends (append company-backends '(company-yasnippet)))
 
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "M-n") #'company-select-next)
+  (define-key company-active-map (kbd "M-p") #'company-select-previous)
+  (define-key company-active-map (kbd "C-n") nil)
+  (define-key company-active-map (kbd "C-p") nil))
+
 (provide 'init-2-company)
 
 ;;; init-2-company.el ends here

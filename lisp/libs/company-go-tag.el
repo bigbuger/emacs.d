@@ -42,6 +42,9 @@
 
 		   ;;Other
 		   "dir" "dirpath" "file" "filepath" "image" "isdefault" "len" "max" "min" "oneof" "required" "required_if" "required_unless" "required_with" "required_with_all" "required_without" "required_without_all" "excluded_if" "excluded_unless" "excluded_with" "excluded_with_all" "excluded_without" "excluded_without_all" "unique"
+
+		   ;;non-standard
+		   "notblank"
 		   ))
     ("form" . (company-go-tag-field-name)))
   "Company go tag alist."
@@ -65,7 +68,7 @@
 			 (string-inflection-capital-underscore-function text))))
      :test #'string-equal)))
 
-(defun company-go-tag--is-tag-node ()
+(defun company-go-tag--tag-node? ()
   "Check is at go tag."
   (cond ((eq major-mode 'go-ts-mode)
 	 (let* ((node (treesit-node-at (point)))
@@ -81,7 +84,7 @@
 
 (defun company-go-tag--prefix ()
   "Check can company and return prefix."
-  (if (company-go-tag--is-tag-node)
+  (if (company-go-tag--tag-node?)
       (company-grab-symbol)))
 
 (defun company-go-tag--candidates (prefix)
