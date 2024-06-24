@@ -11,7 +11,7 @@
 (global-company-mode 1)
 (setq company-minimum-prefix-length 1)
 (setq company-require-match 'never)
-(setq company-show-quick-access t)
+(setq company-show-quick-access 'left)
 (add-hook 'after-init-hook 'company-quickhelp-mode)
 
 (global-set-key (kbd "<backtab>") 'company-complete)

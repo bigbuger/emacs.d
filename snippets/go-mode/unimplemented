@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: unimplemented
-# key: unimplemented
+# key: unimpl
 # --
 
 panic("unimplemented")

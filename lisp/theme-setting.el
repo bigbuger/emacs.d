@@ -6,7 +6,10 @@
 ;;; Code:
 
 (if (member "Menlo" (font-family-list))
-    (set-face-attribute 'default nil :height 150 :font "Menlo")
+    (progn
+      (set-face-attribute 'default nil :height 150 :font "Menlo")
+      (set-fontset-font t 'han "PingFang SC")
+      )
   (set-face-attribute 'default nil :height 150))
 
 (setq custom--inhibit-theme-enable nil)
