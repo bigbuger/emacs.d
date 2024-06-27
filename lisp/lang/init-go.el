@@ -59,18 +59,17 @@
    ("gopls.hints.compositeLiteralTypes" nil t)
    ("gopls.hints.constantValues" t t)
    ("gopls.hints.functionTypeParameters" nil t)
-   ("gopls.hints.parameterNames" nil t)
+   ("gopls.hints.parameterNames" t t)
    ("gopls.hints.rangeVariableTypes" nil t)))
 
-;; (add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
-;; (require 'flycheck-golangci-lint)
-;; (eval-after-load 'flycheck
-;;   '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
-
-;; (add-hook 'lsp-managed-mode-hook
-;;           (lambda ()
-;;             (when (derived-mode-p 'go-mode)
-;;               (setq flycheck-local-checkers '((lsp . ((next-checkers . ((warning . golangci-lint))))))))))
+(add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
+(require 'flycheck-golangci-lint)
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
+(add-hook 'lsp-managed-mode-hook
+          (lambda ()
+            (when (derived-mode-p 'go-mode)
+              (setq flycheck-local-checkers '((lsp . ((next-checkers . ((warning . golangci-lint))))))))))
 
 (add-hook 'go-mode-hook
 	  (lambda ()
@@ -84,6 +83,7 @@
 						     go-staticcheck
 						     go-unconvert)
 			go-test-args "-v -count=1")
+	    (setq-local lsp-inlay-hint-enable t)
             ;; (when (flycheck-may-use-checker 'go-build)
 	    ;;   (flycheck-select-checker 'go-build))
 	    (lsp-deferred)))

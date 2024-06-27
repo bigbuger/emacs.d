@@ -10,6 +10,10 @@
 (require 'yasnippet)
 (yas-global-mode 1)
 
+(require 'warnings)
+(add-to-list 'warning-suppress-types '(yasnippet backquote-change))
+
+
 (setq hippie-expand-try-functions-list
       '(yas-hippie-try-expand
         try-complete-file-name-partially

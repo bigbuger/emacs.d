@@ -2,4 +2,4 @@
 # name: panic
 # key: panic
 # --
-painc({$1:error})
+panic(${1:err})
