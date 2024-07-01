@@ -53,6 +53,7 @@
    ("gopls.analyses.simplifycompositelit" t t)
    ("gopls.completeUnimported" t t)
    ("gopls.staticcheck" t t)
+   ("gopls.analyses.ST1001" nil t) ;; dot import warning
    
    ("gopls.hints.assignVariableTypes" nil t)
    ("gopls.hints.compositeLiteralFields" nil t)
@@ -62,14 +63,14 @@
    ("gopls.hints.parameterNames" t t)
    ("gopls.hints.rangeVariableTypes" nil t)))
 
-(add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
-(require 'flycheck-golangci-lint)
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
-(add-hook 'lsp-managed-mode-hook
-          (lambda ()
-            (when (derived-mode-p 'go-mode)
-              (setq flycheck-local-checkers '((lsp . ((next-checkers . ((warning . golangci-lint))))))))))
+;; (add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
+;; (require 'flycheck-golangci-lint)
+;; (eval-after-load 'flycheck
+;;   '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
+;; (add-hook 'lsp-managed-mode-hook
+;;           (lambda ()
+;;             (when (derived-mode-p 'go-mode)
+;;               (setq flycheck-local-checkers '((lsp . ((next-checkers . ((warning . golangci-lint))))))))))
 
 (add-hook 'go-mode-hook
 	  (lambda ()

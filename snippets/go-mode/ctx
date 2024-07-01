@@ -3,7 +3,8 @@
 # key: ctx
 # type: command
 # --
-(progn
-  (go-import-add nil "context")
-  (insert "ctx context.Context")
-  (gofmt))
+(let ((gofmt-show-errors nil))
+  (progn			 
+    (go-import-add nil "context")
+    (insert "ctx context.Context")
+    (gofmt)))
