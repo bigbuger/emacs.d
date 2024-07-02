@@ -52,7 +52,7 @@
   :group 'company-go-tag)
 
 (defconst company-go-tag--field-regex
-  "^\\s-*\\([[:alnum:]_]+\\)\\s-+[A-z\\*]+\\s-?`")
+  "^\\s-*\\([[:alnum:]_]+\\)\\s-+\\(\\*\\|[[:alnum:]]\\|\\[\\|\\]\\)+\\s-*`")
 
 (defun company-go-tag-field-name ()
   (let* ((text (when (save-excursion
