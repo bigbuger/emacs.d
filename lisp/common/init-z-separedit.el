@@ -11,6 +11,8 @@
   :config
   (add-to-list 'separedit-string-quotes-alist
 	       '(ruby-mode "\"\"\"" "'''" "\"" "'" "`"))
+  (add-to-list 'separedit-string-quotes-alist
+	       '(go-mode  "\"" "`"))
   :init
   (defun bind-separedit-key()
     (local-set-key (kbd "C-c '") #'separedit))

@@ -53,6 +53,7 @@
    ("gopls.analyses.simplifycompositelit" t t)
    ("gopls.completeUnimported" t t)
    ("gopls.staticcheck" t t)
+   ("gopls.vulncheck" "Imports" nil)
    ("gopls.analyses.ST1001" nil t) ;; dot import warning
    
    ("gopls.hints.assignVariableTypes" nil t)

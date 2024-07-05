@@ -25,6 +25,16 @@
         try-expand-line))
 (define-key yas-minor-mode-map [remap dabbrev-expand] 'hippie-expand)
 
+(defun he-fix-string-parens (args)
+  "remove extra paren when expanding line in smartparens."
+  (let* ((str (car args))
+	(last (substring str -1)))
+    (if (and smartparens-mode (member last '(")" "}")))
+	(list (substring str 0 -1) (cdr args))
+      args)))
+
+(advice-add 'he-substitute-string :filter-args #'he-fix-string-parens)
+
 (require 'shell)
 (dolist (hook (list
                'term-mode-hook
