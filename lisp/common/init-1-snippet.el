@@ -22,6 +22,7 @@
         try-expand-dabbrev-from-kill
         try-expand-dabbrev-all-buffers
         try-expand-list
+	try-expand-list-all-buffers
         try-expand-line))
 (define-key yas-minor-mode-map [remap dabbrev-expand] 'hippie-expand)
 

@@ -150,6 +150,13 @@
 			  (append '("Go") consult-dash-docsets)))))
 
 
+(defun smart-go-run (orig-fun &rest args)
+  (if (derived-mode-p 'go-mode)
+    (let ((default-directory (consult--go-root)))
+      (apply orig-fun args))
+    (apply orig-fun args)))
+(advice-add 'smart-compile :around #'smart-go-run)
+
 (require 'rmsbolt)
 
 (cl-defun rmsbolt--go-plan9-compile-cmd (&key src-buffer)
