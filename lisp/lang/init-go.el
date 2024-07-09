@@ -109,14 +109,23 @@
 	       '(gocompile . ("^\\([[:alnum:]-_/@\\\\.]+.go\\):\\([0-9]+\\)")))
   (add-to-list 'compilation-error-regexp-alist 'gopanic))
 
+(setq gofmt-show-errors nil)
 
-(setq gofmt-command "goimports")
+;; gof is a shell file
+;; #+begin_src shell
+;; #!/bin/zsh
+;; gofmt -s $@ && goimports $@
+;; #+end_src
+(setq gofmt-command "gof")
 ;; Set up before-save hooks to format buffer and add/delete imports.
 ;; Make sure you don't have other gofmt/goimports hooks enabled.
 ;; (defun lsp-go-install-save-hooks ()
 ;;   (add-hook 'before-save-hook #'lsp-format-buffer t t)
 ;;   (add-hook 'before-save-hook #'lsp-organize-imports t t))
 ;; (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+(add-hook 'before-save-hook 'gofmt-before-save)
+
+
 
 (defvar golangci-lint-cmd "LOG_LEVEL=error golangci-lint run --print-issued-lines=false --out-format=line-number ./..."
   "Command for `consult-golangci-lint'.")
