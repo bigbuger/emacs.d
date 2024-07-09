@@ -1,10 +1,6 @@
 # -*- mode: snippet -*-
 # name: ctx
 # key: ctx
-# type: command
+# type: snippet
 # --
-(let ((gofmt-show-errors nil))
-  (progn			 
-    (go-import-add nil "context")
-    (insert "ctx context.Context")
-    (gofmt)))
+ctx context.Context
