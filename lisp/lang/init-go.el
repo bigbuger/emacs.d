@@ -64,14 +64,14 @@
    ("gopls.hints.parameterNames" t t)
    ("gopls.hints.rangeVariableTypes" nil t)))
 
-;; (add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
-;; (require 'flycheck-golangci-lint)
-;; (eval-after-load 'flycheck
-;;   '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
-;; (add-hook 'lsp-managed-mode-hook
-;;           (lambda ()
-;;             (when (derived-mode-p 'go-mode)
-;;               (setq flycheck-local-checkers '((lsp . ((next-checkers . ((warning . golangci-lint))))))))))
+(add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
+(require 'flycheck-golangci-lint)
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
+(add-hook 'lsp-managed-mode-hook
+          (lambda ()
+            (when (derived-mode-p 'go-mode)
+              (setq flycheck-local-checkers '((lsp . ((next-checkers . ((warning . golangci-lint))))))))))
 
 (add-hook 'go-mode-hook
 	  (lambda ()
@@ -110,7 +110,6 @@
   (add-to-list 'compilation-error-regexp-alist 'gopanic))
 
 (setq gofmt-show-errors nil)
-
 ;; gof is a shell file
 ;; #+begin_src shell
 ;; #!/bin/zsh
@@ -123,7 +122,7 @@
 ;;   (add-hook 'before-save-hook #'lsp-format-buffer t t)
 ;;   (add-hook 'before-save-hook #'lsp-organize-imports t t))
 ;; (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
-(add-hook 'before-save-hook 'gofmt-before-save)
+;;(add-hook 'before-save-hook 'gofmt-before-save)
 
 
 

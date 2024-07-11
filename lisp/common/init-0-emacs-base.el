@@ -35,7 +35,10 @@
 ;; 硬盘文件更改时，自动同步
 (global-auto-revert-mode)
 
+(require 'winner)
 (winner-mode t)
+(global-set-key (kbd "C-s-<left>") #'winner-undo)
+(global-set-key (kbd "C-s-<right>") #'winner-redo)
 
 (setq Man-notify-method 'pushy)
 

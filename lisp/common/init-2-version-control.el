@@ -57,6 +57,7 @@
 ;; diff-hl 侧边显示每一行的版本状态
 (require 'diff-hl)
 (global-diff-hl-mode)
+(diff-hl-flydiff-mode)
 (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
 (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 
