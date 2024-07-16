@@ -66,6 +66,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
 (require 'flycheck-golangci-lint)
+(setq flycheck-golangci-lint-config "~/.golangci.yml")
 (eval-after-load 'flycheck
   '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
 (add-hook 'lsp-managed-mode-hook

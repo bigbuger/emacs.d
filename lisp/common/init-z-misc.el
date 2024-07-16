@@ -11,9 +11,9 @@
 (require 'dumb-jump)
 (setq dumb-jump-force-searcher 'rg)
 (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+(unbind-key "C-c ." 'c-mode-base-map)
 (global-set-key (kbd "C-c .") 'dumb-jump-go)
 (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
-
 
 ;; which-key 快捷键打小抄
 (require 'which-key)
@@ -108,6 +108,12 @@
 (use-package casual
   :ensure t
   :bind (:map calc-mode-map ("C-o" . 'casual-main-menu)))
+
+(require 're-builder)
+(use-package casual-re-builder
+  :ensure t
+  :bind (:map reb-mode-map
+              ("C-o" . casual-re-builder-tmenu)))
 
 (use-package consult-dasel
   :load-path "~/.emacs.d/lisp/libs/"
