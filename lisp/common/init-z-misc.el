@@ -11,7 +11,9 @@
 (require 'dumb-jump)
 (setq dumb-jump-force-searcher 'rg)
 (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
-(unbind-key "C-c ." 'c-mode-base-map)
+(with-eval-after-load 'c-mode
+  (unbind-key "C-c ." 'c-mode-base-map))
+
 (global-set-key (kbd "C-c .") 'dumb-jump-go)
 (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
 
