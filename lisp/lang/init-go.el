@@ -47,6 +47,7 @@
 
 (with-eval-after-load 'lsp-go
   (setf (lsp--client-completion-in-comments? (gethash 'gopls lsp-clients)) nil))
+(setq lsp-go-use-placeholders nil)
 
 (lsp-register-custom-settings
  '(("go.linitTool" "golangci-lint" nil)
@@ -54,6 +55,7 @@
    ("gopls.completeUnimported" t t)
    ("gopls.staticcheck" t t)
    ("gopls.vulncheck" "Imports" nil)
+   ;; ("gopls.matcher" "CaseInsensitive")
    ("gopls.analyses.ST1001" nil t) ;; dot import warning
    
    ("gopls.hints.assignVariableTypes" nil t)
@@ -64,15 +66,21 @@
    ("gopls.hints.parameterNames" t t)
    ("gopls.hints.rangeVariableTypes" nil t)))
 
+(defcustom enable-golangci-lint nil
+  "Use golangci lint in flycheck or not."
+  :group 'lsp-go
+  :type 'boolean)
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
 (require 'flycheck-golangci-lint)
 (setq flycheck-golangci-lint-config "~/.golangci.yml")
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
-(add-hook 'lsp-managed-mode-hook
-          (lambda ()
-            (when (derived-mode-p 'go-mode)
-              (setq flycheck-local-checkers '((lsp . ((next-checkers . ((warning . golangci-lint))))))))))
+
+(when enable-golangci-lint
+  (eval-after-load 'flycheck
+    '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
+  (add-hook 'lsp-managed-mode-hook
+            (lambda ()
+              (when (derived-mode-p 'go-mode)
+		(setq flycheck-local-checkers '((lsp . ((next-checkers . ((warning . golangci-lint)))))))))))
 
 (add-hook 'go-mode-hook
 	  (lambda ()

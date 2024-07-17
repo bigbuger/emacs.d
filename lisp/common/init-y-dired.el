@@ -11,7 +11,7 @@
 (setq dired-dwim-target t) ;; 打开两个窗口时，移动文件默认是移到另一个窗口对应的目录，爽 😊
 (setq wdired-allow-to-change-permissions t) ;; 编辑模式允许修改文件权限
 
-(setq delete-by-moving-to-trash t) ;; 删除文件时，移到垃圾桶
+;; (setq delete-by-moving-to-trash t) ;; 删除文件时，移到垃圾桶
 (setq dired-kill-when-opening-new-dired-buffer t) ;; RET 后仅保留一个 dired buffer
 
 (setq dired-vc-rename-file t) ;; git 支持
