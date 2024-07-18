@@ -47,7 +47,7 @@
 
 (with-eval-after-load 'lsp-go
   (setf (lsp--client-completion-in-comments? (gethash 'gopls lsp-clients)) nil))
-(setq lsp-go-use-placeholders nil)
+;;(setq lsp-go-use-placeholders nil)
 
 (lsp-register-custom-settings
  '(("go.linitTool" "golangci-lint" nil)

@@ -107,7 +107,7 @@
   (require 'vlf-setup))
 
 ;; calc 菜单
-(use-package casual
+(use-package casual-calc
   :ensure t
   :bind (:map calc-mode-map ("C-o" . 'casual-main-menu)))
 
