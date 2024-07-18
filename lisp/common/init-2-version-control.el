@@ -12,10 +12,7 @@
 (global-set-key (kbd "C-c g") 'magit-file-dispatch)
 (global-set-key (kbd "C-c c") 'magit-branch-or-checkout)
 
-;; (require 'magit-todos)
-;; (magit-todos-mode)
-;; ;; magit-todos bug see https://github.com/alphapapa/magit-todos/issues/153
-;; (setq magit-todos-nice nil)
+(setq magit-delete-by-moving-to-trash nil)
 
 (setq magit-log-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
 (setq magit-git-output-coding-system 'utf-8-unix)
@@ -24,14 +21,11 @@
 
 ;; 让magit blame 在左侧边显示
 (push '(margin
-	(margin-format    . ("%C %a %s%f"))
+	(margin-format    . ("%C %a %H%f"))
 	(margin-width     . 42)
 	(margin-face      . magit-blame-margin)
 	(margin-body-face . (magit-blame-dimmed)))
       magit-blame-styles)
-
-;; (require 'magit-delta)
-;; (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))
 
 ;; end magit
 
@@ -59,6 +53,7 @@
 (global-diff-hl-mode)
 (diff-hl-flydiff-mode)
 (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+(add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
 (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 
 (require 'transient)

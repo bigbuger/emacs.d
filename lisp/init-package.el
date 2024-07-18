@@ -18,7 +18,6 @@
     auto-highlight-symbol
     ripgrep
     visual-regexp
-    regex-tool
     pyim
     eldoc-box
     
@@ -56,7 +55,6 @@
     ;; company
     company
     company-quickhelp
-    company-fuzzy
 
     ;; yasnippet
     yasnippet
@@ -94,8 +92,6 @@
 
     ;; about vc
     magit
-    magit-todos
-    magit-delta
     diff-hl
     ztree
         
@@ -113,12 +109,10 @@
     go-mode
     gotest
     go-scratch
-    go-playground
     go-dlv
     go-eldoc
     go-gen-test
     go-impl
-    godoctor
     go-tag
     go-fill-struct
     ob-go
@@ -133,7 +127,6 @@
     ;; haskell
     haskell-mode
     company-ghci
-    ;; ghc
     dante
     lsp-haskell
     company-cabal
@@ -155,9 +148,6 @@
     pyvenv
     lsp-pyright
 
-    ;; c lang
-    ccls
-
     ;; elm lang
     elm-mode
 
@@ -178,7 +168,7 @@
     json-mode
     yaml-mode
     markdown-mode
-    company-ansible
+    ;; company-ansible
     protobuf-mode
 
     rainbow-mode

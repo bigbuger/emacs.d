@@ -114,8 +114,7 @@
 (require 're-builder)
 (use-package casual-re-builder
   :ensure t
-  :bind (:map reb-mode-map
-              ("C-o" . casual-re-builder-tmenu)))
+  :bind (:map reb-mode-map ("C-o" . 'casual-re-builder-tmenu)))
 
 (use-package consult-dasel
   :load-path "~/.emacs.d/lisp/libs/"

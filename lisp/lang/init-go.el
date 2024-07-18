@@ -70,6 +70,8 @@
   "Use golangci lint in flycheck or not."
   :group 'lsp-go
   :type 'boolean)
+
+(setq enable-golangci-lint nil)
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
 (require 'flycheck-golangci-lint)
 (setq flycheck-golangci-lint-config "~/.golangci.yml")
@@ -235,8 +237,7 @@
 
 
 ;; go install github.com/godoctor/godoctor@latest
-
-;; (require 'godoctor)
+;; (use-package godoctor)
 ;; overwrite godoctor--get-pos-region for utf-8 charset
 ;; (defun godoctor--get-pos-region ()
 ;;   (let* ((start (position-bytes (region-beginning)))
