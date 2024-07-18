@@ -77,11 +77,6 @@
     ;; flyspell
     flyspell-correct-popup
     
-
-    ;; resetclient
-    restclient
-    company-restclient
-    ob-restclient
     verb
     impostman
     

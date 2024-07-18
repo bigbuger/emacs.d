@@ -248,7 +248,6 @@
    (passthrough . t)
    (latex . t)
    (dot . t)
-   (restclient . t)
    (verb . t)
    (ditaa . t)
    (plantuml . t)

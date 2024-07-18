@@ -54,7 +54,7 @@
 	  (display-buffer xwidget-webkit-last-session-buffer)))
   
   :init
-  (setq-default consult-dash-docsets '("Redis" "MySql")))
+  (setq-default consult-dash-docsets '("Redis" "MySql" "MongoDB" "SQLite")))
 
 ;; ace-window 快速通过数字切换到指定窗口
 (require 'ace-window)
@@ -92,15 +92,6 @@
 
 ;; end flyspell
 
-;; restclient 发起 http 请求
-(require 'restclient)
-(require 'company-restclient)
-(add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
-(add-hook 'restclient-mode-hook
-          (lambda () (setq-local company-backends
-				 (cl-adjoin '(company-restclient :with company-yasnippet) company-backends :test #'equal))))
-
-
 ;; vlf 打开文件
 (use-package vlf
   :init
@@ -112,9 +103,12 @@
   :bind (:map calc-mode-map ("C-o" . 'casual-main-menu)))
 
 (require 're-builder)
+(setq reb-re-syntax 'string)
 (use-package casual-re-builder
   :ensure t
-  :bind (:map reb-mode-map ("C-o" . 'casual-re-builder-tmenu)))
+  :bind (:map reb-mode-map ("C-o" . 'casual-re-builder-tmenu)
+	 :map reb-lisp-mode-map ("C-o" . 'casual-re-builder-tmenu)
+	 :map reb-subexp-mode-map ("C-o" . 'casual-re-builder-tmenu)))
 
 (use-package consult-dasel
   :load-path "~/.emacs.d/lisp/libs/"
