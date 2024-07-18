@@ -76,10 +76,7 @@
 
     ;; flyspell
     flyspell-correct-popup
-    
-    verb
-    impostman
-    
+
     ;; lsp
     lsp-mode
     dap-mode
