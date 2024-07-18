@@ -94,6 +94,10 @@ buffer's text scale."
 
 (add-hook 'text-scale-mode-hook #'my/text-scale-adjust-latex-previews)
 
+(with-eval-after-load 'org
+  (add-to-list 'org-babel-load-languages
+	       '(latex . t)))
+
 (provide 'init-latex)
 
 

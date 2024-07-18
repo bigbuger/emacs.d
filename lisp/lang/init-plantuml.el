@@ -38,6 +38,10 @@ See `http://plantuml.com"
 
   (add-to-list 'flycheck-checkers 'plantuml))
 
+(with-eval-after-load 'org
+  (add-to-list 'org-babel-load-languages
+	       '(plantuml . t)))
+
 (provide 'init-plantuml)
 
 ;;; init-plantuml.el ends here

@@ -50,6 +50,10 @@
 (use-package consult-hoogle
   :load-path "~/.emacs.d/lisp/libs/consult-hoogle")
 
+(with-eval-after-load 'org
+  (add-to-list 'org-babel-load-languages
+	       '(haskell . t)))
+
 (provide 'init-haskell)
 
 ;;; init-haskell.el ends here

@@ -6,7 +6,12 @@
 ;;; Code:
 
 (use-package graphviz-dot-mode
-  :ensure t)
+  :ensure t
+  :demand t
+  :init
+  (with-eval-after-load 'org
+    (add-to-list 'org-babel-load-languages
+		 '(dot . t))))
 
 (provide 'init-graphviz)
 

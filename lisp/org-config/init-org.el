@@ -8,7 +8,6 @@
 (require 'org)
 (require 'smartparens)
 (require 'org-mouse)
-(require 'ob-go)
 (require 'cl-lib)
 
 
@@ -242,44 +241,19 @@
 (use-package impostman
   :ensure t)
 
-;; gnuplot 用来给表格画图
-(use-package gnuplot
-  :ensure t
-  :init
-  ;; 通过 gnuplot 源码中的 doc/doc2texi.el 生成 gnuplot-eldoc 和 gnuplot.info:
-  ;; #+begin_src
-  ;; emacs -batch -l doc2texi.el -f d2t-doc-to-texi
-  ;; makeinfo gnuplot,info --no-split
-  ;; #+end_src
-  (load-file "~/.emacs.d/lisp/libs/gnuplot-eldoc.el")
-  (setq gnuplot-eldoc-mode t))
-
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((emacs-lisp . t)
-   (calc . t)
-   (scheme . t)
-   (ruby . t)
-   (perl . t)
-   (python . t)
-   (haskell . t)
-   (shell . t)
-   (go . t)
-   (js . t)
-   (passthrough . t)
-   (latex . t)
-   (dot . t)
-   (verb . t)
-   (ditaa . t)
-   (plantuml . t)
-   (sql . t)
-   (awk . t)
-   (gnuplot . t)
-   (maxima . t)
-   (sagemath . t)
-   (gmpl . t)
-   (R . t)
-   (svgbob . t)))
+ (append org-babel-load-languages
+	 '((calc . t)
+	   (perl . t)
+	   (shell . t)
+	   (js . t)
+	   (passthrough . t)
+	   (verb . t)
+	   (ditaa . t)
+	   (sql . t)
+	   (awk . t)
+	   (svgbob . t))))
 ;; end of org bale
 
 ;; org-download 拖图片自动下载和插入

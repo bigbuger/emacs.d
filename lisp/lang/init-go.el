@@ -285,6 +285,13 @@
   (define-key go-mode-map (kbd "s-g s-t") #'convert-to-go-time-format))
 
 
+(use-package ob-go
+  :demand t
+  :init
+  (with-eval-after-load 'org
+    (add-to-list 'org-babel-load-languages
+		 '(go . t))))
+
 (provide 'init-go)
 
 ;;; init-go.el ends here

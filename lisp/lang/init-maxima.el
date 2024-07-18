@@ -20,7 +20,11 @@
 		   (setq-local company-backends
 			       (cl-adjoin '(company-maxima-symbols company-maxima-libraries :with company-yasnippet)
 					  company-backends :test #'equal)))))
-  
+
+(with-eval-after-load 'org
+  (add-to-list 'org-babel-load-languages
+	       '(maxima . t)))
+
 (provide 'init-maxima)
 
 ;;; init-maxima.el ends here

@@ -14,7 +14,9 @@
 ;; (sp-local-pair 'scheme-mode "(" nil :actions '(:rem skip))
 (define-key scheme-mode-map  (kbd "C-}") 'sp-forward-slurp-sexp)
 
-
+(with-eval-after-load 'org
+  (add-to-list 'org-babel-load-languages
+	       '(scheme . t)))
 
 (provide 'init-scheme)
 

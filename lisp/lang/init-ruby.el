@@ -36,6 +36,10 @@
 
 (add-hook 'ruby-mode-hook 'yard-mode)
 
+(with-eval-after-load 'org
+  (add-to-list 'org-babel-load-languages
+	       '(ruby . t)))
+
 (provide 'init-ruby)
 
 ;;; init-ruby.el ends here

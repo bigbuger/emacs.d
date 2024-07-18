@@ -18,7 +18,10 @@
   :init
   ;; Ob-sagemath supports only evaluating with a session.
   (setq org-babel-default-header-args:sage '((:session . t)
-                                        (:results . "output"))))
+                                             (:results . "output")))
+  (with-eval-after-load 'org
+    (add-to-list 'org-babel-load-languages
+		 '(sagemath . t))))
 
 (use-package company-sage
   :load-path "~/.emacs.d/lisp/libs/company-sage"

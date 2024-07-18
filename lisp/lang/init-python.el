@@ -47,6 +47,10 @@
   :config
   (unbind-key "C-c C-l" importmagic-mode-map))
 
+(with-eval-after-load 'org
+  (add-to-list 'org-babel-load-languages
+	       '(python . t)))
+
 (provide 'init-python)
 
 ;;; init-python.el ends here

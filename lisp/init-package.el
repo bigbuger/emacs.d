@@ -107,7 +107,6 @@
     go-impl
     go-tag
     go-fill-struct
-    ob-go
     gorepl-mode
 
     ;;rust
