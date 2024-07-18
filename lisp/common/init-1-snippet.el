@@ -30,7 +30,7 @@
   "remove extra paren when expanding line in smartparens."
   (let* ((str (car args))
 	(last (substring str -1)))
-    (if (and smartparens-mode (member last '(")" "}")))
+    (if (and smartparens-mode (member last '(")" "}" "\"" "'" "`")))
 	(list (substring str 0 -1) (cdr args))
       args)))
 
