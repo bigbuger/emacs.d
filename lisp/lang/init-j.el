@@ -11,6 +11,13 @@
 (autoload 'j-mode "j-mode.el" "Major mode for editing J files" t)
 (setq j-console-cmd "jconsole")
 
+(require 'ob-J)
+
+(with-eval-after-load 'org
+  (add-to-list 'org-src-lang-modes '("J" . j))
+  (add-to-list 'org-babel-load-languages
+	       '(J . t)))
+
 (provide 'init-j)
 
 ;;; init-j.el ends here

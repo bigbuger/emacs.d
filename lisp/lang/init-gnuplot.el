@@ -14,6 +14,11 @@
   ;; #+end_src
   (load-file "~/.emacs.d/lisp/libs/gnuplot-eldoc.el")
   (setq gnuplot-eldoc-mode t)
+
+  (autoload 'gnuplot-mode "gnuplot" "Gnuplot major mode" t)
+  (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot-mode" t)
+  (add-to-list 'auto-mode-alist '("\\.gp$" . gnuplot-mode))
+  
   (with-eval-after-load 'org
     (add-to-list 'org-babel-load-languages
 		 '(gnuplot . t))))

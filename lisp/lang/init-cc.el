@@ -21,6 +21,10 @@
 		       (require 'ccls)
 		       (lsp-deferred))))))
 
+(with-eval-after-load 'org
+  (add-to-list 'org-babel-load-languages
+ 	       '(C . t)))
+
 (provide 'init-cc)
 
 ;;; init-cc.el ends here

@@ -40,7 +40,7 @@
 
 ;; org 内嵌 LaTeX 相关配置
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0)
-      ;; org-startup-with-latex-preview t
+      org-startup-with-latex-preview t
       org-preview-latex-image-directory "~/.cache/emacs/data/org/ltximg/"
       org-preview-latex-default-process 'dvisvgm)
 
