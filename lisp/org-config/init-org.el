@@ -40,7 +40,7 @@
 
 ;; org 内嵌 LaTeX 相关配置
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0)
-      org-startup-with-latex-preview t
+      ;; org-startup-with-latex-preview t
       org-preview-latex-image-directory "~/.cache/emacs/data/org/ltximg/"
       org-preview-latex-default-process 'dvisvgm)
 
@@ -74,15 +74,6 @@
 
 (define-key org-mode-map
 	    (kbd "C-\\") 'company-math-symbols-unicode)
-
-;; 实时预览 LaTex
-(use-package org-latex-impatient
-  :defer t
-  ;; :hook (org-mode . org-latex-impatient-mode)
-  :init
-  (setq org-latex-impatient-tex2svg-bin
-        ;; location of tex2svg executable
-        "~/tool/MathJaxNode/node_modules/mathjax-node-cli/bin/tex2svg"))
 
 ;; end of LaTeX
 
@@ -165,6 +156,7 @@
 		    ("[-] . "🟩"")))
 	    (prettify-symbols-mode)))
 
+;; header line 展示当前 org 标题
 (use-package org-sticky-header
   :demand t
   :config
@@ -228,6 +220,7 @@
 (setq org-babel-python-command "python3")
 (setq org-babel-awk-command "gawk")
 
+;; svgbob 一个文本绘图工具 https://github.com/ivanceras/svgbob
 (use-package ob-svgbob
   :init
   (add-to-list 'org-src-lang-modes
