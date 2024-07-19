@@ -68,12 +68,15 @@
 
 ;; latex company
 (setq org-highlight-latex-and-related '(latex script entities))
-(add-hook 'org-mode-hook
-          (lambda () (setq-local company-backends
-				 (cl-adjoin '(company-math-symbols-latex :with company-yasnippet) company-backends :test #'equal))))
 
-(define-key org-mode-map
-	    (kbd "C-\\") 'company-math-symbols-unicode)
+(use-package company-math
+  :init
+  (add-hook 'org-mode-hook
+            (lambda () (setq-local company-backends
+				   (cl-adjoin '(company-math-symbols-latex :with company-yasnippet) company-backends :test #'equal))))
+
+  (define-key org-mode-map
+	      (kbd "C-\\") 'company-math-symbols-unicode))
 
 ;; end of LaTeX
 
