@@ -71,7 +71,6 @@
     realgud
 
     ;; org
-    olivetti
     ov
 
     ;; flyspell
