@@ -78,7 +78,8 @@ ARG is pass to `sp-end-of-sexp'"
 
 ;; move-text
 (require 'move-text)
-(move-text-default-bindings) ;; alt-up or alt-down 拖动行
+(global-set-key [M-S-down] 'move-text-down)
+(global-set-key [M-S-up]   'move-text-up)
 (defun indent-region-advice (&rest ignored)
   (let ((deactivate deactivate-mark))
     (if (region-active-p)

@@ -35,6 +35,8 @@
 		      image-file-name-extensions)
 	      org-file-apps))
 
+;; 在当前窗口打开 org link
+(setf (alist-get 'file org-link-frame-setup) 'find-file)
 
 ;; org 内嵌 LaTeX 相关配置
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0)
