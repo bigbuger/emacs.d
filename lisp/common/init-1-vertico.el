@@ -219,7 +219,8 @@
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
    :map minibuffer-mode-map
-   ("C-c C-o" . embark-export))
+   ("C-c C-o" . embark-export)
+   ("C-<return>" . embark-dwim-noquit))
 
   :config
   ;; Hide the mode line of the Embark live/completions buffers
@@ -239,6 +240,12 @@
   ;;    (window-parameters (mode-line-format . none))
   ;;    (window-height . 230)))
 
+  (defun embark-dwim-noquit ()
+    "Run action but don't quit the minibuffer afterwards."
+    (interactive)
+    (let ((embark-quit-after-action nil))
+      (embark-dwim)))
+  
   (defun embark-which-key-indicator ()
     "An embark indicator that displays keymaps using which-key.
 The which-key help message will show the type and value of the
