@@ -15,8 +15,21 @@
 (define-key scheme-mode-map  (kbd "C-}") 'sp-forward-slurp-sexp)
 
 (with-eval-after-load 'org
+  (setq org-babel-default-header-args:scheme
+	'((:session)))
   (add-to-list 'org-babel-load-languages
 	       '(scheme . t)))
+
+(use-package racket-mode
+  :ensure t)
+
+(use-package ob-racket
+  :after org
+  :load-path "~/.emacs.d/lisp/libs/emacs-ob-racket"
+  :config
+  (add-to-list 'org-babel-load-languages
+	       '(racket . t)))
+
 
 (provide 'init-scheme)
 

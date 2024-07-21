@@ -37,3 +37,6 @@
 [submodule "lisp/libs/j-mode"]
 	path = lisp/libs/j-mode
 	url = git@github.com:LdBeth/j-mode.git
+[submodule "lisp/libs/emacs-ob-racket"]
+	path = lisp/libs/emacs-ob-racket
+	url = https://github.com/hasu/emacs-ob-racket.git
