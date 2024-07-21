@@ -21,7 +21,9 @@
 	       '(scheme . t)))
 
 (use-package racket-mode
-  :ensure t)
+  :ensure t
+  :init
+  (add-hook 'racket-mode-hook #'racket-xp-mode))
 
 (use-package ob-racket
   :after org
