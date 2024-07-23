@@ -122,6 +122,13 @@
   (skeletor-completing-read-function #'completing-read-default) ;; use default, aka: ivy or vertical or what every activate.
   :bind (("s-n" . skeletor-create-project-at)))
 
+
+(use-package dimmer
+  :init
+  (dimmer-configure-which-key)
+  (dimmer-mode t))
+
+
 (provide 'init-z-misc)
 
 ;;; init-z-misc.el ends here
