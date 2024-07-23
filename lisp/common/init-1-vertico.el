@@ -221,9 +221,12 @@
    :map minibuffer-mode-map
    ("C-c C-o" . embark-export)
    ("C-c C-l" . embark-collect)
-   ("C-<return>" . embark-dwim-noquit))
+   ("C-<return>" . embark-dwim-noquit)
+   :map embark-collect-mode-map
+   ("<SPC>" . embark-select))
 
   :config
+  (setq embark-confirm-act-all nil)
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"

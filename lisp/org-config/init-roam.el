@@ -38,13 +38,13 @@
 	   :if-new (file+head "笔记/${slug}.org" "#+title: ${title}\n")
 	   :unnarrowed t)
 	  ("c" "闪念随想" plain "%?"
-	   :if-new (file+head "闪念随想/${slug}.org" "#+title: ${title}\n#+filetags: :闪念随想:\n")
+	   :if-new (file+head "闪念随想/${slug}.org" "#+title: ${title}\n#+filetags: 闪念随想:\n")
 	   :unnarrowed t)
 	  ("r" "摘抄" plain "%?"
-	   :if-new (file+head "摘抄/${slug}.org" "#+title: ${title}\n#+filetags: :摘抄:\n")
+	   :if-new (file+head "摘抄/${slug}.org" "#+title: ${title}\n#+filetags: 摘抄:\n")
 	   :unnarrowed t)
 	  ("m" "备忘" plain "%?"
-	   :if-new (file+head "备忘/${slug}.org" "#+title: ${title}\n#+filetags: :备忘:\n")
+	   :if-new (file+head "备忘/${slug}.org" "#+title: ${title}\n#+filetags: 备忘:\n")
 	   :unnarrowed t)))
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
   (setq org-roam-node-display-template (concat "${type:20} ${title:50} "(propertize "${tags:100}" 'face 'org-tag)))
@@ -194,6 +194,11 @@
       (forward-char (length xeft-prompt))
       (string-trim
        (buffer-substring-no-properties (point) (line-end-position))))))
+
+(use-package embark-org-roam
+  :load-path "~/.emacs.d/lisp/libs/embark-org-roam"
+  :after (org-roam embark)
+  :demand t)
 
 
 (provide 'init-roam)

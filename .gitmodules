@@ -40,3 +40,6 @@
 [submodule "lisp/libs/emacs-ob-racket"]
 	path = lisp/libs/emacs-ob-racket
 	url = https://github.com/hasu/emacs-ob-racket.git
+[submodule "lisp/libs/embark-org-roam"]
+	path = lisp/libs/embark-org-roam
+	url = git@github.com:bramadams/embark-org-roam.git

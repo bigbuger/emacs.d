@@ -53,15 +53,22 @@
 (yatemplate-fill-alist)
 (auto-insert-mode t)
 
-(defun smarter-yas-expand-next-field ()
-    "Try to `yas-next-field' at current cursor position."
+(defun smarter-yas-expand-next-field-complete ()
+    "Try to `yas-expand' and `yas-next-field' at current cursor position.
+
+If failed try to complete the common part with `company-complete-common'"
     (interactive)
     (if yas-minor-mode
-            (ignore-errors (yas-next-field))))
+        (let ((old-point (point))
+              (old-tick (buffer-chars-modified-tick)))
+          (ignore-errors (yas-next-field))
+          (when (and (eq old-point (point))
+                     (eq old-tick (buffer-chars-modified-tick)))
+            (company-complete-common))))
+    (company-complete-common))
 
 (with-eval-after-load 'company
-  (define-key company-active-map (kbd "<tab>") #'smarter-yas-expand-next-field)
-  (define-key company-active-map (kbd "TAB")   #'smarter-yas-expand-next-field))
+  (define-key company-active-map (kbd "<tab>") #'smarter-yas-expand-next-field-complete))
 
 (provide 'init-1-snippet)
 
