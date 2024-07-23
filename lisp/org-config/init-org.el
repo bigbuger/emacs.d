@@ -22,6 +22,9 @@
       org-bookmark-names-plist nil ;; 不要把 org 的东西放到书签
       )
 
+;; 显示行号
+(add-hook 'org-mode-hook #'display-line-numbers-mode)
+
 ;; inline显示图片
 (setq auto-window-vscroll nil) ;; 关掉，auto-window-vscroll, 不然有图片时按 C-n 要等图片显示完，😩
 (setq org-startup-with-inline-images 1)
@@ -107,13 +110,13 @@
   (add-hook 'org-mode-hook 'org-appear-mode))
 
 ;; org-tidy 隐藏 propertize
-(use-package org-tidy
-  :ensure t
-  :config
-  (setq org-tidy-property-drawer-property-whitelist '("ID" "id"))
-  (setq org-tidy-property-drawer-property-blacklist '("ROAM_REFS" "roam_refs"))
-  (setq org-tidy-general-drawer-name-whitelist '("setup" "SETUP"))
-  (add-hook 'org-mode-hook #'org-tidy-mode))
+;; (use-package org-tidy
+;;   :ensure t
+;;   :config
+;;   (setq org-tidy-property-drawer-property-whitelist '("ID" "id"))
+;;   (setq org-tidy-property-drawer-property-blacklist '("ROAM_REFS" "roam_refs"))
+;;   (setq org-tidy-general-drawer-name-whitelist '("setup" "SETUP"))
+;;   (add-hook 'org-mode-hook #'org-tidy-mode))
 
 ;; 自带折叠, 往 block 加 :hidden
 (defun individual-visibility-source-blocks ()
