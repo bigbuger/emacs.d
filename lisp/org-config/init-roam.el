@@ -14,6 +14,7 @@
   (define-key org-roam-command-map "t" '("插入标签" . org-roam-tag-add))
   (define-key org-roam-command-map "e" '("抽取笔记" . org-roam-extract-subtree))
   (define-key org-roam-command-map "u" '("笔记ui" . org-roam-ui-open))
+  (define-key org-roam-command-map "l" '("查看反向链接" . org-roam-buffer-toggle))
   
   (define-key org-roam-command-map "c" '("闪念" . my-roam-capture-flash))
   (define-key org-roam-command-map "r" '("摘要" . my-roam-capture-clip))
