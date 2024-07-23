@@ -123,10 +123,10 @@
   :bind (("s-n" . skeletor-create-project-at)))
 
 
-(use-package dimmer
-  :init
-  (dimmer-configure-which-key)
-  (dimmer-mode t))
+;; (use-package dimmer
+;;   :init
+;;   (dimmer-configure-which-key)
+;;   (dimmer-mode t))
 
 
 (provide 'init-z-misc)
