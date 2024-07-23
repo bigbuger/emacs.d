@@ -220,6 +220,7 @@
   (("C-." . embark-act)         ;; pick some comfortable binding
    :map minibuffer-mode-map
    ("C-c C-o" . embark-export)
+   ("C-c C-l" . embark-collect)
    ("C-<return>" . embark-dwim-noquit))
 
   :config
