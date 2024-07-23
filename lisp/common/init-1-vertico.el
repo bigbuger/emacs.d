@@ -226,6 +226,10 @@
    ("<SPC>" . embark-select))
 
   :config
+  (add-hook 'embark-collect-mode-hook
+	    #'(lambda ()
+		(setq tabulated-list-format
+		      [("Candidate" 140 t) ("Annotation" 0 t)])))
   (setq embark-confirm-act-all nil)
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
