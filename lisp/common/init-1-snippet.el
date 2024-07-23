@@ -53,6 +53,16 @@
 (yatemplate-fill-alist)
 (auto-insert-mode t)
 
+(defun smarter-yas-expand-next-field ()
+    "Try to `yas-next-field' at current cursor position."
+    (interactive)
+    (if yas-minor-mode
+            (ignore-errors (yas-next-field))))
+
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "<tab>") #'smarter-yas-expand-next-field)
+  (define-key company-active-map (kbd "TAB")   #'smarter-yas-expand-next-field))
+
 (provide 'init-1-snippet)
 
 ;;; init-1-snippet.el ends here
