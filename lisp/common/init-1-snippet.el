@@ -13,6 +13,59 @@
 (require 'warnings)
 (add-to-list 'warning-suppress-types '(yasnippet backquote-change))
 
+(require 'hippie-exp)
+
+(defun my/he-list-beg ()
+    (save-excursion
+    (condition-case ()
+	(progn
+	  (backward-up-list 1)
+	  (forward-char 1))
+      (error ()))
+    (point)))
+
+(defun my/try-expand-list (old)
+  "Try to complete the current beginning of a list.
+The argument OLD has to be nil the first call of this function, and t
+for subsequent calls (for further possible completions of the same
+string).  It returns t if a new completion is found, nil otherwise."
+  (let ((expansion ()))
+    (if (not old)
+	(progn
+	  (he-init-string (my/he-list-beg) (point))
+	  (set-marker he-search-loc he-string-beg)
+	  (setq he-search-bw t)))
+
+    (if (not (equal he-search-string ""))
+	(save-excursion
+	  (save-restriction
+	    (if hippie-expand-no-restriction
+		(widen))
+	    ;; Try looking backward unless inhibited.
+	    (if he-search-bw
+		(progn
+		  (goto-char he-search-loc)
+		  (setq expansion (he-list-search he-search-string t))
+		  (set-marker he-search-loc (point))
+		  (if (not expansion)
+		      (progn
+			(set-marker he-search-loc he-string-end)
+			(setq he-search-bw ())))))
+
+	    (if (not expansion) ; Then look forward.
+		(progn
+		  (goto-char he-search-loc)
+		  (setq expansion (he-list-search he-search-string nil))
+		  (set-marker he-search-loc (point)))))))
+
+    (if (not expansion)
+	(progn
+	  (if old (he-reset-string))
+	  ())
+	(progn
+	  (he-substitute-string expansion t)
+	  t))))
+
 
 (setq hippie-expand-try-functions-list
       '(yas-hippie-try-expand
@@ -21,6 +74,7 @@
         try-expand-dabbrev
         try-expand-dabbrev-from-kill
         try-expand-dabbrev-all-buffers
+	my/try-expand-list
         try-expand-list
 	try-expand-list-all-buffers
         try-expand-line))
