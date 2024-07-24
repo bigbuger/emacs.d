@@ -248,13 +248,14 @@
  (append org-babel-load-languages
 	 '((calc . t)
 	   (perl . t)
+	   (awk . t)
 	   (shell . t)
 	   (js . t)
 	   (passthrough . t)
 	   (verb . t)
-	   (ditaa . t)
 	   (sql . t)
-	   (awk . t)
+	   (sqlite . t)
+	   (ditaa . t)
 	   (svgbob . t))))
 ;; end of org bale
 

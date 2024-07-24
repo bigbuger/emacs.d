@@ -67,6 +67,7 @@
 
 ;; osx-dictionary
 (require 'pos-tip)
+(setq pos-tip-tab-width 800)
 (require 'osx-dictionary)
 (defun osx-dictionary-search-at-point-and-pop ()
   "Search word around and display result with popup."
