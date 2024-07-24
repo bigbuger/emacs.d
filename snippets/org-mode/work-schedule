@@ -1,0 +1,29 @@
+# key: >wss
+# name: work schedule
+# --
+#+TITLE: ${1:`(file-name-base (buffer-file-name))`} 
+#+begin: columnview :hlines nil :id global :format "%ITEM(task) %jira %研发 %联调 %总工时 %TIMESTAMP(排期) %备注" :skip-empty-rows t :maxlevel 1
+| task                                          | jira    | 研发 | 联调 | 总工时 | 排期 | 备注                |
+|-----------------------------------------------+---------+-----+-----+-------+-----+--------------------|
+#+TBLFM: \$3=\$5-\$4
+#+END:
+       
+* ${2:需求1}
+:properties:
+:jira: `work-schedule-jira-link-prefix`${3:xxx}
+:文档: 1
+:联调: 1
+:总工时: 
+:备注: 
+:end:
+
+#+begin: columnview :hlines 1 :id local :format "%ITEM(细项) %文档 %研发{+} %联调 %总工时" :skip-empty-rows t :indent t
+| 细项       | 文档 | 研发 | 联调 | 总工时 |
+|-----------+-----+-----+-----+-------|
+#+TBLFM: \$5=\$2+\$3+\$4
+#+END: 
+
+** ${4:细项}
+:properties:
+:研发: $0
+:end:

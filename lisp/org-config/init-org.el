@@ -279,6 +279,28 @@
 (use-package org-inline-anim
   :hook (org-mode . org-inline-anim-mode))
 
+;; work schedule
+(defcustom work-schedule-dir "~/work"
+  "工作排期目录."
+  :type 'string)
+
+(defcustom work-schedule-jira-link-prefix ""
+  "Jira 链接."
+  :type 'string)
+
+(defun work-schedule (schedule)
+  "工作排期, `SCHEDULE' 工作批次, 列如 2024-Q1B1."
+  (interactive
+   (let* ((sc (format-time-string "%Y-Q%qB1"))
+	  (str (read-string "schedule: " sc 'work-schedule-his)))
+     (list str)))
+  (find-file (concat work-schedule-dir schedule ".org"))
+  (if (= 0 (buffer-size))
+      (yas-expand-snippet (yas-lookup-snippet "work schedule"))))
+
+(defalias 'wss 'work-schedule)
+;; end work schedule
+
 (provide 'init-org)
 
 ;;; init-org.el ends here

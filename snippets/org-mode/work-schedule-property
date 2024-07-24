@@ -1,0 +1,6 @@
+# key: >wsp
+# name: work schedule property
+# --
+:properties:
+:研发: ${1:0.5}
+:end:

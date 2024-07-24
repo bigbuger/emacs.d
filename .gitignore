@@ -2,9 +2,6 @@ elpa
 .extension
 /custom.el
 /private/
-/snippets/org-mode/sl-property
-/snippets/org-mode/sl-schedule
-/snippets/org-mode/sl-task
 *.elc
 /etc/
 /xenops/

@@ -1,0 +1,24 @@
+# key: >wst
+# name: work schedule task
+# --
+* ${1:需求2}
+:properties:
+:jira: `work-schedule-jira-link-prefix`${2:xxx}
+:文档: 1
+:联调: 1
+:总工时:
+:备注:
+:end:
+
+#+begin: columnview :hlines 1 :id local :format "%ITEM(细项) %文档 %研发{+} %联调 %总工时" :skip-empty-rows t :indent t
+| 细项       | 文档 | 研发 | 联调 | 总工时 |
+|-----------+-----+-----+-----+-------|
+#+TBLFM: \$5=\$2+\$3+\$4
+#+end: 
+
+- 排期 :: 
+
+** ${3:细项}
+:properties:
+:研发: $0
+:end:
