@@ -17,6 +17,8 @@
   :hook
   (sql-mode . lsp))
 
+(use-package sqlformat
+  :ensure t)
 
 (defmacro any-nil? (&rest args)
   `(not (and ,@args)))

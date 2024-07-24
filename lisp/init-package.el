@@ -144,15 +144,7 @@
     ;; web
     web-mode
     company-web
-
-    ;; sql
-    sqlformat
-    
-    ;; laTeX
-    company-math
-    auctex
-    magic-latex-buffer
-    
+   
     ;; others
     csv-mode
     json-mode
