@@ -9,7 +9,7 @@
 (require 'smartparens)
 (require 'org-mouse)
 (require 'cl-lib)
-
+(require 'org-id)
 
 (setq org-support-shift-select t
       org-imenu-depth 4
@@ -20,6 +20,7 @@
       org-fontify-quote-and-verse-blocks t ;; 引用块也高亮
       org-src-preserve-indentation t
       org-bookmark-names-plist nil ;; 不要把 org 的东西放到书签
+      org-id-method 'ts
       )
 
 ;; 显示行号
