@@ -169,6 +169,58 @@
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
 
+  (defun consult-rg-get-completion-options ()
+    "Generate rg options table vai rg -h."
+    (when (executable-find "rg")
+      (let* ((-h (shell-command-to-string "rg -h"))
+	     (-h-list (string-split -h "\n")))
+	(mapcan (lambda (l)
+		  (when (string-match (rx-to-string
+				       '(: bol (* space)
+					   (group "-" (? "-") (* (or alnum "-"))) (? ", ")
+					   (group "-" (? "-") (* (or alnum "-")))
+					   ;;(+ space)
+					   (group (* any)) eol))
+				      l)
+		    (let ((short (match-string 1 l))
+			  (long (match-string 2 l))
+			  (doc (match-string 3 l)))
+		      (if long
+			  (list `(,short . ,doc)
+				`(,long . ,doc))
+			(list `(,short . ,doc))))))
+		-h-list))))
+
+  (defcustom consult-rg-completion-options-alist (consult-rg-get-completion-options)
+    "Rg options alist.")
+
+  (defun consult-rg-completion-annotation (candidate)
+    "Annotation for rg option."
+    (cdr (assoc candidate consult-rg-completion-options-alist)))
+
+  (defun consult-rg-completion-table ()
+    "List all option for rg."
+    (mapcar #'car consult-rg-completion-options-alist))
+
+  (defun consult-rg-completion-at-point ()
+    "Completion rg option.
+This is the function to be used for the hook `completion-at-point-functions'."
+    (interactive)
+    (let* ((bds (bounds-of-thing-at-point 'symbol))
+           (start (car bds))
+           (end (cdr bds)))
+      (list start end (consult-rg-completion-table) :annotation-function #'consult-rg-completion-annotation)))
+
+  (defun consult-rg-with-completion-at-point (orign &rest args)
+    (minibuffer-with-setup-hook
+      (:append
+       (lambda ()
+	 (add-hook 'completion-at-point-functions
+		   #'consult-rg-completion-at-point nil t)))
+    (apply orign args)))
+
+  (advice-add 'consult-ripgrep :around #'consult-rg-with-completion-at-point)
+  
   :config
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
