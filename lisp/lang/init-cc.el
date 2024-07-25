@@ -11,13 +11,18 @@
 ;;(setq-mode-local c++-mode lsp-prefer-flymake nil lsp-ui-flycheck-enable t)
 ;;(setq-mode-local c-mode lsp-prefer-flymake nil lsp-ui-flycheck-enable t)
 
+(dolist (hook (list 'c++-mode-hook
+		    'c-mode-hook))
+  (add-hook hook (lambda ()
+		   (c-set-style "k&r"))))
+
 (use-package ccls
   :init
   (dolist (hook (list 'c++-mode-hook
 		      'c-mode-hook))
     (add-hook hook (lambda ()
 		     (progn
-		       (c-set-style "k&r")
+		       (setq-local lsp-enable-indentation nil)
 		       (require 'ccls)
 		       (lsp-deferred))))))
 
