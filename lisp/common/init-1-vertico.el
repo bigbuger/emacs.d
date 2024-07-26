@@ -173,8 +173,7 @@
     "Generate rg options table vai rg -h."
     (when (executable-find "rg")
       (let* ((-h (shell-command-to-string "rg -h"))
-	     (options (cadr (string-split -h "OPTIONS:\n")))
-	     (-h-list (string-split options "\\.\n"))
+	     (-h-list (string-split -h "\\(\\.\\|:\\)\n"))
 	     (doc-left-pad 30))
 	(mapcan (lambda (h)
 		  (let ((l (string-replace "\n" "" h)))
@@ -182,7 +181,7 @@
 					  '(: bol (* space)
 					      (group "-" (? "-") (+ (or alnum "-")))
 					      (? ", ") (? (group "-" (? "-") (+ (or alnum "-"))))
-					      (? " <" (+ (not ">")) ">" (? "..."))
+					      (? "=" (+ (or "_" "-" alnum)))
 					      (+ space)
 					      (group (* any)) eol))
 					l)
