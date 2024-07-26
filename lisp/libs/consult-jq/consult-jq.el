@@ -36,12 +36,6 @@
   :require 'consult-jq
   :group 'consult-jq)
 
-(defcustom consult-jq-completion-key "M-/"
-  "Key bind for `consult-jq-completion-at-point' for `consult-jq'."
-  :type '(string)
-  :require 'consult-jq
-  :group 'consult-jq)
-
 (defcustom consult-jq-path-query
   "[ path(..) | map(select(type == \"string\") // \"[]\") | join(\".\") ] | sort | unique | .[] | split(\".[]\") | join(\"[]\") | \".\" + ."
   "Use jq to get all json path."
@@ -88,11 +82,6 @@
          (start (car bds))
          (end (cdr bds)))
     (list start end (consult-jq-get-all-jq-function) . nil )))
-
-(defun consult-jq-completion-at-point ()
-  (interactive)
-  (let ((completion-at-point-functions '(consult-jq-completion-function-at-point)))
-  (completion-at-point)))
 
 (defun consult-jq-call-jq (&optional query args output-buffer)
   "Call 'jq' use OUTPUT-BUFFER as output (default is 'standard-output').
@@ -144,17 +133,18 @@ with the QUERY and ARGS."
   "Read input and run jq."
   (interactive)
   (let ((canditdates (consult-jq-path buffer))
-	(state (consult-jq-state-builder buffer))
-	(map (make-sparse-keymap)))
-    (if consult-jq-completion-key
-	(define-key map (kbd consult-jq-completion-key) #'consult-jq-completion-at-point))
-    (consult--read
-     canditdates
-     :prompt "jq: "
-     :initial "."
-     :sort nil
-     :state state
-     :keymap map)))
+	(state (consult-jq-state-builder buffer)))
+    (minibuffer-with-setup-hook
+	(:append
+	 (lambda ()
+	   (add-hook 'completion-at-point-functions
+		     #'consult-jq-completion-function-at-point nil t)))
+      (consult--read
+       canditdates
+       :prompt "jq: "
+       :initial "."
+       :sort nil
+       :state state))))
 
 ;;;###autoload
 (defun consult-jq ()
