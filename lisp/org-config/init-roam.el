@@ -15,6 +15,9 @@
   (define-key org-roam-command-map "e" '("抽取笔记" . org-roam-extract-subtree))
   (define-key org-roam-command-map "u" '("笔记ui" . org-roam-ui-open))
   (define-key org-roam-command-map "l" '("查看反向链接" . org-roam-buffer-toggle))
+
+  (define-key org-roam-command-map "n" '("生成节点 ID" . org-id-get-create))
+  (define-key org-roam-command-map "d" `("删除节点 ID"  . org-id-delete))
   
   (define-key org-roam-command-map "c" '("闪念" . my-roam-capture-flash))
   (define-key org-roam-command-map "r" '("摘要" . my-roam-capture-clip))
@@ -31,6 +34,10 @@
           (org-roam-capture-templates (list (append (car org-roam-capture-templates)
                                                     '(:immediate-finish t)))))
       (apply #'org-roam-node-insert args)))
+
+  (defun org-id-delete ()
+    (interactive)
+    (org-delete-property "ID"))
 
   (setq org-directory (file-truename "~/note/roam"))
   (setq org-roam-directory org-directory)
