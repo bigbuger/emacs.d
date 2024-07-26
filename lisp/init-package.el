@@ -92,6 +92,7 @@
     inf-ruby
     rvm
     yard-mode
+    robe
     
     ;; go
     go-mode
