@@ -16,10 +16,8 @@
     expand-region
     smartparens
     auto-highlight-symbol
-    ripgrep
     visual-regexp
     pyim
-    eldoc-box
     
     which-key
     hydra
@@ -88,7 +86,6 @@
         
     ;; about project
     projectile
-    projectile-ripgrep
     ibuffer-projectile
     
     ;; ruby
@@ -101,7 +98,6 @@
     gotest
     go-scratch
     go-dlv
-    go-eldoc
     go-gen-test
     go-impl
     go-tag

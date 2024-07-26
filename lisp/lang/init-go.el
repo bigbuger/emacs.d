@@ -43,7 +43,6 @@
 
 ;;(setenv "GO111MODULE" "off")
 (add-hook 'go-mode-hook 'flycheck-mode)
-(add-hook 'go-mode-hook 'go-eldoc-setup)
 
 (with-eval-after-load 'lsp-go
   (setf (lsp--client-completion-in-comments? (gethash 'gopls lsp-clients)) nil))
