@@ -55,7 +55,7 @@
 	   :if-new (file+head "备忘/${slug}.org" "#+title: ${title}\n#+filetags: :备忘:\n")
 	   :unnarrowed t)))
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
-  (setq org-roam-node-display-template (concat "${type:20} ${title:50} "(propertize "${tags:100}" 'face 'org-tag)))
+  (setq org-roam-node-display-template (concat "${title:40} ${file:40}" (propertize "${tags:100}" 'face 'org-tag)))
   (setq org-roam-extract-new-file-path "${slug}.org")
   
   :config
