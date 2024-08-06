@@ -11,10 +11,17 @@
 :end:
 
 #+begin: columnview :hlines 1 :id local :format "%ITEM(细项) %文档 %研发{+} %联调 %总工时 %TODO(状态)" :skip-empty-rows t :indent t
+#+name: tb_$1
 | 细项                                                     | 文档 | 研发 | 联调 | 总工时 | 状态  |
 |---------------------------------------------------------+-----+-----+-----+-------+------|
-#+TBLFM: @<<\$6='(format "%0.0f%%" (* 100 (/ (apply '+ (org-lookup-all "DONE" '(@3\$6..@>\$6) (mapcar 'string-to-number '(@3\$3..@>\$3)))) (* 1.0 (string-to-number @2\$3)))));E::\$5=\$2+\$3+\$4
-#+END: 
+| $1                                                       |     |     |     |       |     |
+#+TBLFM: \$5=\$2+\$3+\$4
+#+END:
+
+|总进度|
+|-----|
+|     |
+#+TBLFM: @<<@2\$1='(format "%0.0f%%" (* 100 (/ (apply '+ (org-lookup-all "DONE" '(remote(tb_$2,@3\$6..@>\$6)) (mapcar 'string-to-number '(remote(tb_$2,@3\$3..@>\$3))))) (* 1.0 (string-to-number remote(tb_$2,@2\$3))))));E
 
 - 排期 :: TODO
 
