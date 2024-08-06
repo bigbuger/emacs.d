@@ -153,6 +153,7 @@
   
   (global-set-key (kbd "M-s k")  'consult-keep-lines)
   (global-set-key (kbd "M-s f")  'consult-focus-lines)
+  (global-set-key (kbd "M-s f")  'consult-focus-lines)
   
   (global-set-key (kbd "C-h I") 'consult-info)
 
@@ -431,6 +432,53 @@ targets."
 (use-package vertico-calc
   :load-path "~/.emacs.d/lisp/libs/"
   :bind (("C-c q" . vertico-calc)))
+
+
+(use-package consult-omni
+  :load-path "~/.emacs.d/lisp/libs/consult-omni"
+  :after consult
+  :bind ("C-c j" . consult-omni)
+  :config
+  (add-to-list 'load-path "~/.emacs.d/lisp/libs/consult-omni/sources")
+  ;; Load Sources Core code
+  (require 'consult-omni-sources)
+  ;; Load Embark Actions
+  (require 'consult-omni-embark)
+  (setq consult-omni-sources-modules-to-load '(consult-omni-ripgrep consult-omni-fd consult-omni-buffer consult-omni-calc))
+  (consult-omni-sources-load-modules)
+;;; set multiple sources for consult-omni-multi command. Change these lists as needed for different interactive commands. Keep in mind that each source has to be a key in `consult-omni-sources-alist'.
+  (setq consult-omni-multi-sources '("calc"
+                                     "Buffer"
+                                     "Bookmark"
+				     "ripgrep"
+				     "fd"
+                                     ;; "File"
+                                     ;; "Apps"
+                                     ;; "gptel"
+                                     ;; "Brave"
+                                     ;; "Dictionary"
+                                     ;; "Google"
+                                     ;; "Wikipedia"
+                                     ;; "elfeed"
+                                     ;; "mu4e"
+                                     ;; "buffers text search"
+                                     ;; "Notes Search"
+                                     ;; "Org Agenda"
+                                     ;; "GitHub"
+                                     ;; "YouTube"
+                                     ;; "Invidious"
+				     ))
+
+  (with-eval-after-load 'projectile
+    (defun with-projectile-root (orig-fun &rest args)
+      (let ((pr (projectile-project-root)))
+	(if pr
+	    (let ((default-directory pr))
+	      (apply orig-fun args))
+	  (apply orig-fun args))))
+    (advice-add 'consult-omni-fd :around #'with-projectile-root)
+    (advice-add 'consult-omni :around #'with-projectile-root))
+  )
 
 
 (provide 'init-1-vertico)
