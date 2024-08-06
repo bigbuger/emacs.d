@@ -10,13 +10,13 @@
 :备注:
 :end:
 
-#+begin: columnview :hlines 1 :id local :format "%ITEM(细项) %文档 %研发{+} %联调 %总工时" :skip-empty-rows t :indent t
-| 细项       | 文档 | 研发 | 联调 | 总工时 |
-|-----------+-----+-----+-----+-------|
-#+TBLFM: \$5=\$2+\$3+\$4
-#+end: 
+#+begin: columnview :hlines 1 :id local :format "%ITEM(细项) %文档 %研发{+} %联调 %总工时 %TODO(状态)" :skip-empty-rows t :indent t
+| 细项                                                     | 文档 | 研发 | 联调 | 总工时 | 状态  |
+|---------------------------------------------------------+-----+-----+-----+-------+------|
+#+TBLFM: @<<\$6='(format "%0.0f%%" (* 100 (/ (apply '+ (org-lookup-all "DONE" '(@3\$6..@>\$6) (mapcar 'string-to-number '(@3\$3..@>\$3)))) (* 1.0 (string-to-number @2\$3)))));E::\$5=\$2+\$3+\$4
+#+END: 
 
-- 排期 :: 
+- 排期 :: TODO
 
 ** ${3:细项}
 :properties:
