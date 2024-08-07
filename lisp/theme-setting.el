@@ -22,6 +22,9 @@
 (load-theme 'spacemacs-light t)
 (custom-theme-set-faces
  'spacemacs-light
+
+ ;; 当前行
+ '(line-number-current-line ((t (:inherit line-number :background "#f1d9e4" :foreground "#655370"))))
  
  ;; auto highlight 高亮色
  '(ahs-face ((t (:background "#e6ebeb"))))
