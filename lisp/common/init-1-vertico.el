@@ -143,7 +143,6 @@
   (setq consult-line-start-from-top t)
   
   (global-set-key (kbd "C-x b") 'consult-buffer)
-  (global-set-key (kbd "C-c i") 'consult-imenu)
   (global-set-key (kbd "C-c M-y") 'consult-yank-pop)
   (global-set-key (kbd "C-c m") 'consult-bookmark)
   (global-set-key (kbd "C-c s") 'consult-ripgrep)
@@ -151,8 +150,11 @@
   (global-set-key (kbd "C-c e") 'consult-recent-file)
   (global-set-key (kbd "C-c l")  'consult-line)
   
+  (global-set-key (kbd "M-g i") 'consult-imenu) ;; orig. imenu
+  (global-set-key (kbd "M-g M-g") 'consult-goto-line) ;; orig. goto-line
+  (global-set-key (kbd "M-g g") 'consult-goto-line) ;; orig. goto-line
+  
   (global-set-key (kbd "M-s k")  'consult-keep-lines)
-  (global-set-key (kbd "M-s f")  'consult-focus-lines)
   (global-set-key (kbd "M-s f")  'consult-focus-lines)
   
   (global-set-key (kbd "C-h I") 'consult-info)
@@ -161,7 +163,7 @@
   (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
   (with-eval-after-load "org"
-    (define-key org-mode-map (kbd "C-c i") #'consult-outline))
+    (define-key org-mode-map (kbd "M-g i") #'consult-outline))
   
   (advice-add 'consult-line :around #'using-py-search)
   (advice-add 'consult-recent-file :around #'using-py-search)
