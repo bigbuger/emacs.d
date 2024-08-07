@@ -300,7 +300,7 @@
   (if (= 0 (buffer-size))
       (yas-expand-snippet (yas-lookup-snippet "work schedule"))))
 
-(defalias 'wss 'work-schedule)
+(defalias 'ss 'work-schedule)
 ;; end work schedule
 
 (provide 'init-org)

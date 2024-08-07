@@ -1,4 +1,4 @@
-# key: >wss
+# key: >ss
 # name: work schedule
 # --
 #+TITLE: ${1:`(file-name-base (buffer-file-name))`} 
