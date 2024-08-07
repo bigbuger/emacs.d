@@ -70,7 +70,18 @@
             :before-until
             (defun my/dirvish-dired-noselect-on-lists (&rest args)
               (and (listp (cadr args))
-                  (apply (car args) (cdr args)))))
+                   (apply (car args) (cdr args)))))
+
+(with-eval-after-load 'embark
+  (defun fix-dirvish-embark (fun &optional entry)
+    (if (string-prefix-p "*Embark" (buffer-name) t)
+	(progn
+	  (advice-remove 'dired-find-file #'dirvish-find-entry-a)
+	  (dired-find-file)
+	  (advice-add 'dired-find-file :override #'dirvish-find-entry-a))
+      (funcall fun entry)))
+  
+  (advice-add 'dirvish-find-entry-a :around #'fix-dirvish-embark))
 
 (provide 'init-y-dired)
 
