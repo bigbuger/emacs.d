@@ -23,7 +23,7 @@
   (setq insert-directory-program "gls"))
 (osx-trash-setup)
 
-(setq dired-listing-switches "-l -h --time-style=long-iso --group-directories-first") ;; ls 默认参数，size 用xm/xg显示而不是 byte， 长时间格式，将文件夹显示在第一位
+(setq dired-listing-switches "-a -l -h --time-style=long-iso --group-directories-first") ;; ls 默认参数，size 用xm/xg显示而不是 byte， 长时间格式，将文件夹显示在第一位
 
 ;; dired-x
 (with-eval-after-load 'dired
