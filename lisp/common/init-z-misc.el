@@ -129,6 +129,9 @@
 ;;   (dimmer-configure-which-key)
 ;;   (dimmer-mode t))
 
+(use-package emt
+  :load-path "~/.emacs.d/lisp/libs/emt"
+  :hook (after-init . emt-mode))
 
 (provide 'init-z-misc)
 
