@@ -438,13 +438,14 @@ targets."
   :load-path "~/.emacs.d/lisp/libs/consult-omni"
   :after consult
   :bind ("C-c j" . consult-omni)
-  :config
+  :init
   (add-to-list 'load-path "~/.emacs.d/lisp/libs/consult-omni/sources")
   ;; Load Sources Core code
   (require 'consult-omni-sources)
   ;; Load Embark Actions
   (require 'consult-omni-embark)
-  (setq consult-omni-sources-modules-to-load '(consult-omni-ripgrep consult-omni-fd consult-omni-buffer consult-omni-calc))
+  (setq consult-omni-sources-modules-to-load
+	'(consult-omni-ripgrep consult-omni-fd consult-omni-buffer consult-omni-calc consult-omni-wikipedia))
   (consult-omni-sources-load-modules)
 ;;; set multiple sources for consult-omni-multi command. Change these lists as needed for different interactive commands. Keep in mind that each source has to be a key in `consult-omni-sources-alist'.
   (setq consult-omni-multi-sources '("calc"
