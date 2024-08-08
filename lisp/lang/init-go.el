@@ -70,14 +70,13 @@
   :group 'lsp-go
   :type 'boolean)
 
-(setq enable-golangci-lint nil)
+;; (setq enable-golangci-lint t)
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
 (require 'flycheck-golangci-lint)
 (setq flycheck-golangci-lint-config "~/.golangci.yml")
 
 (when enable-golangci-lint
-  (eval-after-load 'flycheck
-    '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
+  (flycheck-golangci-lint-setup)
   (add-hook 'lsp-managed-mode-hook
             (lambda ()
               (when (derived-mode-p 'go-mode)

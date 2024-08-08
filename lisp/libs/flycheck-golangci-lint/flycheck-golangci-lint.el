@@ -86,7 +86,7 @@
   "A Go syntax checker using golangci-lint that's 5x faster than gometalinter
 
 See URL `https://github.com/golangci/golangci-lint'."
-  :command ("LOG_LEVEL=error" "golangci-lint" "run" "--print-issued-lines=false" "--out-format=line-number"
+  :command ("golangci-lint" "run" "--print-issued-lines=false" "--out-format=line-number"
             (option "--config=" flycheck-golangci-lint-config concat)
             (option "--max-issues-per-linter" flycheck-golangci-lint-max-issues-per-linter concat)
             (option "--max-same-issues" flycheck-golangci-lint-max-same-issues concat)
