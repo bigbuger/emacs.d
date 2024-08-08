@@ -162,7 +162,7 @@
     ad-do-it))
 (ad-activate 'align-regexp)
 
-(setq imenu-max-item-length 200)
+;; (setq imenu-max-item-length 80)
 
 (provide 'init-0-emacs-base)
 
