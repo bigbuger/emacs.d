@@ -165,7 +165,7 @@
 ;; (setq imenu-max-item-length 80)
 
 ;; subword-mode 支持驼峰命名单词移到
-(add-hook 'prog-mode-hook #'subword-mode)
+;; (add-hook 'prog-mode-hook #'subword-mode)
 
 (provide 'init-0-emacs-base)
 
