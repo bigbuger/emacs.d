@@ -34,9 +34,9 @@
 (setq lsp-ui-doc-include-signature t)
 
 (setq lsp-signature-auto-activate t)
-(setq lsp-signature-doc-lines 1)
-(setq lsp-signature-render-documentation nil)
-;;(setq lsp-signature-function 'lsp-signature-posframe)
+(setq lsp-signature-doc-lines 2)
+(setq lsp-signature-render-documentation t)
+;; (setq lsp-signature-function 'lsp-signature-posframe)
 (define-key lsp-mode-map (kbd "s-d") 'lsp-signature-activate)
 (define-key lsp-mode-map (kbd "s-l l") 'lsp-ui-sideline-mode)
 
