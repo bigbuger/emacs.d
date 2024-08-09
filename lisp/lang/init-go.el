@@ -46,17 +46,17 @@
 
 (with-eval-after-load 'lsp-go
   (setf (lsp--client-completion-in-comments? (gethash 'gopls lsp-clients)) nil))
-(setq lsp-go-use-placeholders nil)
+;; (setq lsp-go-use-placeholders nil)
 
 (lsp-register-custom-settings
- '(("go.linitTool" "golangci-lint" nil)
-   ("gopls.analyses.simplifycompositelit" t t)
+ '(("gopls.analyses.simplifycompositelit" t t)
    ("gopls.completeUnimported" t t)
    ("gopls.staticcheck" t t)
    ("gopls.vulncheck" "Imports" nil)
    ;; ("gopls.matcher" "CaseInsensitive")
+   ;; ("gopls.completeFunctionCalls" nil t)
    ("gopls.analyses.ST1001" nil t) ;; dot import warning
-   
+
    ("gopls.hints.assignVariableTypes" nil t)
    ("gopls.hints.compositeLiteralFields" nil t)
    ("gopls.hints.compositeLiteralTypes" nil t)

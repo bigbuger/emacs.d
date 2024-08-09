@@ -51,6 +51,11 @@
   (define-key company-active-map (kbd "C-n") nil)
   (define-key company-active-map (kbd "C-p") nil))
 
+(use-package company-prescient
+  :init
+  (setq prescient-history-length 0)
+  (company-prescient-mode))
+
 (provide 'init-2-company)
 
 ;;; init-2-company.el ends here
