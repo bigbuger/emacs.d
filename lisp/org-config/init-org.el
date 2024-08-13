@@ -200,9 +200,8 @@
   ;; :config
   ;; 美化表格分隔线
   ;; (setq valign-fancy-bar t)
-  ;; :hook
-  ;;(org-mode . valign-mode)
-  )
+  :hook
+  (org-mode . valign-mode))
 
 
 ;; about org balel
