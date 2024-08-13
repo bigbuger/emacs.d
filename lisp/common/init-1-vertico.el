@@ -446,6 +446,12 @@ targets."
   (require 'consult-omni-sources)
   ;; Load Embark Actions
   (require 'consult-omni-embark)
+  
+  (setq consult-omni-preview-key "M-."
+	consult-omni-show-preview t
+	;; consult-omni-highlight-matches-in-file nil
+	)
+
   (setq consult-omni-sources-modules-to-load
 	'(consult-omni-ripgrep consult-omni-fd consult-omni-buffer consult-omni-calc consult-omni-wikipedia))
   (consult-omni-sources-load-modules)
@@ -471,7 +477,7 @@ targets."
                                      ;; "YouTube"
                                      ;; "Invidious"
 				     ))
-
+ 
   (with-eval-after-load 'projectile
     (defun with-projectile-root (orig-fun &rest args)
       (let ((pr (projectile-project-root)))
