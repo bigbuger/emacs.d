@@ -449,7 +449,7 @@ targets."
   
   (setq consult-omni-preview-key "M-."
 	consult-omni-show-preview t
-	;; consult-omni-highlight-matches-in-file nil
+	consult-omni-highlight-matches-in-file nil
 	)
 
   (setq consult-omni-sources-modules-to-load
