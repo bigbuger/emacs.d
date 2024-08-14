@@ -95,8 +95,11 @@
   (unless (or (eq this-command 'point-undo)
               (eq this-command 'point-redo))
     
-    (let ((cell (cons (point) (window-start))))
-      (unless (equal cell (car point-undo-list))
+    (let* ((p (point))
+	   (cell (cons p (window-start))))
+      (unless (and point-undo-list
+		   (or (< (abs (- p (caar point-undo-list))) 10)
+		       (equal cell (car point-undo-list))))
        (setq point-undo-list (cons cell point-undo-list))))
     (setq point-redo-list nil)))
 (add-hook 'pre-command-hook 'point-undo-pre-command-hook)
