@@ -146,14 +146,21 @@
   "Return a label for TAB.
 That is, a string used to represent it on the tab bar."
   (let* ((is-active-tab (awesome-tab-selected-p tab (awesome-tab-current-tabset)))
-	 (tab-face (if is-active-tab 'awesome-tab-selected-face 'awesome-tab-unselected-face)))
+	 (tab-face (if is-active-tab 'awesome-tab-selected-face 'awesome-tab-unselected-face))
+	 (current-buffer-index (cl-position tab (awesome-tab-view (awesome-tab-current-tabset t)))))
     (concat
      ;; left margin
      (propertize " " 'face tab-face)
+
      ;; Tab icon.
      (when (and awesome-tab-display-icon
 		awesome-tab-all-the-icons-is-load-p)
        (awesome-tab-icon-for-tab tab tab-face))
+
+      ;; Tab index.
+     (when awesome-tab-show-tab-index
+       (propertize (format awesome-tab-index-format-str (+ current-buffer-index 1)) 'face tab-face))
+     
      ;; Tab label.
      (propertize (awesome-tab-tab-name tab)
 		 'face tab-face
@@ -212,6 +219,18 @@ Otherwise use `all-the-icons-icon-for-buffer' to fetch icon for buffer."
 	    'awesome-tab-switch-group)
 (define-key awesome-tab-mode-map (kbd "s-t 4")
 	    'awesome-tab-kill-all-buffers-in-current-group)
+(setq awesome-tab-show-tab-index t)
+(setq awesome-tab-index-format-str " %s§")
+(define-key awesome-tab-mode-map (kbd "s-1") 'awesome-tab-select-visible-tab)
+(define-key awesome-tab-mode-map (kbd "s-2") 'awesome-tab-select-visible-tab)
+(define-key awesome-tab-mode-map (kbd "s-3") 'awesome-tab-select-visible-tab)
+(define-key awesome-tab-mode-map (kbd "s-4") 'awesome-tab-select-visible-tab)
+(define-key awesome-tab-mode-map (kbd "s-5") 'awesome-tab-select-visible-tab)
+(define-key awesome-tab-mode-map (kbd "s-6") 'awesome-tab-select-visible-tab)
+(define-key awesome-tab-mode-map (kbd "s-7") 'awesome-tab-select-visible-tab)
+(define-key awesome-tab-mode-map (kbd "s-8") 'awesome-tab-select-visible-tab)
+(define-key awesome-tab-mode-map (kbd "s-9") 'awesome-tab-select-visible-tab)
+(define-key awesome-tab-mode-map (kbd "s-0") 'awesome-tab-select-visible-tab)
 
 (add-hook 'after-init-hook
 	  (awesome-tab-mode t))
