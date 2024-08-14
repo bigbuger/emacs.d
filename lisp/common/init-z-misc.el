@@ -133,6 +133,10 @@
   :load-path "~/.emacs.d/lisp/libs/emt"
   :hook (after-init . emt-mode))
 
+(require 'point-undo)
+(global-set-key (kbd "s-[") #'point-undo)
+(global-set-key (kbd "s-]") #'point-undo)
+
 (provide 'init-z-misc)
 
 ;;; init-z-misc.el ends here
