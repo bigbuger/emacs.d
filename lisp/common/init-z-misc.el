@@ -135,7 +135,7 @@
 
 (require 'point-undo)
 (global-set-key (kbd "s-[") #'point-undo)
-(global-set-key (kbd "s-]") #'point-undo)
+(global-set-key (kbd "s-]") #'point-redo)
 
 (provide 'init-z-misc)
 
