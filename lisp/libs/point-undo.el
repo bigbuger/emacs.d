@@ -97,9 +97,8 @@
     
     (let* ((p (point))
 	   (cell (cons p (window-start))))
-      (unless (and point-undo-list
-		   (or (< (abs (- p (caar point-undo-list))) 10)
-		       (equal cell (car point-undo-list))))
+      (unless (or (< (abs (- p (or (caar point-undo-list) 0))) 10)
+		  (equal cell (car point-undo-list)))
        (setq point-undo-list (cons cell point-undo-list))))
     (setq point-redo-list nil)))
 (add-hook 'pre-command-hook 'point-undo-pre-command-hook)
