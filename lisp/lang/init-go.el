@@ -135,7 +135,7 @@
 
 
 
-(defvar golangci-lint-cmd "LOG_LEVEL=error golangci-lint run --print-issued-lines=false --out-format=line-number ./..."
+(defvar golangci-lint-cmd "LOG_LEVEL=error golangci-lint run --out-format=line-number ./..."
   "Command for `consult-golangci-lint'.")
 
 (defun consult--go-root ()
