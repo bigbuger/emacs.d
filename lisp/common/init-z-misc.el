@@ -137,6 +137,8 @@
 (global-set-key (kbd "s-[") #'point-undo)
 (global-set-key (kbd "s-]") #'point-redo)
 
+(use-package pcre2el)
+
 (provide 'init-z-misc)
 
 ;;; init-z-misc.el ends here
