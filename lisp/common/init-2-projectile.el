@@ -22,7 +22,10 @@
 	 (let ((project-name (projectile-project-name)))
            (unless (string= "-" project-name)
              (format " [%s] - " project-name))))
-	"%f"))
+	(:eval
+	 (let ((filename (buffer-file-name)))
+	   (if filename
+	       (abbreviate-file-name filename))))))
 
 (with-eval-after-load 'consult
   (setq consult-project-function 'projectile-project-root))
