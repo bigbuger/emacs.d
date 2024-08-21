@@ -25,7 +25,8 @@
 	(:eval
 	 (let ((filename (buffer-file-name)))
 	   (if filename
-	       (abbreviate-file-name filename))))))
+	       (abbreviate-file-name filename)
+	     (buffer-name))))))
 
 (with-eval-after-load 'consult
   (setq consult-project-function 'projectile-project-root))
