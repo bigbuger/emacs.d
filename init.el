@@ -60,7 +60,13 @@
 (load-dir "~/.emacs.d/lisp/common")
 (load-dir "~/.emacs.d/lisp/lang")
 (load-dir "~/.emacs.d/lisp/org-config")
-(require 'theme-setting)
+
+(if (daemonp)
+    (add-hook 'after-make-frame-functions
+	      (lambda (frame)
+		(with-selected-frame frame
+		  (load  "~/.emacs.d/lisp/theme-setting.el"))))
+  (load "~/.emacs.d/lisp/theme-setting.el"))
 
 
 
