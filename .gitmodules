@@ -49,3 +49,6 @@
 [submodule "lisp/libs/emt"]
 	path = lisp/libs/emt
 	url = git@github.com:roife/emt.git
+[submodule "lisp/libs/corg.el"]
+	path = lisp/libs/corg.el
+	url = git@github.com:bigbuger/corg.el.git

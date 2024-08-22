@@ -246,6 +246,11 @@
 (use-package impostman
   :ensure t)
 
+(use-package corg
+  :load-path "~/.emacs.d/lisp/libs/corg.el"
+  :init
+ (add-hook 'org-mode-hook #'corg-setup))
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  (append org-babel-load-languages
