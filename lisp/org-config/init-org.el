@@ -201,6 +201,7 @@
 ;; valign 表格对齐，支持中英文
 (setq org-startup-align-all-tables t)
 (use-package valign
+  :disabled
   ;; :config
   ;; 美化表格分隔线
   ;; (setq valign-fancy-bar t)

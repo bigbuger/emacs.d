@@ -230,7 +230,7 @@ Otherwise use `all-the-icons-icon-for-buffer' to fetch icon for buffer."
 (define-key awesome-tab-mode-map (kbd "s-7") 'awesome-tab-select-visible-tab)
 (define-key awesome-tab-mode-map (kbd "s-8") 'awesome-tab-select-visible-tab)
 (define-key awesome-tab-mode-map (kbd "s-9") 'awesome-tab-select-visible-tab)
-(define-key awesome-tab-mode-map (kbd "s-0") 'awesome-tab-select-visible-tab)
+;; (define-key awesome-tab-mode-map (kbd "s-0") 'awesome-tab-select-visible-tab)
 
 (add-hook 'after-init-hook
 	  (awesome-tab-mode t))
