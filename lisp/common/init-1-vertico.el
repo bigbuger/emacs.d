@@ -148,7 +148,8 @@
   (global-set-key (kbd "C-c s") 'consult-ripgrep)
   (global-set-key (kbd "C-c f") 'consult-fd)
   (global-set-key (kbd "C-c e") 'consult-recent-file)
-  (global-set-key (kbd "C-c l")  'consult-line)
+  (global-set-key (kbd "C-c l")  'consult-goto-line)
+  (global-set-key (kbd "C-c i")  'consult-imenu)
   
   (global-set-key (kbd "M-g i") 'consult-imenu) ;; orig. imenu
   (global-set-key (kbd "M-g M-g") 'consult-goto-line) ;; orig. goto-line
@@ -163,6 +164,7 @@
   (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
   (with-eval-after-load "org"
+    (define-key org-mode-map (kbd "C-c i") #'consult-outline)
     (define-key org-mode-map (kbd "M-g i") #'consult-outline))
   
   (advice-add 'consult-line :around #'using-py-search)
