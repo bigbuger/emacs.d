@@ -10,7 +10,8 @@
 (use-package vertico
   :bind (:map vertico-map
 	      ("C-M-n" . vertico-next-group)
-	      ("C-M-p" . vertico-previous-group))
+	      ("C-M-p" . vertico-previous-group)
+	      ("M-S"   . vertico-toggle-sort))
   
   :init
   (vertico-mode)
@@ -29,7 +30,14 @@
           (concat #("_" 0 1 (display " ")) cand))
       (if (= vertico--index index)
           (concat #("➤ " 0 2 (face vertico-current)) cand)
-	(concat     "  " cand)))))
+	(concat     "  " cand))))
+
+  (defun vertico-toggle-sort ()
+    (interactive)
+    (setq-local vertico-sort-override-function
+		(and (not vertico-sort-override-function)
+                     #'vertico-sort-alpha)
+		vertico--input t)))
 
 ;; Do not allow the cursor in the minibuffer prompt
 (setq minibuffer-prompt-properties
