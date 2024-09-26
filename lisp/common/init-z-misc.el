@@ -14,6 +14,9 @@
 (with-eval-after-load 'c-mode
   (unbind-key "C-c ." 'c-mode-base-map))
 
+(with-eval-after-load 'protobuf-mode
+  (unbind-key "C-c ." 'protobuf-mode-map))
+
 (global-set-key (kbd "C-c .") 'dumb-jump-go)
 (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
 
