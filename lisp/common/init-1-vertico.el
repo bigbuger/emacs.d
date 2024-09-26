@@ -165,15 +165,20 @@
   
   (global-set-key (kbd "M-s k")  'consult-keep-lines)
   (global-set-key (kbd "M-s f")  'consult-focus-lines)
+  (global-set-key (kbd "M-s e")  'consult-isearch-history)
   
   (global-set-key (kbd "C-h I") 'consult-info)
 
   
-  (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
-
+  (define-key minibuffer-local-map (kbd "M-r") 'consult-history)
+  (with-eval-after-load 'visual-regexp
+    (define-key vr/minibuffer-keymap (kbd "M-r") 'consult-history))
+  
   (with-eval-after-load "org"
     (define-key org-mode-map (kbd "C-c i") #'consult-outline)
     (define-key org-mode-map (kbd "M-g i") #'consult-outline))
+
+
   
   (advice-add 'consult-line :around #'using-py-search)
   (advice-add 'consult-recent-file :around #'using-py-search)
