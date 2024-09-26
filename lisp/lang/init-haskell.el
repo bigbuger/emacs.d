@@ -50,6 +50,10 @@
 (use-package consult-hoogle
   :load-path "~/.emacs.d/lisp/libs/consult-hoogle")
 
+(use-package ghci-completion
+  :init
+  (add-hook 'inferior-haskell-mode-hook 'turn-on-ghci-completion))
+
 (with-eval-after-load 'org
   (add-to-list 'org-babel-load-languages
 	       '(haskell . t)))
