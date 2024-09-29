@@ -52,3 +52,6 @@
 [submodule "lisp/libs/corg.el"]
 	path = lisp/libs/corg.el
 	url = git@github.com:bigbuger/corg.el.git
+[submodule "lisp/libs/lilean4-mode"]
+	path = lisp/libs/lilean4-mode
+	url = git@github.com:leanprover-community/lean4-mode.git
