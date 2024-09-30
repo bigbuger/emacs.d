@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: structure
+# key: struct
+# expand-env: ((yas-indent-line 'fixed))
+# --
+structure $1 where
+  $2 : $0

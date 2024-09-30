@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: inductive
+# key: inductive
+# expand-env: ((yas-indent-line 'fixed))
+# --
+inductive $1 where
+  | $0

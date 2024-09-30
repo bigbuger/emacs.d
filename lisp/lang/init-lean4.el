@@ -16,7 +16,7 @@
   (add-hook 'lean4-mode-hook
 	    (lambda ()
 	      (setq-local company-backends
-			  '((company-capf company-keywords company-yasnippet)
+			  '((company-capf company-yasnippet company-keywords)
 			    company-files
 			    company-dabbrev-code
 			    company-dabbrev))))

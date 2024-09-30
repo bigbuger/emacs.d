@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: begin
+# key: begin
+# expand-env: ((yas-indent-line 'fixed))
+# --
+begin
+  $1
+end
