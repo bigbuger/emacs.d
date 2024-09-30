@@ -5,3 +5,4 @@
 # --
 inductive $1 where
   | $0
+deriving Repr

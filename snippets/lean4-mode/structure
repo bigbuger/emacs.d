@@ -5,3 +5,4 @@
 # --
 structure $1 where
   $2 : $0
+deriving Repr
