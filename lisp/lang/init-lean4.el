@@ -22,6 +22,22 @@
 			    company-dabbrev))))
   )
 
+(defun org-babel-execute:lean4 (body params)
+  "Execute a block of lean4 code with org-babel."
+  (let ((in-file (org-babel-temp-file "lean4" ".lean"))
+	(args (or (cdr (assq :args params)) "")))
+    (with-temp-file in-file
+      (insert body))
+    (org-babel-eval
+     (format "lean %s %s" args (org-babel-process-file-name in-file))
+     "")))
+
+(with-eval-after-load 'org
+    (add-to-list 'org-babel-load-languages
+		 '(lean4 . t)))
+
+(provide 'ob-lean4)
+
 (provide 'init-lean4)
 
 ;;; init-lean4.el ends here
