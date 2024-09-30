@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: eval
+# key: #eval
+# --
+#eval $0
