@@ -10,6 +10,11 @@
   :load-path "~/.emacs.d/lisp/libs/lilean4-mode"
 
   :config
+  (add-to-list 'display-buffer-alist
+	       `(,lean4-info-buffer-name
+		 display-buffer-in-direction
+		 (direction . right)))
+  
   (with-eval-after-load 'company-keywords
     (add-to-list 'company-keywords-alist
 		 `(lean4-mode ,@lean4-keywords1)))
