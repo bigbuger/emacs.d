@@ -47,6 +47,7 @@
 (dirvish-override-dired-mode)
 (setq dirvish-attributes '(vc-state all-the-icons subtree-state file-size))
 (setq dirvish-mode-line-format nil)
+(setq dirvish-use-header-line nil)
 
 (define-key dirvish-mode-map
 	    (kbd "TAB") 'dirvish-subtree-toggle) ;; 展开下级目录
