@@ -7,9 +7,11 @@
 ;;; Code:
 
 (use-package lean4-mode
-  :load-path "~/.emacs.d/lisp/libs/lilean4-mode"
+  :load-path "~/.emacs.d/lisp/libs/lean4-mode"
 
   :config
+  (setq lean4-info-buffer-debounce-delay-sec 0.5)
+  
   (add-to-list 'display-buffer-alist
 	       `(,lean4-info-buffer-name
 		 display-buffer-in-direction
