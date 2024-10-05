@@ -10,7 +10,8 @@
   :load-path "~/.emacs.d/lisp/libs/lean4-mode"
 
   :config
-  (setq lean4-info-buffer-debounce-delay-sec 0.5)
+  (setq lean4-info-buffer-debounce-delay-sec 0.2)
+  (setq lean4-info-buffer-debounce-upper-bound-sec 0.3)
   
   (add-to-list 'display-buffer-alist
 	       `(,lean4-info-buffer-name
@@ -22,6 +23,8 @@
 		 `(lean4-mode ,@lean4-keywords1)))
   (add-hook 'lean4-mode-hook
 	    (lambda ()
+	      (setq-local company-minimum-prefix-length 3)
+	      (setq-local lsp-enable-file-watchers nil)
 	      (setq-local company-backends
 			  '((company-capf company-yasnippet company-keywords)
 			    company-files
