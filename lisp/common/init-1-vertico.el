@@ -156,7 +156,7 @@
   (global-set-key (kbd "C-c s") 'consult-ripgrep)
   (global-set-key (kbd "C-c f") 'consult-fd)
   (global-set-key (kbd "C-c e") 'consult-recent-file)
-  (global-set-key (kbd "C-c l")  'consult-goto-line)
+  (global-set-key (kbd "C-c l")  'consult-line)
   (global-set-key (kbd "C-c i")  'consult-imenu)
   
   (global-set-key (kbd "M-g i") 'consult-imenu) ;; orig. imenu
@@ -249,16 +249,22 @@ This is the function to be used for the hook `completion-at-point-functions'."
   :config
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
-   consult-bookmark consult-recent-file consult-xref
-   consult--source-bookmark consult--source-file-register
-   consult--source-recent-file consult--source-project-recent-file
+   consult-xref
+   consult--source-file-register
+  
    :preview-key '(:debounce 0.4 any) ;; Option 1: Delay preview
    ;; :preview-key "M-."             ;; Option 2: Manual preview
    )
   
-  (consult-customize consult-theme
-                     :preview-key
-                     '("M-."))
+  (consult-customize
+   consult-bookmark
+   consult-recent-file
+   consult--source-recent-file
+   consult--source-project-recent-file
+   consult--source-bookmark
+   consult-theme
+
+   :preview-key '("M-."))
 
   (advice-add #'consult-focus-lines :around #'using-orderless)
   (advice-add #'consult-keep-lines :around #'using-orderless))
