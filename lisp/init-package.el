@@ -146,7 +146,6 @@
     csv-mode
     json-mode
     yaml-mode
-    markdown-mode
     ;; company-ansible
     protobuf-mode
 
