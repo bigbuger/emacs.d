@@ -7,6 +7,9 @@
 
 ;; npm install -g git+https://gitlab.com/matsievskiysv/math-preview
 (use-package math-preview
+  :config
+  (setq math-preview-scale 1.3)
+  
   :bind
   (:map markdown-mode-map
 	("C-c C-p" . math-preview-at-point)))
