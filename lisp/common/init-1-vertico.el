@@ -246,7 +246,7 @@ This is the function to be used for the hook `completion-at-point-functions'."
 
   (advice-add 'consult-ripgrep :around #'consult-rg-with-completion-at-point)
   
-  :config  
+  :config
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
    consult-xref
@@ -264,7 +264,9 @@ This is the function to be used for the hook `completion-at-point-functions'."
    consult--source-project-recent-file
    consult--source-bookmark
    consult-theme
-
+   consult-buffer
+   consult--source-buffer
+   
    :preview-key '("M-."))
 
   (advice-add #'consult-focus-lines :around #'using-orderless)
