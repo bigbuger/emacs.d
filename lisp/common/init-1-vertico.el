@@ -253,7 +253,8 @@ This is the function to be used for the hook `completion-at-point-functions'."
    consult-ripgrep consult-git-grep consult-grep
    consult-xref
    consult--source-file-register
-  
+   consult-line
+   consult-goto-line
    :preview-key '(:debounce 0.4 any) ;; Option 1: Delay preview
    ;; :preview-key "M-."             ;; Option 2: Manual preview
    )
