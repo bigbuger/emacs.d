@@ -246,9 +246,7 @@ This is the function to be used for the hook `completion-at-point-functions'."
 
   (advice-add 'consult-ripgrep :around #'consult-rg-with-completion-at-point)
   
-  :config
-  (setq consult-preview-key "M-.")
-  
+  :config  
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
    consult-xref
