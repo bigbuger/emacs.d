@@ -10,7 +10,6 @@
 
 (require 'magit)
 (global-set-key (kbd "C-c g") 'magit-file-dispatch)
-(global-set-key (kbd "C-c c") 'magit-branch-or-checkout)
 
 (setq magit-delete-by-moving-to-trash nil)
 
