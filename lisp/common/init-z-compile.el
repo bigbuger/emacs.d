@@ -4,6 +4,8 @@
 
 ;;; Code:
 
+(global-set-key (kbd "C-c C-c") #'compile)
+
 ;; smart-compile 根据不同文件类型指定不同的编译命令
 
 (require 'smart-compile)
