@@ -52,9 +52,9 @@
   (setq dash-docs-docsets-path "~/.docset")
   (setq dash-docs-enable-debugging nil)
   (setq dash-docs-browser-func
-      #'(lambda (url &rest args)
-	  (xwidget-webkit-browse-url url args)
-	  (display-buffer xwidget-webkit-last-session-buffer)))
+	#'(lambda (url &rest args)
+	    (xwidget-webkit-browse-url url args)
+	    (display-buffer xwidget-webkit-last-session-buffer)))
   
   :init
   (setq-default consult-dash-docsets '("Redis" "MySql" "MongoDB" "SQLite")))
@@ -102,22 +102,56 @@
   :config
   (setq jinx-exclude-regexps
 	'((emacs-lisp-mode "Package-Requires:.*$")
-	  (t "[A-Z]+\\>" "-+\\>" "\\w*?[0-9]\\w*\\>" "[a-z]+://\\S-+" "<?[-+_.~a-zA-Z][-+_.~:a-zA-Z0-9]*@[-.a-zA-Z0-9]+>?" "\\(?:Local Variables\\|End\\):\\s-*$" "jinx-\\(?:languages\\|local-words\\):\\s-+.*$"
-	     "\\cc" ;; \cc: category Chinese
-	     "\\<\\w\\{1,3\\}\\>" ;; not check less then 3 word
-	     )))
+	  (t "[A-Z]+\\>"         ;; Uppercase words
+	     "-+\\>"             ;; Hyphens used as lines or bullet points
+	     "\\w*?[0-9]\\w*\\>" ;; Words with numbers, hex codes
+	     "[a-z]+://\\S-+"    ;; URI
+	     "<?[-+_.~a-zA-Z][-+_.~:a-zA-Z0-9]*@[-.a-zA-Z0-9]+>?" ;; Email
+	     "\\(?:Local Variables\\|End\\):\\s-*$" ;; Local variable indicator
+	     "jinx-\\(?:languages\\|local-words\\):\\s-+.*$" ;; Local variables
+	     "\\cc" ;; Chinese
+	     ".*/.*\\>" ;; File path
+	     "\\<[a-zA-Z]\\{1,3\\}\\>" ;; short word
+	     ))
+	)
   
   (setq jinx-include-faces
 	'((prog-mode font-lock-comment-face font-lock-doc-face font-lock-string-face font-lock-variable-name-face font-lock-function-name-face)
 	  (conf-mode font-lock-comment-face font-lock-string-face)
+
+	  ;; `yaml-mode' and `yaml-ts-mode' are text-modes,
+	  ;; while they should better be conf- or prog-modes.
 	  (yaml-mode . conf-mode)
 	  (yaml-ts-mode . conf-mode)))
+
+  (defvar jinx-min-word-length 3
+    "Jinx check mint length.")
+  
+  (defun my-jinx--ignore-case-word-valid-p (start)
+    "Return non-nil if word, that is assumed to be in lower case, at
+START is valid, or would be valid if capitalized or upcased."
+    (let ((word (buffer-substring-no-properties start (point))))
+      (or (member word jinx--session-words)
+	  (<= (length word) jinx-min-word-length)
+	  (cl-loop for dict in jinx--dicts thereis
+		   (or
+		    (jinx--mod-check dict (upcase word))
+		    (jinx--mod-check dict (downcase word))
+		    (jinx--mod-check dict (capitalize word))
+		    (jinx--mod-check dict word))))))
+
+  (setq jinx--predicates
+	(list #'jinx--face-ignored-p
+              #'jinx--regexp-ignored-p
+	      #'my-jinx--ignore-case-word-valid-p
+              #'jinx--word-valid-p))
+  
   )
 
 (use-package vertico
   :config
-   (add-to-list 'vertico-multiform-categories
-             '(jinx grid (vertico-grid-annotate . 20))))
+  (add-to-list 'vertico-multiform-categories
+               '(jinx grid (vertico-grid-annotate . 20))))
 
 ;; end flyspell
 
@@ -136,8 +170,8 @@
 (use-package casual-re-builder
   :ensure t
   :bind (:map reb-mode-map ("C-o" . 'casual-re-builder-tmenu)
-	 :map reb-lisp-mode-map ("C-o" . 'casual-re-builder-tmenu)
-	 :map reb-subexp-mode-map ("C-o" . 'casual-re-builder-tmenu)))
+	      :map reb-lisp-mode-map ("C-o" . 'casual-re-builder-tmenu)
+	      :map reb-subexp-mode-map ("C-o" . 'casual-re-builder-tmenu)))
 
 (use-package consult-dasel
   :load-path "~/.emacs.d/lisp/libs/"
