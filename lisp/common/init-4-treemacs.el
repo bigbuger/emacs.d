@@ -18,6 +18,7 @@
 
 (setq treemacs-filewatch-mode t)
 (setq treemacs-file-event-delay 50)
+(setq treemacs-no-delete-other-windows nil)
 
 (provide 'init-4-treemacs)
 
