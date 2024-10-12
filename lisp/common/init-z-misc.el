@@ -92,7 +92,32 @@
 (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-wrapper)
 
 (setq ispell-program-name "aspell")
-(setq ispell-extra-args '("--sug-mode=ultra" "--camel-case"))
+;; (setq ispell-extra-args '("--sug-mode=ultra" "--camel-case"))
+
+;; Jinx is a fast just-in-time spell-checker for Emacs.
+(use-package jinx
+  :hook (emacs-startup . global-jinx-mode)
+  :bind (("M-$" . jinx-correct)
+         ("C-M-$" . jinx-languages))
+  :config
+  (setq jinx-exclude-regexps
+	'((emacs-lisp-mode "Package-Requires:.*$")
+	  (t "[A-Z]+\\>" "-+\\>" "\\w*?[0-9]\\w*\\>" "[a-z]+://\\S-+" "<?[-+_.~a-zA-Z][-+_.~:a-zA-Z0-9]*@[-.a-zA-Z0-9]+>?" "\\(?:Local Variables\\|End\\):\\s-*$" "jinx-\\(?:languages\\|local-words\\):\\s-+.*$"
+	     "\\cc" ;; \cc: category Chinese
+	     "\\<\\w\\{1,3\\}\\>" ;; not check less then 3 word
+	     )))
+  
+  (setq jinx-include-faces
+	'((prog-mode font-lock-comment-face font-lock-doc-face font-lock-string-face font-lock-variable-name-face font-lock-function-name-face)
+	  (conf-mode font-lock-comment-face font-lock-string-face)
+	  (yaml-mode . conf-mode)
+	  (yaml-ts-mode . conf-mode)))
+  )
+
+(use-package vertico
+  :config
+   (add-to-list 'vertico-multiform-categories
+             '(jinx grid (vertico-grid-annotate . 20))))
 
 ;; end flyspell
 
@@ -132,6 +157,8 @@
 ;;   (dimmer-configure-which-key)
 ;;   (dimmer-mode t))
 
+;; EMT stands for Emacs MacOS Tokenizer.
+;; This package use macOS’s built-in NLP tokenizer to tokenize and operate on CJK words in Emacs.
 (use-package emt
   :load-path "~/.emacs.d/lisp/libs/emt"
   :hook (after-init . emt-mode))

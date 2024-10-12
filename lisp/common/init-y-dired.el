@@ -45,7 +45,7 @@
 ;; dirvish 很好用的文件管理实现 😊
 (require 'dirvish)
 (dirvish-override-dired-mode)
-(setq dirvish-attributes '(vc-state all-the-icons subtree-state file-size))
+(setq dirvish-attributes '(vc-state all-the-icons subtree-state file-time file-size))
 (setq dirvish-mode-line-format nil)
 (setq dirvish-use-header-line nil)
 

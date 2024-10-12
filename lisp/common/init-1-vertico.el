@@ -15,6 +15,7 @@
   
   :init
   (vertico-mode)
+  (vertico-multiform-mode 1)
   (vertico-mouse-mode)
 
   (defvar +vertico-current-arrow t)
