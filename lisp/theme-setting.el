@@ -44,7 +44,7 @@
  '(flycheck-posframe-face ((t (:inherit default :background "#efeae9"))))
 
  ;; jinx
- '(jinx-misspelled ((t (:underline (:color "#02ff17" :style wave :position nil)))))
+ '(jinx-misspelled ((t (:underline (:color "#65aa6c" :style wave :position nil)))))
  
  ;; 代码高亮色修改
  '(font-lock-constant-face ((t (:foreground "#6c71c4"))))
