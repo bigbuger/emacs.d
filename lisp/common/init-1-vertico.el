@@ -313,10 +313,16 @@ This is the function to be used for the hook `completion-at-point-functions'."
    ("<SPC>" . embark-select))
 
   :config
+  (defvar embark-collect-smart-column-regex
+    "consult-lsp-diagnostics")
+  
   (add-hook 'embark-collect-mode-hook
 	    #'(lambda ()
-		(setq tabulated-list-format
-		      [("Candidate" 140 t) ("Annotation" 0 t)])))
+		(unless (string-match-p
+			 embark-collect-smart-column-regex
+			 (buffer-name))
+		  (setq tabulated-list-format
+			[("Candidate" 140 t) ("Annotation" 0 t)]))))
   (setq embark-confirm-act-all nil)
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
@@ -454,7 +460,8 @@ targets."
 (use-package consult-lsp
   :after (lsp)
   :init
-  (define-key lsp-command-map (kbd "s") 'consult-lsp-symbols))
+  (define-key lsp-command-map (kbd "s") 'consult-lsp-symbols)
+  (define-key lsp-command-map (kbd "e") 'consult-lsp-diagnostics))
 
 (use-package vertico-calc
   :load-path "~/.emacs.d/lisp/libs/"

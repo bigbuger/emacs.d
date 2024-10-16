@@ -173,12 +173,14 @@ START is valid, or would be valid if capitalized or upcased."
 	      :map reb-lisp-mode-map ("C-o" . 'casual-re-builder-tmenu)
 	      :map reb-subexp-mode-map ("C-o" . 'casual-re-builder-tmenu)))
 
+;; consult-dasel 多后端搜索
 (use-package consult-dasel
   :load-path "~/.emacs.d/lisp/libs/"
   :init
   (with-eval-after-load 'conf-mode
     (define-key conf-toml-mode-map (kbd "C-c C-j") #'consult-dasel)))
 
+;; 项目模版系统
 (use-package skeletor
   :ensure t
   :custom
@@ -202,6 +204,12 @@ START is valid, or would be valid if capitalized or upcased."
 (global-set-key (kbd "s-]") #'point-redo)
 
 (use-package pcre2el)
+
+;; pcmpl-args extends option and argument completion of shell commands read by Emacs.
+;; It is intended to make shell completion in Emacs comparable to the rather excellent completion provided by both Bash and Zsh.
+(use-package pcmpl-args
+  :init
+  (defalias 'pcomplete/rg 'pcmpl-args-pcomplete-on-help))
 
 (provide 'init-z-misc)
 
