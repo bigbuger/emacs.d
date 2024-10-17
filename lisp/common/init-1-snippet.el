@@ -16,7 +16,7 @@
 (require 'hippie-exp)
 
 (defun my/he-list-beg ()
-    (save-excursion
+  (save-excursion
     (condition-case ()
 	(progn
 	  (backward-up-list 1)
@@ -62,9 +62,9 @@ string).  It returns t if a new completion is found, nil otherwise."
 	(progn
 	  (if old (he-reset-string))
 	  ())
-	(progn
-	  (he-substitute-string expansion t)
-	  t))))
+      (progn
+	(he-substitute-string expansion t)
+	t))))
 
 
 (setq hippie-expand-try-functions-list
@@ -83,7 +83,7 @@ string).  It returns t if a new completion is found, nil otherwise."
 (defun he-fix-string-parens (args)
   "remove extra paren when expanding line in smartparens."
   (let* ((str (car args))
-	(last (substring str -1)))
+	 (last (substring str -1)))
     (if (and smartparens-mode (member last '(")" "}" "\"" "'" "`")))
 	(list (substring str 0 -1) (cdr args))
       args)))
@@ -108,18 +108,18 @@ string).  It returns t if a new completion is found, nil otherwise."
 (auto-insert-mode t)
 
 (defun smarter-yas-expand-next-field-complete ()
-    "Try to `yas-expand' and `yas-next-field' at current cursor position.
+  "Try to `yas-expand' and `yas-next-field' at current cursor position.
 
 If failed try to complete the common part with `company-complete-common'"
-    (interactive)
-    (if yas-minor-mode
-        (let ((old-point (point))
-              (old-tick (buffer-chars-modified-tick)))
-          (ignore-errors (yas-next-field))
-          (when (and (eq old-point (point))
-                     (eq old-tick (buffer-chars-modified-tick)))
-            (company-complete-common))))
-    (company-complete-common))
+  (interactive)
+  (if yas-minor-mode
+      (let ((old-point (point))
+            (old-tick (buffer-chars-modified-tick)))
+        (ignore-errors (yas-next-field))
+        (when (and (eq old-point (point))
+                   (eq old-tick (buffer-chars-modified-tick)))
+          (company-complete-common))))
+  (company-complete-common))
 
 (with-eval-after-load 'company
   (define-key company-active-map (kbd "<tab>") #'smarter-yas-expand-next-field-complete))

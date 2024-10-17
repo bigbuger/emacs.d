@@ -67,8 +67,8 @@
      "")))
 
 (with-eval-after-load 'org
-    (add-to-list 'org-babel-load-languages
-		 '(gmpl . t)))
+  (add-to-list 'org-babel-load-languages
+	       '(gmpl . t)))
 
 (provide 'ob-gmpl)
 
