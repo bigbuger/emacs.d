@@ -11,7 +11,7 @@
       (set-fontset-font t 'han "PingFang SC")
       )
   (set-face-attribute 'default nil :height 150))
-
+(setq-default line-spacing 1) ;; 行间距
 (setq custom--inhibit-theme-enable nil)
 
 (require 'spacemacs-light-theme)
