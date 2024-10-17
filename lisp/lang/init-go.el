@@ -289,9 +289,8 @@
   "List of `go' commands.")
 
 ;; go help build | grep "^\s*-" | awk '{print "\""$1"\""}' | uniq
-(defconst pcml-go-build-options
-  '("-o"
-    "-C" "-a" "-n" "-p"
+(defconst pcml-go-build-flag
+  '("-C" "-a" "-n" "-p"
     "-race" "-msan" "-asan"
     "-cover" "-covermode" "-coverpkg"
     "-v" "-work" "-x" "-asmflags"
@@ -301,23 +300,53 @@
     "-modcacherw" "-modfile" "-overlay"
     "-pgo" "-pkgdir" "-tags"
     "-trimpath" "-toolexec")
-  "List of `go build' options.")
+  "List of `go build' flag.")
 
 (defun pcomplete/go ()
   "Completion for `go'."
   ;; Completion for the command argument.
   (pcomplete-here* pcmpl-go-commands)
 
-  (cond
-   ((pcomplete-match (regexp-opt '("test")) 1)
-    (while (pcomplete-here (pcomplete-entries))))
-   ;; provide branch completion for the command `checkout'.
-   ((pcomplete-match "mod" 1)
-    (pcomplete-here* '("download" "edit" "graph" "init" "tidy" "vendor" "verify" "why")))
-   ((pcomplete-match "work" 1)
-    (pcomplete-here* '("edit" "init" "vendor" "use" "sync")))
-   ((and (pcomplete-match "build" 1) (string-prefix-p "-" (symbol-name (symbol-at-point))))
-    (pcomplete-here* pcml-go-build-options))))
+  (let ((option-p (string-prefix-p "-" (symbol-name (symbol-at-point)))))
+    (cond
+     ((pcomplete-match "mod" 1)
+      (pcomplete-here* '("download" "edit" "graph" "init" "tidy" "vendor" "verify" "why")))
+     ((pcomplete-match "work" 1)
+      (pcomplete-here* '("edit" "init" "vendor" "use" "sync")))
+     ((pcomplete-match "build" 1)
+      (while (pcomplete-here
+	      (completion-table-merge
+	       (when option-p
+		 `("-o" ,@pcml-go-build-flag))
+	       (pcomplete-entries)))))
+     ((pcomplete-match "get" 1)
+      (while (pcomplete-here
+	      (completion-table-merge
+	       (when option-p
+		 `("-t" "-u" "-v" ,@pcml-go-build-flag))
+	       (pcomplete-entries)))))
+     ((pcomplete-match "install" 1)
+      (while (pcomplete-here
+	      (completion-table-merge
+	       (when option-p
+		 pcml-go-build-flag)
+	       (pcomplete-entries)))))
+     ((pcomplete-match "run" 1)
+      (while (pcomplete-here
+	      (completion-table-merge
+	       (when option-p
+		 pcml-go-build-flag)
+	       (pcomplete-entries)))))
+     ((pcomplete-match "test" 1)
+      (while (pcomplete-here
+	      (completion-table-merge
+	       (when option-p
+		 `("-args" "-c" "-exec" "-json" "-o"
+		   "-benchtime"  "-cpu" "-list"
+		   "-parallel" "-run" "-short"
+		   "-timeout" "-failfast"
+		   ,@pcml-go-build-flag))
+	       (pcomplete-entries))))))))
 
 (use-package ob-go
   :demand t
