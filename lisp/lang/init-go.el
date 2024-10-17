@@ -84,6 +84,7 @@
 
 (add-hook 'go-mode-hook
 	  (lambda ()
+	    (setq-local tab-width 4)
 	    ;; (setq-local lsp-diagnostics-provider :none)
 	    (setq-local flycheck-disabled-checkers '(go-gofmt
 						     go-golint
@@ -101,10 +102,12 @@
 
 (add-hook 'go-dot-mod-mode-hook
 	  (lambda ()
+	    (setq-local tab-width 4)
 	    (display-line-numbers-mode t)
 	    (lsp-deferred)))
 (add-hook 'go-dot-work-mode-hook
 	  (lambda ()
+	    (setq-local tab-width 4)
 	    (display-line-numbers-mode t)
 	    (lsp-deferred)))
 
