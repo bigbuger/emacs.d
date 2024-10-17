@@ -14,7 +14,6 @@
 (setq treemacs-follow-after-init t)
 (treemacs-project-follow-mode)
 (global-set-key [f8] 'treemacs)
-(global-set-key (kbd "M-0") 'treemacs-select-window)
 
 (setq treemacs-filewatch-mode t)
 (setq treemacs-file-event-delay 50)

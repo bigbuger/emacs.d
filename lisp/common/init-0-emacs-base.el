@@ -134,8 +134,8 @@
 (setq split-width-threshold 1000)
 
 ;; base key ========================================
-;;关闭当前缓冲区 Alt+4  ;; C-x 0
-(global-set-key (kbd "M-4") 'delete-window)
+;;关闭当前缓冲区 Alt+0  ;; C-x 0
+(global-set-key (kbd "M-0") 'delete-window)
 ;;关闭其它缓冲区 Alt+1  ;; C-x 1
 (global-set-key (kbd "M-1") 'delete-other-windows)
 ;;水平分割缓冲区 Alt+2  ;; C-x 2
