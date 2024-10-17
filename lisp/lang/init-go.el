@@ -282,6 +282,42 @@
   (define-key go-mode-map (kbd "s-g r") #'go-run)
   (define-key go-mode-map (kbd "s-g s-t") #'convert-to-go-time-format))
 
+(defconst pcmpl-go-commands
+  '("build" "clean" "doc" "env" "fix" "fmt"
+    "generate" "get" "install" "list" "mod" "work"
+    "run" "test" "tool" "version" "vet")
+  "List of `go' commands.")
+
+;; go help build | grep "^\s*-" | awk '{print "\""$1"\""}' | uniq
+(defconst pcml-go-build-options
+  '("-o"
+    "-C" "-a" "-n" "-p"
+    "-race" "-msan" "-asan"
+    "-cover" "-covermode" "-coverpkg"
+    "-v" "-work" "-x" "-asmflags"
+    "-buildmode" "-buildvcs" "-compiler"
+    "-gccgoflags" "-gcflags" "-installsuffix"
+    "-ldflags" "-linkshared" "-mod"
+    "-modcacherw" "-modfile" "-overlay"
+    "-pgo" "-pkgdir" "-tags"
+    "-trimpath" "-toolexec")
+  "List of `go build' options.")
+
+(defun pcomplete/go ()
+  "Completion for `go'."
+  ;; Completion for the command argument.
+  (pcomplete-here* pcmpl-go-commands)
+
+  (cond
+   ((pcomplete-match (regexp-opt '("test")) 1)
+    (while (pcomplete-here (pcomplete-entries))))
+   ;; provide branch completion for the command `checkout'.
+   ((pcomplete-match "mod" 1)
+    (pcomplete-here* '("download" "edit" "graph" "init" "tidy" "vendor" "verify" "why")))
+   ((pcomplete-match "work" 1)
+    (pcomplete-here* '("edit" "init" "vendor" "use" "sync")))
+   ((and (pcomplete-match "build" 1) (string-prefix-p "-" (symbol-name (symbol-at-point))))
+    (pcomplete-here* pcml-go-build-options))))
 
 (use-package ob-go
   :demand t
