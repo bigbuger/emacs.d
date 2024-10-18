@@ -155,6 +155,22 @@
 	      golangci-lint-cmd)))
     (grep cmd)))
 
+(defun go-mod-tidy ()
+  "Run `go mod tidy by compile'."
+  (interactive)
+  (let ((default-directory (or (consult--go-root)
+			       default-directory)))
+    (compile "go mod tidy")))
+
+(defvar go-get-history nil)
+(defun go-get (pkg)
+  "Run `go get PKG' by compile."
+  (interactive
+   (list (read-string "go get: " nil 'go-get-history)))
+  (let ((default-directory (or (consult--go-root)
+			       default-directory)))
+    (compile (concat "go get " pkg))))
+
 
 (with-eval-after-load 'projectile
   (projectile-register-project-type 'go-mod '("go.mod")
@@ -279,9 +295,20 @@
   (define-key go-mode-map (kbd "s-g T") #'go-tag-remove)
   (define-key go-mode-map (kbd "s-g i") #'go-impl)
   (define-key go-mode-map (kbd "s-g f") #'gofmt)
+
   (define-key go-mode-map (kbd "s-g l") #'golangci-lint)
   (define-key go-dot-mod-mode-map (kbd "s-g l") #'golangci-lint)
   (define-key go-dot-work-mode-map (kbd "s-g l") #'golangci-lint)
+
+  (define-key go-mode-map (kbd "s-g m t") #'go-mod-tidy)
+  (define-key go-dot-mod-mode-map (kbd "s-g m t") #'go-mod-tidy)
+  (define-key go-dot-work-mode-map (kbd "s-g m t") #'go-mod-tidy)
+
+  (define-key go-mode-map (kbd "s-g g") #'go-get)
+  (define-key go-dot-mod-mode-map (kbd "s-g g") #'go-get)
+  (define-key go-dot-work-mode-map (kbd "s-g g") #'go-get)
+  
+  
   (define-key go-mode-map (kbd "s-g r") #'go-run)
   (define-key go-mode-map (kbd "s-g s-t") #'convert-to-go-time-format))
 
