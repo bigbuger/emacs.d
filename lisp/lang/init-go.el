@@ -145,6 +145,11 @@
   "Find go mod root."
   (expand-file-name (string-replace "\n" "" (shell-command-to-string "dirname $(go env GOMOD)"))))
 
+(defmacro with-go-project-root (body)
+  `(let ((default-directory (or (consult--go-root)
+				default-directory)))
+	,body))
+
 (defun golangci-lint ()
   "Run golangci-lint, and diplay the result by `grep-mode'."
   (interactive)
@@ -158,18 +163,16 @@
 (defun go-mod-tidy ()
   "Run `go mod tidy by compile'."
   (interactive)
-  (let ((default-directory (or (consult--go-root)
-			       default-directory)))
-    (compile "go mod tidy")))
+  (with-go-project-root
+   (compile "go mod tidy")))
 
 (defvar go-get-history nil)
 (defun go-get (pkg)
   "Run `go get PKG' by compile."
   (interactive
    (list (read-string "go get: " nil 'go-get-history)))
-  (let ((default-directory (or (consult--go-root)
-			       default-directory)))
-    (compile (concat "go get " pkg))))
+  (with-go-project-root
+   (compile (concat "go get " pkg))))
 
 
 (with-eval-after-load 'projectile
