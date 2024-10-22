@@ -153,12 +153,11 @@
 (defun golangci-lint ()
   "Run golangci-lint, and diplay the result by `grep-mode'."
   (interactive)
-  (let ((default-directory (or (consult--go-root)
-			       default-directory))
-	(cmd (read-shell-command
-	      "Run golangci-lint like this: "
-	      golangci-lint-cmd)))
-    (grep cmd)))
+  (with-go-project-root
+   (let ((cmd (read-shell-command
+	       "Run golangci-lint like this: "
+	       golangci-lint-cmd)))))
+    (grep cmd))
 
 (defun go-mod-tidy ()
   "Run `go mod tidy by compile'."
@@ -198,8 +197,8 @@
 
 (defun smart-go-run (orig-fun &rest args)
   (if (derived-mode-p 'go-mode)
-    (let ((default-directory (consult--go-root)))
-      (apply orig-fun args))
+      (with-go-project-root
+       (apply orig-fun args))
     (apply orig-fun args)))
 (advice-add 'smart-compile :around #'smart-go-run)
 
