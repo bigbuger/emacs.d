@@ -170,7 +170,14 @@
 (defun go-get (pkg)
   "Run `go get PKG' by compile."
   (interactive
-   (list (read-string "go get: " nil 'go-get-history)))
+   (let ((pkgs (mapcar (lambda (s) (car (split-string s )))
+		       (process-lines "go" "list" "-m" "all"))))
+     (list (completing-read "go get: "
+			    pkgs
+			    nil
+			    nil
+			    nil
+			    'go-get-history))))
   (with-go-project-root
    (compile (concat "go get " pkg))))
 
