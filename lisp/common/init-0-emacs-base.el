@@ -142,6 +142,9 @@
 (global-set-key (kbd "M-2") 'split-window-vertically)
 ;;垂直分割缓冲区 Alt+3  ;; C-x 3
 (global-set-key (kbd "M-3") 'split-window-horizontally)
+;; 下一个指令在另外一个窗口执行
+(global-set-key (kbd "M-4") 'other-window-prefix)
+(global-set-key (kbd "M-5") 'other-frame-prefix)
 
 ;;全屏函数
 (defun toggle-fullscreen (&optional f)

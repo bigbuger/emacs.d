@@ -10,6 +10,10 @@
 
 (require 'magit)
 (global-set-key (kbd "C-c g") 'magit-file-dispatch)
+(unbind-key "M-1" 'magit-section-mode-map)
+(unbind-key "M-2" 'magit-section-mode-map)
+(unbind-key "M-3" 'magit-section-mode-map)
+(unbind-key "M-4" 'magit-section-mode-map)
 
 (setq magit-delete-by-moving-to-trash nil)
 
