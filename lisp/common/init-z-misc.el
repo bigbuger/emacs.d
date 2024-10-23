@@ -100,6 +100,9 @@
   :bind (("M-$" . jinx-correct)
          ("C-M-$" . jinx-languages))
   :config
+  (unbind-key "<down-mouse-3>" jinx-overlay-map) ;; disable mouse
+  (put 'jinx-overlay 'mouse-face nil)            ;; disable mouse hover face
+  
   (setq jinx-exclude-regexps
 	'((emacs-lisp-mode "Package-Requires:.*$")
 	  (t "[A-Z]+\\>"         ;; Uppercase words
