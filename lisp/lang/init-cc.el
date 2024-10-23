@@ -26,6 +26,8 @@
 		       (require 'ccls)
 		       (lsp-deferred))))))
 
+(use-package cmake-mode)
+
 (with-eval-after-load 'org
   (add-to-list 'org-babel-load-languages
  	       '(C . t)))
