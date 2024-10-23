@@ -156,8 +156,8 @@
   (with-go-project-root
    (let ((cmd (read-shell-command
 	       "Run golangci-lint like this: "
-	       golangci-lint-cmd)))))
-    (grep cmd))
+	       golangci-lint-cmd)))
+     (grep cmd))))
 
 (defun go-mod-tidy ()
   "Run `go mod tidy by compile'."
