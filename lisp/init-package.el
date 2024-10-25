@@ -34,7 +34,6 @@
     ;; file manager
     treemacs
     treemacs-all-the-icons
-    dirvish
     
     ;; indent
     highlight-indent-guides
