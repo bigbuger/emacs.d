@@ -31,6 +31,7 @@
   ;; Set dired-x global variables here.  For example:
   ;; (setq dired-guess-shell-gnutar "gtar")
   ;; (setq dired-x-hands-off-my-keys nil)
+  (define-key dired-mode-map (kbd "M-+") #'dired-create-empty-file)
   )
 
 (setq dired-omit-files "\\`[.][.]?\\'") ;; 隐藏 当前目录和上级目录，就是 . 和 .. 啦
@@ -55,6 +56,7 @@
   :ensure t
   :bind (:map dired-mode-map
               ("C-o" . #'casual-dired-tmenu)
+	      ("M-o" . #'dired-display-file)
               ("s" . #'casual-dired-sort-by-tmenu)
               ("/" . #'casual-dired-search-replace-tmenu)))
 
