@@ -60,49 +60,6 @@
               ("s" . #'casual-dired-sort-by-tmenu)
               ("/" . #'casual-dired-search-replace-tmenu)))
 
-;; dirvish 很好用的文件管理实现 😊
-(use-package dirvish
-  :disabled
-  :init
-  (dirvish-override-dired-mode)
-  (setq dirvish-attributes '(vc-state all-the-icons subtree-state file-time file-size))
-  (setq dirvish-mode-line-format nil)
-  (setq dirvish-use-header-line nil)
-
-  (define-key dirvish-mode-map
-	      (kbd "TAB") 'dirvish-subtree-toggle) ;; 展开下级目录
-  (define-key dirvish-mode-map
-	      (kbd "C-c C-t") 'dirvish-layout-toggle) ;; 打开预览面板
-  (define-key dirvish-mode-map
-	      (kbd ".") 'dired-create-empty-file) ;; .快速新加文件
-  (define-key dirvish-mode-map
-	      (kbd "/") 'dirvish-fd) ;; / 用 fd 查询文件
-  (define-key dirvish-mode-map
-	      (kbd "M-l") 'dirvish-ls-switches-menu)
-
-
-  (add-hook 'dirvish-find-entry-hook
-	    (lambda (&rest _) (setq-local truncate-lines t)));; 不要自动折行 
-
-  (setq dirvish-reuse-session t)
-
-  ;; support embark-export, see https://github.com/alexluigit/dirvish/issues/179
-  (advice-add 'dirvish-dired-noselect-a
-              :before-until
-              (defun my/dirvish-dired-noselect-on-lists (&rest args)
-		(and (listp (cadr args))
-                     (apply (car args) (cdr args)))))
-
-  (with-eval-after-load 'embark
-    (defun fix-dirvish-embark (fun &optional entry)
-      (if (string-prefix-p "*Embark" (buffer-name) t)
-	  (progn
-	    (advice-remove 'dired-find-file #'dirvish-find-entry-a)
-	    (dired-find-file)
-	    (advice-add 'dired-find-file :override #'dirvish-find-entry-a))
-	(funcall fun entry)))
-    
-    (advice-add 'dirvish-find-entry-a :around #'fix-dirvish-embark)))
 
 (provide 'init-y-dired)
 
