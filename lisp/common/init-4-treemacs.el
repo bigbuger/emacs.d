@@ -6,10 +6,11 @@
 ;; 
 
 (require 'treemacs)
-(require 'treemacs-all-the-icons)
 ;;; Code:
 
-(treemacs-load-theme "all-the-icons")
+(use-package treemacs-nerd-icons
+  :config
+  (treemacs-load-theme "nerd-icons"))
 
 (setq treemacs-follow-after-init t)
 (treemacs-project-follow-mode)

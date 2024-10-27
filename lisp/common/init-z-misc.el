@@ -63,9 +63,10 @@
 (require 'ace-window)
 (global-set-key (kbd "C-c o") 'ace-window)
 
-;; all-the-icons-ibuffer
-(require 'all-the-icons-ibuffer)
-(add-hook 'ibuffer-mode-hook #'all-the-icons-ibuffer-mode)
+;; nerd-icons-ibuffer
+(use-package nerd-icons-ibuffer
+  :ensure t
+  :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
 
 ;; osx-dictionary

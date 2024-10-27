@@ -5,8 +5,9 @@
 
 ;;; Code:
 
-;; (require 'all-the-icons-dired)
-;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+(use-package nerd-icons-dired
+  :hook
+  (dired-mode . nerd-icons-dired-mode))
 
 (setq dired-dwim-target t) ;; 打开两个窗口时，移动文件默认是移到另一个窗口对应的目录，爽 😊
 (setq wdired-allow-to-change-permissions t) ;; 编辑模式允许修改文件权限

@@ -85,7 +85,7 @@
     (t
      (awesome-tab-get-group-name (current-buffer))))))
 
-(setq awesome-tab-icon-height 0.6)
+(setq awesome-tab-icon-height 0.8)
 (setq awesome-tab-icon-file-v-adjust 0)
 (setq awesome-tab-height 195)
 
@@ -142,6 +142,10 @@
   "We need adjust awesome-tab's colors when user switch new theme."
    (set-face-attribute awesome-tab-display-line nil :height awesome-tab-height))
 
+(defvar awesome-tab-nerd-icons-is-load-p (ignore-errors (require 'nerd-icons))
+  "Return non-nil if `nerd-icons' is load, `require' will have performance problem, so don't call it dynamically.")
+
+
 (defsubst awesome-tab-line-tab (tab)
   "Return a label for TAB.
 That is, a string used to represent it on the tab bar."
@@ -154,7 +158,7 @@ That is, a string used to represent it on the tab bar."
 
      ;; Tab icon.
      (when (and awesome-tab-display-icon
-		awesome-tab-all-the-icons-is-load-p)
+		awesome-tab-nerd-icons-is-load-p)
        (awesome-tab-icon-for-tab tab tab-face))
 
       ;; Tab index.
@@ -188,25 +192,25 @@ That is, a string used to represent it on the tab bar."
      (propertize " " 'face tab-face))))
 
 (defun awesome-tab-icon-for-tab (tab face)
-  "When tab buffer's file is exists, use `all-the-icons-icon-for-file' to fetch file icon.
-Otherwise use `all-the-icons-icon-for-buffer' to fetch icon for buffer."
+  "When tab buffer's file is exists, use `nerd-icons-icon-for-file' to fetch file icon.
+Otherwise use `nerd-icons-icon-for-buffer' to fetch icon for buffer."
   (when (and awesome-tab-display-icon
-	     awesome-tab-all-the-icons-is-load-p)
+	     awesome-tab-nerd-icons-is-load-p)
     (let* ((tab-buffer (car tab))
 	   (tab-file (buffer-file-name tab-buffer))
 	   (background (face-background face))
 	   (underline (face-attribute face :underline))
 	   (icon
 	    (cond
-	     ;; Use `all-the-icons-icon-for-file' if current file is exists.
+	     ;; Use `nerd-icons-icon-for-file' if current file is exists.
 	     ((and
 	       tab-file
 	       (file-exists-p tab-file))
-	      (all-the-icons-icon-for-file tab-file :v-adjust awesome-tab-icon-file-v-adjust :height awesome-tab-icon-height))
-	     ;; Use `all-the-icons-icon-for-mode' for current tab buffer at last.
+	      (nerd-icons-icon-for-file tab-file :v-adjust awesome-tab-icon-file-v-adjust :height awesome-tab-icon-height))
+	     ;; Use `nerd-icons-icon-for-mode' for current tab buffer at last.
 	     (t
 	      (with-current-buffer tab-buffer
-		(all-the-icons-icon-for-mode major-mode :v-adjust awesome-tab-icon-mode-v-adjust :height awesome-tab-icon-height))))))
+		(nerd-icons-icon-for-mode major-mode :v-adjust awesome-tab-icon-mode-v-adjust :height awesome-tab-icon-height))))))
       (when (and icon
 		 ;; `get-text-property' need icon is string type.
 		 (stringp icon))

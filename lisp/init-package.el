@@ -33,7 +33,6 @@
     
     ;; file manager
     treemacs
-    treemacs-all-the-icons
     
     ;; indent
     highlight-indent-guides
@@ -42,9 +41,7 @@
     spacemacs-theme
     color-theme-sanityinc-tomorrow
     doom-modeline
-    all-the-icons
-    all-the-icons-dired
-    all-the-icons-ibuffer
+    nerd-icons
 
     ;; wgrep
     wgrep
