@@ -164,13 +164,14 @@ START is valid, or would be valid if capitalized or upcased."
   (require 'vlf-setup))
 
 ;; calc 菜单
-(use-package casual-calc
+(use-package casual
+  :after calc
   :ensure t
-  :bind (:map calc-mode-map ("C-o" . 'casual-main-menu)))
+  :bind (:map calc-mode-map ("C-o" . 'casual-calc-tmenu)))
 
 (require 're-builder)
 (setq reb-re-syntax 'string)
-(use-package casual-re-builder
+(use-package casual
   :ensure t
   :bind (:map reb-mode-map ("C-o" . 'casual-re-builder-tmenu)
 	      :map reb-lisp-mode-map ("C-o" . 'casual-re-builder-tmenu)

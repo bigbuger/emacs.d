@@ -52,7 +52,7 @@
   (setq dired-subtree-use-backgrounds nil))
 
 ;; dired 菜单
-(use-package casual-dired
+(use-package casual
   :ensure t
   :bind (:map dired-mode-map
               ("C-o" . #'casual-dired-tmenu)
