@@ -221,7 +221,7 @@ Otherwise use `nerd-icons-icon-for-buffer' to fetch icon for buffer."
 	    'awesome-tab-kill-other-buffers-in-current-group)
 (define-key awesome-tab-mode-map (kbd "s-t g")
 	    'awesome-tab-switch-group)
-(define-key awesome-tab-mode-map (kbd "s-t 4")
+(define-key awesome-tab-mode-map (kbd "s-t 0")
 	    'awesome-tab-kill-all-buffers-in-current-group)
 (setq awesome-tab-show-tab-index t)
 (setq awesome-tab-index-format-str " %s§")
