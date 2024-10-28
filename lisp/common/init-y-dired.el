@@ -49,8 +49,8 @@
   :defer t
   :bind (:map dired-mode-map
               ("TAB" . dired-subtree-toggle)
-	      ("M-p" . dired-subtree-beginning)
-	      ("M-n" . dired-subtree-end))
+	      ("M-[" . dired-subtree-beginning)
+	      ("M-]" . dired-subtree-end))
   :config
   (setq dired-subtree-use-backgrounds nil))
 
