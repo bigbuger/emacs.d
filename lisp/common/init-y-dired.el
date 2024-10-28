@@ -50,7 +50,8 @@
   :bind (:map dired-mode-map
               ("TAB" . dired-subtree-toggle)
 	      ("M-[" . dired-subtree-beginning)
-	      ("M-]" . dired-subtree-end))
+	      ("M-]" . dired-subtree-end)
+	      ("M-^" . dired-subtree-up))
   :config
   (setq dired-subtree-use-backgrounds nil))
 
