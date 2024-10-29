@@ -63,9 +63,6 @@
 	 (derived-mode-p 'comint-mode))
      (centaur-tabs-get-group-name-with-perfix "Execute")) ;; 执行模式每个项目一个组
 
-    ((derived-mode-p 'dired-mode)
-     (centaur-tabs-get-group-name-with-perfix "Dired")) ;; dired 模式，每个项目一个组
-
     ;; ((and (not (projectile-project-root))
     ;;	  (memq major-mode '(org-mode org-agenda-mode diary-mode)))
     ;;  "OrgMode")
