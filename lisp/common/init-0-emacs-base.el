@@ -35,6 +35,9 @@
 ;; 硬盘文件更改时，自动同步
 (global-auto-revert-mode)
 
+;; 撤销就是撤销，不要 redo
+(global-set-key [remap undo] #'undo-only)
+
 (require 'winner)
 (winner-mode t)
 (global-set-key (kbd "M-s-<left>") #'winner-undo)
