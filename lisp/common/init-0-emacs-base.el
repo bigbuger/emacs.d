@@ -144,7 +144,8 @@
 (global-set-key (kbd "M-3") 'split-window-horizontally)
 ;; 下一个指令在另外一个窗口执行
 (global-set-key (kbd "M-4") 'other-window-prefix)
-(global-set-key (kbd "M-5") 'other-frame-prefix)
+;; 新开 frame
+(global-set-key (kbd "M-5") 'make-frame-command)
 
 ;;全屏函数
 (defun toggle-fullscreen (&optional f)
