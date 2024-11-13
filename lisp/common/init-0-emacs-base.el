@@ -132,6 +132,7 @@
 ;; enable narrow
 (put 'narrow-to-region 'disabled nil)
 (put 'narrow-to-page 'disabled nil)
+(setq-default display-line-numbers-widen t)
 
 ;; make it split horizontal
 (setq split-width-threshold 1000)
