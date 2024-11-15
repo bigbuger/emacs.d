@@ -37,28 +37,6 @@
 (define-key smartparens-mode-map (kbd "C-M-d") 'sp-clone-sexp)
 (define-key smartparens-mode-map (kbd "C-M-u") 'sp-backward-up-sexp)
 
-(defvar smartparens-mode-before-kmarco? nil)
-(defun kmacro-start-disable-smartparent (&rest args)
-  (when smartparens-mode
-      (setq smartparens-mode-before-kmarco? t)
-      (smartparens-mode -1)))
-
-(defun kmacro-end-enable-smartparent (&rest args)
-  (when (and defining-kbd-macro smartparens-mode-before-kmarco?)
-      (setq smartparens-mode-before-kmarco? nil)
-      (smartparens-mode +1)))
-
-(defun kmacro-call-end-enable-smartparent (&rest args)
-  (when smartparens-mode-before-kmarco?
-      (setq smartparens-mode-before-kmarco? nil)
-      (smartparens-mode +1)))
-
-(advice-add 'kmacro-start-macro :after #'kmacro-start-disable-smartparent)
-(advice-add 'kmacro-call-macro :before #'kmacro-start-disable-smartparent)
-(advice-add 'kmacro-call-macro :after #'kmacro-call-end-enable-smartparent)
-(advice-add 'kmacro-end-macro :before #'kmacro-end-enable-smartparent)
-(advice-add 'kmacro-keyboard-quit :before #'kmacro-end-enable-smartparent)
-
 ;; sexp 新开一行
 (defun sp-up-sexp-and-new-line (&optional arg)
   "Jump to end of the sexp the point is in and insert newline.
