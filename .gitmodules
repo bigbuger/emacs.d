@@ -55,3 +55,6 @@
 [submodule "lisp/libs/lean4-mode"]
 	path = lisp/libs/lean4-mode
 	url = https://github.com/leanprover-community/lean4-mode.git
+[submodule "lisp/libs/ob-grpc"]
+	path = lisp/libs/ob-grpc
+	url = git@github.com:shsms/ob-grpc.git

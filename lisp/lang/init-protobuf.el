@@ -23,6 +23,12 @@
 				 (cl-adjoin '(company-proto :with company-yasnippet) company-backends :test #'equal))))
 
 
+(use-package ob-grpc
+  :load-path "~/.emacs.d/lisp/libs/ob-grpc"
+  :bind (:map org-mode-map
+              ("C-c g i" . ob-grpc-init)
+              ("C-c g b" . ob-grpc-insert-block)))
+
 (provide 'init-protobuf)
 
 ;;; init-protobuf.el ends here
