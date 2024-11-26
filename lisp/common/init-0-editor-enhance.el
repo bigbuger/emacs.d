@@ -27,7 +27,7 @@
 ;; smartparens
 (require 'smartparens-config)
 (add-hook 'prog-mode-hook #'smartparens-mode)
-(sp-pair "\"" nil :unless '(sp-point-before-word-p)) ;; 单词前的字符不要做自动插入引号
+(sp-pair "\"" nil :unless '(sp-point-before-word-p sp-point-after-word-p)) ;; 单词前的字符不要做自动插入引号
 (sp-local-pair 'emacs-lisp-mode "'" nil :actions '(wrap))
 
 (define-key smartparens-mode-map (kbd "C-}") 'sp-slurp-hybrid-sexp) ;; 吃掉下一个 sexp
