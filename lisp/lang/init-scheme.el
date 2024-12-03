@@ -23,7 +23,8 @@
 (use-package racket-mode
   :ensure t
   :init
-  (add-hook 'racket-mode-hook #'racket-xp-mode))
+  (add-hook 'racket-mode-hook #'racket-xp-mode)
+  (setq racket-memory-limit 512))
 
 (use-package ob-racket
   :after org
