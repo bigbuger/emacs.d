@@ -18,7 +18,8 @@
   (autoload 'gnuplot-mode "gnuplot" "Gnuplot major mode" t)
   (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot-mode" t)
   (add-to-list 'auto-mode-alist '("\\.gp$" . gnuplot-mode))
-  
+  (add-hook 'gnuplot-mode-hook #'font-lock-mode)
+  (add-hook 'gnuplot-mode-hook #'display-line-numbers-mode)
   (with-eval-after-load 'org
     (add-to-list 'org-babel-load-languages
 		 '(gnuplot . t))))
