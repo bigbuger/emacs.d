@@ -24,7 +24,10 @@
   :ensure t
   :init
   (add-hook 'racket-mode-hook #'racket-xp-mode)
-  (setq racket-memory-limit 512))
+  (setq racket-memory-limit 512)
+
+  (with-eval-after-load 'smart-compile
+    (add-to-list 'smart-compile-alist '(racket-mode . "racket %f"))))
 
 (use-package ob-racket
   :after org
@@ -32,6 +35,10 @@
   :config
   (add-to-list 'org-babel-load-languages
 	       '(racket . t)))
+
+(use-package pcmpl-args
+  :init
+  (defalias 'pcomplete/racket 'pcmpl-args-pcomplete-on-help))
 
 
 (provide 'init-scheme)
