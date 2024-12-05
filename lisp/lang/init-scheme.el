@@ -25,7 +25,8 @@
   :init
   (add-hook 'racket-mode-hook #'racket-xp-mode)
   (setq racket-memory-limit 512)
-
+  (setq racket-command-timeout 6)
+  
   (with-eval-after-load 'smart-compile
     (add-to-list 'smart-compile-alist '(racket-mode . "racket %f"))))
 
