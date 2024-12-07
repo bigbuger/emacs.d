@@ -1,4 +1,4 @@
-;;; init-ellama.el --- ellama, ollama 大模型
+;;; init-llm.el --- llm 大模型
 
 ;;; Commentary:
 ;; 
@@ -21,6 +21,6 @@
 		 :models '("gemma:2b")            ;Installed models
 		 :stream t)))
 
-(provide 'init-z-ellama)
+(provide 'init-z-llm)
 
 ;;; init-z-ellama.el ends here
