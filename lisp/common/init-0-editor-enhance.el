@@ -155,7 +155,7 @@ ARG is pass to `sp-end-of-sexp'"
 	(lambda ()
 	  (string-prefix-p (file-truename "~/Library/") (file-truename (buffer-file-name)))) ;; Library 不要自动 保存
 	(lambda ()
-	  (and (string-prefix-p (file-truename "~/.") (file-truename (buffer-file-name)))
+	  (and (string-prefix-p (concat (file-truename "~") "/.") (file-truename (buffer-file-name)))
 	       (not (string-prefix-p (file-truename "~/.emacs.d") (file-truename (buffer-file-name)))))) ;; 其它配置文件不要自动保存
 	(lambda ()
 	  (not (file-writable-p (buffer-file-name)))) ;; 不可写文件不自动保存
