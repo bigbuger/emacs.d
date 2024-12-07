@@ -151,6 +151,13 @@ ARG is pass to `sp-end-of-sexp'"
 (setq auto-save-silent t)       ;; 自动保存的时候静悄悄的， 不要打扰我
 (setq auto-save-disable-predicates
       '((lambda ()
+	  (not (string-prefix-p (concat (file-truename "~") "/") (file-truename (buffer-file-name))))) ;; 家目录以外的不要自动保存
+	(lambda ()
+	  (string-prefix-p (file-truename "~/Library/") (file-truename (buffer-file-name)))) ;; Library 不要自动 保存
+	(lambda ()
+	  (and (string-prefix-p (file-truename "~/.") (file-truename (buffer-file-name)))
+	       (not (string-prefix-p (file-truename "~/.emacs.d") (file-truename (buffer-file-name)))))) ;; 其它配置文件不要自动保存
+	(lambda ()
 	  (not (file-writable-p (buffer-file-name)))) ;; 不可写文件不自动保存
 	(lambda ()
 	  (tramp-tramp-file-p (buffer-file-name))) ;; tramp 模式不自动保存
