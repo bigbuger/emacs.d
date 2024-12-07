@@ -137,7 +137,7 @@
 ;; bank the adjust color method.
 (defun awesome-tab-adjust-color-with-theme ()
   "We need adjust awesome-tab's colors when user switch new theme."
-   (set-face-attribute awesome-tab-display-line nil :height awesome-tab-height))
+  (set-face-attribute awesome-tab-display-line nil :height awesome-tab-height))
 
 (defvar awesome-tab-nerd-icons-is-load-p (ignore-errors (require 'nerd-icons))
   "Return non-nil if `nerd-icons' is load, `require' will have performance problem, so don't call it dynamically.")
@@ -158,7 +158,7 @@ That is, a string used to represent it on the tab bar."
 		awesome-tab-nerd-icons-is-load-p)
        (awesome-tab-icon-for-tab tab tab-face))
 
-      ;; Tab index.
+     ;; Tab index.
      (when awesome-tab-show-tab-index
        (propertize (format awesome-tab-index-format-str (+ current-buffer-index 1)) 'face tab-face))
      
@@ -178,12 +178,12 @@ That is, a string used to represent it on the tab bar."
 
      ;; Close button.
      (propertize
-	  centaur-tabs-close-button
-	  'face tab-face
-	  'pointer 'hand
-	  'help-echo "Close buffer"
-	  'awesome-tabs-tab tab
-	  'local-map awesome-tabs-close-map)
+      centaur-tabs-close-button
+      'face tab-face
+      'pointer 'hand
+      'help-echo "Close buffer"
+      'awesome-tabs-tab tab
+      'local-map awesome-tabs-close-map)
 
      ;; right margin
      (propertize " " 'face tab-face))))
