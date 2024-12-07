@@ -166,6 +166,20 @@ ARG is pass to `sp-end-of-sexp'"
 	(lambda ()
 	  (string-prefix-p "#" (buffer-file-name)))))
 
+(require 'dash)
+(defvar auto-read-only-patterns `(,(concat (file-truename "~")  "/Library"))
+   "File paths matching any pattern in list will be started in `read-only-mode'.")
+
+(defun should-be-read-only-p (file)
+  "Return t if FILE should be read-only."
+   (-any? 'identity (mapcar (lambda (x) (string-match-p x file)) auto-read-only-patterns)))
+
+(defun auto-read-only-maybe ()
+  "Auto make buffer read only."
+  (if (should-be-read-only-p (file-truename buffer-file-name)) (read-only-mode t)))
+
+(add-hook 'find-file-hook 'auto-read-only-maybe)
+
 ;; end auto-save
 
 ;; visual-regexp 正则替换可视化，替换时在原文本中预览替换后的结果
