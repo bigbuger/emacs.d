@@ -103,12 +103,12 @@
   (defun enable-py-search (&optional _args)
     (if (not (advice-member-p #'pyim-orderless-regexp 'orderless-regexp))
 	(advice-add 'orderless-regexp :around #'pyim-orderless-regexp)))
-    
+  
   (defun using-py-search (fun &rest args)
-      "使用 pyim 进行中文搜索"
-      (enable-py-search)
-      (apply fun args)
-      (disable-py-search))
+    "使用 pyim 进行中文搜索"
+    (enable-py-search)
+    (apply fun args)
+    (disable-py-search))
 
   (advice-add 'find-file :around #'using-py-search)
   (advice-add 'recentf :around #'using-py-search))
@@ -197,12 +197,12 @@
 	(mapcan (lambda (h)
 		  (let ((l (string-replace "\n" "" h)))
 		    (when (string-match (rx-to-string
-					  '(: bol (* space)
-					      (group "-" (? "-") (+ (or alnum "-")))
-					      (? ", ") (? (group "-" (? "-") (+ (or alnum "-"))))
-					      (? "=" (+ (or "_" "-" alnum)))
-					      (+ space)
-					      (group (* any)) eol))
+					 '(: bol (* space)
+					     (group "-" (? "-") (+ (or alnum "-")))
+					     (? ", ") (? (group "-" (? "-") (+ (or alnum "-"))))
+					     (? "=" (+ (or "_" "-" alnum)))
+					     (+ space)
+					     (group (* any)) eol))
 					l)
 		      (let* ((short (match-string 1 l))
 			     (long (match-string 2 l))
@@ -239,11 +239,11 @@ This is the function to be used for the hook `completion-at-point-functions'."
 
   (defun consult-rg-with-completion-at-point (orign &rest args)
     (minibuffer-with-setup-hook
-      (:append
-       (lambda ()
-	 (add-hook 'completion-at-point-functions
-		   #'consult-rg-completion-at-point nil t)))
-    (apply orign args)))
+	(:append
+	 (lambda ()
+	   (add-hook 'completion-at-point-functions
+		     #'consult-rg-completion-at-point nil t)))
+      (apply orign args)))
 
   (advice-add 'consult-ripgrep :around #'consult-rg-with-completion-at-point)
   
@@ -341,6 +341,24 @@ This is the function to be used for the hook `completion-at-point-functions'."
   ;;    (window-parameters (mode-line-format . none))
   ;;    (window-height . 230)))
 
+  ;; Add identifiers in LSP-mode as their own target type
+  (with-eval-after-load 'lsp-mode
+    (defun embark-target-lsp-identifier-at-point ()
+      (when lsp-mode
+        (when-let ((syms (embark-target-identifier-at-point)))
+          (cons 'lsp-identifier (cdar syms)))))
+
+    (defvar-keymap embark-tab-actions
+      :doc "Keymap for actions for lsp-identifier."
+      :parent embark-identifier-map
+      "n" #'lsp-ui-find-next-reference
+      "p" #'lsp-ui-find-prev-reference)
+
+    (add-to-list 'embark-repeat-actions #'lsp-ui-find-prev-reference)
+    (add-to-list 'embark-repeat-actions #'lsp-ui-find-next-reference)
+    (add-to-list 'embark-target-finders 'embark-target-lsp-identifier-at-point)
+    (add-to-list 'embark-keymap-alist '(lsp-identifier . embark-tab-actions)))
+  
   (defun embark-dwim-noquit ()
     "Run action but don't quit the minibuffer afterwards."
     (interactive)
@@ -445,8 +463,8 @@ targets."
   (defun +embark-consult-export-grep (orig-fun &rest args)
     (let* ((lines (car args))
 	   (tranfar-lines (mapcar (lambda (l)
-				 (concat "./" l))
-				lines)))
+				    (concat "./" l))
+				  lines)))
       (funcall orig-fun tranfar-lines)))
 
   (advice-add 'embark-consult-export-grep :around '+embark-consult-export-grep)
@@ -509,7 +527,7 @@ targets."
                                      ;; "YouTube"
                                      ;; "Invidious"
 				     ))
- 
+  
   (with-eval-after-load 'projectile
     (defun with-projectile-root (orig-fun &rest args)
       (let ((pr (projectile-project-root)))
