@@ -62,9 +62,10 @@
  '(treemacs-directory-face ((t (:inherit default))))
 
  ;; org 设置代码块用上下边线包裹
- '(org-block-begin-line ((t (:underline "#cccccc" :background unspecified))))
+ '(org-block-begin-line ((t (:underline (:color "#ded2b0" :style dots)
+					:background "#fef9eb"))))
  '(org-block ((t :background "#fef9eb")))
- '(org-block-end-line ((t (:overline "#cccccc" :underline nil :background unspecified))))
+ '(org-block-end-line ((t (:overline nil :underline nil :background nil))))
 
  ;; magit 当前选择高亮
  '(magit-section-highlight ((t :background "#d3d3e7")))
