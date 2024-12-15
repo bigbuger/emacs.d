@@ -75,13 +75,24 @@
 	(customs (consult-jq-get-custom-function)))
     (append builtins customs)))
 
-(defun consult-jq-completion-function-at-point ()
+(defun make-consult-jq-completion-function-at-point (buffer)
   "This is the function to be used for the hook `completion-at-point-functions'."
   (interactive)
-  (let* ((bds (bounds-of-thing-at-point 'word))
-         (start (car bds))
-         (end (cdr bds)))
-    (list start end (consult-jq-get-all-jq-function) . nil )))
+  (lambda ()
+    (let* ((text (thing-at-point 'symbol))
+	   (contents (minibuffer-contents-no-properties))
+	   (bds (bounds-of-thing-at-point 'symbol))
+	   (needpath-p (string-suffix-p (concat "." text) contents))  ;; need to complete json path if end of "."
+           (start (if needpath-p
+		      (- (car bds) 1)
+		    (car bds)))
+           (end (cdr bds))
+	   (pip-index (string-match-p (regexp-quote "|") contents))
+	   (query (when pip-index (substring contents 0 pip-index)))
+	   (paths (when needpath-p
+		    (cl-remove-if #'string-blank-p
+				  (consult-jq-path buffer query)))))
+      (list start end (or paths (consult-jq-get-all-jq-function)) . nil ))))
 
 (defun consult-jq-call-jq (&optional query args output-buffer)
   "Call 'jq' use OUTPUT-BUFFER as output (default is 'standard-output').
@@ -103,12 +114,13 @@ with the QUERY and ARGS."
       buffer
     (consult-jq-call-jq query nil consult-jq-buffer)))
 
-(defun consult-jq-path (buffer)
-  "Get all json path in BUFFER."
+(defun consult-jq-path (buffer &optional query)
+  "Get all json path, after apply QUERY in BUFFER."
   (with-current-buffer buffer
     (split-string
      (with-output-to-string
-       (consult-jq-call-jq consult-jq-path-query "-r"))
+       (consult-jq-call-jq (concat (or query "." ) " | " consult-jq-path-query)
+			   "-r"))
      "\n")))
 
 
@@ -138,7 +150,7 @@ with the QUERY and ARGS."
 	(:append
 	 (lambda ()
 	   (add-hook 'completion-at-point-functions
-		     #'consult-jq-completion-function-at-point nil t)))
+		     (make-consult-jq-completion-function-at-point buffer) nil t)))
       (consult--read
        canditdates
        :prompt "jq: "
