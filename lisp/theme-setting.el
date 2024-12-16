@@ -62,7 +62,7 @@
  '(treemacs-directory-face ((t (:inherit default))))
 
  ;; org 设置代码块用上下边线包裹
- '(org-block-begin-line ((t (:underline (:color "#ded2b0" :style dots)
+ '(org-block-begin-line ((t (:underline (:color "#ded2b0")
 					:background "#fef9eb"))))
  '(org-block ((t :background "#fef9eb")))
  '(org-block-end-line ((t (:overline nil :underline nil :background nil))))
@@ -74,15 +74,15 @@
  '(xeft-inline-highlight ((t (:inherit underline :extend t :foreground "#3a81c3"))))
  '(awesome-tab-selected-face ((t (:inherit default
 				  :height 160
-					  :underline "#3a81c3"
-					  :foreground "#3a81c3"
-					  :background "#fbf8ef"
-					  :distant-foreground "#3a81c3"
-					  :weight bold))))
+				  :underline "#3a81c3"
+				  :foreground "#3a81c3"
+				  :background "#fbf8ef"
+				  :distant-foreground "#3a81c3"
+				  :weight bold))))
  '(awesome-tab-unselected-face ((t (:inherit default
 				    :height 160
-					    :foreground "#a094a2"
-					    :background "#efeae9"))))
+				    :foreground "#a094a2"
+				    :background "#efeae9"))))
 
  '(consult-file ((t (:inherit font-lock-keyword-face)))))
 
