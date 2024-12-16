@@ -79,20 +79,23 @@
   "This is the function to be used for the hook `completion-at-point-functions'."
   (interactive)
   (lambda ()
-    (let* ((text (thing-at-point 'symbol))
-	   (contents (minibuffer-contents-no-properties))
-	   (bds (bounds-of-thing-at-point 'symbol))
-	   (needpath-p (string-suffix-p (concat "." text) contents))  ;; need to complete json path if end of "."
-           (start (if needpath-p
-		      (- (car bds) 1)
-		    (car bds)))
-           (end (cdr bds))
+    (let* ((contents (minibuffer-contents-no-properties))
+	   (bds (if (eq ?. (char-before))
+		    (cons (point) (point))
+		  (bounds-of-thing-at-point 'symbol)))
+           (symbol-start (car bds))
+           (start (save-excursion
+		    (goto-char symbol-start)
+		    ;; (backward-char)
+		    (if (eq ?. (char-before))
+			(- symbol-start 1)
+		      symbol-start)))
+	   (end (cdr bds))
 	   (pip-index (string-match-p (regexp-quote "|") contents))
 	   (query (when pip-index (substring contents 0 pip-index)))
-	   (paths (when needpath-p
-		    (cl-remove-if #'string-blank-p
-				  (consult-jq-path buffer query)))))
-      (list start end (or paths (consult-jq-get-all-jq-function)) . nil ))))
+	   (paths (cl-remove-if #'string-blank-p
+				(consult-jq-path buffer query))))
+      (list start end (append paths (consult-jq-get-all-jq-function)) . nil ))))
 
 (defun consult-jq-call-jq (&optional query args output-buffer)
   "Call 'jq' use OUTPUT-BUFFER as output (default is 'standard-output').
