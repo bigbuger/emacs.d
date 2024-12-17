@@ -75,27 +75,39 @@
 	(customs (consult-jq-get-custom-function)))
     (append builtins customs)))
 
+(defun consult-jq--indent-p (ch)
+  (when ch
+    (or (and (<= ?A ch)
+	     (>= ?z ch))
+	(eq ?_ ch)
+	(eq ?\[ ch)
+	(eq ?\] ch)
+	(eq ?. ch))))
+
 (defun make-consult-jq-completion-function-at-point (buffer)
   "This is the function to be used for the hook `completion-at-point-functions'."
   (interactive)
   (lambda ()
     (let* ((contents (minibuffer-contents-no-properties))
-	   (bds (if (eq ?. (char-before))
-		    (cons (point) (point))
-		  (bounds-of-thing-at-point 'symbol)))
-           (symbol-start (car bds))
            (start (save-excursion
-		    (goto-char symbol-start)
-		    ;; (backward-char)
-		    (if (eq ?. (char-before))
-			(- symbol-start 1)
-		      symbol-start)))
-	   (end (cdr bds))
+		    (while (let ((ch (char-before)))
+			     (consult-jq--indent-p ch))
+		      (backward-char))
+		    (point)))
+	   (end (save-excursion
+		    (while (let ((ch (char-after)))
+			      (consult-jq--indent-p ch))
+		      (forward-char))
+		    (point)))
+	   (need-path? (eq ?. (char-after start)))
 	   (pip-index (string-match-p (regexp-quote "|") contents))
-	   (query (when pip-index (substring contents 0 pip-index)))
+	   (query (when pip-index
+		    (replace-regexp-in-string (rx "|" (* (not "|")) line-end)
+					      ""
+					      contents)))
 	   (paths (cl-remove-if #'string-blank-p
 				(consult-jq-path buffer query))))
-      (list start end (append paths (consult-jq-get-all-jq-function)) . nil ))))
+      (list start end (if need-path? paths (consult-jq-get-all-jq-function)) . nil ))))
 
 (defun consult-jq-call-jq (&optional query args output-buffer)
   "Call 'jq' use OUTPUT-BUFFER as output (default is 'standard-output').
