@@ -95,7 +95,7 @@
 						     go-errcheck
 						     go-staticcheck
 						     go-unconvert)
-			go-test-args "-v -count=1")
+			go-test-args "-v -count=1 -gcflags=all=-l")
 	    (setq-local lsp-inlay-hint-enable t)
             ;; (when (flycheck-may-use-checker 'go-build)
 	    ;;   (flycheck-select-checker 'go-build))
