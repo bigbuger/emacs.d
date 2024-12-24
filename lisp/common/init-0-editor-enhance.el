@@ -95,7 +95,7 @@ ARG is pass to `sp-end-of-sexp'"
 
 ;; multiple-cursors 多光标编辑
 (require 'multiple-cursors)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
@@ -185,6 +185,17 @@ ARG is pass to `sp-end-of-sexp'"
 ;; visual-regexp 正则替换可视化，替换时在原文本中预览替换后的结果
 (require 'visual-regexp)
 (global-set-key (kbd "C-c r") 'vr/query-replace)
+
+(defun my-vr--minibuffer-setup ()
+  "Setup prompt and help when entering minibuffer."
+  (when vr--in-minibuffer
+    (progn
+      (vr--update-minibuffer-prompt)
+      (add-hook 'completion-at-point-functions 'elisp-completion-at-point nil t)
+      (when vr/auto-show-help (vr--minibuffer-help)))))
+
+(advice-add 'vr--minibuffer-setup :override #'my-vr--minibuffer-setup)
+
 ;; end visual-regexp
 
 
