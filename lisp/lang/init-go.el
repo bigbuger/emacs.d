@@ -112,9 +112,8 @@
 	    (display-line-numbers-mode t)
 	    (lsp-deferred)))
 
-;; (with-eval-after-load 'projectile
-;;   (add-to-list 'projectile-project-root-files "go.mod")
-;;   (add-to-list 'projectile-project-root-files-bottom-up "go.mod"))
+(with-eval-after-load 'projectile
+  (add-to-list 'projectile-project-root-files "go.mod"))
 
 (with-eval-after-load 'compile
   (add-to-list 'compilation-error-regexp-alist-alist

@@ -121,7 +121,7 @@
   
   (setq jinx-include-faces
 	'((prog-mode font-lock-comment-face font-lock-doc-face font-lock-string-face font-lock-constant-face
-		     font-lock-variable-name-face)
+		     font-lock-variable-name-face font-lock-function-name-face)
 	  (conf-mode font-lock-comment-face font-lock-string-face)
 
 	  ;; `yaml-mode' and `yaml-ts-mode' are text-modes,
