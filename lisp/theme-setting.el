@@ -54,6 +54,8 @@
 
  ;; lsp 当前变量高亮
  '(lsp-face-highlight-textual ((t (:inherit highlight :background "#e6ebeb"))))
+ '(lsp-face-highlight-read ((t (:background "#E5EBEB"))))
+ '(lsp-face-highlight-write ((t (:background "#f9d9e4"))))
  ;; lsp inlay hint
  '(lsp-inlay-hint-face ((t (:background "#E3E0CE"  :foreground "#839496"))))
 
