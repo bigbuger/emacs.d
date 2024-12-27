@@ -7,6 +7,12 @@
 
 ;;; Code:
 
+;; gpg 配置
+;; Put this in ~/.gnupg/gpg-agent.conf:
+;; allow-emacs-pinentry
+;; allow-loopback-pinentry
+(setq epa-pinentry-mode 'loopback)
+
 ;; dumb-jump 跳转到代码定义
 (require 'dumb-jump)
 (setq dumb-jump-force-searcher 'rg)
