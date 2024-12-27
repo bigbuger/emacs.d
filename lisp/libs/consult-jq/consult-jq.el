@@ -37,7 +37,7 @@
   :group 'consult-jq)
 
 (defcustom consult-jq-path-query
-  "[ path(..) | map(select(type == \"string\") // \"[]\" | if test(\"^[0-9a-zA-Z_\[\]]*$\")then . else \"\\\"\" + . + \"\\\"\" end) | join(\".\") ] | sort | unique | .[] | split(\".[]\") | join(\"[]\") | \".\" + ."
+  "[ path(..) | map(select(type == \"string\") // \"[]\" | if test(\"^[0-9a-zA-Z_\\\\[\\\\]]*$\")then . else \"\\\"\" + . + \"\\\"\" end) | join(\".\") ] | sort | unique | .[] | split(\".[]\") | join(\"[]\") | \".\" + ."
   "Use jq to get all json path."
   :type '(string)
   :require 'consult-jq
