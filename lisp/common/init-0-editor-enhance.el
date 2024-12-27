@@ -151,7 +151,9 @@ ARG is pass to `sp-end-of-sexp'"
 (setq auto-save-silent t)       ;; 自动保存的时候静悄悄的， 不要打扰我
 (setq auto-save-disable-predicates
       '((lambda ()
-	  (string-suffix-p ".gpg" (buffer-file-name)))
+	  (and
+	   (string-suffix-p ".gpg" (buffer-file-name))
+	   (not epa-file-encrypt-to))) ;; 不知道密钥时，总是问加密密钥，老烦了
 	(lambda ()
 	  (not (string-prefix-p (concat (file-truename "~") "/") (file-truename (buffer-file-name))))) ;; 家目录以外的不要自动保存
 	(lambda ()
