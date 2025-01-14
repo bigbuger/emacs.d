@@ -350,9 +350,13 @@ This is the function to be used for the hook `completion-at-point-functions'."
 
     (defvar-keymap embark-tab-actions
       :doc "Keymap for actions for lsp-identifier."
-      :parent embark-identifier-map
+      :parent nil
       "n" #'lsp-ui-find-next-reference
-      "p" #'lsp-ui-find-prev-reference)
+      "p" #'lsp-ui-find-prev-reference
+      "t" #'lsp-find-type-definition
+      "i" #'lsp-find-implementation
+      "r" #'lsp-find-references
+      "a" #'lsp-execute-code-action)
 
     (add-to-list 'embark-repeat-actions #'lsp-ui-find-prev-reference)
     (add-to-list 'embark-repeat-actions #'lsp-ui-find-next-reference)
