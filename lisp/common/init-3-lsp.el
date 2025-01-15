@@ -66,6 +66,31 @@
 (with-eval-after-load "lsp-mode"
   (add-to-list 'lsp-disabled-clients 'semgrep-ls))
 
+
+;; Add identifiers in LSP-mode as their own emabrk's target type
+(with-eval-after-load 'embark
+  (defun embark-target-lsp-identifier-at-point ()
+    (when lsp-mode
+      (when-let ((syms (embark-target-identifier-at-point)))
+        (cons 'lsp-identifier (cdar syms)))))
+
+  (defvar-keymap embark-lsp-indetifier-actions
+    :doc "Keymap for actions for lsp-identifier."
+    :parent nil
+    "<RET>" #'lsp-find-definition
+    "n"     #'lsp-ui-find-next-reference
+    "p"     #'lsp-ui-find-prev-reference
+    "t"     #'lsp-find-type-definition
+    "i"     #'lsp-find-implementation
+    "r"     #'xref-find-references
+    "h"     #'lsp-treemacs-call-hierarchy)
+
+  (add-to-list 'embark-repeat-actions #'lsp-ui-find-prev-reference)
+  (add-to-list 'embark-repeat-actions #'lsp-ui-find-next-reference)
+  (add-to-list 'embark-target-finders 'embark-target-lsp-identifier-at-point)
+  (add-to-list 'embark-keymap-alist '(lsp-identifier . embark-lsp-indetifier-actions)))
+
+
 (provide 'init-3-lsp)
 
 ;;; init-3-lsp.el ends here
