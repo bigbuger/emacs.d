@@ -12,6 +12,8 @@
 (setq j-console-cmd "jconsole")
 (add-to-list 'auto-mode-alist '("\\.ij[rstp]$" . j-mode))
 
+(use-package gnu-apl-mode)
+
 (require 'ob-J)
 
 (with-eval-after-load 'org
