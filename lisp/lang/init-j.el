@@ -10,6 +10,7 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/j-mode")
 (autoload 'j-mode "j-mode.el" "Major mode for editing J files" t)
 (setq j-console-cmd "jconsole")
+(add-to-list 'auto-mode-alist '("\\.ij[rstp]$" . j-mode))
 
 (require 'ob-J)
 
