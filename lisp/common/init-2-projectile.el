@@ -12,6 +12,7 @@
 (setq projectile-indexing-method 'alien)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+(define-key projectile-command-map (kbd "c") 'projectile-compile-project)
 ;; (setq projectile-enable-caching t)
 (setq projectile-git-submodule-command nil)
 (setq projectile-per-project-compilation-buffer t)

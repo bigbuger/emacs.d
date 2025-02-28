@@ -271,6 +271,7 @@
 ;;          (len (- end start)))
 ;;     (format "%d,%d" start len)))
 
+(setq go-tag-args '("-transform" "camelcase"))
 (require 'company-go-tag)
 (add-hook 'go-mode-hook
           (lambda ()
