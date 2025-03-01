@@ -10,6 +10,7 @@
 
 (setq lsp-warn-no-matched-clients nil)
 (setq lsp-auto-guess-root t)
+(setq lsp-guess-root-without-session t)
 (setq lsp-prefer-flymake :none)
 (setq lsp-ui-flycheck-enable t)
 ;; (setq lsp-inlay-hint-enable t)

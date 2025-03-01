@@ -112,8 +112,8 @@
 	    (display-line-numbers-mode t)
 	    (lsp-deferred)))
 
-(with-eval-after-load 'projectile
-  (add-to-list 'projectile-project-root-files "go.mod"))
+;; (with-eval-after-load 'projectile
+;;   (add-to-list 'projectile-project-root-files "go.mod"))
 
 (with-eval-after-load 'compile
   (add-to-list 'compilation-error-regexp-alist-alist
@@ -181,12 +181,12 @@
    (compile (concat "go get " pkg))))
 
 
-(with-eval-after-load 'projectile
-  (projectile-register-project-type 'go-mod '("go.mod")
-				    :compile "go build ."
-				    :test "go test ./..."
-				    :run "go run ."
-				    :test-suffix "_test.go"))
+;; (with-eval-after-load 'projectile
+;;   (projectile-register-project-type 'go-mod '("go.mod")
+;; 				    :compile "go build ."
+;; 				    :test "go test ./..."
+;; 				    :run "go run ."
+;; 				    :test-suffix "_test.go"))
 
 (add-hook 'go-mode-hook
 	  (lambda ()
