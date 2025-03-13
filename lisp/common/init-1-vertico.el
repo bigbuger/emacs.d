@@ -172,8 +172,8 @@
 
   
   (define-key minibuffer-local-map (kbd "M-r") 'consult-history)
-  (with-eval-after-load 'visual-regexp
-    (define-key vr/minibuffer-keymap (kbd "M-r") 'consult-history))
+  ;; (with-eval-after-load 'visual-regexp
+  ;;   (define-key vr/minibuffer-keymap (kbd "M-r") 'consult-history))
   
   (with-eval-after-load "org"
     (define-key org-mode-map (kbd "C-c i") #'consult-outline)
