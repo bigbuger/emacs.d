@@ -386,6 +386,14 @@
 		   "-parallel" "-run" "-short"
 		   "-timeout" "-failfast"
 		   ,@pcml-go-build-flag))
+	       (pcomplete-entries)))))
+     ((pcomplete-match "clean" 1)
+      (while (pcomplete-here
+	      (completion-table-merge
+	       (when option-p
+		 `("-i" "-n" "-r" "-x" "-cache" "-testcache"
+		   "-modcache" "-fuzzcache"
+		   ,@pcml-go-build-flag))
 	       (pcomplete-entries))))))))
 
 (use-package ob-go
