@@ -172,7 +172,7 @@ START is valid, or would be valid if capitalized or upcased."
   :init
   (require 'vlf-setup))
 
-;; calc 菜单
+;; casual 菜单
 (use-package casual
   :after calc
   :ensure t
@@ -185,6 +185,14 @@ START is valid, or would be valid if capitalized or upcased."
   :bind (:map reb-mode-map ("C-o" . 'casual-re-builder-tmenu)
 	      :map reb-lisp-mode-map ("C-o" . 'casual-re-builder-tmenu)
 	      :map reb-subexp-mode-map ("C-o" . 'casual-re-builder-tmenu)))
+
+(use-package casual
+  :ensure t
+  :bind (:map isearch-mode-map ("C-o" . 'casual-isearch-tmenu)))
+
+(use-package isearch-mb
+  :config
+  (define-key isearch-mb-minibuffer-map (kbd "C-o") #'casual-isearch-tmenu))
 
 ;; consult-dasel 多后端搜索
 (use-package consult-dasel

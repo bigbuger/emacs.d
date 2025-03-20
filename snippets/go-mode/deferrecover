@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: deferrecover
-# key: deferrecover
+# key: defrr
 # --
 defer func() {
     if r := recover(); r != nil {

@@ -54,7 +54,9 @@
    (cond
     ((string-prefix-p org-roam-directory (buffer-file-name))
      "Roam")
-    ((string-prefix-p (file-truename "~/code/go/pkg/mod") (buffer-file-name))
+    ((or
+      (string-prefix-p (file-truename "~/code/go/pkg/mod") (buffer-file-name))
+      (string-prefix-p (file-truename "/usr/local/go/src") (buffer-file-name)))
      "Go pkg mod")
 
     ((or (derived-mode-p 'eshell-mode)
