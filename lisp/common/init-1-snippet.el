@@ -9,6 +9,8 @@
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
 (require 'yasnippet)
 (yas-global-mode 1)
+(add-hook 'minibuffer-setup-hook 'yas-minor-mode)
+
 
 (require 'warnings)
 (add-to-list 'warning-suppress-types '(yasnippet backquote-change))

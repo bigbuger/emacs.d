@@ -71,8 +71,7 @@
     ;;	  (memq major-mode '(org-mode org-agenda-mode diary-mode)))
     ;;  "OrgMode")
 
-    ((or (string-equal "*" (substring (buffer-name) 0 1))
-	 (memq major-mode '(magit-process-mode
+    ((memq major-mode '(magit-process-mode
 			    magit-status-mode
 			    magit-diff-mode
 			    magit-revision-mode
@@ -80,7 +79,10 @@
 			    magit-file-mode
 			    magit-blob-mode
 			    magit-blame-mode
-			    )))
+			    ))
+     (centaur-tabs-get-group-name-with-perfix "Magit"))
+    
+    ((string-equal "*" (substring (buffer-name) 0 1))
      "Emacs")
 
     (t

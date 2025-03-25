@@ -165,7 +165,7 @@
   (global-set-key (kbd "M-g g") 'consult-goto-line) ;; orig. goto-line
   
   (global-set-key (kbd "M-s k")  'consult-keep-lines)
-  (global-set-key (kbd "M-s f")  'consult-focus-lines)
+  (global-set-key (kbd "M-s u")  'consult-focus-lines)
   (global-set-key (kbd "M-s e")  'consult-isearch-history)
   
   (global-set-key (kbd "C-h I") 'consult-info)
