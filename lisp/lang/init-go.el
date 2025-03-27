@@ -30,19 +30,26 @@
 
 (require 'dap-dlv-go)
 
-;; (require 'go-ts-mode)
-;; (add-to-list 'major-mode-remap-alist
-;;              '(go-mode . go-ts-mode))
-;; (add-to-list 'major-mode-remap-alist
-;;              '(go-dot-mod . go-mod-ts-mode))
-;; (add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
-;; (add-to-list 'auto-mode-alist '("/go\\.mod\\'" . go-mod-ts-mode))
-(add-to-list 'auto-mode-alist '("/go\\.mod\\'" . go-dot-mod-mode))
+(require 'go-ts-mode)
+
+(setq treesit-language-source-alist
+ (append '((go "https://github.com/tree-sitter/tree-sitter-go")
+	   (gomod "https://github.com/camdencheek/tree-sitter-go-mod"))
+	 treesit-language-source-alist))
+
+(add-to-list 'major-mode-remap-alist
+             '(go-mode . go-ts-mode))
+(add-to-list 'major-mode-remap-alist
+             '(go-dot-mod . go-mod-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
+(add-to-list 'auto-mode-alist '("/go\\.mod\\'" . go-mod-ts-mode))
+;;(add-to-list 'auto-mode-alist '("/go\\.mod\\'" . go-dot-mod-mode))
 
 (setq go-fontify-function-calls nil)
 
 ;;(setenv "GO111MODULE" "off")
-(add-hook 'go-mode-hook 'flycheck-mode)
+(add-hook 'go-ts-mode-hook 'flycheck-mode)
+;;(add-hook 'go-ts-mode-hook 'go-eldoc-setup)
 
 (with-eval-after-load 'lsp-go
   (setf (lsp--client-completion-in-comments? (gethash 'gopls lsp-clients)) nil))
@@ -82,7 +89,8 @@
               (when (derived-mode-p 'go-mode)
 		(setq flycheck-local-checkers '((lsp . ((next-checkers . ((warning . golangci-lint)))))))))))
 
-(add-hook 'go-mode-hook
+(setq go-ts-mode-indent-offset 4)
+(add-hook 'go-ts-mode-hook
 	  (lambda ()
 	    (setq-local defun-prompt-regexp go-func-regexp)
 	    (setq-local tab-width 4)
@@ -101,7 +109,7 @@
 	    ;;   (flycheck-select-checker 'go-build))
 	    (lsp-deferred)))
 
-(add-hook 'go-dot-mod-mode-hook
+(add-hook 'go-ts-dot-mod-mode-hook
 	  (lambda ()
 	    (setq-local tab-width 4)
 	    (display-line-numbers-mode t)
@@ -188,7 +196,7 @@
 ;; 				    :run "go run ."
 ;; 				    :test-suffix "_test.go"))
 
-(add-hook 'go-mode-hook
+(add-hook 'go-ts-mode-hook
 	  (lambda ()
 	    (when (functionp 'consult-dash)
 	      (setq-local consult-dash-docsets
@@ -248,12 +256,12 @@
     (nreverse result)))
 
 
-(add-hook 'go-mode-hook
+(add-hook 'go-ts-mode-hook
 	  (lambda ()
 	    (setq rmsbolt-default-directory
 			   (expand-file-name (string-replace "\n" "" (shell-command-to-string "dirname $(go env GOMOD)"))))
 	    (setq-local rmsbolt-languages
-			`((go-mode
+			`((go-ts-mode
 			   . ,(make-rmsbolt-lang :compile-cmd "go"
 						 :supports-asm t
 						 :supports-disass t
@@ -273,7 +281,7 @@
 
 (setq go-tag-args '("-transform" "camelcase"))
 (require 'company-go-tag)
-(add-hook 'go-mode-hook
+(add-hook 'go-ts-mode-hook
           (lambda ()
 	    (setq-local company-backends
 			(cl-adjoin 'company-go-tag company-backends :test #'equal))))
@@ -300,27 +308,26 @@
       (insert result))
     result))
 
-(with-eval-after-load 'go-mode
-  (define-key go-mode-map (kbd "s-g t") #'go-tag-add)
-  (define-key go-mode-map (kbd "s-g T") #'go-tag-remove)
-  (define-key go-mode-map (kbd "s-g i") #'go-impl)
-  (define-key go-mode-map (kbd "s-g f") #'gofmt)
-
-  (define-key go-mode-map (kbd "s-g l") #'golangci-lint)
-  (define-key go-dot-mod-mode-map (kbd "s-g l") #'golangci-lint)
+(with-eval-after-load 'go-ts-mode
+  (define-key go-ts-mode-map (kbd "s-g t") #'go-tag-add)
+  (define-key go-ts-mode-map (kbd "s-g T") #'go-tag-remove)
+  (define-key go-ts-mode-map (kbd "s-g i") #'go-impl)
+  (define-key go-ts-mode-map (kbd "s-g f") #'gofmt)
+  (define-key go-ts-mode-map (kbd "s-g l") #'golangci-lint)
+  (define-key go-mod-ts-mode-map (kbd "s-g l") #'golangci-lint)
   (define-key go-dot-work-mode-map (kbd "s-g l") #'golangci-lint)
 
-  (define-key go-mode-map (kbd "s-g m t") #'go-mod-tidy)
-  (define-key go-dot-mod-mode-map (kbd "s-g m t") #'go-mod-tidy)
+  (define-key go-ts-mode-map (kbd "s-g m t") #'go-mod-tidy)
+  (define-key go-mod-ts-mode-map (kbd "s-g m t") #'go-mod-tidy)
   (define-key go-dot-work-mode-map (kbd "s-g m t") #'go-mod-tidy)
 
-  (define-key go-mode-map (kbd "s-g g") #'go-get)
-  (define-key go-dot-mod-mode-map (kbd "s-g g") #'go-get)
+  (define-key go-ts-mode-map (kbd "s-g g") #'go-get)
+  (define-key go-mod-ts-mode-map (kbd "s-g g") #'go-get)
   (define-key go-dot-work-mode-map (kbd "s-g g") #'go-get)
   
   
-  (define-key go-mode-map (kbd "s-g r") #'go-run)
-  (define-key go-mode-map (kbd "s-g s-t") #'convert-to-go-time-format))
+  (define-key go-ts-mode-map (kbd "s-g r") #'go-run)
+  (define-key go-ts-mode-map (kbd "s-g s-t") #'convert-to-go-time-format))
 
 (defconst pcmpl-go-commands
   '("build" "clean" "doc" "env" "fix" "fmt"
