@@ -56,7 +56,10 @@
      "Roam")
     ((or
       (string-prefix-p (file-truename "~/code/go/pkg/mod") (buffer-file-name))
-      (string-prefix-p (file-truename "/usr/local/go/src") (buffer-file-name)))
+      (string-prefix-p "/usr/local/go/src" (buffer-file-name))
+      (and (derived-mode-p 'dired-mode)
+	   (or (string-prefix-p (file-truename "~/code/go/pkg/mod") default-directory)
+	       (string-prefix-p "/usr/local/go/src" default-directory))))
      "Go pkg mod")
 
     ((or (derived-mode-p 'eshell-mode)
@@ -72,14 +75,14 @@
     ;;  "OrgMode")
 
     ((memq major-mode '(magit-process-mode
-			    magit-status-mode
-			    magit-diff-mode
-			    magit-revision-mode
-			    magit-log-mode
-			    magit-file-mode
-			    magit-blob-mode
-			    magit-blame-mode
-			    ))
+			magit-status-mode
+			magit-diff-mode
+			magit-revision-mode
+			magit-log-mode
+			magit-file-mode
+			magit-blob-mode
+			magit-blame-mode
+			))
      (centaur-tabs-get-group-name-with-perfix "Magit"))
     
     ((string-equal "*" (substring (buffer-name) 0 1))
