@@ -12,7 +12,9 @@
 
 (require 'smartparens)
 ;; (sp-local-pair 'scheme-mode "(" nil :actions '(:rem skip))
-(define-key scheme-mode-map  (kbd "C-}") 'sp-forward-slurp-sexp)
+(define-key scheme-mode-map (kbd "C-}") 'sp-forward-slurp-sexp)
+(define-key scheme-mode-map (kbd "C-M-a") 'sp-beginning-of-sexp)
+(define-key scheme-mode-map (kbd "C-M-e") 'sp-end-of-sexp)
 
 (with-eval-after-load 'org
   (setq org-babel-default-header-args:scheme
@@ -28,7 +30,12 @@
   (setq racket-command-timeout 6)
   
   (with-eval-after-load 'smart-compile
-    (add-to-list 'smart-compile-alist '(racket-mode . "racket %f"))))
+    (add-to-list 'smart-compile-alist '(racket-mode . "racket %f")))
+
+  :bind (:map racket-mode-map
+	      ("C-}"   . sp-forward-slurp-sexp)
+	      ("C-M-a" . sp-beginning-of-sexp)
+	      ("C-M-e" . sp-end-of-sexp)))
 
 (use-package ob-racket
   :after org

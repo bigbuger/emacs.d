@@ -309,6 +309,8 @@
     result))
 
 (with-eval-after-load 'go-ts-mode
+  (define-key go-ts-mode-map (kbd "C-c C-a") #'go-import-add)
+  
   (define-key go-ts-mode-map (kbd "s-g t") #'go-tag-add)
   (define-key go-ts-mode-map (kbd "s-g T") #'go-tag-remove)
   (define-key go-ts-mode-map (kbd "s-g i") #'go-impl)

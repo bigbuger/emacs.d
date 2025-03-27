@@ -34,8 +34,10 @@
 (define-key emacs-lisp-mode-map  (kbd "C-}") 'sp-forward-slurp-sexp) ;; 吃掉一个 sexp
 (define-key smartparens-mode-map (kbd "C-{") 'sp-forward-barf-sexp)
 (define-key smartparens-mode-map (kbd "C-c <backspace>") 'sp-raise-sexp) ;; 去掉最高层 sexp
-(define-key smartparens-mode-map (kbd "C-M-a") 'sp-beginning-of-sexp)
-(define-key smartparens-mode-map (kbd "C-M-e") 'sp-end-of-sexp)
+(define-key emacs-lisp-mode-map (kbd "C-M-a") 'sp-beginning-of-sexp)
+(define-key emacs-lisp-mode-map (kbd "C-M-e") 'sp-end-of-sexp)
+(define-key lisp-interaction-mode-map (kbd "C-M-a") 'sp-beginning-of-sexp)
+(define-key lisp-interaction-mode-map (kbd "C-M-e") 'sp-end-of-sexp)
 (define-key smartparens-mode-map (kbd "C-M-d") 'sp-clone-sexp)
 (define-key smartparens-mode-map (kbd "C-M-u") 'sp-backward-up-sexp)
 
