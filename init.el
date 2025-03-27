@@ -10,6 +10,10 @@
 (set-default-coding-systems 'utf-8)
 (define-coding-system-alias 'UTF-8 'utf-8)
 
+;; (setq byte-compile-warnings '(not obsolete))
+;; (setq warning-suppress-log-types '((comp) (bytecomp)))
+(setq native-comp-async-report-warnings-errors 'silent)
+
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
 
