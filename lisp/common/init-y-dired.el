@@ -51,9 +51,15 @@
               ("TAB" . dired-subtree-toggle)
 	      ("M-[" . dired-subtree-beginning)
 	      ("M-]" . dired-subtree-end)
-	      ("M-^" . dired-subtree-up))
+	      ("M-^" . dired-subtree-up)
+	      ("."   . dired-subtree-create-file))
   :config
-  (setq dired-subtree-use-backgrounds nil))
+  (setq dired-subtree-use-backgrounds nil)
+
+  (defun dired-subtree-create-file (file)
+     (interactive
+      (list (read-file-name "Create file: " (dired-current-directory))))
+     (make-empty-file file t)))
 
 ;; dired 菜单
 (use-package casual
