@@ -59,7 +59,8 @@
   (defun dired-subtree-create-file (file)
      (interactive
       (list (read-file-name "Create file: " (dired-current-directory))))
-     (make-empty-file file t)))
+     (make-empty-file file t)
+     (revert-buffer)))
 
 ;; dired 菜单
 (use-package casual
