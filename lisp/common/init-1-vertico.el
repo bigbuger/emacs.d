@@ -180,10 +180,6 @@
     (define-key org-mode-map (kbd "M-g i") #'consult-outline))
 
 
-  
-  (advice-add 'consult-line :around #'using-py-search)
-  (advice-add 'consult-recent-file :around #'using-py-search)
-
   ;; Use Consult to select xref locations with preview
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
@@ -268,10 +264,30 @@ This is the function to be used for the hook `completion-at-point-functions'."
    consult-buffer
    consult--source-buffer
    
-   :preview-key '("M-."))
+   :preview-key '("M-.")))
 
+(use-package consult
+  :after orderless
+  :defines consult-line-literal
+  
+  :config
+  ;; Use the `orderless` completion style, restricted to `orderless-literal`
+  (defun consult-line-literal ()
+    (interactive)
+    (let ((completion-styles '(orderless))
+          (orderless-matching-styles '(orderless-literal))
+          (completion-category-defaults nil)
+          (completion-category-overrides nil))
+      (consult-line)))
+  
   (advice-add #'consult-focus-lines :around #'using-orderless)
   (advice-add #'consult-keep-lines :around #'using-orderless))
+
+(use-package consult
+  :after pyim
+  :config
+  (advice-add 'consult-line :around #'using-py-search)
+  (advice-add 'consult-recent-file :around #'using-py-search))
 
 (use-package consult
   :after projectile
