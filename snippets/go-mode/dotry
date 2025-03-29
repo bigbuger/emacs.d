@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: dotry
+# key: dotry
+# --
+func() {
+	defer func() {
+    	if r := recover(); r != nil {
+	   $1
+	}
+    }()
+
+    $0
+}()
