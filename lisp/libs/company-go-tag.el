@@ -70,16 +70,10 @@
 
 (defun company-go-tag--tag-node? ()
   "Check is at go tag."
-  (cond ((eq major-mode 'go-ts-mode)
-	 (let* ((node (treesit-node-at (point)))
-		(node-type (treesit-node-type node))
-		(node-parent (treesit-node-parent node))
-		(node-parent-type (treesit-node-type node-parent)))
-	   (and (string-equal "raw_string_literal" node-type)
-		(string-equal "field_declaration" node-parent-type))))
-	((eq major-mode 'go-mode)
-	 (save-excursion
-	   (re-search-backward company-go-tag--field-regex (line-beginning-position) t 1)))))
+  (when (or (eq major-mode 'go-ts-mode)
+	    (eq major-mode 'go-mode))
+    (save-excursion
+      (re-search-backward company-go-tag--field-regex (line-beginning-position) t 1))))
 				  
 
 (defun company-go-tag--prefix ()
