@@ -202,6 +202,14 @@ ARG is pass to `sp-end-of-sexp'"
 
 (advice-add 'vr--minibuffer-setup :override #'my-vr--minibuffer-setup)
 
+(defun query-replace-read-to-with-completion (orign &rest args)
+ (minibuffer-with-setup-hook
+	(:append
+	 (lambda ()
+	   (add-hook 'completion-at-point-functions
+		     #'elisp-completion-at-point nil t)))
+      (apply orign args)))
+(advice-add 'query-replace-read-to :around #'query-replace-with-completion)
 ;; end visual-regexp
 
 
