@@ -4,24 +4,18 @@
 * ${1:需求2}
 :properties:
 :jira: `work-schedule-jira-link-prefix`${2:xxx}
-:文档: 1
+:研发:
 :联调: 1
-:总工时:
-:备注:
+:单测: 2
+:备注: 
 :end:
 
-#+begin: columnview :hlines 1 :id local :format "%ITEM(细项) %文档 %研发{+} %联调 %总工时 %TODO(状态)" :skip-empty-rows t :indent t
-#+name: tb_$1
-| 细项                                                     | 文档 | 研发 | 联调 | 总工时 | 状态  |
+#+begin: columnview :hlines 1 :id local :format "%ITEM(细项) %研发{+} %单测 %联调 %总工时 %TODO(状态)" :skip-empty-rows t :indent t
+| 细项                                                       | 研发 | 单测 | 联调 | 总工时 | 状态 |
 |---------------------------------------------------------+-----+-----+-----+-------+------|
-| $1                                                       |     |     |     |       |     |
+| $2                                                       |     |     |     |       |     |
 #+TBLFM: \$5=\$2+\$3+\$4
 #+END:
-
-|总进度|
-|-----|
-|     |
-#+TBLFM: @<<@2\$1='(format "%0.0f%%" (* 100 (/ (apply '+ (org-lookup-all "DONE" '(remote(tb_$1,@3\$6..@>\$6)) (mapcar 'string-to-number '(remote(tb_$1,@3\$3..@>\$3))))) (* 1.0 (string-to-number remote(tb_$1,@2\$3))))));E
 
 - 排期 :: TODO
 
