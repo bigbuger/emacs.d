@@ -209,7 +209,7 @@ ARG is pass to `sp-end-of-sexp'"
 	   (add-hook 'completion-at-point-functions
 		     #'elisp-completion-at-point nil t)))
       (apply orign args)))
-(advice-add 'query-replace-read-to :around #'query-replace-with-completion)
+(advice-add 'query-replace-read-to :around #'query-replace-read-to-with-completion)
 ;; end visual-regexp
 
 
