@@ -71,15 +71,20 @@ string).  It returns t if a new completion is found, nil otherwise."
 
 (setq hippie-expand-try-functions-list
       '(yas-hippie-try-expand
-        try-complete-file-name-partially
-        try-complete-file-name
-        try-expand-dabbrev
+
+	try-expand-dabbrev
         try-expand-dabbrev-from-kill
         try-expand-dabbrev-all-buffers
+	
 	my/try-expand-list
         try-expand-list
 	try-expand-list-all-buffers
-        try-expand-line))
+	try-expand-line
+	
+        ;; try-complete-file-name-partially
+        ;; try-complete-file-name
+	))
+
 (define-key yas-minor-mode-map [remap dabbrev-expand] 'hippie-expand)
 
 (defun he-fix-string-parens (args)
@@ -115,12 +120,13 @@ string).  It returns t if a new completion is found, nil otherwise."
 If failed try to complete the common part with `company-complete-common'"
   (interactive)
   (if yas-minor-mode
-      (let ((old-point (point))
-            (old-tick (buffer-chars-modified-tick)))
-        (ignore-errors (yas-next-field))
-        (when (and (eq old-point (point))
-                   (eq old-tick (buffer-chars-modified-tick)))
-          (company-complete-common))))
+      (ignore-errors
+	(let ((old-point (point))
+              (old-tick (buffer-chars-modified-tick)))
+          (ignore-errors (yas-next-field))
+          (when (and (eq old-point (point))
+                     (eq old-tick (buffer-chars-modified-tick)))
+            (company-complete-common)))))
   (company-complete-common))
 
 (with-eval-after-load 'company
