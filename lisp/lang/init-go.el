@@ -69,25 +69,26 @@
   "Use golangci lint in flycheck or not."
   :group 'lsp-go
   :type 'boolean)
-
-;; (setq enable-golangci-lint t)
+(setq enable-golangci-lint t)
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
 (require 'flycheck-golangci-lint)
+(setq flycheck-golangci-lint-fast nil)
 (setq flycheck-golangci-lint-config "~/.golangci.yml")
 
 (when enable-golangci-lint
-  (flycheck-golangci-lint-setup)
-  (add-hook 'lsp-managed-mode-hook
-            (lambda ()
-              (when (derived-mode-p 'go-mode)
-		(setq flycheck-local-checkers '((lsp . ((next-checkers . ((warning . golangci-lint)))))))))))
+  (flycheck-golangci-lint-setup))
+;; (when enable-golangci-lint
+;;   (flycheck-golangci-lint-setup)
+;;   (add-hook 'lsp-managed-mode-hook
+;;             (lambda ()
+;;               (when (derived-mode-p 'go-mode)
+;; 		(setq flycheck-local-checkers '((lsp . ((next-checkers . ((warning . golangci-lint)))))))))))
 
 (add-hook 'go-mode-hook
 	  (lambda ()
-	    (setq-local defun-prompt-regexp go-func-regexp)
-	    (setq-local tab-width 4)
-	    ;; (setq-local lsp-diagnostics-provider :none)
-	    (setq-local flycheck-disabled-checkers '(go-gofmt
+	    (setq-local defun-prompt-regexp go-func-regexp
+			tab-width 4
+			flycheck-disabled-checkers '(go-gofmt
 						     go-golint
 						     go-vet
 						     ;; go-build
@@ -95,10 +96,12 @@
 						     go-errcheck
 						     go-staticcheck
 						     go-unconvert)
-			go-test-args "-v -count=1 -gcflags=all=-l")
-	    (setq-local lsp-inlay-hint-enable t)
-            ;; (when (flycheck-may-use-checker 'go-build)
-	    ;;   (flycheck-select-checker 'go-build))
+			go-test-args "-v -count=1 -gcflags=all=-l"
+			lsp-inlay-hint-enable t)
+           
+	    (when enable-golangci-lint
+	      (setq-local lsp-diagnostics-provider :none)
+	      (setq-local flycheck-checker 'golangci-lint))
 	    (lsp-deferred)))
 
 (add-hook 'go-dot-mod-mode-hook
