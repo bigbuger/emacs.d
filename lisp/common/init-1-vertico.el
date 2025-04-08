@@ -471,7 +471,8 @@ targets."
 
 (use-package wgrep
   :bind (:map grep-mode-map
-	      ("C-c C-q" . wgrep-change-to-wgrep-mode)))
+	      ("C-c C-q" . wgrep-change-to-wgrep-mode)
+	      ("e" . wgrep-change-to-wgrep-mode)))
 
 (use-package consult-lsp
   :after (lsp)
