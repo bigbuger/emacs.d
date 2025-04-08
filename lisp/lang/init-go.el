@@ -69,7 +69,7 @@
   "Use golangci lint in flycheck or not."
   :group 'lsp-go
   :type 'boolean)
-(setq enable-golangci-lint t)
+(setq enable-golangci-lint nil)
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
 (require 'flycheck-golangci-lint)
 (setq flycheck-golangci-lint-fast nil)
