@@ -72,17 +72,29 @@
 (setq enable-golangci-lint nil)
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
 (require 'flycheck-golangci-lint)
-(setq flycheck-golangci-lint-fast nil)
+(setq flycheck-golangci-lint-fast t)
 (setq flycheck-golangci-lint-config "~/.golangci.yml")
 
-(when enable-golangci-lint
-  (flycheck-golangci-lint-setup))
+(flycheck-golangci-lint-setup)
 ;; (when enable-golangci-lint
 ;;   (flycheck-golangci-lint-setup)
 ;;   (add-hook 'lsp-managed-mode-hook
 ;;             (lambda ()
 ;;               (when (derived-mode-p 'go-mode)
 ;; 		(setq flycheck-local-checkers '((lsp . ((next-checkers . ((warning . golangci-lint)))))))))))
+
+(setq lsp-golangci-lint-fast t)
+
+(defun my-lsp-golangci-lint--get-initialization-options ()
+  "Return initialization options for golangci-lint-langserver."
+  (let ((opts (make-hash-table :test 'equal))
+        (command (vconcat `(,lsp-golangci-lint-path)
+                          ["run" "--out-format=json" "--issues-exit-code=0"]
+                          (lsp-golangci-lint--run-args))))
+    (puthash "command" command opts)
+    opts))
+(advice-add 'lsp-golangci-lint--get-initialization-options :override 'my-lsp-golangci-lint--get-initialization-options)
+;; (add-to-list 'lsp-disabled-clients 'golangci-lint) ;; too slow
 
 (add-hook 'go-mode-hook
 	  (lambda ()
