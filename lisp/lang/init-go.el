@@ -65,24 +65,6 @@
    ("gopls.hints.parameterNames" t t)
    ("gopls.hints.rangeVariableTypes" nil t)))
 
-(defcustom enable-golangci-lint nil
-  "Use golangci lint in flycheck or not."
-  :group 'lsp-go
-  :type 'boolean)
-(setq enable-golangci-lint nil)
-(add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
-(require 'flycheck-golangci-lint)
-(setq flycheck-golangci-lint-fast t)
-(setq flycheck-golangci-lint-config "~/.golangci.yml")
-
-(flycheck-golangci-lint-setup)
-;; (when enable-golangci-lint
-;;   (flycheck-golangci-lint-setup)
-;;   (add-hook 'lsp-managed-mode-hook
-;;             (lambda ()
-;;               (when (derived-mode-p 'go-mode)
-;; 		(setq flycheck-local-checkers '((lsp . ((next-checkers . ((warning . golangci-lint)))))))))))
-
 (setq lsp-golangci-lint-fast t)
 
 (defun my-lsp-golangci-lint--get-initialization-options ()
@@ -111,9 +93,6 @@
 			go-test-args "-v -count=1 -gcflags=all=-l"
 			lsp-inlay-hint-enable t)
            
-	    (when enable-golangci-lint
-	      (setq-local lsp-diagnostics-provider :none)
-	      (setq-local flycheck-checker 'golangci-lint))
 	    (lsp-deferred)))
 
 (add-hook 'go-dot-mod-mode-hook
