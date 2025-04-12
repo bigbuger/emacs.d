@@ -66,7 +66,7 @@
    ("gopls.hints.rangeVariableTypes" nil t)))
 
 (setq lsp-golangci-lint-fast t)
-
+(setq lsp-golangci-lint-enable '("makezero"))
 (defun my-lsp-golangci-lint--get-initialization-options ()
   "Return initialization options for golangci-lint-langserver."
   (let ((opts (make-hash-table :test 'equal))

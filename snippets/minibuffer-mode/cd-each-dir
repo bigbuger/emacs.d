@@ -2,4 +2,4 @@
 # name: cd in each dir
 # key: cde
 # --
-cd \`?\`; $0 ; cd ..
+(cd \`?\` && $0)
