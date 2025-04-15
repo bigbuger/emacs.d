@@ -390,6 +390,13 @@
 		   ,@pcml-go-build-flag))
 	       (pcomplete-entries))))))))
 
+(defun pcomplete/golangci-lint ()
+  "Completion for `golangci-lint'."
+  (pcomplete-here* '("cache" "completion" "config" "custom" "help" "linters" "run" "version"))
+  (when (pcomplete-match "run" 1)
+    (pcomplete-here-using-help "golangci-lint run -h")))
+
+
 (use-package ob-go
   :demand t
   :init
