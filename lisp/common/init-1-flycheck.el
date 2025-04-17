@@ -28,7 +28,8 @@
       (funcall fn checker property)))
 (advice-add 'flycheck-checker-get :around '+flycheck-checker-get)
 
-(setq flycheck-checker-error-threshold 600)
+(setq flycheck-checker-error-threshold 600
+      flycheck-highlighting-style 'level-face)
 
 (setq flycheck-error-list-format
       [("File" 6)
