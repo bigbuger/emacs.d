@@ -52,7 +52,8 @@
 ;; 			 (cl-adjoin '(company-capf :separate company-yasnippet)
 ;; 				    company-backends :test #'equal))))
 
-(setq dap-auto-configure-features '(locals tooltip))
+(setq dap-auto-configure-features '(tooltip)
+      dap-ui-variable-length 100)
 ;; (define-key lsp-mode-map (kbd "M-?") 'lsp-ui-peek-find-references)
 (define-key lsp-mode-map [f5] 'dap-debug)
 (define-key lsp-mode-map (kbd "C-<f5>") 'dap-hydra)
