@@ -103,7 +103,7 @@
            
 	    (lsp-deferred)))
 
-(add-hook 'go-ts-dot-mod-mode-hook
+(add-hook 'go-mod-ts-mode-hook
 	  (lambda ()
 	    (setq-local tab-width 4)
 	    (display-line-numbers-mode t)

@@ -18,7 +18,10 @@
   (advice-add 'python-mode :before 'elpy-enable)
 
   :config
-  (setq elpy-rpc-python-command "python3"))
+  (setq elpy-rpc-python-command "python3")
+
+  ;; removes flymake from elpy
+  (remove-hook 'elpy-modules 'elpy-module-flymake))
 
 
 (setq python-shell-interpreter "python3"
