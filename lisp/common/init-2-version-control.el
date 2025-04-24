@@ -45,7 +45,6 @@
 
 (defun magit-file-checkout-multiple--run (files)
   (magit-with-toplevel
-    (message "yes i run")
     (magit-run-git "checkout" magit-file-checkout-multiple--rev "--" files)))
 
 (defvar-keymap embark-magit-file-checkout-multiple-actions
