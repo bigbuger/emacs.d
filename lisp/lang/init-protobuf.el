@@ -20,7 +20,8 @@
 (require 'company-proto)
 (add-hook 'protobuf-mode-hook
           (lambda () (setq-local company-backends
-				 (cl-adjoin '(company-proto :with company-yasnippet) company-backends :test #'equal))))
+				 (cl-adjoin '(company-proto :with company-yasnippet) company-backends :test #'equal)
+				 lsp-diagnostics-flycheck-default-level 'warning)))
 
 (setq lsp-buf-args '("beta" "lsp" "--timeout" "0"))
 (use-package ob-grpc

@@ -326,7 +326,11 @@ This is the function to be used for the hook `completion-at-point-functions'."
    ("C-c C-l" . embark-collect)
    ("C-<return>" . embark-dwim-noquit)
    :map embark-collect-mode-map
-   ("<SPC>" . embark-select))
+   ("<SPC>" . embark-select)
+   :map vertico-map
+   ("C-," . embark-select)
+   :map embark-general-map
+   ("C-i" . embark-insert-in-outer-minibuffer))
 
   :config
   (defvar embark-collect-smart-column-regex
