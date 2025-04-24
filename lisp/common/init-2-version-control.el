@@ -31,6 +31,7 @@
       magit-blame-styles)
 
 (defvar magit-read-file-multiple-hist nil)
+
 (defun magit-read-file-from-rev-multiple (rev prompt &optional default include-dirs)
   (let ((files (magit-revision-files rev)))
     (when include-dirs
@@ -40,17 +41,37 @@
      prompt files nil t nil 'magit-read-file-multiple-hist
      (car (member (or default (magit-current-file)) files)))))
 
-(defun magit-file-checkout-multiple (rev files)
+(defvar magit-file-checkout-multiple--rev nil)
+
+(defun magit-file-checkout-multiple--run (files)
+  (magit-with-toplevel
+    (message "yes i run")
+    (magit-run-git "checkout" magit-file-checkout-multiple--rev "--" files)))
+
+(defvar-keymap embark-magit-file-checkout-multiple-actions
+    :doc "Keymap for actions for lsp-identifier."
+    :parent embark-general-map
+    "c" #'magit-file-checkout-multiple--run)
+
+(defun magit-file-checkout-multiple (files)
   "Checkout FILE from REV."
   (interactive
    (let ((rev (magit-read-branch-or-commit
                "Checkout from revision" magit-buffer-revision)))
-     (list rev (magit-read-file-from-rev-multiple rev "Checkout file" nil t))))
-  (magit-with-toplevel
-    (magit-run-git "checkout" rev "--" files)))
+     (setq magit-file-checkout-multiple--rev rev)
+     (list (minibuffer-with-setup-hook
+	       (lambda ()
+		 (when (featurep 'embark)
+		   (setq-local embark-keymap-alist
+			       '((t embark-magit-file-checkout-multiple-actions)))))
+	     (magit-read-file-from-rev-multiple rev "Checkout file" nil t)))))
+  (magit-file-checkout-multiple--run files))
 
 (transient-append-suffix 'magit-reset (kbd "f")
   '("F" "Files" magit-file-checkout-multiple))
+
+(with-eval-after-load 'embark
+   (add-to-list 'embark-multitarget-actions 'magit-file-checkout-multiple--run))
 
 ;; end magit
 
