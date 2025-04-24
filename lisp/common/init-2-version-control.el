@@ -66,8 +66,8 @@
 	     (magit-read-file-from-rev-multiple rev "Checkout file" nil t)))))
   (magit-file-checkout-multiple--run files))
 
-(transient-append-suffix 'magit-reset (kbd "f")
-  '("F" "Files" magit-file-checkout-multiple))
+(transient-replace-suffix 'magit-reset (kbd "f")
+  '("f" "Files" magit-file-checkout-multiple))
 
 (with-eval-after-load 'embark
    (add-to-list 'embark-multitarget-actions 'magit-file-checkout-multiple--run))
