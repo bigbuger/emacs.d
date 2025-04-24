@@ -30,6 +30,28 @@
 	(margin-body-face . (magit-blame-dimmed)))
       magit-blame-styles)
 
+(defvar magit-read-file-multiple-hist nil)
+(defun magit-read-file-from-rev-multiple (rev prompt &optional default include-dirs)
+  (let ((files (magit-revision-files rev)))
+    (when include-dirs
+      (setq files (sort (nconc files (magit-revision-directories rev))
+                        #'string<)))
+    (magit-completing-read-multiple
+     prompt files nil t nil 'magit-read-file-multiple-hist
+     (car (member (or default (magit-current-file)) files)))))
+
+(defun magit-file-checkout-multiple (rev files)
+  "Checkout FILE from REV."
+  (interactive
+   (let ((rev (magit-read-branch-or-commit
+               "Checkout from revision" magit-buffer-revision)))
+     (list rev (magit-read-file-from-rev-multiple rev "Checkout file" nil t))))
+  (magit-with-toplevel
+    (magit-run-git "checkout" rev "--" files)))
+
+(transient-append-suffix 'magit-reset (kbd "f")
+  '("F" "Files" magit-file-checkout-multiple))
+
 ;; end magit
 
 
