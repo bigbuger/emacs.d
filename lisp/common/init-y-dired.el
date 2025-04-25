@@ -15,8 +15,9 @@
 ;; (setq delete-by-moving-to-trash t) ;; 删除文件时，移到垃圾桶
 (setq dired-kill-when-opening-new-dired-buffer t) ;; RET 后仅保留一个 dired buffer
 
-(setq dired-vc-rename-file t) ;; git 支持
+(setq dired-clean-confirm-killing-deleted-buffers nil)
 
+(setq dired-vc-rename-file t) ;; git 支持
 
 (require 'osx-trash) ;; mac 垃圾桶支持
 (when (eq system-type 'darwin)
