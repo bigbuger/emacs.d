@@ -144,7 +144,7 @@ candidate, if given.  PROMPT passed to `completing-read-multiple' as is."
   
   (defun lab--create-branch-multiple (projects ref branch)
     (dolist (p projects)
-      (let ((project-title (lab--format-project-title p)))
+      (let ((project-title (lab--format-project-title-simple p)))
 	(condition-case err
 	    (progn
 	      (lab--request
@@ -157,16 +157,23 @@ candidate, if given.  PROMPT passed to `completing-read-multiple' as is."
 	  (error
 	   (message "Create branch %s fail for project %s : %s" branch project-title (error-message-string err)))))))
 
+  (defun lab--format-project-title-simple (project)
+    (alist-get 'path_with_namespace project))
+  
   (defun lab--read-and-create-branch-multiple (all-projects)
     (let* ((base-prompt "Create branch multiple, ")
 	   (projects (lab--completing-read-multiple-object (concat "Create branch for projects: ")
 							   all-projects
-							   :formatter #'lab--format-project-title
-							   :hist 'creat-branch-multiple))
+							   :formatter #'lab--format-project-title-simple
+							   :hist 'creat-branch-multiple)))
+      (lab--read-and-create-branch-multiple-run projects)))
+
+  (defun lab--read-and-create-branch-multiple-run (projects)
+    (let* ((base-prompt "Create branch multiple, ")
 	   (ref (read-string (concat base-prompt "Base branch: ")))
 	   (branch (read-string (concat base-prompt "Target branch: "))))
       (lab--create-branch-multiple projects ref branch)))
-
+   
   (defun lab-create-branch-multiple-for-owned-projects ()
     (interactive)
     (lab--read-and-create-branch-multiple (lab-get-all-owned-projects)))
@@ -174,7 +181,13 @@ candidate, if given.  PROMPT passed to `completing-read-multiple' as is."
   (defun lab-create-branch-multiple-for-group-projects ()
     (interactive)
     (lab--read-and-create-branch-multiple (lab-get-all-group-projects)))
+
+  (with-eval-after-load 'embark
+    (setf (alist-get 'lab-create-branch-multiple-for-owned-projects embark-default-action-overrides) #'lab--read-and-create-branch-multiple-run
+	  (alist-get 'lab-create-branch-multiple-for-group-projects embark-default-action-overrides) #'lab--read-and-create-branch-multiple-run)
+    (add-to-list 'embark-multitarget-actions #'lab--read-and-create-branch-multiple-run)) ; FIXME no work 
   )
+  
 
 (provide 'init-2-version-control)
 
