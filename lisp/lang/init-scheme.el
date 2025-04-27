@@ -36,7 +36,8 @@
   :bind (:map racket-mode-map
 	      ("C-}"   . sp-forward-slurp-sexp)
 	      ("C-M-a" . sp-beginning-of-sexp)
-	      ("C-M-e" . sp-end-of-sexp)))
+	      ("C-M-e" . sp-end-of-sexp)
+	      ("C-<return>" . sp-up-sexp-and-new-line)))
 
 (use-package ob-racket
   :after org
