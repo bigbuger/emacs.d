@@ -252,8 +252,8 @@
 
 (add-hook 'go-ts-mode-hook
 	  (lambda ()
-	    (setq rmsbolt-default-directory
-			   (expand-file-name (string-replace "\n" "" (shell-command-to-string "dirname $(go env GOMOD)"))))
+	    (setq-local rmsbolt-default-directory
+			(projectile-acquire-root))
 	    (setq-local rmsbolt-languages
 			`((go-ts-mode
 			   . ,(make-rmsbolt-lang :compile-cmd "go"
