@@ -49,7 +49,7 @@ ARG is pass to `sp-end-of-sexp'"
   (progn
     (sp-up-sexp)
     (newline-and-indent)))
-(global-set-key (kbd "C-<return>") 'sp-up-sexp-and-new-line)
+(define-key emacs-lisp-mode-map (kbd "C-<return>") 'sp-up-sexp-and-new-line)
 
 (require 'cl-lib)
 (defmacro def-pairs (pairs)

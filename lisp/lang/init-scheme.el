@@ -15,6 +15,7 @@
 (define-key scheme-mode-map (kbd "C-}") 'sp-forward-slurp-sexp)
 (define-key scheme-mode-map (kbd "C-M-a") 'sp-beginning-of-sexp)
 (define-key scheme-mode-map (kbd "C-M-e") 'sp-end-of-sexp)
+(define-key scheme-mode-map (kbd "C-<return>") 'sp-up-sexp-and-new-line)
 
 (with-eval-after-load 'org
   (setq org-babel-default-header-args:scheme
