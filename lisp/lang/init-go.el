@@ -252,16 +252,17 @@
 
 (add-hook 'go-ts-mode-hook
 	  (lambda ()
-	    (setq-local rmsbolt-default-directory
-			(projectile-acquire-root))
-	    (setq-local rmsbolt-languages
-			`((go-ts-mode
-			   . ,(make-rmsbolt-lang :compile-cmd "go"
-						 :supports-asm t
-						 :supports-disass t
-						 :objdumper nil
-						 :compile-cmd-function #'rmsbolt--go-plan9-compile-cmd
-						 :process-asm-custom-fn #'rmsbolt--process-go-plan9-lines))))))
+	    (ignore-errors
+	      (setq-local rmsbolt-default-directory
+			  (projectile-acquire-root))
+	      (setq-local rmsbolt-languages
+			  `((go-ts-mode
+			     . ,(make-rmsbolt-lang :compile-cmd "go"
+						   :supports-asm t
+						   :supports-disass t
+						   :objdumper nil
+						   :compile-cmd-function #'rmsbolt--go-plan9-compile-cmd
+						   :process-asm-custom-fn #'rmsbolt--process-go-plan9-lines)))))))
 
 
 ;; go install github.com/godoctor/godoctor@latest
