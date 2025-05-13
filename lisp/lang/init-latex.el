@@ -98,24 +98,24 @@ buffer's text scale."
   (add-to-list 'org-babel-load-languages
 	       '(latex . t)))
 
+(when (file-exists-p "/usr/local/share/asymptote/asy-mode.el")
+  (add-to-list 'load-path "/usr/local/share/asymptote")
+  (autoload 'asy-mode "asy-mode.el" "Asymptote major mode." t)
+  (autoload 'lasy-mode "asy-mode.el" "hybrid Asymptote/Latex major mode." t)
+  (autoload 'asy-insinuate-latex "asy-mode.el" "Asymptote insinuate LaTeX." t)
+  (add-to-list 'auto-mode-alist '("\\.asy$" . asy-mode))
 
-(add-to-list 'load-path "/usr/local/share/asymptote")
-(autoload 'asy-mode "asy-mode.el" "Asymptote major mode." t)
-(autoload 'lasy-mode "asy-mode.el" "hybrid Asymptote/Latex major mode." t)
-(autoload 'asy-insinuate-latex "asy-mode.el" "Asymptote insinuate LaTeX." t)
-(add-to-list 'auto-mode-alist '("\\.asy$" . asy-mode))
+  (require 'lsp-mode)
+  (add-to-list 'lsp-language-id-configuration '(asy-mode . "asymptote"))
 
-(require 'lsp-mode)
-(add-to-list 'lsp-language-id-configuration '(asy-mode . "asymptote"))
-
-(lsp-register-client
- (make-lsp-client :new-connection (lsp-stdio-connection '("asy" "-lsp"))
-                  :activation-fn (lsp-activate-on "asymptote")
-                  :major-modes '(asy-mode)
-                  :server-id 'asyls
-                  )
- )
-;; (add-hook 'asy-mode-hook #'lsp-deferred)
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("asy" "-lsp"))
+                    :activation-fn (lsp-activate-on "asymptote")
+                    :major-modes '(asy-mode)
+                    :server-id 'asyls))
+  
+  ;; (add-hook 'asy-mode-hook #'lsp-deferred)
+  )
 
 (use-package ob-asymptote
   :init
