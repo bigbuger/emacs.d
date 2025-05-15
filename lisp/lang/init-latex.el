@@ -123,6 +123,10 @@ buffer's text scale."
     (add-to-list 'org-babel-load-languages
 		 '(asymptote . t))))
 
+(use-package pcmpl-args
+  :init
+  (defalias 'pcomplete/mpost 'pcmpl-args-pcomplete-on-help))
+
 (provide 'init-latex)
 
 
