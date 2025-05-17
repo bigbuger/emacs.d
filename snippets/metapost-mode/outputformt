@@ -2,4 +2,4 @@
 # name: outputformat
 # key: outputformat
 # --
-outputformat := ${1:$$(yas-choose-value '("svg" "png" "pdf" "eps"))}
+outputformat := "${1:$$(yas-choose-value '("svg" "png" "pdf" "eps"))}";
