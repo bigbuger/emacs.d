@@ -123,6 +123,24 @@ buffer's text scale."
     (add-to-list 'org-babel-load-languages
 		 '(asymptote . t))))
 
+
+(defun org-babel-execute:metapost (body params)
+  "Execute a block of metapost code with org-babel."
+  (let ((in-file (org-babel-temp-file "metapost" ".mp"))
+	(cmdline (or (cdr (assq :cmdline params)) "")))
+    (with-temp-file in-file
+      (insert body))
+    (org-babel-eval
+     (format "mpost %s %s" cmdline (org-babel-process-file-name in-file))
+     "")
+    nil))
+
+(with-eval-after-load 'org
+  (add-to-list 'org-babel-load-languages
+	       '(metapost . t)))
+
+(provide 'ob-metapost)
+
 (use-package pcmpl-args
   :init
   (defalias 'pcomplete/mpost 'pcmpl-args-pcomplete-on-help))
