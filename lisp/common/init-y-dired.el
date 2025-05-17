@@ -45,6 +45,14 @@
 	    (dired-hide-details-mode 1)
 	    ))
 
+(use-package dired-du
+  :bind (:map dired-mode-map
+	      ("K" . dired-du-mode))
+  
+  :config
+  ;; (add-hook 'dired-mode-hook 'dired-du-mode)
+  (setq dired-du-size-format t))
+
 ;; 文件管理展开子目录
 (use-package dired-subtree
   :defer t
