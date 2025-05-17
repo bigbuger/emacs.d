@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: outputformat
+# key: outputformat
+# --
+outputformat := ${1:$$(yas-choose-value '("svg" "png" "pdf" "eps"))}

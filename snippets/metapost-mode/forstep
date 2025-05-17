@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: forstep
+# key: forstep
+# --
+for ${1:i}=${2:0} step ${3:.1} until ${4:1}:
+    ${0}
+endfor;
