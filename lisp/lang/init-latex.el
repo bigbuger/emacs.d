@@ -123,6 +123,7 @@ buffer's text scale."
     (add-to-list 'org-babel-load-languages
 		 '(asymptote . t))))
 
+(defconst ob-metapost-output-buffer-name "*Org babel metapost*")
 
 (defun org-babel-execute:metapost (body params)
   "Execute a block of metapost code with org-babel."
@@ -141,11 +142,12 @@ buffer's text scale."
 			(if out-format
 			    (format "-s 'outputformat=\"%s\"'" out-format)
 			  "")
-			cmdline (org-babel-process-file-name in-file)))
-	   (output (shell-command-to-string cmd)))
-      (if (member "output" (split-string result-type))
-	  output
-	nil))))
+			cmdline (org-babel-process-file-name in-file))))
+      (shell-command cmd ob-metapost-output-buffer-name ob-metapost-output-buffer-name)
+      (with-current-buffer ob-metapost-output-buffer-name
+	(if (member "output" (split-string result-type))
+	    (buffer-string)
+	nil)))))
 
 (with-eval-after-load 'org
   (add-to-list 'org-babel-load-languages
