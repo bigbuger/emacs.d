@@ -126,14 +126,26 @@ buffer's text scale."
 
 (defun org-babel-execute:metapost (body params)
   "Execute a block of metapost code with org-babel."
-  (let ((in-file (org-babel-temp-file "metapost" ".mp"))
-	(cmdline (or (cdr (assq :cmdline params)) "")))
+  (let* ((in-file (org-babel-temp-file "metapost" ".mp"))
+	 (cmdline (or (cdr (assq :cmdline params)) ""))
+	 (result-type (cdr (assq :results params)))
+	 (out-file (cdr (assq :file params)))
+	 (out-format (when out-file (file-name-extension out-file))))
     (with-temp-file in-file
       (insert body))
-    (org-babel-eval
-     (format "mpost %s %s" cmdline (org-babel-process-file-name in-file))
-     "")
-    nil))
+    (message "out-file: %s, out-format: %s" out-file out-format)
+    (let* ((cmd (format "mpost -halt-on-error %s %s %s %s"
+			(if out-file
+			    (format "-s 'outputtemplate=\"%s\"'" out-file)
+			  "")
+			(if out-format
+			    (format "-s 'outputformat=\"%s\"'" out-format)
+			  "")
+			cmdline (org-babel-process-file-name in-file)))
+	   (output (shell-command-to-string cmd)))
+      (if (member "output" (split-string result-type))
+	  output
+	nil))))
 
 (with-eval-after-load 'org
   (add-to-list 'org-babel-load-languages
