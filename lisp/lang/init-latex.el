@@ -131,19 +131,25 @@ buffer's text scale."
 	 (cmdline (or (cdr (assq :cmdline params)) ""))
 	 (result-type (cdr (assq :results params)))
 	 (out-file (cdr (assq :file params)))
-	 (out-format (when out-file (file-name-extension out-file))))
+	 (out-format (when out-file (file-name-extension out-file)))
+	 (tmp-file (when out-file (file-name-with-extension "tmp" out-format)))
+	 (out-dir default-directory)
+	 (work-dir (file-name-directory in-file)))
     (with-temp-file in-file
       (insert body))
     (message "out-file: %s, out-format: %s" out-file out-format)
-    (let* ((cmd (format "mpost -halt-on-error %s %s %s %s"
+    (let* ((default-directory work-dir)
+	   (cmd (format "mpost -halt-on-error %s %s %s %s"
 			(if out-file
-			    (format "-s 'outputtemplate=\"%s\"'" out-file)
+			    (format "-s 'outputtemplate=\"%s\"'" tmp-file)
 			  "")
 			(if out-format
 			    (format "-s 'outputformat=\"%s\"'" out-format)
 			  "")
 			cmdline (org-babel-process-file-name in-file))))
       (shell-command cmd ob-metapost-output-buffer-name ob-metapost-output-buffer-name)
+      (when out-file
+	(copy-file tmp-file (concat out-dir "/" out-file)))
       (with-current-buffer ob-metapost-output-buffer-name
 	(if (member "output" (split-string result-type))
 	    (buffer-string)
