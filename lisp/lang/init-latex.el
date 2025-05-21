@@ -132,7 +132,7 @@ buffer's text scale."
 	 (result-type (cdr (assq :results params)))
 	 (out-file (cdr (assq :file params)))
 	 (out-format (when out-file (file-name-extension out-file)))
-	 (tmp-file (when out-file (file-name-with-extension "tmp" out-format)))
+	 (tmp-file (when out-file (file-name-with-extension (file-name-base in-file) out-format)))
 	 (out-dir default-directory)
 	 (work-dir (file-name-directory in-file)))
     (with-temp-file in-file
