@@ -149,7 +149,7 @@ buffer's text scale."
 			cmdline (org-babel-process-file-name in-file))))
       (shell-command cmd ob-metapost-output-buffer-name ob-metapost-output-buffer-name)
       (when out-file
-	(copy-file tmp-file (concat out-dir "/" out-file)))
+	(copy-file tmp-file (concat out-dir "/" out-file) t))
       (with-current-buffer ob-metapost-output-buffer-name
 	(if (member "output" (split-string result-type))
 	    (buffer-string)
