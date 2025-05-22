@@ -232,6 +232,8 @@ START is valid, or would be valid if capitalized or upcased."
   :init
   (defalias 'pcomplete/rg 'pcmpl-args-pcomplete-on-help))
 
+(setq Info-additional-directory-list '("/opt/homebrew/share/info"))
+
 (provide 'init-z-misc)
 
 ;;; init-z-misc.el ends here
