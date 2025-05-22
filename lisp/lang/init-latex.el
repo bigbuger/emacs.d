@@ -161,6 +161,9 @@ buffer's text scale."
 
 (provide 'ob-metapost)
 
+(with-eval-after-load 'smart-compile
+  (setf (alist-get "\\.mp\\'" smart-compile-alist nil nil #'string=) "mpost %f"))
+
 (use-package pcmpl-args
   :init
   (defalias 'pcomplete/mpost 'pcmpl-args-pcomplete-on-help))
