@@ -18,6 +18,7 @@
 (setq magit-delete-by-moving-to-trash nil)
 
 (setq magit-log-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
+(setq magit-status-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
 (setq magit-git-output-coding-system 'utf-8-unix)
 (add-to-list 'magit-process-password-prompt-regexps
 	     ".*verification code: ?$")
