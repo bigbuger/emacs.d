@@ -48,12 +48,16 @@
       org-preview-latex-image-directory "~/.cache/emacs/data/org/ltximg/"
       org-preview-latex-default-process 'dvisvgm)
 
-;; 默认添加 tikz 头
+;; 添加 latex 头
 (with-eval-after-load 'org
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
   (add-to-list 'org-latex-packages-alist '("" "ctex" t)) ;; 支持中文
   (add-to-list 'org-latex-packages-alist '("" "minted")) ;; 支持代码高亮
   (add-to-list 'org-latex-packages-alist '("" "listingsutf8")))
+
+
+(eval-after-load "preview"
+  '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t)) ;; 预览 tikz
 
 
 (setq org-latex-compiler "xelatex")

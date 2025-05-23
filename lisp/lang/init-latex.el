@@ -17,9 +17,6 @@
   (TeX-source-correlate-start-server t) ;; 不再询问是否开启服务器以执行反向搜索
   
   :config
-  (eval-after-load "preview"
-    '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t)) ;; 预览 tikz
-
   (setq-default TeX-master t) ;; 默认询问主文件
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 
