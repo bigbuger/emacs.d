@@ -50,7 +50,7 @@
 
 ;; 添加 latex 头
 (with-eval-after-load 'org
-  (add-to-list 'org-latex-packages-alist '("" "tikz" t))
+  (add-to-list 'org-latex-packages-alist '("" "tikz" t)) ;; 需要 Ghostscript， dvisvgm -V1 检查，mac 要加链接 export LIBGS=/opt/homebrew/lib/libgs.dylib
   (add-to-list 'org-latex-packages-alist '("" "ctex" t)) ;; 支持中文
   (add-to-list 'org-latex-packages-alist '("" "minted")) ;; 支持代码高亮
   (add-to-list 'org-latex-packages-alist '("" "listingsutf8")))
