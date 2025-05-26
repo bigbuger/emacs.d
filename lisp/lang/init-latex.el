@@ -112,8 +112,16 @@ buffer's text scale."
                     :server-id 'asyls))
   
   ;; (add-hook 'asy-mode-hook #'lsp-deferred)
-  )
-
+  (with-eval-after-load 'company-keywords
+    (with-eval-after-load "asy-keywords.el"
+      (add-to-list 'company-keywords-alist
+		   `(asy-mode
+		     ,@(mapcar #'symbol-name
+			       `(,@asy-keyword-name
+				 ,@asy-type-name
+				 ,@asy-function-name
+				 ,@asy-variable-name)))))))
+    
 (use-package ob-asymptote
   :init
   (with-eval-after-load 'org

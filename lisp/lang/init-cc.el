@@ -27,6 +27,8 @@
 		       (lsp-deferred))))))
 
 (use-package cmake-mode)
+(with-eval-after-load 'cc-mode
+  (unbind-key "C-d" c-mode-base-map))
 
 (with-eval-after-load 'org
   (add-to-list 'org-babel-load-languages
