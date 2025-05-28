@@ -86,6 +86,11 @@
   (define-key org-mode-map
 	      (kbd "C-\\") 'company-math-symbols-unicode))
 
+;; fragtog 自动光标聚焦到 LaTex 预览时自动转为源码展示
+(use-package org-fragtog
+  :hook
+  (org-mode . org-fragtog-mode))
+
 ;; end of LaTeX
 
 ;; superstart 美化标题样式
@@ -100,11 +105,6 @@
   (setq org-superstar-cycle-headline-bullets nil)
   :hook
   (org-mode . org-superstar-mode))
-
-;; fragtog 自动光标聚焦到 LaTex 预览时自动转为源码展示
-(use-package org-fragtog
-  :hook
-  (org-mode . org-fragtog-mode))
 
 ;; org-appear 聚焦斜体、删除线等文字格式时自动转为源码展示
 (setq org-hide-emphasis-markers t)
