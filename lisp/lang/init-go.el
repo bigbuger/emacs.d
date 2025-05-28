@@ -65,7 +65,7 @@
    ("gopls.analyses.ST1001" nil t) ;; dot import warning
 
    ("gopls.hints.assignVariableTypes" nil t)
-   ("gopls.hints.compositeLiteralFields" nil t)
+   ("gopls.hints.compositeLiteralFields" t t)
    ("gopls.hints.compositeLiteralTypes" nil t)
    ("gopls.hints.constantValues" t t)
    ("gopls.hints.functionTypeParameters" nil t)
