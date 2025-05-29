@@ -95,8 +95,8 @@ buffer's text scale."
   (add-to-list 'org-babel-load-languages
 	       '(latex . t)))
 
-(when (file-exists-p "/usr/local/share/asymptote/asy-mode.el")
-  (add-to-list 'load-path "/usr/local/share/asymptote")
+(when (file-exists-p "/usr/local/share/emacs/site-lisp/asymptote")
+  (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/asymptote")
   (autoload 'asy-mode "asy-mode.el" "Asymptote major mode." t)
   (autoload 'lasy-mode "asy-mode.el" "hybrid Asymptote/Latex major mode." t)
   (autoload 'asy-insinuate-latex "asy-mode.el" "Asymptote insinuate LaTeX." t)
