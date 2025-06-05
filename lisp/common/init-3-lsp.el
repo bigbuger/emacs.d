@@ -53,7 +53,7 @@
 ;; 				    company-backends :test #'equal))))
 
 (setq dap-auto-configure-features '(controls)
-      dap-ui-variable-length 30)
+      dap-ui-variable-length 1000)
 ;; (define-key lsp-mode-map (kbd "M-?") 'lsp-ui-peek-find-references)
 (define-key lsp-mode-map [f5] 'dap-debug)
 (define-key lsp-mode-map (kbd "C-<f5>") 'dap-hydra)
@@ -85,6 +85,7 @@
     "t"     #'lsp-find-type-definition
     "i"     #'lsp-find-implementation
     "r"     #'xref-find-references
+    "v"     #'dap-ui-eval-variable-in-buffer
     "h"     #'lsp-treemacs-call-hierarchy)
 
   (add-to-list 'embark-repeat-actions #'lsp-ui-find-prev-reference)
