@@ -33,9 +33,9 @@
 (require 'go-ts-mode)
 
 (setq treesit-language-source-alist
- (append '((go "https://github.com/tree-sitter/tree-sitter-go")
-	   (gomod "https://github.com/camdencheek/tree-sitter-go-mod"))
-	 treesit-language-source-alist))
+      (append '((go "https://github.com/tree-sitter/tree-sitter-go")
+		(gomod "https://github.com/camdencheek/tree-sitter-go-mod"))
+	      treesit-language-source-alist))
 
 (add-to-list 'major-mode-remap-alist
              '(go-mode . go-ts-mode))
@@ -100,7 +100,7 @@
 						     go-unconvert)
 			go-test-args "-v -count=1 -gcflags=all=-l"
 			lsp-inlay-hint-enable t)
-           
+            
 	    (lsp-deferred)))
 
 (add-hook 'go-mod-ts-mode-hook
@@ -150,7 +150,7 @@
 (defmacro with-go-project-root (body)
   `(let ((default-directory (or (consult--go-root)
 				default-directory)))
-	,body))
+     ,body))
 
 (defun golangci-lint ()
   "Run golangci-lint, and diplay the result by `grep-mode'."
@@ -413,6 +413,30 @@
   (with-eval-after-load 'org
     (add-to-list 'org-babel-load-languages
 		 '(go . t))))
+
+(use-package topsy
+  :init
+  (defun topsy--go-beginninng-scope ()
+    "Return the line moved to top ast parent."
+    (when (> (window-start) 1)
+      (save-excursion
+	(goto-char (window-start))
+	(let ((node (treesit-node-at (point))))
+	  (while (not (string-equal "source_file"
+				    (treesit-node-type (treesit-node-parent node))))
+	    (setq node (treesit-node-parent node)))
+	  (goto-char (treesit-node-start node))
+	  (font-lock-ensure (point) (pos-eol))
+	  (buffer-substring (point) (pos-eol))))))
+  
+  :config
+  (setf (alist-get 'go-ts-mode  topsy-mode-functions) #'topsy--go-beginninng-scope)
+  (add-hook 'topsy-mode-hook
+	    (lambda ()
+	      (setq-local lsp-headerline-breadcrumb-enable nil)))
+  
+  :hook
+  (go-ts-mode . topsy-mode))
 
 (provide 'init-go)
 
