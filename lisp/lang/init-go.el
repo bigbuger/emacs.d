@@ -421,13 +421,16 @@
     (when (> (window-start) 1)
       (save-excursion
 	(goto-char (window-start))
-	(let ((node (treesit-node-at (point))))
-	  (while (not (string-equal "source_file"
-				    (treesit-node-type (treesit-node-parent node))))
-	    (setq node (treesit-node-parent node)))
+	(let* ((node (treesit-parent-until (treesit-node-at (point))
+					   (lambda (p)
+					     (string-equal "source_file"
+							   (treesit-node-type (treesit-node-parent p))))))
+	       (end (when (member (treesit-node-type node) '("method_declaration" "function_declaration"))
+		      (- (treesit-node-start (treesit-node-child-by-field-name node "body")) 1))))
 	  (goto-char (treesit-node-start node))
-	  (font-lock-ensure (point) (pos-eol))
-	  (buffer-substring (point) (pos-eol))))))
+	  (font-lock-ensure (point) (or end (pos-eol)))
+	  (string-replace "\t" "" (string-replace "\n" "" (buffer-substring (point) (or end (pos-eol))))))
+	)))
   
   :config
   (setf (alist-get 'go-ts-mode  topsy-mode-functions) #'topsy--go-beginninng-scope)
