@@ -23,6 +23,11 @@
       org-id-method 'ts
       )
 
+;; imenu 菜单
+(add-hook 'org-mode-hook
+	  (lambda ()
+	    (imenu-add-menubar-index)))
+
 ;; 显示行号
 (add-hook 'org-mode-hook #'display-line-numbers-mode)
 

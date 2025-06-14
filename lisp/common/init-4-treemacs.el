@@ -12,7 +12,7 @@
   :config
   (treemacs-load-theme "nerd-icons"))
 
-(setq treemacs-follow-after-init t)
+;; (setq treemacs-follow-after-init t)
 (treemacs-project-follow-mode)
 (global-set-key [f8] 'treemacs)
 
