@@ -45,7 +45,7 @@
 (setq lsp-modeline-code-actions-segments '(count icon))
 
 ;; (setq lsp-completion-sort-initial-results nil)
-;; (setq lsp-completion-provider :none)
+(setq lsp-completion-provider :none)
 (setq lsp-completion-default-behaviour :insert)
 ;; (add-hook 'lsp-completion-mode-hook
 ;; 	  #'(lambda ()
