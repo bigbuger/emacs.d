@@ -416,24 +416,22 @@
 
 (use-package topsy
   :init
-  (defun topsy--go-beginninng-scope ()
+  (defun topsy--go-beginning-scope ()
     "Return the line moved to top ast parent."
     (when (> (window-start) 1)
       (save-excursion
 	(goto-char (window-start))
-	(let* ((node (treesit-parent-until (treesit-node-at (point))
-					   (lambda (p)
-					     (string-equal "source_file"
-							   (treesit-node-type (treesit-node-parent p))))))
-	       (end (when (member (treesit-node-type node) '("method_declaration" "function_declaration"))
-		      (- (treesit-node-start (treesit-node-child-by-field-name node "body")) 1))))
+	(let ((node (treesit-parent-until
+		     (treesit-node-at (point))
+		     (lambda (p)
+		       (string-equal "source_file"
+				     (treesit-node-type (treesit-node-parent p)))))))
 	  (goto-char (treesit-node-start node))
-	  (font-lock-ensure (point) (or end (pos-eol)))
-	  (string-replace "\t" "" (string-replace "\n" "" (buffer-substring (point) (or end (pos-eol))))))
-	)))
+	  (font-lock-ensure (point) (pos-eol))
+	  (buffer-substring (point) (pos-eol))))))
   
   :config
-  (setf (alist-get 'go-ts-mode  topsy-mode-functions) #'topsy--go-beginninng-scope)
+  (setf (alist-get 'go-ts-mode  topsy-mode-functions) #'topsy--go-beginning-scope)
   (add-hook 'topsy-mode-hook
 	    (lambda ()
 	      (setq-local lsp-headerline-breadcrumb-enable nil)))
