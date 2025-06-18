@@ -85,6 +85,10 @@
 (advice-add 'lsp-golangci-lint--get-initialization-options :override 'my-lsp-golangci-lint--get-initialization-options)
 ;; (add-to-list 'lsp-disabled-clients 'golangci-lint) ;; too slow
 
+(defun my-treesit-go-var-name (node)
+    "Return the defun name of NODE for Go node types."
+    (treesit-node-text (treesit-node-child-by-field-name node "name") t))
+
 (setq go-ts-mode-indent-offset 4)
 (add-hook 'go-ts-mode-hook
 	  (lambda ()
@@ -100,8 +104,30 @@
 						     go-unconvert)
 			go-test-args "-v -count=1 -gcflags=all=-l"
 			lsp-inlay-hint-enable t)
-            
+            (setq-local treesit-simple-imenu-settings
+			'(("Constant" "\\`const_spec\\'" nil my-treesit-go-var-name)
+			  ("Function" "\\`function_declaration\\'" nil my-treesit-go-var-name)
+			  ("Interface" "\\`type_declaration\\'" go-ts-mode--interface-node-p nil)
+			  ("Method" "\\`method_declaration\\'" nil nil)
+			  ("New Type" "\\`type_declaration\\'" go-ts-mode--other-type-node-p nil)
+			  ("Struct" "\\`type_declaration\\'" go-ts-mode--struct-node-p nil)
+			  ("Type Alias" "\\`type_declaration\\'" go-ts-mode--alias-node-p nil)
+			  ;; Unfortunately, this also includes local variables.
+			  ("Variable" "\\`var_spec\\'" nil my-treesit-go-var-name)))
+	    (setq-local lsp-enable-imenu nil)
 	    (lsp-deferred)))
+
+(with-eval-after-load 'consult-imenu
+  (add-to-list 'consult-imenu-config
+               '(go-ts-mode
+                 :types ((?c "Constant" font-lock-constant-face)
+                         (?f "Function" font-lock-function-name-face)
+                         (?i "Interface" font-lock-type-face)
+                         (?m "Method" font-lock-function-name-face)
+                         (?t "New Type" font-lock-type-face)
+                         (?s "Struct" font-lock-type-face)
+                         (?a "Type Alias" font-lock-type-face)
+                         (?v "Variable" font-lock-variable-name-face)))))
 
 (add-hook 'go-mod-ts-mode-hook
 	  (lambda ()
