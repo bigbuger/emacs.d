@@ -90,6 +90,15 @@
     (treesit-node-text (treesit-node-child-by-field-name node "name") t))
 
 (setq go-ts-mode-indent-offset 4)
+(defun my-treesit-go-not-in-function (node)
+  "REturn t if  node not in function or method"
+  (let ((top-node (treesit-parent-until node
+					(lambda (p)
+					  (string-equal "source_file"
+							(treesit-node-type (treesit-node-parent p)))))))
+    (not (member (treesit-node-type top-node)
+		 '("function_declaration" "method_declaration")))))
+
 (add-hook 'go-ts-mode-hook
 	  (lambda ()
 	    (setq-local defun-prompt-regexp go-func-regexp
@@ -112,8 +121,7 @@
 			  ("New Type" "\\`type_declaration\\'" go-ts-mode--other-type-node-p nil)
 			  ("Struct" "\\`type_declaration\\'" go-ts-mode--struct-node-p nil)
 			  ("Type Alias" "\\`type_declaration\\'" go-ts-mode--alias-node-p nil)
-			  ;; Unfortunately, this also includes local variables.
-			  ("Variable" "\\`var_spec\\'" nil my-treesit-go-var-name)))
+			  ("Variable" "\\`var_spec\\'" my-treesit-go-not-in-function my-treesit-go-var-name)))
 	    (setq-local lsp-enable-imenu nil)
 	    (lsp-deferred)))
 

@@ -325,6 +325,8 @@
 (defalias 'ss 'work-schedule)
 ;; end work schedule
 
+(use-package orgtbl-aggregate)
+
 (provide 'init-org)
 
 ;;; init-org.el ends here
