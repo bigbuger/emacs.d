@@ -61,6 +61,11 @@ See URL `https://developers.google.com/protocol-buffers/'."
   :init
   (defalias 'pcomplete/protoc 'pcmpl-args-pcomplete-on-help))
 
+(with-eval-after-load 'consult-imenu
+  (add-to-list 'consult-imenu-config
+               '(protobuf-mode
+                 :types ((?m "Message" font-lock-type-face)
+                         (?s "Service" font-lock-type-face)))))
 
 (provide 'init-protobuf)
 
