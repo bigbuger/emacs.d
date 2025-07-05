@@ -5,7 +5,7 @@
 #+begin: columnview :hlines nil :id global :format "%ITEM(task) %jira %研发 %单测 %联调 %总工时 %TIMESTAMP(排期)" :skip-empty-rows t :maxlevel 1
 | task                                          | jira    | 研发 | 单测 | 联调 | 总工时 | 排期 | 备注 |
 |-----------------------------------------------+---------+-----+-----+------+-------+-----|------|
-#+TBLFM: $6=$3+$4+$5
+#+TBLFM: \$6=\$3+\$4+\$5
 #+END:
        
 * ${2:需求1}
