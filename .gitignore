@@ -12,3 +12,5 @@ elpa
 /transient/
 /ellama-sessions/
 /eln-cache/
+/edraw-ui-state.config
+/.#edraw-custom.eshapes
