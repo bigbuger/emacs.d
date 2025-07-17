@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: aggregate
+# key: aggregate
+# --
+#+BEGIN: aggregate :table "$1" :cols "$2"
+
+#+END
