@@ -183,6 +183,9 @@
 				      ".wx64fsl" ".wx32fsl" ".fasl" ".ufsl" ".fsl" ".dxl" ".lo" ".la"
 				      ".gmo" ".mo" ".toc" ".aux" ".cp" ".fn" ".ky" ".pg" ".tp" ".vr" ".cps"
 				      ".fns" ".kys" ".pgs" ".tps" ".vrs" ".pyc" ".pyo"))
+
+(setq xref-history-storage 'xref-window-local-history)
+
 (provide 'init-0-emacs-base)
 
 ;;; init-0-emacs-base.el ends here

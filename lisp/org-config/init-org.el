@@ -116,12 +116,13 @@
 (setq org-pretty-entities t)
 (use-package org-appear
   :init
-  (setq org-appear-autolinks t)
+  (setq org-appear-autolinks 'just-brackets)
   ;; (setq org-appear-autoentities t) ;; 在 latex 中它是整个展开，对于特殊字符不友好
   (setq org-appear-autosubmarkers t)
   (setq org-appear-inside-latex t)
   (setq org-appear-autokeywords t)
-  (add-hook 'org-mode-hook 'org-appear-mode))
+  :hook
+  (org-mode . org-appear-mode))
 
 ;; org-tidy 隐藏 propertize
 ;; (use-package org-tidy

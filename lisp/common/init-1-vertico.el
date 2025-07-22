@@ -281,7 +281,26 @@ This is the function to be used for the hook `completion-at-point-functions'."
       (consult-line)))
   
   (advice-add #'consult-focus-lines :around #'using-orderless)
-  (advice-add #'consult-keep-lines :around #'using-orderless))
+  (advice-add #'consult-keep-lines :around #'using-orderless)
+
+  ;; Use Orderless as pattern compiler for consult-grep/ripgrep/find
+  (defun consult--orderless-regexp-compiler (input type &rest _config)
+    (setq input (cdr (orderless-compile input)))
+    (cons
+     (mapcar (lambda (r) (consult--convert-regexp r type)) input)
+     (lambda (str) (orderless--highlight input t str))))
+
+  ;; OPTION 1: Activate globally for all consult-grep/ripgrep/find/...
+  (setq consult--regexp-compiler #'consult--orderless-regexp-compiler)
+
+  ;; OPTION 2: Activate only for some commands, e.g., consult-ripgrep!
+  ;; (defun consult--with-orderless (&rest args)
+  ;;   (minibuffer-with-setup-hook
+  ;;     (lambda ()
+  ;;       (setq-local consult--regexp-compiler #'consult--orderless-regexp-compiler))
+  ;;   (apply args)))
+  ;; (advice-add #'consult-ripgrep :around #'consult--with-orderless)
+  )
 
 (use-package consult
   :after pyim
