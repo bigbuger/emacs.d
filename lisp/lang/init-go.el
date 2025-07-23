@@ -466,9 +466,6 @@
   
   :config
   (setf (alist-get 'go-ts-mode  topsy-mode-functions) #'topsy--go-beginning-scope)
-  (add-hook 'topsy-mode-hook
-	    (lambda ()
-	      (setq-local lsp-headerline-breadcrumb-enable nil)))
   
   :hook
   (go-ts-mode . topsy-mode))

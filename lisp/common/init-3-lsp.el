@@ -94,6 +94,13 @@
   (add-to-list 'embark-target-finders 'embark-target-lsp-identifier-at-point)
   (add-to-list 'embark-keymap-alist '(lsp-identifier . embark-lsp-indetifier-actions)))
 
+;; topsy 面包屑展示函数名称
+(use-package topsy
+  :config
+  (add-hook 'topsy-mode-hook
+	    (lambda ()
+	      (setq-local lsp-headerline-breadcrumb-enable nil))))
+
 
 (provide 'init-3-lsp)
 
