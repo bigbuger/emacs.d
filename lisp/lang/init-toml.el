@@ -6,6 +6,7 @@
 
 ;;; Code:
 
+;; cargo install taplo-cli --features lsp
 (use-package lsp-mode
   :hook
   (conf-toml-mode . lsp-deferred))
