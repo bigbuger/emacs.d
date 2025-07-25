@@ -19,9 +19,15 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/company-proto")
 (require 'company-proto)
 (add-hook 'protobuf-mode-hook
-          (lambda () (setq-local company-backends
-				 (cl-adjoin '(company-proto :with company-yasnippet) company-backends :test #'equal)
-				 lsp-diagnostics-flycheck-default-level 'warning)))
+          (lambda ()
+	    (setq-local company-backends
+			(cl-adjoin '(company-proto :with company-yasnippet) company-backends :test #'equal)
+			lsp-diagnostics-flycheck-default-level 'warning)
+	    (setq-local imenu-generic-expression
+			'(("Message" "^[[:space:]]*message[[:space:]]+\\([[:alnum:]]+\\)" 1)
+			  ("Enum" "^[[:space:]]*enum[[:space:]]+\\([[:alnum:]]+\\)" 1)
+			  ("Service" "^[[:space:]]*service[[:space:]]+\\([[:alnum:]]+\\)" 1)
+			  ("Function" "^[[:space:]]*rpc[[:space:]]+\\([[:alnum:]]+\\)" 1)))))
 
 (setq lsp-buf-args '("beta" "lsp" "--timeout" "0"))
 (use-package ob-grpc
@@ -65,7 +71,8 @@ See URL `https://developers.google.com/protocol-buffers/'."
   (add-to-list 'consult-imenu-config
                '(protobuf-mode
                  :types ((?m "Message" font-lock-type-face)
-                         (?s "Service" font-lock-type-face)))))
+                         (?s "Service" font-lock-type-face)
+			 (?f "Function" font-lock-type-face)))))
 
 (provide 'init-protobuf)
 
