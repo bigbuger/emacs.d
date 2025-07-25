@@ -92,7 +92,15 @@
 ;; ediff 解决冲突 会显示 4 个面板，源分支、目标分支、合并结果、ancestore，不知道 ancestore 怎么用，就把他给关了
 (setq ediff-show-ancestor nil)
 
+;; -d --minimal
+;; -B --ignore-blank-lines
+(setopt ediff-diff-options "-dB")
+
 ;; end ediff
+
+(use-package difftastic-bindings
+  :ensure difftastic ;; or nil if you prefer manual installation
+  :config (difftastic-bindings-mode))
 
 ;; diff-hl 侧边显示每一行的版本状态
 (require 'diff-hl)
