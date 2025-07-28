@@ -234,6 +234,9 @@ START is valid, or would be valid if capitalized or upcased."
 
 (setq Info-additional-directory-list '("/opt/homebrew/share/info"))
 
+(when (executable-find "rg")
+  (grep-apply-setting 'grep-command "rg -n -H --no-heading "))
+
 (provide 'init-z-misc)
 
 ;;; init-z-misc.el ends here
