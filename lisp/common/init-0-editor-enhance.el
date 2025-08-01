@@ -228,6 +228,26 @@ ARG is pass to `sp-end-of-sexp'"
 ;; end hideshowvis
 
 
+;; This package provides helper functions to delete, rename, or copy buffer files:
+;; 
+;; bufferfile-rename: Renames the file visited by the current buffer and updates the buffer name for all associated buffers, including clones/indirect buffers. It also ensures that buffer-local features referencing the file, such as Eglot or dired buffers, are correctly updated to reflect the new file name.
+;; bufferfile-delete: Delete the file associated with a buffer and kill all buffers visiting the file, including clones/indirect buffers.
+;; bufferfile-copy: Copies the file visited by the current buffer to a new file.
+;; The functions above also ensures that any modified buffers are saved prior to executing operations like renaming, deleting, or copying.
+(use-package bufferfile
+  :ensure t
+  :custom
+  ;; If non-nil, display messages during file renaming operations
+  (bufferfile-verbose nil)
+
+  ;; If non-nil, enable using version control (VC) when available
+  (bufferfile-use-vc nil)
+
+  ;; Specifies the action taken after deleting a file and killing its buffer.
+  (bufferfile-delete-switch-to 'parent-directory)
+  :bind (("C-c M-d" . bufferfile-delete)
+	 ("C-c M-c" . bufferfile-copy)))
+
 (provide 'init-0-editor-enhance)
 
 ;;; init-0-editor-enhance.el ends here

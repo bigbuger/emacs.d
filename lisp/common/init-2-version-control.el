@@ -100,7 +100,29 @@
 
 (use-package difftastic-bindings
   :ensure difftastic ;; or nil if you prefer manual installation
-  :config (difftastic-bindings-mode))
+  :init
+  (use-package transient               ; to silence compiler warnings
+    :autoload (transient-get-suffix
+               transient-parse-suffix))
+
+  (use-package magit-blame
+    :defer t :ensure magit
+    :bind
+    (:map magit-blame-read-only-mode-map
+          ("M-RET" . #'difftastic-magit-show))
+    :config
+    (let ((suffix '("M-RET" "Difftastic show" difftastic-magit-show)))
+      (unless (equal (transient-parse-suffix 'magit-blame suffix)
+                     (transient-get-suffix 'magit-blame "b"))
+        (transient-append-suffix 'magit-blame "b" suffix)))
+    (use-package magit-diff
+      :defer t :ensure magit
+      :config
+      (let ((suffix [("M-d" "Difftastic diff (dwim)" difftastic-magit-diff)
+                     ("M-c" "Difftastic show" difftastic-magit-show)]))
+        (unless (equal (transient-parse-suffix 'magit-diff suffix)
+                       (transient-get-suffix 'magit-diff '(-1 -1)))
+          (transient-append-suffix 'magit-diff '(-1 -1) suffix))))))
 
 ;; diff-hl 侧边显示每一行的版本状态
 (require 'diff-hl)
