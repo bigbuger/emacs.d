@@ -107,6 +107,8 @@
 ;; change of branch reflect in modeline
 (setq auto-revert-check-vc-info t)
 (setq doom-modeline-vcs-max-length 50)
+
+(setq doom-modeline-buffer-file-name-style 'relative-from-project)
 (doom-modeline-mode)
 
 (provide 'theme-setting)
