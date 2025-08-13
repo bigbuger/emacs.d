@@ -156,6 +156,13 @@ with the QUERY and ARGS."
     (consult-jq-query-function buffer cand)
     (display-buffer consult-jq-buffer)))
 
+(defcustom consult-jq-completion-styles
+  nil
+  "The `completion-styles' for `consult-jq'.  When nil, use the EMACS default."
+  :type completion--styles-type
+  :group 'consult-jq
+  )
+
 (defun consult-jq-read-jq (buffer)
   "Read input and run jq."
   (interactive)
@@ -165,7 +172,9 @@ with the QUERY and ARGS."
 	(:append
 	 (lambda ()
 	   (add-hook 'completion-at-point-functions
-		     (make-consult-jq-completion-function-at-point buffer) nil t)))
+		     (make-consult-jq-completion-function-at-point buffer) nil t)
+	   (when consult-jq-completion-styles
+	     (setq-local completion-styles consult-jq-completion-styles))))
       (consult--read
        canditdates
        :prompt "jq: "

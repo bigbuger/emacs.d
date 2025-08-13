@@ -11,6 +11,8 @@
 
 (use-package consult-jq
   :load-path "~/.emacs.d/lisp/libs/consult-jq/"
+  :config
+  (setq consult-jq-completion-styles '(basic partial-completion emacs22))
   :bind (:map json-mode-map
 	      ("C-c C-j" . 'consult-jq)))
 
