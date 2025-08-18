@@ -86,8 +86,7 @@
 				    :foreground "#a094a2"
 				    :background "#efeae9"))))
 
- '(consult-file ((t (:inherit font-lock-keyword-face))))
- '(mode-line ((t (:background "#dbf9ff" :foreground "#655370" :box (:line-width (1 . 1) :color "#b3b9be"))))))
+ '(consult-file ((t (:inherit font-lock-keyword-face)))))
 
  
 (require 'doom-modeline)
