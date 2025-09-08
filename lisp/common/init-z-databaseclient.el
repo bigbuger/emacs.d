@@ -115,8 +115,8 @@
 (defun align-sql-insert-values ()
   (interactive)
   (align-regexp (region-beginning) (region-end)
-		"\\(\\s\".*?\\s\"\\|NULL\\|[0-9]+\\|`.*?`\\|[a-zA-Z0-9_]+\\)\\(,\\)"
-		-1 1 t))
+		"\\s-*\\(\\s\".*?\\s\"\\|NULL\\|[0-9]+\\|`.*?`\\|[a-zA-Z0-9_]+\\)\\(\\s-*,\\s-*\\)"
+		-2 1 t))
 
 (provide 'init-z-databaseclient)
 
