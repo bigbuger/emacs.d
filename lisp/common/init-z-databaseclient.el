@@ -14,8 +14,9 @@
    '(sql-mysql-login-params '(server databases port user password)))
   :init
   (setq lsp-sqls-workspace-config-path nil)
-  :hook
-  (sql-mode . lsp))
+  ;; :hook
+  ;; (sql-mode . lsp)
+  )
 
 (use-package sqlformat
   :ensure t)
@@ -110,6 +111,12 @@
      (throw-if (any-nil? user password host db (quote ,name)) "there are info missing!")
      (add-to-sqls-connections "mysql" (format-mysql-sqls host port user password db))
      (add-to-sql-conection-alist 'mysql ,name host port user password db)))
+
+(defun align-sql-insert-values ()
+  (interactive)
+  (align-regexp (region-beginning) (region-end)
+		"\\(\\s\".*?\\s\"\\|NULL\\|[0-9]+\\|`.*?`\\|[a-zA-Z0-9_]+\\)\\(,\\)"
+		-1 1 t))
 
 (provide 'init-z-databaseclient)
 

@@ -78,8 +78,9 @@ string).  It returns t if a new completion is found, nil otherwise."
 	
 	my/try-expand-list
         try-expand-list
-	try-expand-list-all-buffers
 	try-expand-line
+	try-expand-list-all-buffers
+	try-expand-line-all-buffers
 	
         ;; try-complete-file-name-partially
         ;; try-complete-file-name
