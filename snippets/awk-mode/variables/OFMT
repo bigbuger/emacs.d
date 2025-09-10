@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: OFMT output format for numbers (default %.6g).
+# key: OFMT
+#--
+OFMT

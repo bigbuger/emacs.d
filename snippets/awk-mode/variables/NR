@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: NR   ordinal number of the current record.
+# key: NR
+#--
+NR

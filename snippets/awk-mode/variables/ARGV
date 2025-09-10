@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ARGV argument array, assignable; non-null members are taken as filenames.
+# key: ARGV
+#--
+ARGV

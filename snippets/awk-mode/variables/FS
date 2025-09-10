@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: FS   regular expression used to separate fields; also settable by option -Ffs.
+# key: FS
+#--
+FS

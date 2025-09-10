@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ARGC argument count, assignable.
+# key: ARGC
+#--
+ARGC

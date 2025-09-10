@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: FNR  ordinal number of the current record in the current file.
+# key: FNR
+#--
+FNR

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: CONVFMT conversion format used when converting numbers (default %.6g).
+# key: CONVFMT
+#--
+CONVFMT

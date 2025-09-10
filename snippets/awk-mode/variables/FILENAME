@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: FILENAME the name of the current input file.
+# key: FILENAME
+#--
+FILENAME

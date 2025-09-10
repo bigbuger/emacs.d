@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: OFS  output field separator (default space).
+# key: OFS
+#--
+OFS

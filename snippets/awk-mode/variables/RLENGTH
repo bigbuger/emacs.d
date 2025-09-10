@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: RLENGTH the length of a string matched by match.
+# key: RLENGTH
+#--
+RLENGTH

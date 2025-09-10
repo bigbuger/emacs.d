@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ORS  output record separator (default newline).
+# key: ORS
+#--
+ORS

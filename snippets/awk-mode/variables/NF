@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: NF   number of fields in the current record.
+# key: NF
+#--
+NF

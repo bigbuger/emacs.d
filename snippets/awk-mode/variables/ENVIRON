@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ENVIRON array of environment variables; subscripts are names.
+# key: ENVIRON
+#--
+ENVIRON

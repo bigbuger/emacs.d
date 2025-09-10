@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: RS   input record separator (default newline).  If empty, blank lines separate records.  If more than one character long, RS is treated as a regular expression, and records are separated by text matching the expression.
+# key: RS
+#--
+RS
