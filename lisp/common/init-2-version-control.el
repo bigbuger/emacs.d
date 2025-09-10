@@ -25,11 +25,29 @@
 
 ;; 让magit blame 在左侧边显示
 (push '(margin
-	(margin-format    . ("%C %a %H%f"))
-	(margin-width     . 42)
+	(margin-format    . ("%C %a"))
+	(margin-width     . 30)
 	(margin-face      . magit-blame-margin)
 	(margin-body-face . (magit-blame-dimmed)))
       magit-blame-styles)
+
+(defun magit-blame-copy-abbrev-hash ()
+  "Save hash of the current chunk's commit to the kill ring.
+
+When the region is active, then save the region's content
+instead of the hash, like `kill-ring-save' would."
+  (interactive)
+  (if (use-region-p)
+      (call-interactively #'copy-region-as-kill)
+    (kill-new (message "%s"
+		       (substring  (oref (magit-current-blame-chunk) orig-rev)
+				   0
+				   (or magit-blame--abbrev-length
+				       (setq magit-blame--abbrev-length
+					     (magit-abbrev-length))))))))
+
+(define-key magit-blame-read-only-mode-map
+	    (kbd "M-w") #'magit-blame-copy-abbrev-hash)
 
 (defvar magit-read-file-multiple-hist nil)
 
