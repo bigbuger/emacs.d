@@ -327,6 +327,20 @@
     ("a" . "PM") ;; pm
     ))
 
+(defun go-format-struct-comment ()
+  (interactive)
+  (when (region-active-p)
+    (let ((start (region-beginning))
+	  (end (region-end)))
+      (replace-regexp-in-region (rx
+				 (group bol (* space) "//" (*? nonl) "\n")
+				 (group bol (* any)))
+				"\\2\\1"
+				start
+				end)
+      (flush-lines (rx bol (* space) eol)
+		   start end))))
+
 (defun convert-to-go-time-format (str &optional not-insert)
   "Convert `STR' to go time format."
   (interactive (list (read-string "Format: " "yyyy-MM-dd HH:mm:ss")))
@@ -345,6 +359,7 @@
   (define-key go-ts-mode-map (kbd "s-g i") #'go-impl)
   (define-key go-ts-mode-map (kbd "s-g f") #'gofmt)
   (define-key go-ts-mode-map (kbd "s-g l") #'golangci-lint)
+  (define-key go-ts-mode-map (kbd "s-g c") #'go-format-struct-comment)
   (define-key go-mod-ts-mode-map (kbd "s-g l") #'golangci-lint)
   (define-key go-dot-work-mode-map (kbd "s-g l") #'golangci-lint)
 

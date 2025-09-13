@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: make slices
+# key: makes
+# --
+make([]${1:string}, 0, ${2:0})$0
