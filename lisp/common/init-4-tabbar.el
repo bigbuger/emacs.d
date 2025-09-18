@@ -33,7 +33,8 @@
 	  (not (string-prefix-p "*vterm" name))
 	  (not (string-prefix-p "*term" name))
 	  (not (string-prefix-p "*shell" name))
-	  (not (string-prefix-p "*ielm" name)))
+	  (not (string-prefix-p "*ielm" name))
+	  (not (string-prefix-p "*Embark" name)))
 
      ;; Is not temp version
      (string-match-p "^.+\\.~.+~$" name)
