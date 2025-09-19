@@ -16,8 +16,8 @@
 (require 'company-quickhelp)
 (add-hook 'after-init-hook 'company-quickhelp-mode)
 
-(global-set-key (kbd "<backtab>") 'company-complete)
-(global-set-key (kbd "<C-S-tab>") 'company-files)
+(global-set-key (kbd "<C-tab>") 'company-complete)
+(global-set-key (kbd "<C-M-tab>") 'company-files)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/company-english-helper")
 (require 'company-english-helper)
