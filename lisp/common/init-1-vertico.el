@@ -49,11 +49,11 @@
   :demand t
   :config
   (setq orderless-matching-styles
-	'(orderless-literal
-	  orderless-regexp
-	  ;; orderless-prefixes          ; f-d.t matches final-draft.txt
-	  ;; orderless-initialism        ; This maps abc to \<a.*\<b.*\c
-	  ;; orderless-flex              ; This maps abc to a.*b.*c
+	'(orderless-literal		 ; use = to dispatch
+	  orderless-regexp		 ; use % to dispatch
+	  ;; orderless-prefixes          ; f-d.t matches final-draft.txt, use ^ to dispatch
+	  ;; orderless-initialism        ; This maps abc to \<a.*\<b.*\c, use , to dispatch
+	  ;; orderless-flex              ; This maps abc to a.*b.*c, use ~ to dispatch
 	  ))
 
   (orderless-define-completion-style orderless+initialism
