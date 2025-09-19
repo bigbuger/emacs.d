@@ -16,6 +16,7 @@
 (unbind-key "M-4" 'magit-section-mode-map)
 
 (setq magit-delete-by-moving-to-trash nil)
+(setq magit-ediff-dwim-show-on-hunks t)	; 用这个对比未提交时就只有两个窗口,不然有三个窗口
 
 (setq magit-log-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
 (setq magit-status-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
@@ -90,6 +91,9 @@ instead of the hash, like `kill-ring-save' would."
 
 (with-eval-after-load 'embark
    (add-to-list 'embark-multitarget-actions 'magit-file-checkout-multiple--run))
+
+(use-package magit-delta
+  :hook (magit-mode . magit-delta-mode))
 
 ;; end magit
 
