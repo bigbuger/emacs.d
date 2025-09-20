@@ -300,6 +300,7 @@ This is the function to be used for the hook `completion-at-point-functions'."
         (setq-local consult--regexp-compiler #'consult--orderless-regexp-compiler))
     (apply args)))
   (advice-add #'consult-find :around #'consult--with-orderless)
+  (advice-add #'consult-ripgrep :around #'consult--with-orderless) ;应该搞个函数快捷键切换不同 regex builder，默认用 orderless
 
   )
 
