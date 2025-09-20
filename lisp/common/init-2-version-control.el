@@ -94,7 +94,7 @@ instead of the hash, like `kill-ring-save' would."
 
 (use-package magit-delta
   :config
-  (setq magit-delta-default-light-theme "OneHalfLight")
+  (setq magit-delta-default-light-theme "Solarized (light)")
   :hook (magit-mode . magit-delta-mode))
 
 ;; end magit
