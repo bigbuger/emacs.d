@@ -93,6 +93,8 @@ instead of the hash, like `kill-ring-save' would."
    (add-to-list 'embark-multitarget-actions 'magit-file-checkout-multiple--run))
 
 (use-package magit-delta
+  :config
+  (setq magit-delta-default-light-theme "OneHalfLight")
   :hook (magit-mode . magit-delta-mode))
 
 ;; end magit
