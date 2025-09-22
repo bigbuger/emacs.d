@@ -283,6 +283,14 @@ This is the function to be used for the hook `completion-at-point-functions'."
   (advice-add #'consult-focus-lines :around #'using-orderless)
   (advice-add #'consult-keep-lines :around #'using-orderless)
 
+  ;; 修正 "$" 匹配行结尾
+  ;; https://github.com/minad/consult/wiki#orderless-style-dispatchers-ensure-that-the--regexp-works-with-consult-buffer
+  (defun +orderless-fix-dollar (word &optional _index _total)
+    (concat word (if (boundp 'consult--tofu-regexp)
+                     (concat consult--tofu-regexp "*$")
+                   "$")))
+  (add-to-list 'orderless-affix-dispatch-alist '(?$ . +orderless-fix-dollar))
+
   ;; Use Orderless as pattern compiler for consult-grep/ripgrep/find
   (defun consult--orderless-regexp-compiler (input type &rest _config)
     (setq input (cdr (orderless-compile input)))
@@ -291,17 +299,15 @@ This is the function to be used for the hook `completion-at-point-functions'."
      (lambda (str) (orderless--highlight input t str))))
 
   ;; OPTION 1: Activate globally for all consult-grep/ripgrep/find/...
-  ;; (setq consult--regexp-compiler #'consult--orderless-regexp-compiler)
+  (setq consult--regexp-compiler #'consult--orderless-regexp-compiler)
 
   ;; OPTION 2: Activate only for some commands, e.g., consult-ripgrep!
-  (defun consult--with-orderless (&rest args)
-    (minibuffer-with-setup-hook
-      (lambda ()
-        (setq-local consult--regexp-compiler #'consult--orderless-regexp-compiler))
-    (apply args)))
-  (advice-add #'consult-find :around #'consult--with-orderless)
-  (advice-add #'consult-ripgrep :around #'consult--with-orderless) ;应该搞个函数快捷键切换不同 regex builder，默认用 orderless
-
+  ;; (defun consult--with-orderless (&rest args)
+  ;;   (minibuffer-with-setup-hook
+  ;;     (lambda ()
+  ;;       (setq-local consult--regexp-compiler #'consult--orderless-regexp-compiler))
+  ;;   (apply args)))
+  ;; (advice-add #'consult-ripgrep :around #'consult--with-orderless)
   )
 
 (use-package consult
