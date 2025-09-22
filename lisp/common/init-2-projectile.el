@@ -32,6 +32,11 @@
 (with-eval-after-load 'consult
   (setq consult-project-function 'projectile-project-root))
 
+;; projectile rg 有时候比 consult-rg 好用
+(use-package rg)
+(define-key projectile-mode-map (kbd "C-c p s") 'projectile-ripgrep)
+(global-set-key (kbd "M-s r") #'rg-menu)
+
 
 ;; ibuffer
 (require 'ibuffer-projectile)
