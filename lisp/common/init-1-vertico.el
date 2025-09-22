@@ -48,6 +48,9 @@
 (use-package orderless
   :demand t
   :config
+  (setq orderless-style-dispatchers (list #'orderless-kwd-dispatch ; 查询可以通过 :mod:lisp :dir:xxx 之类的命令查询 buffer
+                                          #'orderless-affix-dispatch))
+  
   (setq orderless-matching-styles
 	'(orderless-literal		 ; use = to dispatch
 	  orderless-regexp		 ; use % to dispatch
@@ -285,11 +288,25 @@ This is the function to be used for the hook `completion-at-point-functions'."
 
   ;; 修正 "$" 匹配行结尾
   ;; https://github.com/minad/consult/wiki#orderless-style-dispatchers-ensure-that-the--regexp-works-with-consult-buffer
-  (defun +orderless-fix-dollar (word &optional _index _total)
+  (defun orderless-fix-dollar-dispatch (word &optional _index _total)
     (concat word (if (boundp 'consult--tofu-regexp)
                      (concat consult--tofu-regexp "*$")
                    "$")))
-  (add-to-list 'orderless-affix-dispatch-alist '(?$ . +orderless-fix-dollar))
+
+  (defun +orderless-fix-dollar (orign &rest args)
+    (minibuffer-with-setup-hook
+	(lambda ()
+	  (setq-local orderless-affix-dispatch-alist
+		        `((?% . ,#'char-fold-to-regexp)
+			  (?! . ,#'orderless-not)
+			  ;; (?& . ,#'orderless-annotation)
+			  (?, . ,#'orderless-initialism)
+			  (?= . ,#'orderless-literal)
+			  ;; (?^ . ,#'orderless-literal-prefix) ;; 正则行首，不要用来做 dispatch
+			  (?~ . ,#'orderless-flex)
+			  (?$ . orderless-fix-dollar-dispatch))))
+      (apply orign args)))
+  (advice-add #'consult-line :around #'+orderless-fix-dollar)
 
   ;; Use Orderless as pattern compiler for consult-grep/ripgrep/find
   (defun consult--orderless-regexp-compiler (input type &rest _config)
@@ -306,7 +323,7 @@ This is the function to be used for the hook `completion-at-point-functions'."
   ;;   (minibuffer-with-setup-hook
   ;;     (lambda ()
   ;;       (setq-local consult--regexp-compiler #'consult--orderless-regexp-compiler))
-  ;;   (apply args)))
+  ;;     (apply args)))
   ;; (advice-add #'consult-ripgrep :around #'consult--with-orderless)
   )
 
