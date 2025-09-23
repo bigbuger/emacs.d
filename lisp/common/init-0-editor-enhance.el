@@ -248,6 +248,16 @@ ARG is pass to `sp-end-of-sexp'"
   :bind (("C-c M-d" . bufferfile-delete)
 	 ("C-c M-c" . bufferfile-copy)))
 
+;; grep 分组
+(setq grep-use-headings t)
+
+(use-package wgrep
+  :bind (:map grep-mode-map
+	      ("e" . wgrep-change-to-wgrep-mode)))
+
+(use-package rg)
+(global-set-key (kbd "M-s r") #'rg-menu)
+
 (provide 'init-0-editor-enhance)
 
 ;;; init-0-editor-enhance.el ends here
