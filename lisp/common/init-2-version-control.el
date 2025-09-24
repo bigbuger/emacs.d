@@ -161,8 +161,9 @@ instead of the hash, like `kill-ring-save' would."
   "Diff hl."
   ["Jump to git change hunk:"
    [("n" "Next hunk" diff-hl-next-hunk :transient t)]
-    [("p" "Previous hunk" diff-hl-previous-hunk :transient t)]
-    [("k" "Revert hunk" diff-hl-revert-hunk :transient t)]])
+   [("p" "Previous hunk" diff-hl-previous-hunk :transient t)]
+   [("k" "Revert hunk" diff-hl-revert-hunk :transient t)]
+   [("q" "Quite" transient-quit-all)]])
 (global-set-key (kbd "C-c v") 'diff-hl-transient)
 
 ;; end diff-hl
