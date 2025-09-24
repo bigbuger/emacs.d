@@ -45,6 +45,7 @@
 
     ;; wgrep
     wgrep
+    rg
 
     ;; company
     company

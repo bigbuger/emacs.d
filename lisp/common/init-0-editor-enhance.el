@@ -255,8 +255,8 @@ ARG is pass to `sp-end-of-sexp'"
   :bind (:map grep-mode-map
 	      ("e" . wgrep-change-to-wgrep-mode)))
 
-(use-package rg)
-(global-set-key (kbd "M-s r") #'rg-menu)
+(require 'rg)
+(global-set-key (kbd "M-s r") #'rg)
 
 (provide 'init-0-editor-enhance)
 
