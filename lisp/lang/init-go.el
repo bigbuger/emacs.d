@@ -308,7 +308,7 @@
 ;;          (len (- end start)))
 ;;     (format "%d,%d" start len)))
 
-(setq go-tag-args '("-transform" "camelcase"))
+(setq go-tag-args '("-transform" "camelcase" "-add-options" "json=omitempty"))
 (require 'company-go-tag)
 (add-hook 'go-ts-mode-hook
           (lambda ()
