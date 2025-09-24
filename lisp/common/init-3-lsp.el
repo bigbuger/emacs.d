@@ -102,6 +102,13 @@
 	      (setq-local lsp-headerline-breadcrumb-enable nil))))
 
 
+(use-package vertico-posframe
+  :after vertico
+  :config
+  (add-to-list 'vertico-multiform-commands
+               '(lsp-execute-code-action posframe
+					 (vertico-posframe-poshandler . posframe-poshandler-point-bottom-left-corner))))
+
 (provide 'init-3-lsp)
 
 ;;; init-3-lsp.el ends here
