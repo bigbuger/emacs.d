@@ -40,8 +40,6 @@
 
 (require 'winner)
 (winner-mode t)
-(global-set-key (kbd "M-s-<left>") #'winner-undo)
-(global-set-key (kbd "M-s-<right>") #'winner-redo)
 
 (setq Man-notify-method 'pushy)
 
