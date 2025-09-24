@@ -105,9 +105,10 @@
 (use-package vertico-posframe
   :after vertico
   :config
-  (add-to-list 'vertico-multiform-commands
-               '(lsp-execute-code-action posframe
-					 (vertico-posframe-poshandler . posframe-poshandler-point-bottom-left-corner))))
+  (setf (alist-get 'lsp-execute-code-action vertico-multiform-commands)
+               '(posframe
+		 (vertico-posframe-poshandler . posframe-poshandler-point-bottom-left-corner)
+		 (vertico-posframe-width . 120))))
 
 (defun lsp-code-action-is-quick-fix? (x)
   (string-equal "quickfix" (lsp:code-action-kind? x)))
