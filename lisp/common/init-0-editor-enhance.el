@@ -256,7 +256,12 @@ ARG is pass to `sp-end-of-sexp'"
 	      ("e" . wgrep-change-to-wgrep-mode)))
 
 (require 'rg)
-(global-set-key (kbd "M-s r") #'rg)
+(rg-define-search rg-vc-or-dir
+  :query ask
+  :format regexp
+  :files "everything"
+  :dir (or (vc-root-dir) default-directory))
+(global-set-key (kbd "M-s r") #'rg-vc-or-dir)
 
 (provide 'init-0-editor-enhance)
 
