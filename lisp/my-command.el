@@ -123,13 +123,21 @@
 (global-set-key [(shift return)] 'my-new-line)
 
 (require 'subword)
-(defun my-backward-kill-super-word (arg)
-  "Like `backward-kill-word', but use super word."
-  (interactive "p")
-  (let ((superword-mode 1)
-	(find-word-boundary-function-table subword-find-word-boundary-function-table))
-    (backward-kill-word arg)))
-(global-set-key (kbd "M-s-<backspace>") #'my-backward-kill-super-word)
+(defmacro def-subword-action (fun action)
+  `(defun ,fun (arg)
+     (interactive "p")
+     (let ((subword-mode 1)
+	   (find-word-boundary-function-table subword-find-word-boundary-function-table))
+       (,action arg))))
+
+(def-subword-action my-backward-kill-subword backward-kill-word)
+(def-subword-action my-left-subword left-word)
+(def-subword-action my-right-subword right-word)
+
+(global-set-key (kbd "M-s-<backspace>") #'my-backward-kill-subword)
+(global-set-key (kbd "M-s-<left>") #'my-left-subword)
+(global-set-key (kbd "M-s-<right>") #'my-right-subword)
+
 
 (defun my-convert-time (timestamp)
   "Convert TIMESTAMP to iso8601 and put it into kill ring."
