@@ -7,6 +7,7 @@
 ;; 
 
 ;;; Code:
+(require 'transient)
 
 (require 'magit)
 (global-set-key (kbd "C-c g") 'magit-file-dispatch)
@@ -34,7 +35,6 @@
 
 (defun magit-blame-copy-abbrev-hash ()
   "Save hash of the current chunk's commit to the kill ring.
-
 When the region is active, then save the region's content
 instead of the hash, like `kill-ring-save' would."
   (interactive)
@@ -122,6 +122,32 @@ instead of the hash, like `kill-ring-save' would."
 
 ;; end ediff
 
+;; smerge
+(with-eval-after-load 'smerge-mode
+  (transient-define-prefix smerge-transient ()
+    "Transient menu for smerge operations."
+    [["Smerge Keep"
+      ("RET" "Keep current" smerge-keep-current)
+      ("a"   "Keep all"     smerge-keep-all)
+      ("b"   "Keep base"    smerge-keep-base)
+      ("m"   "Keep mine"    smerge-keep-mine)
+      ("o"   "Keep other"   smerge-keep-other)]
+     ["Smerge Diff"
+      ("<" "Diff base vs mine"   smerge-diff-base-mine)
+      ("=" "Diff mine vs other"   smerge-diff-mine-other)
+      (">" "Diff base vs other"   smerge-diff-base-other)]
+     ["Smerge Merge"
+      ("C" "Combine with next" smerge-combine-with-next)
+      ("E" "Ediff"             smerge-ediff)
+      ("R" "Refine"            smerge-refine)
+      ("r" "Resolve"           smerge-resolve)]
+     ["Navigation"
+      ("n" "Next conflict"  smerge-next)
+      ("p" "Previous conflict" smerge-prev)]])
+  
+  (define-key smerge-mode-map (kbd "C-c v") 'smerge-transient))
+;; end smerge
+
 (use-package difftastic-bindings
   :ensure difftastic ;; or nil if you prefer manual installation
   :init
@@ -156,7 +182,6 @@ instead of the hash, like `kill-ring-save' would."
 (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
 (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 
-(require 'transient)
 (transient-define-prefix diff-hl-transient ()
   "Diff hl."
   ["Jump to git change hunk:"
