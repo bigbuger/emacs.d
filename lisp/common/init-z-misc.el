@@ -153,8 +153,9 @@ START is valid, or would be valid if capitalized or upcased."
 		    (jinx--mod-check dict word))))))
 
   (setq jinx--predicates
-	(list #'jinx--face-ignored-p
-              #'jinx--regexp-ignored-p
+	(list #'jinx--face-excluded-p
+              #'jinx--regexp-excluded-p
+	      #'jinx--property-excluded-p
 	      #'my-jinx--ignore-case-word-valid-p
               #'jinx--word-valid-p))
   
