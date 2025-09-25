@@ -92,7 +92,10 @@ string).  It returns t if a new completion is found, nil otherwise."
   "remove extra paren when expanding line in smartparens."
   (let* ((str (car args))
 	 (last (substring str -1)))
-    (if (and smartparens-mode (member last '(")" "}" "\"" "'" "`")))
+    (message "fuck %s %d %s" (buffer-name) (point) (char-after))
+    (if (and smartparens-mode
+	     (member last '(")" "}" "\"" "'" "`"))
+	     (string= last (char-to-string (char-after))))
 	(list (substring str 0 -1) (cdr args))
       args)))
 
