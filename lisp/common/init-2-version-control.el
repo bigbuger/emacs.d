@@ -130,12 +130,12 @@ instead of the hash, like `kill-ring-save' would."
       ("RET" "Keep current" smerge-keep-current :transient t)
       ("a"   "Keep all"     smerge-keep-all     :transient t)
       ("b"   "Keep base"    smerge-keep-base    :transient t)
-      ("m"   "Keep mine"    smerge-keep-mine    :transient t)
-      ("o"   "Keep other"   smerge-keep-other   :transient t)]
+      ("u"   "Keep upper"   smerge-keep-upper   :transient t)
+      ("l"   "Keep lower"   smerge-keep-lower   :transient t)]
      ["Smerge Diff"
-      ("<" "Diff base vs mine"  smerge-diff-base-mine  :transient t)
-      ("=" "Diff mine vs other" smerge-diff-mine-other :transient t)
-      (">" "Diff base vs other" smerge-diff-base-other :transient t)]
+      ("<" "Diff base vs upper"  smerge-diff-base-upper  :transient t)
+      ("=" "Diff upper vs lower" smerge-diff-upper-lower :transient t)
+      (">" "Diff base vs lower"  smerge-diff-base-lower :transient t)]
      ["Smerge Merge"
       ("C" "Combine with next" smerge-combine-with-next :transient t)
       ("e" "Ediff"             smerge-ediff)
