@@ -53,13 +53,54 @@
 ;; 			 (cl-adjoin '(company-capf :separate company-yasnippet)
 ;; 				    company-backends :test #'equal))))
 
-(setq dap-auto-configure-features '(controls)
-      dap-ui-variable-length 1000)
+(setq dap-auto-configure-features '()
+      dap-ui-variable-length 10000)
 ;; (define-key lsp-mode-map (kbd "M-?") 'lsp-ui-peek-find-references)
 (define-key lsp-mode-map [f5] 'dap-debug)
-(define-key lsp-mode-map (kbd "C-<f5>") 'dap-hydra)
+
+;; (define-key lsp-mode-map (kbd "C-<f5>") 'dap-hydra)
 ;; (add-hook 'dap-stopped-hook
 ;;           (lambda (arg) (call-interactively #'dap-hydra)))
+
+;; use transient, hydra not band other key
+(transient-define-prefix dap-transient ()
+  "Transient for dap."
+  [["Stepping"
+    ("n" "Next"    dap-next :transient t)
+    ("i" "Step in"  dap-step-in :transient t)
+    ("o" "Step out" dap-step-out :transient t)
+    ("c" "Continue" dap-continue :transient t)
+    ("r" "restart"  dap-restart-frame :transient t)]
+   
+   ["Breakpoints"
+    ("bb" "Toggle" dap-breakpoint-toggle :transient t)
+    ("bd" "Delete" dap-breakpoint-delete :transient t)
+    ("ba" "Add" dap-breakpoint-add :transient t)
+    ("bc" "Set condition" dap-breakpoint-condition :transient t)
+    ("bh" "Set hit count" dap-breakpoint-hit-condition :transient t)
+    ("bl" "Set log message" dap-breakpoint-log-message :transient t)]
+   
+   ["Switch"
+    ("ss" "Session" dap-switch-session :transient t)
+    ("st" "Thread" dap-switch-thread :transient t)
+    ("sf" "Stack frame" dap-switch-stack-frame :transient t)
+    ("su" "Up stack frame" dap-up-stack-frame :transient t)
+    ("sd" "Down stack fram" dap-down-stack-frame :transient t)
+    ("sl" "List locals" dap-ui-locals :transient t)
+    ("sb" "List breakpoints" dap-ui-breakpoints :transient t)
+    ("sS" "List sessions" dap-ui-sessions :transient t)]
+
+   ["Eval"
+    ("ee" "Eval" dap-eval :transient t)
+    ("ea" "Add expression" dap-ui-expressions-add :transient t)
+    ("er" "Repl" dap-ui-repl)]
+   
+   ["Quit"
+    ("q" "Quit" transient-quit-all :transient nil)
+    ("Q" "Kill" dap-disconnect :transient nil)]])
+(define-key lsp-mode-map (kbd "C-<f5>") 'dap-transient)
+(add-hook 'dap-stopped-hook
+          (lambda (arg) (call-interactively #'dap-transient)))
 
 
 (with-eval-after-load 'lsp-mode
@@ -87,6 +128,8 @@
     "i"     #'lsp-find-implementation
     "r"     #'xref-find-references
     "v"     #'dap-ui-eval-variable-in-buffer
+    "e"     #'dap-eval-thing-at-point
+    "E"     #'dap-eval-region
     "h"     #'lsp-treemacs-call-hierarchy)
 
   (add-to-list 'embark-repeat-actions #'lsp-ui-find-prev-reference)
