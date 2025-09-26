@@ -127,23 +127,24 @@ instead of the hash, like `kill-ring-save' would."
   (transient-define-prefix smerge-transient ()
     "Transient menu for smerge operations."
     [["Smerge Keep"
-      ("RET" "Keep current" smerge-keep-current)
-      ("a"   "Keep all"     smerge-keep-all)
-      ("b"   "Keep base"    smerge-keep-base)
-      ("m"   "Keep mine"    smerge-keep-mine)
-      ("o"   "Keep other"   smerge-keep-other)]
+      ("RET" "Keep current" smerge-keep-current :transient t)
+      ("a"   "Keep all"     smerge-keep-all     :transient t)
+      ("b"   "Keep base"    smerge-keep-base    :transient t)
+      ("m"   "Keep mine"    smerge-keep-mine    :transient t)
+      ("o"   "Keep other"   smerge-keep-other   :transient t)]
      ["Smerge Diff"
-      ("<" "Diff base vs mine"   smerge-diff-base-mine)
-      ("=" "Diff mine vs other"   smerge-diff-mine-other)
-      (">" "Diff base vs other"   smerge-diff-base-other)]
+      ("<" "Diff base vs mine"  smerge-diff-base-mine  :transient t)
+      ("=" "Diff mine vs other" smerge-diff-mine-other :transient t)
+      (">" "Diff base vs other" smerge-diff-base-other :transient t)]
      ["Smerge Merge"
-      ("C" "Combine with next" smerge-combine-with-next)
-      ("E" "Ediff"             smerge-ediff)
-      ("R" "Refine"            smerge-refine)
-      ("r" "Resolve"           smerge-resolve)]
+      ("C" "Combine with next" smerge-combine-with-next :transient t)
+      ("e" "Ediff"             smerge-ediff)
+      ("R" "Refine"            smerge-refine  :transient t)
+      ("r" "Resolve"           smerge-resolve :transient t)]
      ["Navigation"
-      ("n" "Next conflict"  smerge-next)
-      ("p" "Previous conflict" smerge-prev)]])
+      ("n" "Next conflict"     smerge-next :transient t)
+      ("p" "Previous conflict" smerge-prev :transient t)
+      ("z" "undo"              undo-only :transient t)]])
   
   (define-key smerge-mode-map (kbd "C-c v") 'smerge-transient))
 ;; end smerge
