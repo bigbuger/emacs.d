@@ -94,20 +94,32 @@
     ("ee" "Eval" dap-eval :transient t)
     ("ea" "Add expression" dap-ui-expressions-add :transient t)
     ("er" "Repl" dap-ui-repl)]
+
+   ["Navigation"
+    ("C-n" "next line" next-line :transient t)
+    ("C-p" "previous line" previous-line :transient t)]
    
    ["Quit"
     ("q" "Quit" transient-quit-all :transient nil)
     ("Q" "Kill" dap-disconnect :transient nil)]])
+
 (define-key lsp-mode-map (kbd "C-<f5>") 'dap-transient)
 (add-hook 'dap-stopped-hook
           (lambda (arg) (call-interactively #'dap-transient)))
 
+(defun +disable-vertico-sort (fun &rest args)
+  (minibuffer-with-setup-hook
+      (:append (lambda ()
+		 (setq-local vertico-sort-function nil)))
+    (apply fun args)))
+(advice-add 'dap-switch-stack-frame :around #'+disable-vertico-sort)
+(advice-add 'dap-switch-session :around #'+disable-vertico-sort)
+(advice-add 'dap-switch-thread :around #'+disable-vertico-sort)
 
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
-
-(with-eval-after-load "lsp-mode"
+(with-eval-after-load 'lsp-mode
   (add-to-list 'lsp-disabled-clients 'semgrep-ls))
 
 
