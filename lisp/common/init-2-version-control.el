@@ -127,7 +127,7 @@ instead of the hash, like `kill-ring-save' would."
   (transient-define-prefix smerge-transient ()
     "Transient menu for smerge operations."
     [["Smerge Keep"
-      ("RET" "Keep current" smerge-keep-current :transient t)
+      ("c"   "Keep current" smerge-keep-current :transient t)
       ("a"   "Keep all"     smerge-keep-all     :transient t)
       ("b"   "Keep base"    smerge-keep-base    :transient t)
       ("u"   "Keep upper"   smerge-keep-upper   :transient t)
@@ -139,6 +139,7 @@ instead of the hash, like `kill-ring-save' would."
      ["Smerge Merge"
       ("C" "Combine with next" smerge-combine-with-next :transient t)
       ("e" "Ediff"             smerge-ediff)
+      ("s" "Swap upper/lower"  smerge-swap :transient t)
       ("R" "Refine"            smerge-refine  :transient t)
       ("r" "Resolve"           smerge-resolve :transient t)]
      ["Navigation"
