@@ -66,11 +66,11 @@
 (transient-define-prefix dap-transient ()
   "Transient for dap."
   [["Stepping"
-    ("n" "Next"    dap-next :transient t)
-    ("i" "Step in"  dap-step-in :transient t)
-    ("o" "Step out" dap-step-out :transient t)
-    ("c" "Continue" dap-continue :transient t)
-    ("r" "restart"  dap-restart-frame :transient t)]
+    ("n" "↴ Next"    dap-next :transient t)
+    ("i" "⇣ Step in"  dap-step-in :transient t)
+    ("o" "⇡ Step out" dap-step-out :transient t)
+    ("c" "➤ Continue" dap-continue :transient t)
+    ("r" "↺ restart"  dap-restart-frame :transient t)]
    
    ["Breakpoints"
     ("bb" "Toggle" dap-breakpoint-toggle :transient t)
@@ -101,7 +101,7 @@
    
    ["Quit"
     ("q" "Quit" transient-quit-all :transient nil)
-    ("Q" "Kill" dap-disconnect :transient nil)]])
+    ("Q" "❌ Kill" dap-disconnect :transient nil)]])
 
 (define-key lsp-mode-map (kbd "C-<f5>") 'dap-transient)
 (add-hook 'dap-stopped-hook
