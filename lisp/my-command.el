@@ -17,7 +17,7 @@
       (forward-line num)
       startline)))
 
-(global-set-key (kbd "C-c SPC") 'my-select-line)
+;; (global-set-key (kbd "C-c SPC") 'my-select-line)
 
 
 (defun my-delete-line (num)

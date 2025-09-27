@@ -529,7 +529,7 @@ targets."
 (use-package consult-omni
   :load-path "~/.emacs.d/lisp/libs/consult-omni"
   :after consult
-  :bind ("C-c j" . consult-omni)
+  :bind ("C-c SPC" . consult-omni)
   :init
   (add-to-list 'load-path "~/.emacs.d/lisp/libs/consult-omni/sources")
   ;; Load Sources Core code
@@ -578,6 +578,16 @@ targets."
     (advice-add 'consult-omni-fd :around #'with-projectile-root)
     (advice-add 'consult-omni :around #'with-projectile-root))
   )
+
+(use-package vertico-posframe
+  :after (vertico consult-omni)
+  :config
+  (setf (alist-get 'consult-omni vertico-multiform-commands)
+               '(posframe
+		 (vertico-posframe-poshandler . posframe-poshandler-frame-center)
+		 (vertico-posframe-min-width . 150)
+		 (vertico-posframe-min-height . 15))))
+
 
 
 (provide 'init-1-vertico)

@@ -195,7 +195,7 @@ START is valid, or would be valid if capitalized or upcased."
   :config
   (define-key isearch-mb-minibuffer-map (kbd "C-o") #'casual-isearch-tmenu))
 
-;; consult-dasel 多后端搜索
+;; consult-dasel
 (use-package consult-dasel
   :load-path "~/.emacs.d/lisp/libs/"
   :init
