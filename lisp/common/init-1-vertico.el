@@ -539,11 +539,13 @@ targets."
   
   (setq consult-omni-preview-key "M-."
 	consult-omni-show-preview t
+	consult-omni-highlight-matches-in-minibuffer t
 	consult-omni-highlight-matches-in-file nil
+	consult-omni-default-new-function #'(lambda (_) ()) ;没有查到是不要处理，原来默认是走浏览器搜索引擎
 	)
 
   (setq consult-omni-sources-modules-to-load
-	'(consult-omni-ripgrep consult-omni-fd consult-omni-buffer consult-omni-calc consult-omni-wikipedia))
+	'(consult-omni-ripgrep consult-omni-fd consult-omni-buffer consult-omni-calc))
   (consult-omni-sources-load-modules)
 ;;; set multiple sources for consult-omni-multi command. Change these lists as needed for different interactive commands. Keep in mind that each source has to be a key in `consult-omni-sources-alist'.
   (setq consult-omni-multi-sources '("calc"
@@ -576,8 +578,12 @@ targets."
 	      (apply orig-fun args))
 	  (apply orig-fun args))))
     (advice-add 'consult-omni-fd :around #'with-projectile-root)
-    (advice-add 'consult-omni :around #'with-projectile-root))
+    (advice-add 'consult-omni-ripgrep :around #'with-projectile-root))
   )
+
+(use-package vertico-posframe
+  :config
+  (setq vertico-posframe-truncate-lines nil))
 
 (use-package vertico-posframe
   :after (vertico consult-omni)
@@ -585,8 +591,10 @@ targets."
   (setf (alist-get 'consult-omni vertico-multiform-commands)
                '(posframe
 		 (vertico-posframe-poshandler . posframe-poshandler-frame-center)
-		 (vertico-posframe-min-width . 150)
-		 (vertico-posframe-min-height . 15))))
+		 (vertico-posframe-min-width  . 150)
+		 (vertico-posframe-width      . 150)
+		 (vertico-posframe-min-height . 15)
+		 (vertico-count               . 20))))
 
 
 

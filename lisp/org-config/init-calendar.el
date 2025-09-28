@@ -24,7 +24,7 @@
 
 ;; agenda 配置
 (require 'org-agenda)
-(global-set-key (kbd "C-c A") #'org-agenda)
+;; (global-set-key (kbd "C-c A") #'org-agenda)
 
 (setq org-agenda-format-date 'my-org-agenda-format-date-aligned)
 
@@ -113,7 +113,8 @@ If TEXT does not have a range, return nil."
      (list
       (cfw:org-create-source "CadetBlue2")  ; org-agenda source
       )))
-  :bind ("C-c a" . my-open-calendar))
+  ;; :bind ("C-c a" . my-open-calendar)
+  )
 
 ;; 配置等宽字体，保证日历边框不会乱
 (with-eval-after-load 'calfw
