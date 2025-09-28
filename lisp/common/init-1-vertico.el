@@ -132,7 +132,10 @@
   :after (marginalia)
   :config
   (nerd-icons-completion-mode)
-  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
+  (setq nerd-icons-completion-category-icons (cl-delete-if
+					      (lambda (x) (not (car x)))
+					      nerd-icons-completion-category-icons )))
 
 (recentf-mode t)
 
