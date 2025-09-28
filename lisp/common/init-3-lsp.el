@@ -160,27 +160,19 @@
 (use-package vertico-posframe
   :after vertico
   :config
+  (defun lsp-code-action-is-quick-fix? (x)
+  (string-equal "quickfix" (lsp:code-action-kind? x)))
+
+  (defun vertico-sort-lsp-fix-action-first (list)
+    "Sort directories before files in LIST."
+    (nconc (cl-loop for x in list if (lsp-code-action-is-quick-fix? x) collect x)
+           (cl-loop for x in list if (not (lsp-code-action-is-quick-fix? x)) collect x)))
+  
   (setf (alist-get 'lsp-execute-code-action vertico-multiform-commands)
                '(posframe
 		 (vertico-posframe-poshandler . posframe-poshandler-point-bottom-left-corner)
-		 (vertico-posframe-width . 120))))
-
-(defun lsp-code-action-is-quick-fix? (x)
-  (string-equal "quickfix" (lsp:code-action-kind? x)))
-
-(defun vertico-sort-lsp-fix-action-first (list)
-  "Sort directories before files in LIST."
-  (nconc (cl-loop for x in list if (lsp-code-action-is-quick-fix? x) collect x)
-         (cl-loop for x in list if (not (lsp-code-action-is-quick-fix? x)) collect x)))
-
-(defun +vertico-lsp-action-sort (fun &rest args)
-  (minibuffer-with-setup-hook
-      (:append (lambda ()
-		 (setq-local vertico-sort-override-function
-			     #'vertico-sort-lsp-fix-action-first)))
-    (apply fun args)))
-
-(advice-add 'lsp--select-action :around #'+vertico-lsp-action-sort)
+		 (vertico-posframe-width . 120)
+		 (vertico-sort-override-function . vertico-sort-lsp-fix-action-first))))
 
 (provide 'init-3-lsp)
 

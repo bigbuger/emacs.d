@@ -153,12 +153,14 @@
   
   (setq consult-narrow-key "C-+") ;; narrow 切换多个分组
   (setq consult-line-start-from-top t)
+  ;; (setq consult-fd-args `(,(if (executable-find "fdfind" 'remote) "fdfind" "fd")
+  ;; 				"--color=never")) ; fd --full-path 会匹配文件全路径, 会导致用当前目录包含的词进行搜索时有问题
   
   (global-set-key (kbd "C-x b") 'consult-buffer)
   (global-set-key (kbd "C-c M-y") 'consult-yank-pop)
   (global-set-key (kbd "C-c m") 'consult-bookmark)
   (global-set-key (kbd "C-c s") 'consult-ripgrep)
-  (global-set-key (kbd "C-c f") 'consult-fd)
+  (global-set-key (kbd "C-c f") 'consult-find)
   (global-set-key (kbd "C-c e") 'consult-recent-file)
   (global-set-key (kbd "C-c l")  'consult-line)
   (global-set-key (kbd "C-c i")  'consult-imenu)
@@ -544,15 +546,23 @@ targets."
 	consult-omni-default-new-function #'(lambda (_) ()) ;没有查到是不要处理，原来默认是走浏览器搜索引擎
 	)
 
-  (setq consult-omni-sources-modules-to-load
-	'(consult-omni-ripgrep consult-omni-fd consult-omni-buffer consult-omni-calc))
+  (setq consult-omni-sources--all-modules-list
+	(list 'consult-omni-buffer
+              'consult-omni-calc
+              'consult-omni-fd
+              'consult-omni-find
+              'consult-omni-projects
+              'consult-omni-ripgrep
+              ))
   (consult-omni-sources-load-modules)
 ;;; set multiple sources for consult-omni-multi command. Change these lists as needed for different interactive commands. Keep in mind that each source has to be a key in `consult-omni-sources-alist'.
   (setq consult-omni-multi-sources '("calc"
                                      "Buffer"
-                                     "Bookmark"
+				     ;; "Project File"
+				     "find"
 				     "ripgrep"
-				     "fd"
+                                     "Bookmark"
+				     ;; "fd"
                                      ;; "File"
                                      ;; "Apps"
                                      ;; "gptel"
@@ -569,7 +579,7 @@ targets."
                                      ;; "YouTube"
                                      ;; "Invidious"
 				     ))
-  
+    
   (with-eval-after-load 'projectile
     (defun with-projectile-root (orig-fun &rest args)
       (let ((pr (projectile-project-root)))
@@ -578,25 +588,16 @@ targets."
 	      (apply orig-fun args))
 	  (apply orig-fun args))))
     (advice-add 'consult-omni-fd :around #'with-projectile-root)
-    (advice-add 'consult-omni-ripgrep :around #'with-projectile-root))
+    (advice-add 'consult-omni-find :around #'with-projectile-root)
+    (advice-add 'consult-omni-multi :around #'with-projectile-root)
+    (advice-add 'consult-omni :around #'with-projectile-root))
+  ;; (setq consult-omni-fd-args '("fd" "--color=never"))
+  
   )
 
 (use-package vertico-posframe
   :config
   (setq vertico-posframe-truncate-lines nil))
-
-(use-package vertico-posframe
-  :after (vertico consult-omni)
-  :config
-  (setf (alist-get 'consult-omni vertico-multiform-commands)
-               '(posframe
-		 (vertico-posframe-poshandler . posframe-poshandler-frame-center)
-		 (vertico-posframe-min-width  . 150)
-		 (vertico-posframe-width      . 150)
-		 (vertico-posframe-min-height . 15)
-		 (vertico-count               . 20))))
-
-
 
 (provide 'init-1-vertico)
 
