@@ -93,7 +93,7 @@ string).  It returns t if a new completion is found, nil otherwise."
   (let* ((str (car args))
 	 (last (substring str -1)))
     (if (and smartparens-mode
-	     (member last '(")" "}" "\"" "'" "`"))
+	     (member last '(")" "}" "\"" "'" "`" "]"))
 	     (string= last (char-to-string (char-after))))
 	(list (substring str 0 -1) (cdr args))
       args)))
