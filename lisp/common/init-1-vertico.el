@@ -52,8 +52,8 @@
                                           #'orderless-affix-dispatch))
   
   (setq orderless-matching-styles
-	'(orderless-literal		 ; use = to dispatch
-	  orderless-regexp		 ; use % to dispatch
+	'(orderless-literal		; use = to dispatch
+	  orderless-regexp		; use % to dispatch
 	  ;; orderless-prefixes          ; f-d.t matches final-draft.txt, use ^ to dispatch
 	  ;; orderless-initialism        ; This maps abc to \<a.*\<b.*\c, use , to dispatch
 	  ;; orderless-flex              ; This maps abc to a.*b.*c, use ~ to dispatch
@@ -70,6 +70,7 @@
 	'((command (styles orderless+initialism))
           (buffer (styles orderless+initialism))
 	  (file (styles orderless+initialism))
+	  (project (styles orderless+initialism))
 	  (project-file (styles orderless+initialism))))
   
   
@@ -302,14 +303,14 @@ This is the function to be used for the hook `completion-at-point-functions'."
     (minibuffer-with-setup-hook
 	(lambda ()
 	  (setq-local orderless-affix-dispatch-alist
-		        `((?% . ,#'char-fold-to-regexp)
-			  (?! . ,#'orderless-not)
-			  ;; (?& . ,#'orderless-annotation)
-			  (?, . ,#'orderless-initialism)
-			  (?= . ,#'orderless-literal)
-			  ;; (?^ . ,#'orderless-literal-prefix) ;; 正则行首，不要用来做 dispatch
-			  (?~ . ,#'orderless-flex)
-			  (?$ . orderless-fix-dollar-dispatch))))
+		      `((?% . ,#'char-fold-to-regexp)
+			(?! . ,#'orderless-not)
+			;; (?& . ,#'orderless-annotation)
+			(?, . ,#'orderless-initialism)
+			(?= . ,#'orderless-literal)
+			;; (?^ . ,#'orderless-literal-prefix) ;; 正则行首，不要用来做 dispatch
+			(?~ . ,#'orderless-flex)
+			(?$ . orderless-fix-dollar-dispatch))))
       (apply orign args)))
   (advice-add #'consult-line :around #'+orderless-fix-dollar)
 
@@ -336,7 +337,11 @@ This is the function to be used for the hook `completion-at-point-functions'."
   :after pyim
   :config
   (advice-add 'consult-line :around #'using-py-search)
-  (advice-add 'consult-recent-file :around #'using-py-search))
+  (advice-add 'consult-recent-file :around #'using-py-search)
+  (advice-add 'consult--source-bookmark :around #'using-py-search)
+  (advice-add 'consult-bookmark :around #'using-py-search)
+  (advice-add 'consult-buffer :around #'using-py-search)
+  (advice-add 'consult--source-buffer :around #'using-py-search))
 
 (use-package consult
   :after projectile
@@ -346,10 +351,21 @@ This is the function to be used for the hook `completion-at-point-functions'."
   (setq my-consult-source-projectile-projects
         `(:name "Projectile projects"
                 :narrow   ?p
-                :category project
+                :category file
                 :action   ,#'projectile-switch-project-by-name
-                :items    ,projectile-known-projects))
-  (add-to-list 'consult-buffer-sources my-consult-source-projectile-projects 'append)
+                :items    ,(lambda () (projectile-known-projects))))
+  
+  (setq consult-buffer-sources '(consult--source-buffer
+				 consult--source-hidden-buffer
+				 consult--source-modified-buffer
+				 consult--source-other-buffer
+				 consult--source-recent-file
+				 consult--source-buffer-register
+				 ;; consult--source-file-register
+				 consult--source-bookmark
+				 consult--source-project-buffer-hidden
+				 consult--source-project-recent-file-hidden
+				 my-consult-source-projectile-projects))
   
   )
 
@@ -582,7 +598,7 @@ targets."
                                      ;; "YouTube"
                                      ;; "Invidious"
 				     ))
-    
+  
   (with-eval-after-load 'projectile
     (defun with-projectile-root (orig-fun &rest args)
       (let ((pr (projectile-project-root)))
