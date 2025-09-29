@@ -14,10 +14,10 @@
       (forward-line 0)
       (setq startline (line-number-at-pos))
       (set-mark (point))
-      (forward-line num)
+      (end-of-line num)
       startline)))
 
-;; (global-set-key (kbd "C-c SPC") 'my-select-line)
+(global-set-key (kbd "C-c SPC") 'my-select-line)
 
 
 (defun my-delete-line (num)
