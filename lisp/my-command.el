@@ -19,17 +19,13 @@
 
 (global-set-key (kbd "C-c SPC") 'my-select-line)
 
-
 (defun my-delete-line (num)
   "Kill NUM lines."
   (interactive "p")
   (save-excursion
-    (let ((startline (my-select-line num))
-	  (endline (if (= (point) (point-max))
-		       (+ (line-number-at-pos) 1)
-		     (line-number-at-pos))))
-      (kill-region (region-beginning) (region-end))
-      (message "kill %d line[s]" (- endline startline)))))
+    (progn
+      (beginning-of-line)
+      (kill-line num))))
 
 (global-set-key (kbd "C-c d") 'my-delete-line)
 
@@ -44,8 +40,8 @@
 	     (forward-line -1)))
       (setq endline (line-number-at-pos))
       (if (= endline startline)
-	  (message "Copy line%d into killring" startline)
-	(message "Copy line%d to line%d into killring" startline endline)))))
+	  (message "Copy line %d into killring" startline)
+	(message "Copy line %d to line %d into killring" startline endline)))))
 
 (global-set-key (kbd "C-c y") 'my-copy-line)
 
