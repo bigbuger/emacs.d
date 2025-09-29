@@ -23,7 +23,7 @@
 不过开了之后合并的时候他默认会变成不是展示三路合并窗口, 所以加个代理. `FUN' 就是 `magit-ediff-dwim'."
   (setq-local magit-ediff-dwim-show-on-hunks (not (magit-anything-unmerged-p)))
   (funcall fun))
-(advice-add 'magit-ediff-dwim :around #'+my-magit-ediff-dwim)
+;; (advice-add 'magit-ediff-dwim :around #'+my-magit-ediff-dwim) ;; FIXME 情况太复杂了，还有未提交时也不一样
 
 
 (setq magit-log-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
