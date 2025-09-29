@@ -152,7 +152,7 @@
 	 (tl (append (mapcar #'(lambda (i) (if i i 0)) tl-with-out-zone)
 		     (last tl0)))
 	 (et (apply #'encode-time tl))
-	(time-stamp (format-time-string "%s" et)))
+	 (time-stamp (format-time-string "%s" et)))
     (progn
       (kill-new time-stamp)
       (message "timestamp is: %s" time-stamp))))
