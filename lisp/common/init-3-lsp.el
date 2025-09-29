@@ -70,7 +70,7 @@
     ("i" "⇣ Step in"  dap-step-in :transient t)
     ("o" "⇡ Step out" dap-step-out :transient t)
     ("c" "➤ Continue" dap-continue :transient t)
-    ("r" "↺ restart"  dap-restart-frame :transient t)]
+    ("r" "↺ restart"  dap-debug-restart :transient t)]
    
    ["Breakpoints"
     ("bb" "Toggle" dap-breakpoint-toggle :transient t)
