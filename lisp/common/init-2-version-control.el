@@ -17,7 +17,14 @@
 (unbind-key "M-4" 'magit-section-mode-map)
 
 (setq magit-delete-by-moving-to-trash nil)
-(setq magit-ediff-dwim-show-on-hunks t)	; 用这个对比未提交时就只有两个窗口,不然有三个窗口
+
+(defun +my-magit-ediff-dwim (fun)
+  "`magit-ediff-dwim-show-on-hunks' 为 t 时 ，对比未提交时就只有两个窗口, 不然有三个窗口.
+不过开了之后合并的时候他默认会变成不是展示三路合并窗口, 所以加个代理. `FUN' 就是 `magit-ediff-dwim'."
+  (setq-local magit-ediff-dwim-show-on-hunks (not (magit-anything-unmerged-p)))
+  (funcall fun))
+(advice-add 'magit-ediff-dwim :around #'+my-magit-ediff-dwim)
+
 
 (setq magit-log-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
 (setq magit-status-margin '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
