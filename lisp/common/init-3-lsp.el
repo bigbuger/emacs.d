@@ -63,45 +63,50 @@
 ;;           (lambda (arg) (call-interactively #'dap-hydra)))
 
 ;; use transient, hydra not band other key
+(transient-define-prefix dap-transient-breakpoints ()
+  ["Breakpoints"
+   [("t" "Toggle" dap-breakpoint-toggle)
+    ("d" "Delete" dap-breakpoint-delete)
+    ("a" "Add" dap-breakpoint-add)]
+   [("c" "Set condition" dap-breakpoint-condition)
+    ("h" "Set hit count" dap-breakpoint-hit-condition)
+    ("l" "Set log message" dap-breakpoint-log-message)]])
+
+(transient-define-prefix dap-transient-switch ()
+  ["Switch"
+   [("s" "Session" dap-switch-session :transient t)
+    ("t" "Thread" dap-switch-thread :transient t)]
+   [("f" "Stack frame" dap-switch-stack-frame :transient t)
+    ("u" "Up stack frame" dap-up-stack-frame :transient t)
+    ("d" "Down stack fram" dap-down-stack-frame :transient t)]
+   [("l" "List locals" dap-ui-locals :transient t)
+    ("b" "List breakpoints" dap-ui-breakpoints :transient t)
+    ("S" "List sessions" dap-ui-sessions :transient t)
+    ("e" "List expressions" dap-ui-expressions :transient t)]])
+
 (transient-define-prefix dap-transient ()
   "Transient for dap."
-  [["Stepping"
-    ("n" "↴ Next"    dap-next :transient t)
-    ("i" "⇣ Step in"  dap-step-in :transient t)
-    ("o" "⇡ Step out" dap-step-out :transient t)
-    ("c" "➤ Continue" dap-continue :transient t)
-    ("r" "↺ restart"  dap-debug-restart :transient t)]
-   
-   ["Breakpoints"
-    ("bb" "Toggle" dap-breakpoint-toggle :transient t)
-    ("bd" "Delete" dap-breakpoint-delete :transient t)
-    ("ba" "Add" dap-breakpoint-add :transient t)
-    ("bc" "Set condition" dap-breakpoint-condition :transient t)
-    ("bh" "Set hit count" dap-breakpoint-hit-condition :transient t)
-    ("bl" "Set log message" dap-breakpoint-log-message :transient t)]
-   
-   ["Switch"
-    ("ss" "Session" dap-switch-session :transient t)
-    ("st" "Thread" dap-switch-thread :transient t)
-    ("sf" "Stack frame" dap-switch-stack-frame :transient t)
-    ("su" "Up stack frame" dap-up-stack-frame :transient t)
-    ("sd" "Down stack fram" dap-down-stack-frame :transient t)
-    ("sl" "List locals" dap-ui-locals :transient t)
-    ("sb" "List breakpoints" dap-ui-breakpoints :transient t)
-    ("sS" "List sessions" dap-ui-sessions :transient t)]
+  ["Stepping" :class transient-row
+   ("n" "↴ Next"    dap-next :transient t)
+   ("i" "⇣ Step in"  dap-step-in :transient t)
+   ("o" "⇡ Step out" dap-step-out :transient t)
+   ("c" "➤ Continue" dap-continue :transient t)
+   ("r" "↺ restart"  dap-debug-restart :transient t)]
 
-   ["Eval"
+  ["Debug" :class transient-row
+   ("b" "Breakpoints›" dap-transient-breakpoints :transient t)
+   ("s" "Switch›" dap-transient-switch :transient t)]
+
+  ["Eval" :class transient-row
     ("ee" "Eval" dap-eval :transient t)
     ("ea" "Add expression" dap-ui-expressions-add :transient t)
     ("er" "Repl" dap-ui-repl)]
 
-   ["Navigation"
-    ("C-n" "next line" next-line :transient t)
-    ("C-p" "previous line" previous-line :transient t)]
-   
-   ["Quit"
-    ("q" "Quit" transient-quit-all :transient nil)
-    ("Q" "❌ Kill" dap-disconnect :transient nil)]])
+  [:class transient-row
+   ("C-n" "next line" next-line :transient t)
+   ("C-p" "previous line" previous-line :transient t)
+   ("q" "Quit" transient-quit-all :transient nil)
+   ("Q" "Kill" dap-disconnect :transient nil)])
 
 (define-key lsp-mode-map (kbd "C-<f5>") 'dap-transient)
 (add-hook 'dap-stopped-hook
