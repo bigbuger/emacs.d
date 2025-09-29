@@ -29,6 +29,9 @@
  ;; auto highlight 高亮色
  '(ahs-face ((t (:background "#e6ebeb"))))
  '(ahs-plugin-default-face ((t (:background "#efebfb"))))
+
+ '(symbol-overlay-default-face ((t (:background "#e6ebeb"))))
+ 
  
  '(aw-leading-char-face ((t (:foreground "red" :height 5.0))))
  '(diff-hl-change ((t (:background "blue3" :foreground "blue3"))))
