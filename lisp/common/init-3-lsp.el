@@ -112,19 +112,20 @@
 
 (transient-define-prefix dap-transient-simple ()
   "Transient for dap."
-  :display-action '(display-buffer-in-side-window
-		    (side . top)
-		    (dedicated . t)
-		    (inhibit-same-window . t))
+  ;; :display-action '(display-buffer-in-side-window
+  ;; 		    (side . top)
+  ;; 		    (dedicated . t)
+  ;; 		    (inhibit-same-window . t))
   :transient-non-suffix 'transient--do-stay
   ["Debug" :class transient-row
-   ("↴" "Next"    dap-next :transient t)
-   ("⇣" "Step in"  dap-step-in :transient t)
-   ("⇡" "Step out" dap-step-out :transient t)
-   ("➤" "Continue" dap-continue :transient t)
-   ("↺" "restart"  dap-debug-restart :transient t)
-   ("☩" "kill"  dap-disconnect :transient t)
-   ("λ" "repl"  dap-ui-repl :transient nil)])
+   ("↴"        "Next"       dap-next          :transient t)
+   ("⇣"        "Step in"    dap-step-in       :transient t)
+   ("⇡"        "Step out"   dap-step-out      :transient t)
+   ("➤"        "Continue"   dap-continue      :transient t)
+   ("↺"        "restart"    dap-debug-restart :transient t)
+   ("☩"        "kill"       dap-disconnect    :transient t)
+   ("λ"        "repl"       dap-ui-repl       :transient nil)
+   ("C-M-<f5>" "Full menu"  dap-transient     :transient nil)])
 
 (define-key lsp-mode-map (kbd "C-M-<f5>") 'dap-transient)
 (define-key lsp-mode-map (kbd "C-<f5>") 'dap-transient-simple)
