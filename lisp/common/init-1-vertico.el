@@ -38,7 +38,16 @@
     (setq-local vertico-sort-override-function
 		(and (not vertico-sort-override-function)
                      #'vertico-sort-alpha)
-		vertico--input t)))
+		vertico--input t))
+
+  ;; macos 下面 man 获取补全会很慢，所以屏蔽之..
+  ;; https://github.com/minad/vertico/issues/297
+  (defun macos-man-completion-table-before-while (&rest _)
+  "If running under macOS, do not attempt to complete manual page names, 
+since the whatis index is broken post-SIP."
+  (not (eq system-type 'darwin)))
+  (advice-add #'Man-completion-table :before-while #'macos-man-completion-table-before-while)
+  )
 
 ;; Do not allow the cursor in the minibuffer prompt
 (setq minibuffer-prompt-properties
