@@ -184,6 +184,13 @@
 
 (setq xref-history-storage 'xref-window-local-history)
 
+(with-eval-after-load 'transient
+  (unbind-key "<up>" 'transient-popup-navigation-map)
+  (unbind-key "<down>" 'transient-popup-navigation-map)
+  (unbind-key "C-r" 'transient-popup-navigation-map)
+  (unbind-key "C-s" 'transient-popup-navigation-map)
+  (unbind-key "<down-mouse-1>" 'transient-popup-navigation-map))
+
 (provide 'init-0-emacs-base)
 
 ;;; init-0-emacs-base.el ends here
