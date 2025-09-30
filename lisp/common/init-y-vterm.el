@@ -6,7 +6,35 @@
 
 (require 'vterm)
 (global-set-key (kbd "C-c t") 'vterm-other-window)
+
+(defun my-append-to-buffer (bf text)
+  (with-current-buffer bf
+    (save-excursion
+      (message "fuck %s" text)
+      (end-of-buffer)
+      (insert text "\n"))))
+
+;; #+BEGIN_SRC shell
+;; if [[ "$INSIDE_EMACS" = 'vterm' ]] \
+;;     && [[ -n ${EMACS_VTERM_PATH} ]] \
+;;     && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
+;;     source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
+;; 
+;;     e() {
+;; 	vterm_cmd find-file-other-window "$(realpath "${@:-.}")"
+;;     }
+;; 
+;;     bf () {
+;; 	buffer="$1"
+;; 	while read -r input; do
+;; 	    vterm_cmd my-append-to-buffer "${buffer}" "${input}"
+;; 	done
+;;     }
+;; fi
+;; #+END_SRC
+
 (add-to-list 'vterm-eval-cmds '("find-file-other-window" find-file-other-window))
+(add-to-list 'vterm-eval-cmds '("my-append-to-buffer" my-append-to-buffer))
 
 (with-eval-after-load 'projectile
   (defun projectile-run-vterm-other-window (&optional arg)
