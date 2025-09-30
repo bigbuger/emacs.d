@@ -7,12 +7,13 @@
 + 模版: yasnippet, yatemplate
 + 项目管理: projectile
 + 版本控制: magit
-+ 文件管理: dirvish
++ +文件管理: dirvish+
 + 文件树: treemacs
-+ term: vterm
++ term: libvterm
 + 代码检查: flycheck
 + lsp: lsp-mode
-
++ 笔记: org-roam
+  
 ** 主要目录说明
 *** init.el
 配置入口
@@ -28,7 +29,7 @@
 lisp 配置文件
 + common 通用配置存放在这里
 + lang 特定编程语言的配置存放在这里
-+ libs 通过 git submodule 引用的包，以及自己写的一下包
++ libs 通过 git submodule 引用的包，以及自己写的一些包
 + org-config org mode 相关配置
 *** snippets
 yasinppet 模版存放目录
