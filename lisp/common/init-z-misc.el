@@ -87,16 +87,10 @@
     (pos-tip-show result)))
 (global-set-key (kbd "C-S-d") 'osx-dictionary-search-at-point-and-pop)
 
-;; google 翻译
-(require 'google-translate)
-(require 'google-translate-default-ui)
-(setq google-translate-default-source-language "auto")
-(setq google-translate-default-target-language "zh-CN")
-
 ;; flyspell
 (setq flyspell-mark-duplications-flag nil)
-(require 'flyspell-correct-popup)
-(define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-wrapper)
+;; (require 'flyspell-correct-popup)
+;; (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-wrapper)
 
 (setq ispell-program-name "aspell")
 ;; (setq ispell-extra-args '("--sug-mode=ultra" "--camel-case"))

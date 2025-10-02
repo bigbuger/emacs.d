@@ -43,7 +43,7 @@
     doom-modeline
     nerd-icons
 
-    ;; wgrep
+    ;; grep
     wgrep
     rg
 
@@ -69,7 +69,7 @@
     ov
 
     ;; flyspell
-    flyspell-correct-popup
+    ;; flyspell-correct-popup
 
     ;; lsp
     lsp-mode
@@ -148,7 +148,6 @@
 
     rainbow-mode
     osx-dictionary
-    google-translate
     osx-trash
     exec-path-from-shell
     )
