@@ -132,7 +132,9 @@
 
 (global-set-key (kbd "M-s-<backspace>") #'my-backward-kill-subword)
 (global-set-key (kbd "M-s-<left>") #'my-left-subword)
+(global-set-key (kbd "M-s-b") #'my-left-subword)
 (global-set-key (kbd "M-s-<right>") #'my-right-subword)
+(global-set-key (kbd "M-s-f") #'my-right-subword)
 
 
 (defun my-convert-time (timestamp)
