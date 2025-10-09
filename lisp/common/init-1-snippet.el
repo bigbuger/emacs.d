@@ -77,8 +77,8 @@ string).  It returns t if a new completion is found, nil otherwise."
         try-expand-dabbrev-all-buffers
 	
 	my/try-expand-list
-        try-expand-list
 	try-expand-line
+        try-expand-list
 	try-expand-list-all-buffers
 	try-expand-line-all-buffers
 	
