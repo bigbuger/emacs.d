@@ -52,7 +52,8 @@
 ;;(add-hook 'go-ts-mode-hook 'go-eldoc-setup)
 
 (with-eval-after-load 'lsp-go
-  (setf (lsp--client-completion-in-comments? (gethash 'gopls lsp-clients)) nil))
+  (setf (lsp--client-completion-in-comments? (gethash 'gopls lsp-clients)) nil)
+  (setq lsp-go-links-in-hover nil))
 ;; (setq lsp-go-use-placeholders nil)
 
 (lsp-register-custom-settings
