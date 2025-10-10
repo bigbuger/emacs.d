@@ -63,7 +63,9 @@
    ("gopls.vulncheck" "Imports" nil)
    ;; ("gopls.matcher" "CaseInsensitive")
    ;; ("gopls.completeFunctionCalls" nil t)
+   ("gopls.analyses.ST1000" nil t) ;; Incorrect or missing package comment
    ("gopls.analyses.ST1001" nil t) ;; dot import warning
+   ("gopls.analyses.ST1003" nil t) ;; Poorly chosen identifier
 
    ("gopls.hints.assignVariableTypes" nil t)
    ("gopls.hints.compositeLiteralFields" t t)

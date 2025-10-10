@@ -13,6 +13,7 @@
 (setq lsp-guess-root-without-session t)
 (setq lsp-prefer-flymake :none)
 (setq lsp-ui-flycheck-enable t)
+(setq lsp-diagnostic-clean-after-change t)
 ;; (setq lsp-inlay-hint-enable t)
 
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
