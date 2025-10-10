@@ -233,6 +233,7 @@ ARG is pass to `sp-end-of-sexp'"
 (require 'hideshowvis)
 (hideshowvis-symbols)
 ;; (add-hook 'prog-mode-hook 'hideshowvis-enable)
+(define-key hs-minor-mode-map (kbd "S-<tab>") #'hs-toggle-hiding)
 ;; end hideshowvis
 
 
