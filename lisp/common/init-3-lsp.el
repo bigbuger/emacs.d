@@ -168,8 +168,16 @@
     "v"     #'dap-ui-eval-variable-in-buffer
     "e"     #'dap-eval-thing-at-point
     "E"     #'dap-eval-region
-    "h"     #'lsp-treemacs-call-hierarchy)
+    "h"     #'lsp-treemacs-call-hierarchy
+    "c"     #'string-inflection-lower-camelcase
+    "C"     #'string-inflection-camelcase
+    "u"     #'string-inflection-underscore
+    "U"     #'string-inflection-upcase
+    "k"     #'string-inflection-kebab-case
+    "R"     #'lsp-rename
+    )
 
+  (add-to-list 'embark-target-injection-hooks '(lsp-rename embark--allow-edit))
   (add-to-list 'embark-repeat-actions #'lsp-ui-find-prev-reference)
   (add-to-list 'embark-repeat-actions #'lsp-ui-find-next-reference)
   (add-to-list 'embark-target-finders 'embark-target-lsp-identifier-at-point)

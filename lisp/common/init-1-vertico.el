@@ -395,6 +395,12 @@ This is the function to be used for the hook `completion-at-point-functions'."
   :demand t
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
+   :map embark-identifier-map
+   ("c" . string-inflection-lower-camelcase)
+   ("C" . string-inflection-camelcase)
+   ("u" . string-inflection-underscore)
+   ("U" . string-inflection-upcase)
+   ("k" . string-inflection-kebab-case)
    :map minibuffer-mode-map
    ("C-c C-o" . embark-export)
    ("C-c C-l" . embark-collect)
@@ -422,6 +428,46 @@ This is the function to be used for the hook `completion-at-point-functions'."
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
                  (window-parameters (mode-line-format . none))))
+
+  (defvar-keymap embark-region-map
+    :doc "Keymap for Embark actions on the active region."
+    :parent embark-general-map
+    "u" #'upcase-region
+    "l" #'downcase-region
+    "c" #'capitalize-region
+    "|" #'shell-command-on-region
+    ;; "e" #'eval-region
+    "<" #'embark-eval-replace
+    "a" #'align
+    "A" #'align-regexp
+    "<left>" #'indent-rigidly
+    "<right>" #'indent-rigidly
+    "TAB" #'indent-region
+    ;; "f" #'fill-region
+    ;; "p" #'fill-region-as-paragraph
+    ;; "$" #'ispell-region
+    "=" #'count-words-region
+    "F" #'whitespace-cleanup-region
+    "t" #'transpose-regions
+    ;; "o" #'org-table-convert-region
+    ";" #'comment-or-uncomment-region
+    "W" #'write-region
+    ;; "+" #'append-to-file
+    "m" #'apply-macro-to-region-lines
+    "n" #'narrow-to-region
+    ;; "*" #'calc-grab-region
+    ;; ":" #'calc-grab-sum-down
+    ;; "_" #'calc-grab-sum-across
+    "r" #'reverse-region
+    "d" #'delete-duplicate-lines
+    ;; "b" #'browse-url-of-region
+    ;; "h" #'shr-render-region
+    ;; "'" #'expand-region-abbrevs
+    ;; "v" #'vc-region-history
+    ;; "R" #'repunctuate-sentences
+    "s" 'embark-sort-map
+    ">" 'embark-encode-map)
+
   :init
   (setq which-key-use-C-h-commands nil
         ;; press C-h after a prefix key, it shows all the possible key bindings and let you choose what you want
