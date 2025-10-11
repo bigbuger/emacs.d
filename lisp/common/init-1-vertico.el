@@ -402,7 +402,8 @@ This is the function to be used for the hook `completion-at-point-functions'."
    :map embark-collect-mode-map
    ("<SPC>" . embark-select)
    :map vertico-map
-   ("C-," . embark-select))
+   ("C-<SPC>" . embark-select)
+   ("M-C-<return>" . embark-act-all))
 
   :config
   (defvar embark-collect-smart-column-regex
