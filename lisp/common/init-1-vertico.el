@@ -43,9 +43,9 @@
   ;; macos 下面 man 获取补全会很慢，所以屏蔽之..
   ;; https://github.com/minad/vertico/issues/297
   (defun macos-man-completion-table-before-while (&rest _)
-  "If running under macOS, do not attempt to complete manual page names, 
+    "If running under macOS, do not attempt to complete manual page names, 
 since the whatis index is broken post-SIP."
-  (not (eq system-type 'darwin)))
+    (not (eq system-type 'darwin)))
   (advice-add #'Man-completion-table :before-while #'macos-man-completion-table-before-while)
   )
 
@@ -429,45 +429,21 @@ This is the function to be used for the hook `completion-at-point-functions'."
                  nil
                  (window-parameters (mode-line-format . none))))
 
-  (defvar-keymap embark-region-map
-    :doc "Keymap for Embark actions on the active region."
-    :parent embark-general-map
-    "u" #'upcase-region
-    "l" #'downcase-region
-    "c" #'capitalize-region
-    "|" #'shell-command-on-region
-    ;; "e" #'eval-region
-    "<" #'embark-eval-replace
-    "a" #'align
-    "A" #'align-regexp
-    "<left>" #'indent-rigidly
-    "<right>" #'indent-rigidly
-    "TAB" #'indent-region
-    ;; "f" #'fill-region
-    ;; "p" #'fill-region-as-paragraph
-    ;; "$" #'ispell-region
-    "=" #'count-words-region
-    "F" #'whitespace-cleanup-region
-    "t" #'transpose-regions
-    ;; "o" #'org-table-convert-region
-    ";" #'comment-or-uncomment-region
-    "W" #'write-region
-    ;; "+" #'append-to-file
-    "m" #'apply-macro-to-region-lines
-    "n" #'narrow-to-region
-    ;; "*" #'calc-grab-region
-    ;; ":" #'calc-grab-sum-down
-    ;; "_" #'calc-grab-sum-across
-    "r" #'reverse-region
-    "d" #'delete-duplicate-lines
-    ;; "b" #'browse-url-of-region
-    ;; "h" #'shr-render-region
-    ;; "'" #'expand-region-abbrevs
-    ;; "v" #'vc-region-history
-    ;; "R" #'repunctuate-sentences
-    "s" 'embark-sort-map
-    ">" 'embark-encode-map)
-
+  (keymap-unset embark-region-map "e") ;; #'eval-region
+  (keymap-unset embark-region-map "f") ;; #'fill-region
+  (keymap-unset embark-region-map "p") ;; #'fill-region-as-paragraph
+  (keymap-unset embark-region-map "$") ;; #'ispell-region
+  (keymap-unset embark-region-map "o") ;; #'org-table-convert-region
+  (keymap-unset embark-region-map "+") ;; #'append-to-file
+  (keymap-unset embark-region-map "*") ;; #'calc-grab-region
+  (keymap-unset embark-region-map ":") ;; #'calc-grab-sum-down
+  (keymap-unset embark-region-map "_") ;; #'calc-grab-sum-across
+  (keymap-unset embark-region-map "b") ;; #'browse-url-of-region
+  (keymap-unset embark-region-map "h") ;; #'shr-render-region
+  (keymap-unset embark-region-map "'") ;; #'expand-region-abbrevs
+  (keymap-unset embark-region-map "v") ;; #'vc-region-history
+  (keymap-unset embark-region-map "R") ;; #'repunctuate-sentences
+  
   :init
   (setq which-key-use-C-h-commands nil
         ;; press C-h after a prefix key, it shows all the possible key bindings and let you choose what you want
