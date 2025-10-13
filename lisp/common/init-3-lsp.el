@@ -68,9 +68,9 @@
   ["Breakpoints"
    [("t" "Toggle" dap-breakpoint-toggle)
     ("d" "Delete" dap-breakpoint-delete)
-    ("a" "Add" dap-breakpoint-add)]
-   [("c" "Set condition" dap-breakpoint-condition)
-    ("h" "Set hit count" dap-breakpoint-hit-condition)
+    ("a" "Add"    dap-breakpoint-add)]
+   [("c" "Set condition"   dap-breakpoint-condition)
+    ("h" "Set hit count"   dap-breakpoint-hit-condition)
     ("l" "Set log message" dap-breakpoint-log-message)]])
 
 (transient-define-prefix dap-transient-switch ()
@@ -79,37 +79,38 @@
 (transient-define-prefix dap-transient ()
   "Transient for dap."
   ["Debug" :class transient-row
-   ("n" "↴ Next"    dap-next :transient t)
-   ("i" "⇣ Step in"  dap-step-in :transient t)
-   ("o" "⇡ Step out" dap-step-out :transient t)
-   ("c" "➤ Continue" dap-continue :transient t)
-   ("r" "↺ restart"  dap-debug-restart :transient t)
-   ("b" "Breakpoints›" dap-transient-breakpoints :transient t)]
+   ( "n" "↴ Next"       dap-next                  :transient t)
+   ( "i" "⇣ Step in"    dap-step-in               :transient t)
+   ( "o" "⇡ Step out"   dap-step-out              :transient t)
+   ( "c" "➤ Continue"   dap-continue              :transient t)
+   ( "r" "↺ restart"    dap-debug-restart         :transient t)
+   ( "b" "Breakpoints›" dap-transient-breakpoints :transient t)]
 
   [["Select"
-    ("ss" "Select Session" dap-switch-session :transient t)
-    ("st" "Select Thread" dap-switch-thread :transient t)
+    ("ss" "Select Session"     dap-switch-session     :transient t)
+    ("st" "Select Thread"      dap-switch-thread      :transient t)
     ("sf" "Select Stack frame" dap-switch-stack-frame :transient t)
-    ("su" "Up stack frame" dap-up-stack-frame :transient t)
-    ("sd" "Down stack frame" dap-down-stack-frame :transient t)]
+    ("su" "Up stack frame"     dap-up-stack-frame     :transient t)
+    ("sd" "Down stack frame"   dap-down-stack-frame   :transient t)]
    
    ["Switch"
-    ("sl" "List locals" dap-ui-locals :transient t)
+    ("sl" "List locals"      dap-ui-locals      :transient t)
     ("sb" "List breakpoints" dap-ui-breakpoints :transient t)
-    ("sS" "List sessions" dap-ui-sessions :transient t)
+    ("sS" "List sessions"    dap-ui-sessions    :transient t)
     ("se" "List expressions" dap-ui-expressions :transient t)]
   
    ["Eval"
-    ("ee" "Eval" dap-eval :transient t)
+    ("ee" "Eval"           dap-eval               :transient t)
     ("ea" "Add expression" dap-ui-expressions-add :transient t)
-    ("er" "Repl" dap-ui-repl)]]
+    ("er" "Repl"           dap-ui-repl)]]
 
-  [[("C-n" "next line" next-line :transient t)
-    ("C-p" "previous line" previous-line :transient t)]
-   [("C-f" "forward char" forward-char :transient t)
-    ("C-b" "forwardchar" backward-char :transient t)]
-   [("q" "Quit" transient-quit-all :transient nil)
-    ("Q" "Kill" dap-disconnect :transient nil)]])
+  [""
+   [("C-n" "next line"     next-line          :transient t)
+    ("C-p" "previous line" previous-line      :transient t)]
+   [("C-f" "forward char"  forward-char       :transient t)
+    ("C-b" "forwardchar"   backward-char      :transient t)]
+   [("q"   "Quit"          transient-quit-all :transient nil)
+    ("Q"   "Kill"          dap-disconnect     :transient nil)]])
 
 (transient-define-prefix dap-transient-simple ()
   "Transient for dap."
