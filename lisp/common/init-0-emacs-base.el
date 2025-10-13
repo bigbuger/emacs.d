@@ -38,6 +38,10 @@
 ;; 撤销就是撤销，不要 redo
 (global-set-key [remap undo] #'undo-only)
 
+(setq undo-limit 67108864) ; 64mb.
+(setq undo-strong-limit 100663296) ; 96mb.
+(setq undo-outer-limit 201326592) ; 192mb.
+
 (require 'winner)
 (winner-mode t)
 
@@ -65,6 +69,16 @@
 
 ;; 搜索显示命中数量
 (setq isearch-lazy-count t)
+
+;; 搜索历史记录调大，默认 16 太少了
+(setq search-ring-max 200
+      regexp-search-ring-max 200)
+
+;; 退出的时候也保存到搜索历史
+(advice-add 'isearch-cancel :before
+            (lambda () "Add search string to history also when canceling."
+              (unless (string-equal "" isearch-string)
+                (isearch-update-ring isearch-string isearch-regexp))))
 
 
 (auto-image-file-mode)
