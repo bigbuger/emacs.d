@@ -228,13 +228,12 @@ ARG is pass to `sp-end-of-sexp'"
 (setq highlight-indent-guides-method 'character)
 ;; end indent
 
-;; hideshowvis 侧边显示一个折叠的小加号
-(add-to-list 'load-path "~/.emacs.d/lisp/libs/hideshowvis/")
-(require 'hideshowvis)
-(hideshowvis-symbols)
-;; (add-hook 'prog-mode-hook 'hideshowvis-enable)
-(define-key hs-minor-mode-map (kbd "S-<tab>") #'hs-toggle-hiding)
-;; end hideshowvis
+;; hideshow
+(use-package hideshow
+  :bind
+  (:map hs-minor-mode
+	("S-<tab>" . hs-toggle-hiding)))
+;; end hideshow
 
 
 ;; This package provides helper functions to delete, rename, or copy buffer files:

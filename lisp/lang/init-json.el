@@ -7,8 +7,6 @@
 ;;; Code:
 (require 'json-mode)
 
-(add-hook 'json-mode-hook #'hideshowvis-enable)
-
 (use-package consult-jq
   :load-path "~/.emacs.d/lisp/libs/consult-jq/"
   :config
