@@ -444,12 +444,16 @@ This is the function to be used for the hook `completion-at-point-functions'."
   (keymap-unset embark-region-map "'") ;; #'expand-region-abbrevs
   (keymap-unset embark-region-map "v") ;; #'vc-region-history
   (keymap-unset embark-region-map "R") ;; #'repunctuate-sentences
+
+  ;; make all map use same bind, N for narrow
+  (keymap-unset embark-region-map "n") ;; #'narrow-to-region
+  (define-key embark-region-map "N" #'narrow-to-region)
   
   :init
   (setq which-key-use-C-h-commands nil
         ;; press C-h after a prefix key, it shows all the possible key bindings and let you choose what you want
         prefix-help-command #'embark-prefix-help-command)
-
+  
   ;; embark display in an bottom buffer
   ;; (setq
   ;;  embark-verbose-indicator-display-action

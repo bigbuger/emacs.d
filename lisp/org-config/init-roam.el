@@ -206,7 +206,8 @@
 (use-package embark-org-roam
   :load-path "~/.emacs.d/lisp/libs/embark-org-roam"
   :after (org-roam embark)
-  :demand t)
+  :config
+  (setq embark-org-roam-readonly t))
 
 
 (provide 'init-roam)

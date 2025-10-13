@@ -158,7 +158,7 @@
 
   (defvar-keymap embark-lsp-indetifier-actions
     :doc "Keymap for actions for lsp-identifier."
-    :parent nil
+    :parent embark-general-map
     "<RET>" #'lsp-find-definition
     "n"     #'lsp-ui-find-next-reference
     "p"     #'lsp-ui-find-prev-reference
@@ -175,6 +175,7 @@
     "U"     #'string-inflection-upcase
     "k"     #'string-inflection-kebab-case
     "R"     #'lsp-rename
+    "o"     #'occur
     )
 
   (add-to-list 'embark-target-injection-hooks '(lsp-rename embark--allow-edit))
