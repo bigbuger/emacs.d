@@ -100,6 +100,7 @@ instead of the hash, like `kill-ring-save' would."
    (add-to-list 'embark-multitarget-actions 'magit-file-checkout-multiple--run))
 
 (use-package magit-delta
+  :disabled ;; some time slow when too many changes, just disabled
   :config
   (setq magit-delta-default-light-theme "Solarized (light)")
   :hook (magit-mode . magit-delta-mode))

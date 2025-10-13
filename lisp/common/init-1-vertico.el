@@ -165,7 +165,7 @@ since the whatis index is broken post-SIP."
   
   
   (setq consult-narrow-key "C-+") ;; narrow 切换多个分组
-  (setq consult-line-start-from-top t)
+  ;; (setq consult-line-start-from-top t)
   ;; (setq consult-fd-args `(,(if (executable-find "fdfind" 'remote) "fdfind" "fd")
   ;; 				"--color=never")) ; fd --full-path 会匹配文件全路径, 会导致用当前目录包含的词进行搜索时有问题
   
