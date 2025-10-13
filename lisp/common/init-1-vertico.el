@@ -385,6 +385,7 @@ This is the function to be used for the hook `completion-at-point-functions'."
 
   :config
   (add-to-list 'isearch-mb--with-buffer #'isearch-yank-word)
+  (add-to-list 'isearch-mb--after-exit #'isearch-occur)
   (define-key isearch-mb-minibuffer-map (kbd "C-w") #'isearch-yank-word)
 
   :init
