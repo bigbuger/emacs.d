@@ -229,6 +229,19 @@ START is valid, or would be valid if capitalized or upcased."
 
 (setq Info-additional-directory-list '("/opt/homebrew/share/info"))
 
+(use-package proced
+  :ensure nil
+  :commands proced
+  :custom
+  (proced-auto-update-flag t)
+  (proced-goal-attribute nil)
+  (proced-show-remote-processes t)
+  (proced-enable-color-flag t)
+  (proced-format 'custom)
+  :config
+  (add-to-list
+   'proced-format-alist
+   '(custom user pid ppid sess tree pcpu pmem rss start time state (args comm))))
 
 (provide 'init-z-misc)
 
