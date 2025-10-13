@@ -582,7 +582,7 @@ targets."
 (use-package consult-omni
   :load-path "~/.emacs.d/lisp/libs/consult-omni"
   :after consult
-  :bind ("C-c a" . consult-omni)
+  ;; :bind ("C-c a" . consult-omni)
   :init
   (add-to-list 'load-path "~/.emacs.d/lisp/libs/consult-omni/sources")
   ;; Load Sources Core code

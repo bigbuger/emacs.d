@@ -208,6 +208,8 @@
 		 (vertico-posframe-width . 120)
 		 (vertico-sort-override-function . vertico-sort-lsp-fix-action-first))))
 
+(define-key lsp-mode-map (kbd "M-<RET>") #'lsp-execute-code-action)
+
 (provide 'init-3-lsp)
 
 ;;; init-3-lsp.el ends here
