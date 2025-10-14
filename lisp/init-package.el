@@ -11,7 +11,6 @@
     popup
     crux
     string-inflection
-    move-text
     multiple-cursors
     expand-region
     smartparens

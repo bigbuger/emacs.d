@@ -79,20 +79,26 @@ ARG is pass to `sp-end-of-sexp'"
 
 ;; end smartparens
 
-;; move-text
-(require 'move-text)
-(global-set-key [M-S-down] 'move-text-down)
-(global-set-key [M-S-up]   'move-text-up)
-(defun indent-region-advice (&rest ignored)
-  (let ((deactivate deactivate-mark))
-    (if (region-active-p)
-        (indent-region (region-beginning) (region-end))
-      (indent-region (line-beginning-position) (line-end-position)))
-    (setq deactivate-mark deactivate)))
 
-(advice-add 'move-text-up :after 'indent-region-advice)
-(advice-add 'move-text-down :after 'indent-region-advice)
-;; end move-text
+(use-package drag-stuff
+  :demand t
+  :bind
+  (("s-<up>" . drag-stuff-up)
+   ("s-<down>" . drag-stuff-down)
+   ("s-<right>" . drag-stuff-right)
+   ("s-<left>" . drag-stuff-left))
+  :init
+  (drag-stuff-global-mode 1)
+
+  (defun indent-region-advice (&rest ignored)
+    (let ((deactivate deactivate-mark))
+      (if (region-active-p)
+          (indent-region (region-beginning) (region-end))
+	(indent-region (line-beginning-position) (line-end-position)))
+      (setq deactivate-mark deactivate)))
+  
+  (advice-add 'drag-stuff-up :after 'indent-region-advice)
+  (advice-add 'drag-stuff-down :after 'indent-region-advice))
 
 
 ;; multiple-cursors 多光标编辑
