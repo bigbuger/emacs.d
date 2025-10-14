@@ -182,7 +182,7 @@
     ad-do-it))
 (ad-activate 'align-regexp)
 
-;; (setq imenu-max-item-length 80)
+(setq imenu-max-item-length 80)
 
 ;; subword-mode 支持驼峰命名单词移到
 ;; (add-hook 'prog-mode-hook #'subword-mode)
