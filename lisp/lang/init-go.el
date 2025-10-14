@@ -102,6 +102,25 @@
     (not (member (treesit-node-type top-node)
 		 '("function_declaration" "method_declaration")))))
 
+(defun my-go-ts-mode--interface-node-p (node)
+  "Return t if NODE is an interface."
+  (and
+   (my-treesit-go-not-in-function node)
+   (string-equal "type_spec" (treesit-node-type node))
+   (treesit-search-subtree node "interface_type")))
+
+(defun my-go-ts-mode--struct-node-p (node)
+  "Return t if NODE is a struct."
+  (and
+   (my-treesit-go-not-in-function node)
+   (string-equal "type_spec" (treesit-node-type node))
+   (treesit-search-subtree node "struct_type")))
+
+(defun my-go-ts-get-type-spec-name (node)
+  "Return name of `type_spec'."
+  (treesit-node-text
+   (treesit-node-child-by-field-name node "name")))
+
 (add-hook 'go-ts-mode-hook
 	  (lambda ()
 	    (setq-local defun-prompt-regexp go-func-regexp
@@ -119,10 +138,10 @@
             (setq-local treesit-simple-imenu-settings
 			'(("Constant" "\\`const_spec\\'" nil my-treesit-go-var-name)
 			  ("Function" "\\`function_declaration\\'" nil my-treesit-go-var-name)
-			  ("Interface" "\\`type_declaration\\'" go-ts-mode--interface-node-p nil)
+			  ("Interface" "\\`type_spec\\'" my-go-ts-mode--interface-node-p my-go-ts-get-type-spec-name)
 			  ("Method" "\\`method_declaration\\'" nil nil)
 			  ("New Type" "\\`type_declaration\\'" go-ts-mode--other-type-node-p nil)
-			  ("Struct" "\\`type_declaration\\'" go-ts-mode--struct-node-p nil)
+			  ("Struct" "\\`type_spec\\'" my-go-ts-mode--struct-node-p my-go-ts-get-type-spec-name)
 			  ("Type Alias" "\\`type_declaration\\'" go-ts-mode--alias-node-p nil)
 			  ("Variable" "\\`var_spec\\'" my-treesit-go-not-in-function my-treesit-go-var-name)))
 	    (setq-local lsp-enable-imenu nil)
