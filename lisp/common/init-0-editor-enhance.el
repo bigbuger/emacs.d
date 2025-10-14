@@ -107,9 +107,6 @@ ARG is pass to `sp-end-of-sexp'"
 ;; end multiple-cursors
 
 
-(use-package iedit)
-
-
 ;; expland-regin
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
