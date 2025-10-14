@@ -580,8 +580,19 @@ targets."
   (define-key lsp-command-map (kbd "e") 'consult-lsp-diagnostics))
 
 (use-package vertico-calc
+  :demand t
   :load-path "~/.emacs.d/lisp/libs/"
-  :bind (("C-c q" . vertico-calc)))
+  :bind (("C-c q" . vertico-calc))
+  :init
+  (defun +calc-complete (fun &rest args)
+    (minibuffer-with-setup-hook
+      (:append
+       (lambda ()
+	 (use-local-map calc-completion-map)
+	 (add-hook 'completion-at-point-functions
+		   #'vertico-calc-completion-at-point nil t)))
+      (apply fun args)))
+  (advice-add 'quick-calc :around #'+calc-complete))
 
 
 (use-package consult-omni
