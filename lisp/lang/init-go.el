@@ -121,6 +121,16 @@
   (treesit-node-text
    (treesit-node-child-by-field-name node "name")))
 
+(defun my-go-ts-get-interface-method-name (node)
+  "Return name of `method_elem'."
+  (let  ((method (treesit-node-text
+		  (treesit-node-child-by-field-name node "name")))
+	 (interface (treesit-node-text
+		     (treesit-node-child-by-field-name
+		      (treesit-node-parent (treesit-node-parent node))
+		      "name"))))
+    (concat interface "." method)))
+
 (add-hook 'go-ts-mode-hook
 	  (lambda ()
 	    (setq-local defun-prompt-regexp go-func-regexp
@@ -140,6 +150,7 @@
 			  ("Function" "\\`function_declaration\\'" nil my-treesit-go-var-name)
 			  ("Interface" "\\`type_spec\\'" my-go-ts-mode--interface-node-p my-go-ts-get-type-spec-name)
 			  ("Method" "\\`method_declaration\\'" nil nil)
+			  ("Interface Method" "\\`method_elem\\'" nil my-go-ts-get-interface-method-name)
 			  ("New Type" "\\`type_declaration\\'" go-ts-mode--other-type-node-p nil)
 			  ("Struct" "\\`type_spec\\'" my-go-ts-mode--struct-node-p my-go-ts-get-type-spec-name)
 			  ("Type Alias" "\\`type_declaration\\'" go-ts-mode--alias-node-p nil)
@@ -153,6 +164,7 @@
                  :types ((?c "Constant" font-lock-constant-face)
                          (?f "Function" font-lock-function-name-face)
                          (?i "Interface" font-lock-type-face)
+                         (?I "Interface Method" font-lock-type-face)
                          (?m "Method" font-lock-function-name-face)
                          (?t "New Type" font-lock-type-face)
                          (?s "Struct" font-lock-type-face)
