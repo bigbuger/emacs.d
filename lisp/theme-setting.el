@@ -112,7 +112,7 @@
 (setq auto-revert-check-vc-info t)
 (setq doom-modeline-vcs-max-length 50)
 
-(setq doom-modeline-buffer-file-name-style 'relative-from-project)
+(setq doom-modeline-buffer-file-name-style 'truncate-with-project)
 (doom-modeline-mode)
 
 (provide 'theme-setting)

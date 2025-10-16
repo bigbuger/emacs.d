@@ -20,6 +20,8 @@
 
 (use-package vundo
   :ensure t
+  :bind
+  (("C-x u" . vundo))
   :custom
   (vundo-glyph-alist vundo-unicode-symbols))
 

@@ -448,7 +448,7 @@ This is the function to be used for the hook `completion-at-point-functions'."
   ;; make all map use same bind, N for narrow
   (keymap-unset embark-region-map "n") ;; #'narrow-to-region
   (define-key embark-region-map "N" #'narrow-to-region)
-  
+
   :init
   (setq which-key-use-C-h-commands nil
         ;; press C-h after a prefix key, it shows all the possible key bindings and let you choose what you want
@@ -518,6 +518,20 @@ targets."
 (define-key embark-file-map     (kbd "o") (my-embark-ace-action find-file))
 (define-key embark-buffer-map   (kbd "o") (my-embark-ace-action switch-to-buffer))
 (define-key embark-bookmark-map (kbd "o") (my-embark-ace-action bookmark-jump))
+
+(require 'ace-window)
+(defun embark-ace-insert(string)
+  "Insert `STRING' into select window by `ace-window'."
+  (aw-select " Ace - Window"
+	     #'(lambda (window)
+		 (with-selected-window window
+		   (embark-insert (list string))))))
+(define-key embark-general-map (kbd "i") #'embark-ace-insert)
+
+;; i for insert
+(keymap-unset embark-package-map "i") ;; #'package-install
+(define-key embark-package-map "i" #'embark-ace-insert)
+(define-key embark-package-map "I" #'package-install)
 
 (eval-when-compile
   (defmacro my-embark-split-action (fn split-type)
