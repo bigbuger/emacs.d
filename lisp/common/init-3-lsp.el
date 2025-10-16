@@ -131,8 +131,8 @@
 
 (define-key lsp-mode-map (kbd "C-M-<f5>") 'dap-transient)
 (define-key lsp-mode-map (kbd "C-<f5>") 'dap-transient-simple)
-(add-hook 'dap-stopped-hook
-          (lambda (arg) (call-interactively #'dap-transient-simple)))
+;; (add-hook 'dap-stopped-hook
+;;           (lambda (arg) (call-interactively #'dap-transient-simple)))
 
 (defun +disable-vertico-sort (fun &rest args)
   (minibuffer-with-setup-hook

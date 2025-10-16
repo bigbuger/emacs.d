@@ -181,6 +181,7 @@ since the whatis index is broken post-SIP."
   (global-set-key (kbd "M-g i") 'consult-imenu) ;; orig. imenu
   (global-set-key (kbd "M-g M-g") 'consult-goto-line) ;; orig. goto-line
   (global-set-key (kbd "M-g g") 'consult-goto-line) ;; orig. goto-line
+  (global-set-key (kbd "M-g m") 'consult-mark)
   
   (global-set-key (kbd "M-s k")  'consult-keep-lines)
   (global-set-key (kbd "M-s u")  'consult-focus-lines)
