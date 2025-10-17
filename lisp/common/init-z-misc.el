@@ -243,6 +243,12 @@ START is valid, or would be valid if capitalized or upcased."
    'proced-format-alist
    '(custom user pid ppid sess tree pcpu pmem rss start time state (args comm))))
 
+(use-package literate-calc-mode
+  :ensure t
+  :demand t
+  :bind
+  (("C-* l" . literate-calc-minor-mode)))
+
 (provide 'init-z-misc)
 
 ;;; init-z-misc.el ends here
