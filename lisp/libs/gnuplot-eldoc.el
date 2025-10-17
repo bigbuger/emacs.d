@@ -619,3 +619,5 @@ dashtype (s1,e1,s2,e2,s3,e3,s4,e4)  # dash pattern specified by 1 to 4
                     # numerical pairs <solid length>, <emptyspace length>") ("colorspec" "... {linecolor | lc} {\"colorname\" | <colorspec> | <n>} [more ...]" "... {linecolor | lc} {\"colorname\" | <colorspec> | <n>}
 ... {textcolor | tc} {<colorspec> | {linetype | lt} <n>}
 ... {fillcolor | fc} {<colorspec> | linetype <n> | linestyle <n>}") ("Time_functions" "time = weekdate_cdc( year, week [, day] )") ("Time_functions" "time = weekdate_iso( year, week [, day] )")))) (while alist (puthash (caar alist) (cdar alist) tbl) (setq alist (cdr alist))) tbl))
+
+(provide 'gnuplot-eldoc)
