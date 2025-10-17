@@ -247,7 +247,15 @@ START is valid, or would be valid if capitalized or upcased."
   :ensure t
   :demand t
   :bind
-  (("C-* l" . literate-calc-minor-mode)))
+  (("C-* l" . literate-calc-minor-mode))
+
+  :config
+  (add-hook 'literate-calc-mode-hook
+	    #'(lambda ()
+		(add-hook 'completion-at-point-functions
+			  #'vertico-calc-completion-at-point nil t)
+		(setq-local company-backends
+			    '((company-capf :with company-yasnippet :with company-dabbrev :with company-files))))))
 
 (provide 'init-z-misc)
 
