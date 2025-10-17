@@ -599,7 +599,6 @@ targets."
   :load-path "~/.emacs.d/lisp/libs/"
   :bind (("C-c q" . vertico-calc))
   :init
-  (calc-date-notation "YYYY-MM-DD hh:mm:ss" nil)
   (defun +calc-complete (fun &rest args)
     (minibuffer-with-setup-hook
       (:append
