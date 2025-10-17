@@ -597,8 +597,10 @@ targets."
 (use-package vertico-calc
   :demand t
   :load-path "~/.emacs.d/lisp/libs/"
-  :bind (("C-c q" . vertico-calc))
+  :bind (("C-c q" . vertico-calc)) 
   :init
+  (with-eval-after-load 'calc
+    (setq calc-date-format '(YYYY "-" MM "-" DD (" " hh ":" mm ":" ss))))
   (defun +calc-complete (fun &rest args)
     (minibuffer-with-setup-hook
       (:append
