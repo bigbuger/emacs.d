@@ -64,6 +64,7 @@
 (load-dir "~/.emacs.d/lisp/common")
 (load-dir "~/.emacs.d/lisp/lang")
 (load-dir "~/.emacs.d/lisp/org-config")
+(load-dir "~/.emacs.d/lisp/tools")
 
 (if (daemonp)
     (add-hook 'after-make-frame-functions

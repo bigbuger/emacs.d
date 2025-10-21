@@ -118,6 +118,6 @@
 		"\\s-*\\(\\s\".*?\\s\"\\|NULL\\|[0-9]+\\|`.*?`\\|[a-zA-Z0-9_]+\\)\\(\\s-*,\\s-*\\)"
 		-2 1 t))
 
-(provide 'init-z-databaseclient)
+(provide 'init-databaseclient)
 
-;;; init-z-databaseclient.el ends here
+;;; init-databaseclient.el ends here

@@ -57,6 +57,6 @@ Use a prefix argument ARG to indicate creation of a new process instead."
 
 (use-package multi-vterm :ensure t)
 
-(provide 'init-y-vterm)
+(provide 'init-vterm)
 
-;;; init-y-vterm.el ends here
+;;; init-vterm.el ends here

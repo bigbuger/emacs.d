@@ -10,9 +10,6 @@
 [submodule "lisp/libs/flycheck-posframe"]
 	path = lisp/libs/flycheck-posframe
 	url = git@github.com:bigbuger/flycheck-posframe.git
-[submodule "lisp/libs/lsp-ivy"]
-	path = lisp/libs/lsp-ivy
-	url = git@github.com:bigbuger/lsp-ivy.git
 [submodule "lisp/libs/company-proto"]
 	path = lisp/libs/company-proto
 	url = git@github.com:bigbuger/company-proto.git

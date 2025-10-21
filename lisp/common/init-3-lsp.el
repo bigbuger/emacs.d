@@ -54,6 +54,12 @@
 ;; 			 (cl-adjoin '(company-capf :separate company-yasnippet)
 ;; 				    company-backends :test #'equal))))
 
+(use-package consult-lsp
+  :after (lsp consult)
+  :init
+  (define-key lsp-command-map (kbd "s") 'consult-lsp-symbols)
+  (define-key lsp-command-map (kbd "e") 'consult-lsp-diagnostics))
+
 (setq dap-auto-configure-features '()
       dap-ui-variable-length 10000)
 ;; (define-key lsp-mode-map (kbd "M-?") 'lsp-ui-peek-find-references)
