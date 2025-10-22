@@ -42,7 +42,8 @@
 (use-package consult-flycheck
   :after consult
   :bind (:map flycheck-mode-map
-	      ("M-g e" . consult-flycheck)))
+	      ("M-g e" . consult-flycheck)
+	      ("M-g M-e" . consult-flycheck)))
 
 (provide 'init-1-flycheck)
 
