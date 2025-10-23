@@ -188,7 +188,12 @@
   (add-to-list 'embark-target-injection-hooks '(lsp-rename embark--allow-edit))
   (add-to-list 'embark-repeat-actions #'lsp-ui-find-prev-reference)
   (add-to-list 'embark-repeat-actions #'lsp-ui-find-next-reference)
-  (add-to-list 'embark-target-finders 'embark-target-lsp-identifier-at-point)
+
+ (unless (memq 'embark-org-target-element-context embark-target-finders)
+  (if-let ((tail (memq 'embark-target-active-region embark-target-finders)))
+      (push 'embark-target-lsp-identifier-at-point (cdr tail))
+    (push 'embark-target-lsp-identifier-at-point embark-target-finders)))
+  
   (add-to-list 'embark-keymap-alist '(lsp-identifier . embark-lsp-indetifier-actions)))
 
 ;; topsy 面包屑展示函数名称
