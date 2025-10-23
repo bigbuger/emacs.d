@@ -104,7 +104,7 @@
     ("sb" "List breakpoints" dap-ui-breakpoints :transient t)
     ("sS" "List sessions"    dap-ui-sessions    :transient t)
     ("se" "List expressions" dap-ui-expressions :transient t)]
-  
+   
    ["Eval"
     ("ee" "Eval"           dap-eval               :transient t)
     ("ea" "Add expression" dap-ui-expressions-add :transient t)
@@ -189,10 +189,10 @@
   (add-to-list 'embark-repeat-actions #'lsp-ui-find-prev-reference)
   (add-to-list 'embark-repeat-actions #'lsp-ui-find-next-reference)
 
- (unless (memq 'embark-org-target-element-context embark-target-finders)
-  (if-let ((tail (memq 'embark-target-active-region embark-target-finders)))
-      (push 'embark-target-lsp-identifier-at-point (cdr tail))
-    (push 'embark-target-lsp-identifier-at-point embark-target-finders)))
+  (unless (memq 'embark-org-target-element-context embark-target-finders)
+    (if-let ((tail (memq 'embark-target-active-region embark-target-finders)))
+	(push 'embark-target-lsp-identifier-at-point (cdr tail))
+      (push 'embark-target-lsp-identifier-at-point embark-target-finders)))
   
   (add-to-list 'embark-keymap-alist '(lsp-identifier . embark-lsp-indetifier-actions)))
 
@@ -208,7 +208,7 @@
   :after vertico
   :config
   (defun lsp-code-action-is-quick-fix? (x)
-  (string-equal "quickfix" (lsp:code-action-kind? x)))
+    (string-equal "quickfix" (lsp:code-action-kind? x)))
 
   (defun vertico-sort-lsp-fix-action-first (list)
     "Sort directories before files in LIST."
@@ -216,10 +216,10 @@
            (cl-loop for x in list if (not (lsp-code-action-is-quick-fix? x)) collect x)))
   
   (setf (alist-get 'lsp-execute-code-action vertico-multiform-commands)
-               '(posframe
-		 (vertico-posframe-poshandler . posframe-poshandler-point-bottom-left-corner)
-		 (vertico-posframe-width . 120)
-		 (vertico-sort-override-function . vertico-sort-lsp-fix-action-first))))
+        '(posframe
+	  (vertico-posframe-poshandler . posframe-poshandler-point-bottom-left-corner)
+	  (vertico-posframe-width . 120)
+	  (vertico-sort-override-function . vertico-sort-lsp-fix-action-first))))
 
 (define-key lsp-mode-map (kbd "M-<RET>") #'lsp-execute-code-action)
 

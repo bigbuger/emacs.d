@@ -45,6 +45,26 @@
 	      ("M-g e" . consult-flycheck)
 	      ("M-g M-e" . consult-flycheck)))
 
+(with-eval-after-load 'embark
+  (embark-define-overlay-target flycheck flycheck-overlay)
+  
+  (unless (memq 'embark-target-flycheck-at-poin embark-target-finders)
+    (if-let ((tail (memq 'embark-target-flymake-at-point embark-target-finders)))
+	(push 'embark-target-flycheck-at-point (cdr tail))
+      (push 'embark-target-flycheck-at-point embark-target-finders)))
+
+  
+  (defvar-keymap embark-flycheck-map
+    :doc "Keymap for Embark actions on Flymake diagnostics."
+    :parent embark-general-map
+    "RET" 'flycheck-list-errors
+    "n" 'flycheck-next-error
+    "p" 'flycheck-previous-error)
+
+  (add-to-list 'embark-keymap-alist '(flycheck . embark-flycheck-map))
+  (add-to-list 'embark-repeat-actions #'flycheck-next-error)
+  (add-to-list 'embark-repeat-actions #'flycheck-previous-error))
+
 (provide 'init-1-flycheck)
 
 ;;; init-1-flycheck.el ends here
