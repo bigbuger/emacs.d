@@ -170,7 +170,7 @@
     "n"     #'lsp-ui-find-next-reference
     "p"     #'lsp-ui-find-prev-reference
     "t"     #'lsp-find-type-definition
-    "i"     #'lsp-find-implementation
+    "I"     #'lsp-find-implementation
     "r"     #'xref-find-references
     "v"     #'dap-ui-eval-variable-in-buffer
     "e"     #'dap-eval-thing-at-point

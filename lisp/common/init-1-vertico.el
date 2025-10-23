@@ -524,11 +524,15 @@ targets."
 (require 'ace-window)
 (defun embark-ace-insert(string)
   "Insert `STRING' into select window by `ace-window'."
-  (let ((aw-dispatch-always t))
-    (aw-select " Ace - Window"
-	       #'(lambda (window)
-		   (with-selected-window window
-		     (embark-insert (list string)))))))
+  (if (length< (aw-window-list) 2)
+      (embark-insert (list string))
+    (let ((aw-dispatch-always t))
+      (aw-select " Ace - Insert"
+		 #'(lambda (window)
+		     (with-selected-window window
+		       (if buffer-read-only
+			   (message "Buffer is read-only")
+			 (embark-insert (list string)))))))))
 (define-key embark-general-map (kbd "i") #'embark-ace-insert)
 
 ;; i for insert
