@@ -276,6 +276,10 @@ ARG is pass to `sp-end-of-sexp'"
   :dir (or (vc-root-dir) default-directory))
 (global-set-key (kbd "M-s r") #'rg-vc-or-dir)
 
+(use-package avy
+  :bind
+  (("s-j" . avy-goto-word-or-subword-1)))
+
 (provide 'init-0-editor-enhance)
 
 ;;; init-0-editor-enhance.el ends here

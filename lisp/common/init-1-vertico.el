@@ -11,7 +11,8 @@
   :bind (:map vertico-map
 	      ("C-M-n" . vertico-next-group)
 	      ("C-M-p" . vertico-previous-group)
-	      ("M-S"   . vertico-toggle-sort))
+	      ("M-S"   . vertico-toggle-sort)
+	      ("s-j"   . vertico-quick-jump))
   
   :init
   (vertico-mode)
@@ -523,10 +524,11 @@ targets."
 (require 'ace-window)
 (defun embark-ace-insert(string)
   "Insert `STRING' into select window by `ace-window'."
-  (aw-select " Ace - Window"
-	     #'(lambda (window)
-		 (with-selected-window window
-		   (embark-insert (list string))))))
+  (let ((aw-dispatch-always t))
+    (aw-select " Ace - Window"
+	       #'(lambda (window)
+		   (with-selected-window window
+		     (embark-insert (list string)))))))
 (define-key embark-general-map (kbd "i") #'embark-ace-insert)
 
 ;; i for insert
