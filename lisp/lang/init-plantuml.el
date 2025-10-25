@@ -9,8 +9,10 @@
   :ensure t
   
   :init
-  (setq plantuml-executable-path "plantuml")
-  (setq plantuml-default-exec-mode 'executable)
+  (setq plantuml-default-exec-mode 'jar)
+  (setq org-plantuml-exec-mode 'jar)
+  (setq plantuml-jar-path "~/tool/plantuml.jar")
+  (setq org-plantuml-jar-path "~/tool/plantuml.jar")
   (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
   (with-eval-after-load 'org-src
     (add-to-list
