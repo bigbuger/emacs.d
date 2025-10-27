@@ -38,8 +38,19 @@
 (setq lsp-signature-auto-activate t)
 (setq lsp-signature-doc-lines 2)
 (setq lsp-signature-render-documentation t)
+
+(setopt lsp-signature-posframe-params '(:poshandler posframe-poshandler-point-bottom-left-corner-upward :height 2 :width 120 :border-width 1 :min-width 60))
 ;; (setq lsp-signature-function 'lsp-signature-posframe)
-(define-key lsp-mode-map (kbd "s-d") 'lsp-signature-activate)
+(defun my-lsp-signature-activate ()
+  (interactive)
+  (setq lsp-signature-function 'lsp-signature-posframe)
+  (lsp-signature-activate))
+(add-hook 'lsp-signature-mode-hook
+	  #'(lambda ()
+	      (unless lsp-signature-mode
+		(setq lsp-signature-function 'lsp-lv-message))))
+
+(define-key lsp-mode-map (kbd "s-d") 'my-lsp-signature-activate)
 (define-key lsp-mode-map (kbd "s-l l") 'lsp-ui-sideline-mode)
 
 (setq lsp-auto-execute-action nil)

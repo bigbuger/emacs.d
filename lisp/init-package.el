@@ -29,6 +29,7 @@
     rmsbolt
 
     helpful
+    ialign
     
     ;; file manager
     treemacs
