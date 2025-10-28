@@ -273,12 +273,13 @@ ARG is pass to `sp-end-of-sexp'"
 	      ("e" . wgrep-change-to-wgrep-mode)))
 
 (require 'rg)
-(rg-define-search rg-vc-or-dir
+(rg-define-search my-rg-project
   :query ask
   :format regexp
   :files "everything"
-  :dir (or (vc-root-dir) default-directory))
-(global-set-key (kbd "M-s r") #'rg-vc-or-dir)
+  :confirm prefix
+  :dir project)
+(global-set-key (kbd "M-s r") #'my-rg-project)
 
 (use-package avy
   :bind
