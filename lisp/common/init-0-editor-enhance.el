@@ -43,6 +43,10 @@
 (define-key smartparens-mode-map (kbd "C-M-d") 'sp-clone-sexp)
 (define-key smartparens-mode-map (kbd "C-M-u") 'sp-backward-up-sexp)
 
+(setopt delete-pair-blink-delay 0.1)
+(global-set-key (kbd "C-M-z") 'delete-pair)
+(define-key smartparens-mode-map (kbd "C-M-z") 'sp-unwrap-sexp)
+
 ;; sexp 新开一行
 (defun sp-up-sexp-and-new-line (&optional arg)
   "Jump to end of the sexp the point is in and insert newline.

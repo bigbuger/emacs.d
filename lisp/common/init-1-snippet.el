@@ -128,7 +128,7 @@ about what flexible matching means in this context."
 	try-expand-dabbrev
         try-expand-dabbrev-from-kill
         try-expand-dabbrev-all-buffers
-	try-expand-flexible-abbrev
+	;;try-expand-flexible-abbrev
 	
 	my/try-expand-list
         try-expand-list
