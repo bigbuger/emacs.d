@@ -9,8 +9,8 @@
 (require 'dap-mode)
 
 (setq lsp-warn-no-matched-clients nil)
-(setq lsp-auto-guess-root t)
-(setq lsp-guess-root-without-session t)
+(setq lsp-auto-guess-root nil)
+(setq lsp-guess-root-without-session nil)
 (setq lsp-prefer-flymake :none)
 (setq lsp-ui-flycheck-enable t)
 (setq lsp-diagnostic-clean-after-change t)
