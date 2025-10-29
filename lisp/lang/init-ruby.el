@@ -6,7 +6,7 @@
 ;;; Code:
 
 ;;(require 'flymake-ruby)
-(require 'rvm)
+;; (require 'rvm)
 (require 'inf-ruby)
 ;; (require 'robe)
 
