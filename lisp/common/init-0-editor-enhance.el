@@ -283,7 +283,7 @@ ARG is pass to `sp-end-of-sexp'"
 
 (use-package avy
   :bind
-  (("s-j" . avy-goto-word-or-subword-1)))
+  (("C-c j" . avy-goto-word-or-subword-1)))
 
 (provide 'init-0-editor-enhance)
 
