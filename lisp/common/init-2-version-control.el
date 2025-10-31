@@ -128,6 +128,16 @@ instead of the hash, like `kill-ring-save' would."
 ;; -B --ignore-blank-lines
 (setopt ediff-diff-options "-dB")
 
+
+;; casual ediff 菜单
+(use-package casual
+  :ensure t
+  :init
+  (casual-ediff-install) ; run this to enable Casual Ediff
+  (add-hook 'ediff-keymap-setup-hook
+            (lambda ()
+            (keymap-set ediff-mode-map "C-o" #'casual-ediff-tmenu))))
+
 ;; end ediff
 
 ;; smerge
@@ -149,7 +159,8 @@ instead of the hash, like `kill-ring-save' would."
       ("e" "Ediff"             smerge-ediff)
       ("s" "Swap upper/lower"  smerge-swap :transient t)
       ("R" "Refine"            smerge-refine  :transient t)
-      ("r" "Resolve"           smerge-resolve :transient t)]
+      ("r" "Resolve"           smerge-resolve :transient t)
+      ("A" "Resolve All"       smerge-resolve-all :transient t)]
      ["Navigation"
       ("n" "Next conflict"     smerge-next :transient t)
       ("p" "Previous conflict" smerge-prev :transient t)
