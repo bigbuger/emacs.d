@@ -14,6 +14,9 @@
 (use-package elpy
   :ensure t
   :defer t
+  :config
+  (delete `elpy-module-highlight-indentation elpy-modules)
+
   :init
   (advice-add 'python-mode :before 'elpy-enable)
 
