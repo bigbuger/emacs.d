@@ -33,8 +33,8 @@
 (use-package ob-grpc
   :load-path "~/.emacs.d/lisp/libs/ob-grpc"
   :bind (:map org-mode-map
-              ("C-c g i" . ob-grpc-init)
-              ("C-c g b" . ob-grpc-insert-block)))
+              ("C-c C-g i" . ob-grpc-init)
+              ("C-c C-g b" . ob-grpc-insert-block)))
 
 (flycheck-define-checker protobuf-protoc
   "A protobuf syntax checker using the protoc compiler.
