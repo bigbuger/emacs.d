@@ -163,6 +163,13 @@
 ;; 新开 frame
 (global-set-key (kbd "M-5") 'make-frame-command)
 
+
+;;resizing windows
+(global-set-key (kbd "S-C-<left>")  'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>")  'shrink-window)
+(global-set-key (kbd "S-C-<up>")    'enlarge-window)
+
 ;;全屏函数
 (defun toggle-fullscreen (&optional f)
   "Fullscreen."

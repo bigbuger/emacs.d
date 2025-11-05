@@ -12,7 +12,8 @@
 	      ("C-M-n" . vertico-next-group)
 	      ("C-M-p" . vertico-previous-group)
 	      ("M-S"   . vertico-toggle-sort)
-	      ("s-j"   . vertico-quick-jump))
+	      ("s-j"   . vertico-quick-jump)
+	      ("C-c j" . vertico-quick-jump))
   
   :init
   (vertico-mode)
