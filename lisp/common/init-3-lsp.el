@@ -151,14 +151,9 @@
 ;; (add-hook 'dap-stopped-hook
 ;;           (lambda (arg) (call-interactively #'dap-transient-simple)))
 
-(defun +disable-vertico-sort (fun &rest args)
-  (minibuffer-with-setup-hook
-      (:append (lambda ()
-		 (setq-local vertico-sort-function nil)))
-    (apply fun args)))
-(advice-add 'dap-switch-stack-frame :around #'+disable-vertico-sort)
-(advice-add 'dap-switch-session :around #'+disable-vertico-sort)
-(advice-add 'dap-switch-thread :around #'+disable-vertico-sort)
+(dolist (cmd '(dap-switch-stack-frame dap-switch-session dap-switch-thread))
+  (setf (alist-get cmd vertico-multiform-commands)
+        '((vertico-sort-override-function . identity))))
 
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
