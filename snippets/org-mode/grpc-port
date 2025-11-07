@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: grpc-port
+# key: >grpcp
+# --
+:PROPERTIES:
+:header-args:bash: :var url="${0}" :wrap src json :session grpc :async yes
+:END:
