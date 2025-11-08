@@ -7,10 +7,22 @@
 (require 'vterm)
 (global-set-key (kbd "C-c t") 'vterm-other-window)
 
+(defun vterm-left-word ()
+  (interactive)
+  (vterm-send "M-b"))
+
+(defun vterm-right-word ()
+  (interactive)
+  (vterm-send "M-f"))
+
+(define-key vterm-mode-map (kbd "M-<left>") #'vterm-left-word)
+(define-key vterm-mode-map (kbd "M-<right>") #'vterm-right-word)
+(define-key vterm-mode-map (kbd "M-<up>") #'vterm-send-M-p)
+(define-key vterm-mode-map (kbd "M-<down>") #'vterm-send-M-n)
+
 (defun my-append-to-buffer (bf text)
   (with-current-buffer bf
     (save-excursion
-      (message "fuck %s" text)
       (end-of-buffer)
       (insert text "\n"))))
 
