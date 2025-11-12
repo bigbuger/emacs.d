@@ -99,7 +99,7 @@ since the whatis index is broken post-SIP."
 ;; 中文拼音搜索
 (use-package pyim
   :ensure t
-  :after (orderless)
+  :commands (pyim-cregexp-build)
   :init
   (defun pyim-orderless-regexp (orig_func component)
     (let ((result (funcall orig_func component)))
@@ -124,7 +124,9 @@ since the whatis index is broken post-SIP."
     (enable-py-search)
     (apply fun args)
     (disable-py-search))
-
+  
+  (add-hook 'minibuffer-exit-hook 'disable-py-search)
+  
   (advice-add 'find-file :around #'using-py-search)
   (advice-add 'recentf :around #'using-py-search))
 
