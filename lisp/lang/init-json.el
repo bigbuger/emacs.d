@@ -6,6 +6,8 @@
 
 ;;; Code:
 (require 'json-mode)
+(add-to-list 'treesit-language-source-alist
+	     '(json "https://github.com/tree-sitter/tree-sitter-json"))
 
 (use-package consult-jq
   :load-path "~/.emacs.d/lisp/libs/consult-jq/"

@@ -52,3 +52,6 @@
 [submodule "lisp/libs/ob-grpc"]
 	path = lisp/libs/ob-grpc
 	url = git@github.com:shsms/ob-grpc.git
+[submodule "lisp/libs/pic-ts-mode"]
+	path = lisp/libs/pic-ts-mode
+	url = git@github.com:smoeding/pic-ts-mode.git
