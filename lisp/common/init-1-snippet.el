@@ -122,25 +122,27 @@ about what flexible matching means in this context."
   (concat "\\b" (mapconcat (lambda (x) (concat "\\w*" (list x))) str "")
           "\\w*" "\\b"))
 
+(defun hippie-expand-flex ()
+  "Call try-expand-flexible-abbrev."
+  (interactive)
+  (let ((hippie-expand-try-functions-list '(try-expand-flexible-abbrev)))
+    (hippie-expand nil)))
+
 (setq hippie-expand-try-functions-list
       '(yas-hippie-try-expand
-
+	
 	try-expand-dabbrev
         try-expand-dabbrev-from-kill
         try-expand-dabbrev-all-buffers
-	;;try-expand-flexible-abbrev
 	
 	my/try-expand-list
         try-expand-list
-	try-expand-line
+	try-expand-line 		;It is `C-u 7 M-/'
 	try-expand-list-all-buffers
 	try-expand-line-all-buffers
-	
-        ;; try-complete-file-name-partially
-        ;; try-complete-file-name
 	))
 
-(define-key yas-minor-mode-map [remap dabbrev-expand] 'hippie-expand)
+(global-set-key [remap dabbrev-expand] 'hippie-expand)
 
 (defun he-fix-string-parens (args)
   "remove extra paren when expanding line in smartparens."
