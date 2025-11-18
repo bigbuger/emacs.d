@@ -283,7 +283,7 @@ ARG is pass to `sp-end-of-sexp'"
 
 (use-package avy
   :bind
-  (("C-c j" . avy-goto-char-2)
+  (("C-c j" . avy-goto-word-1)
    ("M-g w" . avy-goto-word-or-subword-1)
    ("M-g l" . avy-goto-line)))
 

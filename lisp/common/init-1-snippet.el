@@ -143,6 +143,15 @@ about what flexible matching means in this context."
 	))
 
 (global-set-key [remap dabbrev-expand] 'hippie-expand)
+(require 'bind-key)
+(bind-key* "M-h" 'hippie-expand) ;; 原来是 mark-paragraph, 不过我不怎么用
+
+(defun hippie-expand-line ()
+  "Call try-expand-line."
+  (interactive)
+  (let ((hippie-expand-try-functions-list '(try-expand-line try-expand-line-all-buffers)))
+    (hippie-expand nil)))
+(global-set-key (kbd "M-l") 'hippie-expand-line) ; 原来是 downcase-word, 不过我不怎么用
 
 (defun he-fix-string-parens (args)
   "remove extra paren when expanding line in smartparens."
