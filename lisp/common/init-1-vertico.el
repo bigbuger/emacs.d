@@ -136,8 +136,8 @@ since the whatis index is broken post-SIP."
   :init
   (marginalia-mode)
   (setq marginalia-command-categories
-        (append '((projectile-find-file . project-file)
-                  (projectile-find-dir . project-file)
+        (append '((projectile-find-file . file)
+                  (projectile-find-dir . file)
                   (projectile-switch-project . file))
                 marginalia-command-categories))
   (add-to-list 'marginalia-prompt-categories '("\\<buffer\\>" . buffer)))
@@ -468,6 +468,8 @@ This is the function to be used for the hook `completion-at-point-functions'."
   (define-key embark-identifier-map "u" #'string-inflection-underscore)
   (define-key embark-identifier-map "U" #'string-inflection-upcase)
   (define-key embark-identifier-map "k" #'string-inflection-kebab-case)
+
+  (define-key embark-become-file+buffer-map "p" #'projectile-find-file)
 
   :init
   (setq which-key-use-C-h-commands nil
