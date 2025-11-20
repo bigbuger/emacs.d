@@ -29,9 +29,25 @@
 ;; which-key 快捷键打小抄
 (require 'which-key)
 (which-key-mode)
-;; 不要重新排序，按照按键绑定的先后顺序就行
-;; (setq which-key-sort-order nil)
 
+(setopt which-key-allow-multiple-replacements t
+        which-key-sort-order 'which-key-description-order ;; 不要重新排序，按照按键绑定的先后顺序就行
+        which-key-replacement-alist
+          (seq-map
+           (lambda (rep)
+             `((nil . ,(elt rep 0))
+               . (nil . ,(elt rep 1))))
+           '(("org-babel-" "ob-")
+             ("string-inflection-" "")
+	     ("embark-" "")
+	     ("lsp-ui-" "")
+	     ("lsp-" "")
+	     ("xref-" "")
+             ("embark-collect" "⇶ collect")
+             ("embark-export" "⇶ export")
+             ("embark-act-all" "all")
+             ("embark-become" "become")
+             ("-" " "))))
 
 ;; imenu-list 侧边栏显示 imenu
 (require 'imenu-list)
