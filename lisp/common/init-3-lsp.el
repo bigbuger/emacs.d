@@ -182,6 +182,7 @@
     "e"     #'dap-eval-thing-at-point
     "E"     #'dap-eval-region
     "h"     #'lsp-treemacs-call-hierarchy
+    "H"     #'embark-toggle-highlight
     "c"     #'string-inflection-lower-camelcase
     "C"     #'string-inflection-camelcase
     "u"     #'string-inflection-underscore

@@ -32,22 +32,29 @@
 
 (setopt which-key-allow-multiple-replacements t
         which-key-sort-order 'which-key-description-order ;; 不要重新排序，按照按键绑定的先后顺序就行
-        which-key-replacement-alist
-          (seq-map
-           (lambda (rep)
-             `((nil . ,(elt rep 0))
-               . (nil . ,(elt rep 1))))
-           '(("org-babel-" "ob-")
-             ("string-inflection-" "")
-	     ("embark-" "")
-	     ("lsp-ui-" "")
-	     ("lsp-" "")
-	     ("xref-" "")
-             ("embark-collect" "⇶ collect")
-             ("embark-export" "⇶ export")
-             ("embark-act-all" "all")
-             ("embark-become" "become")
-             ("-" " "))))
+	)
+
+(setopt which-key-replacement-alist
+	(append which-key-replacement-alist
+		(seq-map
+		 (lambda (rep)
+		   `((nil . ,(elt rep 0))
+		     . (nil . ,(elt rep 1))))
+		 '(("org-babel-" "ob-")
+		   ("string-inflection-" "")
+		   ("embark-" "")
+		   ("lsp-ui-" "")
+		   ("lsp-" "")
+		   ("xref-" "")
+		   ("embark-collect" "⇶ collect")
+		   ("embark-export" "⇶ export")
+		   ("embark-act-all" "all")
+		   ("embark-become" "become")
+		   ("-" " ")))))
+(add-to-list 'which-key-replacement-alist '(("<left>") "←"))
+(add-to-list 'which-key-replacement-alist '(("<right>") "→"))
+(add-to-list 'which-key-replacement-alist '(("TAB" . nil) . ("↹" . nil)))
+(add-to-list 'which-key-replacement-alist '(("RET" . nil) . ("⏎" . nil)))
 
 ;; imenu-list 侧边栏显示 imenu
 (require 'imenu-list)
