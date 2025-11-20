@@ -276,7 +276,7 @@
 
 (cl-defun rmsbolt--go-plan9-compile-cmd (&key src-buffer)
   "Process a compile command for go."
-  (rmsbolt--with-files
+  (rmsbolt--with-local-files
    src-buffer
    (let* ((cmd (buffer-local-value 'rmsbolt-command src-buffer))
           (cmd (mapconcat #'identity
