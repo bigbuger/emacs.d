@@ -212,6 +212,10 @@
   (unbind-key "C-s" 'transient-popup-navigation-map)
   (unbind-key "<down-mouse-1>" 'transient-popup-navigation-map))
 
+(setq hi-lock-face-defaults
+      '("hi-blue" "hi-pink" "hi-green" "hi-yellow" "hi-salmon" "hi-aquamarine"
+	"hi-black-b" "hi-blue-b" "hi-red-b" "hi-green-b" "hi-black-hb"))
+
 (provide 'init-0-emacs-base)
 
 ;;; init-0-emacs-base.el ends here

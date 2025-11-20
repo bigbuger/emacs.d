@@ -156,6 +156,10 @@ since the whatis index is broken post-SIP."
 (use-package consult
   :demand t
 
+  :config
+  (setf (alist-get 'consult-line vertico-multiform-commands)
+	'((vertico-cycle . t)))
+  
   :init
   ;; Use `consult-completion-in-region' if Vertico is enabled.
   ;; Otherwise use the default `completion--in-region' function.
@@ -435,6 +439,11 @@ This is the function to be used for the hook `completion-at-point-functions'."
                  nil
                  (window-parameters (mode-line-format . none))))
 
+  (keymap-unset embark-general-map "C")
+  (define-key embark-general-map (kbd "C-c") 'embark-consult-search-map)
+  (keymap-unset embark-consult-search-map "r") ;; #'consult-ripgrep
+  (define-key embark-consult-search-map "s" #'consult-ripgrep) ;; #'consult-ripgrep
+
   (keymap-unset embark-region-map "e") ;; #'eval-region
   (keymap-unset embark-region-map "f") ;; #'fill-region
   (keymap-unset embark-region-map "p") ;; #'fill-region-as-paragraph
@@ -453,6 +462,12 @@ This is the function to be used for the hook `completion-at-point-functions'."
   ;; make all map use same bind, N for narrow
   (keymap-unset embark-region-map "n") ;; #'narrow-to-region
   (define-key embark-region-map "N" #'narrow-to-region)
+
+  (define-key embark-identifier-map "c" #'string-inflection-lower-camelcase)
+  (define-key embark-identifier-map "C" #'string-inflection-camelcase)
+  (define-key embark-identifier-map "u" #'string-inflection-underscore)
+  (define-key embark-identifier-map "U" #'string-inflection-upcase)
+  (define-key embark-identifier-map "k" #'string-inflection-kebab-case)
 
   :init
   (setq which-key-use-C-h-commands nil

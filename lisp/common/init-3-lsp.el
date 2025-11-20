@@ -171,7 +171,7 @@
 
   (defvar-keymap embark-lsp-indetifier-actions
     :doc "Keymap for actions for lsp-identifier."
-    :parent embark-general-map
+    :parent embark-identifier-map
     "<RET>" #'lsp-find-definition
     "n"     #'lsp-ui-find-next-reference
     "p"     #'lsp-ui-find-prev-reference
@@ -182,11 +182,6 @@
     "e"     #'dap-eval-thing-at-point
     "E"     #'dap-eval-region
     "h"     #'lsp-treemacs-call-hierarchy
-    "c"     #'string-inflection-lower-camelcase
-    "C"     #'string-inflection-camelcase
-    "u"     #'string-inflection-underscore
-    "U"     #'string-inflection-upcase
-    "k"     #'string-inflection-kebab-case
     "R"     #'lsp-rename
     "o"     #'occur
     )
