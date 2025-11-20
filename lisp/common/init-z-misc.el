@@ -46,6 +46,8 @@
 		   ("lsp-ui-" "")
 		   ("lsp-" "")
 		   ("xref-" "")
+		   ("my-" "")
+		   ("my/" "")
 		   ("embark-collect" "⇶ collect")
 		   ("embark-export" "⇶ export")
 		   ("embark-act-all" "all")
