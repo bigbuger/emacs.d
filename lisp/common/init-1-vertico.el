@@ -164,22 +164,20 @@ since the whatis index is broken post-SIP."
   
   (setq consult-narrow-key "C-+") ;; narrow 切换多个分组
   ;; (setq consult-line-start-from-top t)
-  ;; (setq consult-fd-args `(,(if (executable-find "fdfind" 'remote) "fdfind" "fd")
-  ;; 				"--color=never")) ; fd --full-path 会匹配文件全路径, 会导致用当前目录包含的词进行搜索时有问题
   
   (global-set-key (kbd "C-x b") 'consult-buffer)
   (global-set-key (kbd "C-c M-y") 'consult-yank-pop)
   (global-set-key (kbd "C-c m") 'consult-bookmark)
   (global-set-key (kbd "C-c s") 'consult-ripgrep)
-  (global-set-key (kbd "C-c f") 'consult-find)
+  (global-set-key (kbd "C-c f") 'consult-fd)
   (global-set-key (kbd "C-c e") 'consult-recent-file)
-  (global-set-key (kbd "C-c l")  'consult-line)
-  (global-set-key (kbd "C-c i")  'consult-imenu)
+  (global-set-key (kbd "C-c l") 'consult-line)
+  (global-set-key (kbd "C-c i") 'consult-imenu)
   
   (global-set-key (kbd "M-g i") 'consult-imenu) ;; orig. imenu
   (global-set-key (kbd "M-g M-g") 'consult-goto-line) ;; orig. goto-line
   (global-set-key (kbd "M-g g") 'consult-goto-line) ;; orig. goto-line
-  (global-set-key (kbd "M-g m") 'consult-mark)
+  ;; (global-set-key (kbd "M-g m") 'consult-mark)
   
   (global-set-key (kbd "M-s k")  'consult-keep-lines)
   (global-set-key (kbd "M-s u")  'consult-focus-lines)
@@ -339,6 +337,20 @@ This is the function to be used for the hook `completion-at-point-functions'."
   ;;       (setq-local consult--regexp-compiler #'consult--orderless-regexp-compiler))
   ;;     (apply args)))
   ;; (advice-add #'consult-ripgrep :around #'consult--with-orderless)
+
+  ;; fd --full-path 会包含文件名，所以会导致用当前目录/项目名去搜索是有问题，这里给正则加上开头为当前目录，大部分情况可以适配掉
+  (defun consult-fd--orderless-regexp-compiler (input type &rest _config)
+    (setq input (cdr (orderless-compile input)))
+    (cons
+     (mapcar (lambda (r) (consult--convert-regexp (concat "^" default-directory  ".*" r) type)) input)
+     (lambda (str) (orderless--highlight input t str))))
+
+  (defun consult-fd--with-orderless (&rest args)
+    (minibuffer-with-setup-hook
+      (lambda ()
+        (setq-local consult--regexp-compiler #'consult-fd--orderless-regexp-compiler))
+      (apply args)))
+  (advice-add #'consult-fd :around #'consult-fd--with-orderless)
   )
 
 (use-package consult
