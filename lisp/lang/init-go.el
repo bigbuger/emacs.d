@@ -131,6 +131,10 @@
 		      "name"))))
     (concat interface "." method)))
 
+(add-to-list 'projectile-other-file-alist
+	     '("pb.go" . ("proto")))
+(add-to-list 'projectile-other-file-alist
+	     '("proto" . ("pb.go")))
 (add-hook 'go-ts-mode-hook
 	  (lambda ()
 	    (setq-local defun-prompt-regexp go-func-regexp
@@ -156,6 +160,7 @@
 			  ("Type Alias" "\\`type_declaration\\'" go-ts-mode--alias-node-p nil)
 			  ("Variable" "\\`var_spec\\'" my-treesit-go-not-in-function my-treesit-go-var-name)))
 	    (setq-local lsp-enable-imenu nil)
+	    (setq ff-other-file-alist 'go-other-file-alist)
 	    (lsp-deferred)))
 
 (with-eval-after-load 'consult-imenu
