@@ -66,7 +66,7 @@ since the whatis index is broken post-SIP."
 	'(orderless-literal		; use = to dispatch
 	  orderless-regexp		; use % to dispatch
 	  ;; orderless-prefixes          ; re-re matches query-replace-regexp, recode-region and magit-remote-list-refs; f-d.t matches final-draft.txt
-	  ;; orderless-literal-prefix    ; The component is treated as a literal string that must occur as a prefix of a candidate. use ^ to dispatch , 和正则开头一样
+	  ;; orderless-literal-prefix    ; The component is treated as a literal string that must occur as a prefix of a candidate. use ^ to dispatch , 和正则开头类似？
 	  ;; orderless-initialism        ; This maps abc to \<a.*\<b.*\c, use , to dispatch
 	  ;; orderless-flex              ; This maps abc to a.*b.*c, use ~ to dispatch
 	  ))
@@ -83,15 +83,18 @@ since the whatis index is broken post-SIP."
   
   (orderless-define-completion-style orderless+initialism+pinyin
     (orderless-matching-styles '(orderless-literal
-				 orderless-regexp
-				 orderless-initialism
-				 orderless-regex-pinyin)))
+				 orderless-regex-pinyin
+				 orderless-initialism)))
 
    (orderless-define-completion-style orderless+initialism+prefixes
     (orderless-matching-styles '(orderless-literal
 				 orderless-regexp
 				 orderless-prefixes
 				 orderless-initialism)))
+
+    (orderless-define-completion-style orderless+pinyin
+      (orderless-matching-styles '(orderless-literal
+				   orderless-regex-pinyin)))
   
   (setq orderless-component-separator #'orderless-escapable-split-on-space)
   
@@ -102,7 +105,7 @@ since the whatis index is broken post-SIP."
 	  (file (styles orderless+initialism+pinyin))
 	  (project (styles orderless+initialism+pinyin))
 	  (project-file (styles orderless+initialism+pinyin))
-	  (line (styles orderless+initialism+pinyin))
+	  (line (styles orderless+pinyin))
 	  (bookmark (styles orderless+initialism+pinyin))))
   
   
