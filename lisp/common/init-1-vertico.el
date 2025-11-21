@@ -73,7 +73,7 @@ since the whatis index is broken post-SIP."
 
   ;; 中文拼音搜索
   (require 'pyim)
-  (defun completion--regex-pinyin (str)
+  (defun orderless-regex-pinyin (str)
     (pyim-cregexp-build (orderless-regexp str)))
   
   (orderless-define-completion-style orderless+initialism
@@ -85,13 +85,19 @@ since the whatis index is broken post-SIP."
     (orderless-matching-styles '(orderless-literal
 				 orderless-regexp
 				 orderless-initialism
-				 completion--regex-pinyin)))
+				 orderless-regex-pinyin)))
+
+   (orderless-define-completion-style orderless+initialism+prefixes
+    (orderless-matching-styles '(orderless-literal
+				 orderless-regexp
+				 orderless-prefixes
+				 orderless-initialism)))
   
   (setq orderless-component-separator #'orderless-escapable-split-on-space)
   
   ;; use initialism for command, buffer and file
   (setq completion-category-overrides
-	'((command (styles orderless+initialism))
+	'((command (styles orderless+initialism+prefixes))
           (buffer (styles orderless+initialism+pinyin))
 	  (file (styles orderless+initialism+pinyin))
 	  (project (styles orderless+initialism+pinyin))
