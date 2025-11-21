@@ -70,19 +70,34 @@ since the whatis index is broken post-SIP."
 	  ;; orderless-flex              ; This maps abc to a.*b.*c, use ~ to dispatch
 	  ))
 
+
+  ;; 中文拼音搜索
+  (require 'pyim)
+  (defun completion--regex-pinyin (str)
+    (pyim-cregexp-build (orderless-regexp str)))
+  
   (orderless-define-completion-style orderless+initialism
     (orderless-matching-styles '(orderless-literal
 				 orderless-regexp
 				 orderless-initialism)))
+  
+  (orderless-define-completion-style orderless+initialism+pinyin
+    (orderless-matching-styles '(orderless-literal
+				 orderless-regexp
+				 orderless-initialism
+				 completion--regex-pinyin)))
+  
   (setq orderless-component-separator #'orderless-escapable-split-on-space)
   
   ;; use initialism for command, buffer and file
   (setq completion-category-overrides
 	'((command (styles orderless+initialism))
-          (buffer (styles orderless+initialism))
-	  (file (styles orderless+initialism))
-	  (project (styles orderless+initialism))
-	  (project-file (styles orderless+initialism))))
+          (buffer (styles orderless+initialism+pinyin))
+	  (file (styles orderless+initialism+pinyin))
+	  (project (styles orderless+initialism+pinyin))
+	  (project-file (styles orderless+initialism+pinyin))
+	  (line (styles orderless+initialism+pinyin))
+	  (bookmark (styles orderless+initialism+pinyin))))
   
   
   :init
@@ -96,41 +111,6 @@ since the whatis index is broken post-SIP."
       (apply orig_fun args))))
 
 
-;; 中文拼音搜索
-(use-package pyim
-  :ensure t
-  :commands (pyim-cregexp-build)
-  :init
-  (defun pyim-orderless-regexp (orig_func component)
-    (let ((result (funcall orig_func component)))
-      (pyim-cregexp-build result)))
-
-  (defun toggle-chinese-search ()
-    (interactive)
-    (if (not (advice-member-p #'pyim-orderless-regexp 'orderless-regexp))
-	(advice-add 'orderless-regexp :around #'pyim-orderless-regexp)
-      (advice-remove 'orderless-regexp #'pyim-orderless-regexp)))
-
-  (defun disable-py-search (&optional _args)
-    (if (advice-member-p #'pyim-orderless-regexp 'orderless-regexp)
-	(advice-remove 'orderless-regexp #'pyim-orderless-regexp)))
-
-  (defun enable-py-search (&optional _args)
-    (if (not (advice-member-p #'pyim-orderless-regexp 'orderless-regexp))
-	(advice-add 'orderless-regexp :around #'pyim-orderless-regexp)))
-  
-  (defun using-py-search (fun &rest args)
-    "使用 pyim 进行中文搜索"
-    (enable-py-search)
-    (apply fun args)
-    (disable-py-search))
-  
-  (add-hook 'minibuffer-exit-hook 'disable-py-search)
-  
-  (advice-add 'find-file :around #'using-py-search)
-  (advice-add 'recentf :around #'using-py-search))
-
-
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia
   :init
@@ -138,7 +118,8 @@ since the whatis index is broken post-SIP."
   (setq marginalia-command-categories
         (append '((projectile-find-file . file)
                   (projectile-find-dir . file)
-                  (projectile-switch-project . file))
+                  (projectile-switch-project . file)
+		  (consult-line . line))
                 marginalia-command-categories))
   (add-to-list 'marginalia-prompt-categories '("\\<buffer\\>" . buffer)))
 
@@ -350,16 +331,6 @@ This is the function to be used for the hook `completion-at-point-functions'."
   ;;     (apply args)))
   ;; (advice-add #'consult-ripgrep :around #'consult--with-orderless)
   )
-
-(use-package consult
-  :after pyim
-  :config
-  (advice-add 'consult-line :around #'using-py-search)
-  (advice-add 'consult-recent-file :around #'using-py-search)
-  (advice-add 'consult--source-bookmark :around #'using-py-search)
-  (advice-add 'consult-bookmark :around #'using-py-search)
-  (advice-add 'consult-buffer :around #'using-py-search)
-  (advice-add 'consult--source-buffer :around #'using-py-search))
 
 (use-package consult
   :after projectile

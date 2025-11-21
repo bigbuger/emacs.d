@@ -25,8 +25,11 @@
   
   
   :init
-  (advice-add 'org-roam-node-find :around #'using-py-search)
   (define-prefix-command 'org-roam-command-map)
+  (add-to-list 'marginalia-command-categories
+	       '(org-roam-node-find . node))
+  (add-to-list 'completion-category-overrides
+	       '(node (styles orderless+initialism+pinyin)))
   
   (defun org-roam-node-insert-immediate (arg &rest args)
     (interactive "P")
