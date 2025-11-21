@@ -35,6 +35,7 @@
 ;; projectile rg 有时候比 consult-rg 好用
 (define-key projectile-mode-map (kbd "C-c p s") 'projectile-ripgrep)
 
+(define-key projectile-command-map (kbd "t") 'projectile-run-vterm-other-window)
 
 ;; ibuffer
 (require 'ibuffer-projectile)
