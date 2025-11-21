@@ -59,17 +59,17 @@ since the whatis index is broken post-SIP."
 (use-package orderless
   :demand t
   :config
-  (setq orderless-style-dispatchers (list #'orderless-kwd-dispatch ; 查询可以通过 :mod:lisp :dir:xxx 之类的命令查询 buffer
-                                          #'orderless-affix-dispatch))
+  ;; (setq orderless-style-dispatchers (list #'orderless-kwd-dispatch ; 查询可以通过 :mod:lisp :dir:xxx 之类的命令查询 buffer
+  ;;                                         #'orderless-affix-dispatch))
   
   (setq orderless-matching-styles
 	'(orderless-literal		; use = to dispatch
 	  orderless-regexp		; use % to dispatch
-	  ;; orderless-prefixes          ; f-d.t matches final-draft.txt, use ^ to dispatch
+	  ;; orderless-prefixes          ; re-re matches query-replace-regexp, recode-region and magit-remote-list-refs; f-d.t matches final-draft.txt
+	  ;; orderless-literal-prefix    ; The component is treated as a literal string that must occur as a prefix of a candidate. use ^ to dispatch , 和正则开头一样
 	  ;; orderless-initialism        ; This maps abc to \<a.*\<b.*\c, use , to dispatch
 	  ;; orderless-flex              ; This maps abc to a.*b.*c, use ~ to dispatch
 	  ))
-
 
   ;; 中文拼音搜索
   (require 'pyim)
