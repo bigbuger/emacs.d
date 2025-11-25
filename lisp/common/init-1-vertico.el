@@ -86,15 +86,15 @@ since the whatis index is broken post-SIP."
 				 orderless-regex-pinyin
 				 orderless-initialism)))
 
-   (orderless-define-completion-style orderless+initialism+prefixes
+  (orderless-define-completion-style orderless+initialism+prefixes
     (orderless-matching-styles '(orderless-literal
 				 orderless-regexp
 				 orderless-prefixes
 				 orderless-initialism)))
 
-    (orderless-define-completion-style orderless+pinyin
-      (orderless-matching-styles '(orderless-literal
-				   orderless-regex-pinyin)))
+  (orderless-define-completion-style orderless+pinyin
+    (orderless-matching-styles '(orderless-literal
+				 orderless-regex-pinyin)))
   
   (setq orderless-component-separator #'orderless-escapable-split-on-space)
   
@@ -174,7 +174,7 @@ since the whatis index is broken post-SIP."
   (global-set-key (kbd "C-c l") 'consult-line)
   (global-set-key (kbd "C-c i") 'consult-imenu)
   
-  (global-set-key (kbd "M-g i") 'consult-imenu) ;; orig. imenu
+  (global-set-key (kbd "M-g i") 'consult-imenu)	      ;; orig. imenu
   (global-set-key (kbd "M-g M-g") 'consult-goto-line) ;; orig. goto-line
   (global-set-key (kbd "M-g g") 'consult-goto-line) ;; orig. goto-line
   ;; (global-set-key (kbd "M-g m") 'consult-mark)
@@ -199,10 +199,10 @@ since the whatis index is broken post-SIP."
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
 
-  (defun consult-rg-get-completion-options ()
-    "Generate rg options table vai rg -h."
-    (when (executable-find "rg")
-      (let* ((-h (shell-command-to-string "rg -h"))
+  (defun consult--get-completion-options-from-help (exec)
+    "Generate exec options table vai `exec' -h."
+    (when (executable-find exec)
+      (let* ((-h (shell-command-to-string (concat exec  " --help")))
 	     (-h-list (string-split -h "\\(\\.\\|:\\)\n"))
 	     (doc-left-pad 30))
 	(mapcan (lambda (h)
@@ -228,35 +228,49 @@ since the whatis index is broken post-SIP."
 			  (list `(,short . ,s-doc)))))))
 		-h-list))))
 
-  (defcustom consult-rg-completion-options-alist (consult-rg-get-completion-options)
-    "Rg options alist.")
+  (defmacro def-consult-help (command exec)
+    (let ((options-fun (intern (format "consult-%s-get-completion-options" exec)))
+	  (options-alist (intern (format "consult-%s-completion-options-alist" exec)))
+	  (annotion (intern (format "consult-%s-completion-annotation" exec)))
+	  (table (intern (format "consult-%s-completion-table" exec)))
+	  (capf (intern (format "consult-%s-completion-at-point" exec)))
+	  (adv (intern (format "consult-%s-with-completion-at-point" exec))))
+      `(progn
+	 (defun ,options-fun ()
+	     "Generate options table vai -h."
+	   (consult--get-completion-options-from-help ,exec))
 
-  (defun consult-rg-completion-annotation (candidate)
-    "Annotation for rg option."
-    (cdr (assoc candidate consult-rg-completion-options-alist)))
-
-  (defun consult-rg-completion-table ()
-    "List all option for rg."
-    (mapcar #'car consult-rg-completion-options-alist))
-
-  (defun consult-rg-completion-at-point ()
-    "Completion rg option.
+	 (defcustom ,options-alist
+	   (,options-fun)
+	   ,(format "%s options alist." exec))
+	 
+	 (defun ,annotion (candidate)
+	   "Annotation for rg option."
+	   (cdr (assoc candidate ,options-alist)))
+	 
+	 (defun ,table ()
+	   "List all option for rg."
+	   (mapcar #'car ,options-alist))
+	 
+	 (defun ,capf ()
+	   "Completion option.
 This is the function to be used for the hook `completion-at-point-functions'."
-    (interactive)
-    (let* ((bds (bounds-of-thing-at-point 'symbol))
-           (start (car bds))
-           (end (cdr bds)))
-      (list start end (consult-rg-completion-table) :annotation-function #'consult-rg-completion-annotation)))
+	   (interactive)
+	   (let* ((bds (bounds-of-thing-at-point 'symbol))
+		  (start (car bds))
+		  (end (cdr bds)))
+	     (list start end (,table) :annotation-function #',annotion)))
 
-  (defun consult-rg-with-completion-at-point (orign &rest args)
-    (minibuffer-with-setup-hook
-	(:append
-	 (lambda ()
-	   (add-hook 'completion-at-point-functions
-		     #'consult-rg-completion-at-point nil t)))
-      (apply orign args)))
+	 (defun ,adv (orign &rest args)
+	   (minibuffer-with-setup-hook
+	       (:append
+		(lambda ()
+		  (add-hook 'completion-at-point-functions
+			    #',capf nil t)))
+	     (apply orign args)))
 
-  (advice-add 'consult-ripgrep :around #'consult-rg-with-completion-at-point)
+	 (advice-add ,command :around ',adv))))
+  (def-consult-help 'consult-ripgrep "rg")
   
   :config
   (consult-customize
@@ -347,10 +361,11 @@ This is the function to be used for the hook `completion-at-point-functions'."
 
   (defun consult-fd--with-orderless (&rest args)
     (minibuffer-with-setup-hook
-      (lambda ()
-        (setq-local consult--regexp-compiler #'consult-fd--orderless-regexp-compiler))
+	(lambda ()
+          (setq-local consult--regexp-compiler #'consult-fd--orderless-regexp-compiler))
       (apply args)))
   (advice-add #'consult-fd :around #'consult-fd--with-orderless)
+  (def-consult-help 'consult-fd "fd")
   )
 
 (use-package consult
