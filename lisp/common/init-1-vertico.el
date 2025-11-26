@@ -412,18 +412,30 @@ This is the function to be used for the hook `completion-at-point-functions'."
   :demand t
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
+
    :map embark-identifier-map
    ("c" . string-inflection-lower-camelcase)
    ("C" . string-inflection-camelcase)
    ("u" . string-inflection-underscore)
    ("U" . string-inflection-upcase)
-   ("k" . string-inflection-kebab-case)
+   ;; ("k" . string-inflection-kebab-case)
+
    :map minibuffer-mode-map
    ("C-c C-o" . embark-export)
    ("C-c C-l" . embark-collect)
+   ("C-c C-S-l" . embark-live)
    ("C-<return>" . embark-dwim-noquit)
+   :map embark-general-map
+   ("C-c C-o" . embark-export)
+   ("C-c C-l" . embark-collect)
+   ("C-c C-S-l" . embark-live)
+
    :map embark-collect-mode-map
    ("<SPC>" . embark-select)
+
+   :map embark-consult-async-search-map
+   ("f" . consult-fd)
+
    :map vertico-map
    ("C-<SPC>" . embark-select)
    ("M-C-<return>" . embark-act-all))
@@ -446,35 +458,33 @@ This is the function to be used for the hook `completion-at-point-functions'."
                  nil
                  (window-parameters (mode-line-format . none))))
 
-  (keymap-unset embark-general-map "C")
+  (unbind-key "S" embark-general-map) ;; embark-collect
+  (unbind-key "E" embark-general-map) ;; embark-export
+  (unbind-key "L" embark-general-map) ;; embark-live
+  
+  (unbind-key "C" embark-general-map) 	;; embark-consult-search-map
   (define-key embark-general-map (kbd "C-c") 'embark-consult-search-map)
-  (keymap-unset embark-consult-search-map "r") ;; #'consult-ripgrep
+  (unbind-key "r" embark-consult-search-map) ;; #'consult-ripgrep
   (define-key embark-consult-search-map "s" #'consult-ripgrep) ;; #'consult-ripgrep
 
-  (keymap-unset embark-region-map "e") ;; #'eval-region
-  (keymap-unset embark-region-map "f") ;; #'fill-region
-  (keymap-unset embark-region-map "p") ;; #'fill-region-as-paragraph
-  (keymap-unset embark-region-map "$") ;; #'ispell-region
-  (keymap-unset embark-region-map "o") ;; #'org-table-convert-region
-  (keymap-unset embark-region-map "+") ;; #'append-to-file
-  (keymap-unset embark-region-map "*") ;; #'calc-grab-region
-  (keymap-unset embark-region-map ":") ;; #'calc-grab-sum-down
-  (keymap-unset embark-region-map "_") ;; #'calc-grab-sum-across
-  (keymap-unset embark-region-map "b") ;; #'browse-url-of-region
-  (keymap-unset embark-region-map "h") ;; #'shr-render-region
-  (keymap-unset embark-region-map "'") ;; #'expand-region-abbrevs
-  (keymap-unset embark-region-map "v") ;; #'vc-region-history
-  (keymap-unset embark-region-map "R") ;; #'repunctuate-sentences
+  ;; (unbind-key "e" embark-region-map) ;; #'eval-region
+  (unbind-key "f" embark-region-map) ;; #'fill-region
+  (unbind-key "p" embark-region-map) ;; #'fill-region-as-paragraph
+  (unbind-key "$" embark-region-map) ;; #'ispell-region
+  (unbind-key "o" embark-region-map) ;; #'org-table-convert-region
+  (unbind-key "+" embark-region-map) ;; #'append-to-file
+  (unbind-key "*" embark-region-map) ;; #'calc-grab-region
+  (unbind-key ":" embark-region-map) ;; #'calc-grab-sum-down
+  (unbind-key "_" embark-region-map) ;; #'calc-grab-sum-across
+  (unbind-key "b" embark-region-map) ;; #'browse-url-of-region
+  (unbind-key "h" embark-region-map) ;; #'shr-render-region
+  (unbind-key "'" embark-region-map) ;; #'expand-region-abbrevs
+  (unbind-key "v" embark-region-map) ;; #'vc-region-history
+  (unbind-key "R" embark-region-map) ;; #'repunctuate-sentences
 
   ;; make all map use same bind, N for narrow
-  (keymap-unset embark-region-map "n") ;; #'narrow-to-region
+  (unbind-key "n" embark-region-map) ;; #'narrow-to-region
   (define-key embark-region-map "N" #'narrow-to-region)
-
-  (define-key embark-identifier-map "c" #'string-inflection-lower-camelcase)
-  (define-key embark-identifier-map "C" #'string-inflection-camelcase)
-  (define-key embark-identifier-map "u" #'string-inflection-underscore)
-  (define-key embark-identifier-map "U" #'string-inflection-upcase)
-  (define-key embark-identifier-map "k" #'string-inflection-kebab-case)
 
   (define-key embark-become-file+buffer-map "p" #'projectile-find-file)
 
@@ -583,7 +593,7 @@ targets."
 (define-key embark-general-map (kbd "i") #'embark-ace-insert)
 
 ;; i for insert
-(keymap-unset embark-package-map "i") ;; #'package-install
+(unbind-key "i" embark-package-map) ;; #'package-install
 (define-key embark-package-map "i" #'embark-insert)
 (define-key embark-package-map "I" #'package-install)
 
