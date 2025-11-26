@@ -105,6 +105,7 @@ since the whatis index is broken post-SIP."
 	  (file (styles orderless+initialism+pinyin))
 	  (project (styles orderless+initialism+pinyin))
 	  (project-file (styles orderless+initialism+pinyin))
+	  (project-buffer (styles orderless+initialism+pinyin))
 	  (line (styles orderless+pinyin))
 	  (bookmark (styles orderless+initialism+pinyin))))
   
@@ -124,12 +125,13 @@ since the whatis index is broken post-SIP."
 (use-package marginalia
   :init
   (marginalia-mode)
-  (setq marginalia-command-categories
-        (append '((projectile-find-file . file)
-                  (projectile-find-dir . file)
-                  (projectile-switch-project . file)
-		  (consult-line . line))
-                marginalia-command-categories))
+  (dolist (e `((,#'projectile-find-file . project-file)
+               (,#'projectile-find-dir . project-file)
+	       (,#'projectile-switch-to-buffer . project-buffer)
+               (,#'projectile-switch-project . project-file)
+	       (,#'consult-line . line)))
+    (add-to-list 'marginalia-command-categories e))
+  
   (add-to-list 'marginalia-prompt-categories '("\\<buffer\\>" . buffer)))
 
 (use-package nerd-icons-completion
