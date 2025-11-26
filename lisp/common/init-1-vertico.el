@@ -536,7 +536,7 @@ targets."
 
 (eval-when-compile
   (defmacro my-embark-ace-action (fn)
-    `(defun ,(intern (concat "my/embark-ace-" (symbol-name fn))) ()
+    `(defun ,(intern (concat "my-embark-ace-" (symbol-name fn))) ()
        (interactive)
        (with-demoted-errors "%s"
 	 (require 'ace-window)
@@ -548,28 +548,9 @@ targets."
 (define-key embark-buffer-map   (kbd "o") (my-embark-ace-action switch-to-buffer))
 (define-key embark-bookmark-map (kbd "o") (my-embark-ace-action bookmark-jump))
 
-(require 'ace-window)
-(defun embark-ace-insert(string)
-  "Insert `STRING' into select window by `ace-window'."
-  (if (length< (aw-window-list) 2)
-      (embark-insert (list string))
-    (let ((aw-dispatch-always t))
-      (aw-select " Ace - Insert"
-		 #'(lambda (window)
-		     (with-selected-window window
-		       (if buffer-read-only
-			   (message "Buffer is read-only")
-			 (embark-insert (list string)))))))))
-(define-key embark-general-map (kbd "i") #'embark-ace-insert)
-
-;; i for insert
-(keymap-unset embark-package-map "i") ;; #'package-install
-(define-key embark-package-map "i" #'embark-ace-insert)
-(define-key embark-package-map "I" #'package-install)
-
 (eval-when-compile
   (defmacro my-embark-split-action (fn split-type)
-    `(defun ,(intern (concat "my/embark-"
+    `(defun ,(intern (concat "my-embark-"
 			     (symbol-name fn)
 			     "-"
 			     (car (last  (split-string
@@ -585,6 +566,27 @@ targets."
 (define-key embark-file-map     (kbd "3") (my-embark-split-action find-file split-window-right))
 (define-key embark-buffer-map   (kbd "3") (my-embark-split-action switch-to-buffer split-window-right))
 (define-key embark-bookmark-map (kbd "3") (my-embark-split-action bookmark-jump split-window-right))
+
+(require 'ace-window)
+(defun embark-ace-insert(strings)
+  "Insert `STRING' into select window by `ace-window'."
+  (if (length< (aw-window-list) 2)
+      (embark-insert strings)
+    (let ((aw-dispatch-always t))
+      (aw-select " Ace - Insert"
+		 #'(lambda (window)
+		     (with-selected-window window
+		       (if buffer-read-only
+			   (message "Buffer is read-only")
+			 (embark-insert strings))))))))
+(add-to-list 'embark-multitarget-actions #'embark-ace-insert)
+(define-key embark-general-map (kbd "i") #'embark-ace-insert)
+
+;; i for insert
+(keymap-unset embark-package-map "i") ;; #'package-install
+(define-key embark-package-map "i" #'embark-insert)
+(define-key embark-package-map "I" #'package-install)
+
 
 (defun sudo-find-file (file)
   "Open FILE as root."
