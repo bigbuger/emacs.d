@@ -396,18 +396,6 @@ This is the function to be used for the hook `completion-at-point-functions'."
   
   )
 
-;; consult 没有 isearch 支持, 用 isearch-mb 有更好的搜索体验
-(use-package isearch-mb
-  :bind (("C-s" . isearch-forward-regexp)
-	 ("C-r" . isearch-backward-regexp))
-
-  :config
-  (add-to-list 'isearch-mb--with-buffer #'isearch-yank-word)
-  (add-to-list 'isearch-mb--after-exit #'isearch-occur)
-  (define-key isearch-mb-minibuffer-map (kbd "C-w") #'isearch-yank-word)
-
-  :init
-  (isearch-mb-mode))
 
 (use-package embark
   :ensure t
@@ -582,21 +570,27 @@ targets."
 (require 'ace-window)
 (defun embark-ace-insert(strings)
   "Insert `STRING' into select window by `ace-window'."
-  (if (length< (aw-window-list) 2)
-      (embark-insert strings)
-    (let ((aw-dispatch-always t))
-      (aw-select " Ace - Insert"
-		 #'(lambda (window)
-		     (with-selected-window window
-		       (if buffer-read-only
-			   (message "Buffer is read-only")
-			 (embark-insert strings))))))))
+  (let ((win (active-minibuffer-window)))
+    (cond
+     (win (progn
+	    (select-window win)
+	    (apply #'insert strings)))
+     ((length< (aw-window-list) 2)
+      (embark-insert strings))
+     (t (let ((aw-dispatch-always t))
+	  (aw-select " Ace - Insert"
+		     #'(lambda (window)
+			 (with-selected-window window
+			   (if buffer-read-only
+			       (message "Buffer is read-only")
+			     (embark-insert strings))))))))))
 (add-to-list 'embark-multitarget-actions #'embark-ace-insert)
 (define-key embark-general-map (kbd "i") #'embark-ace-insert)
+ 
 
 ;; i for insert
 (unbind-key "i" embark-package-map) ;; #'package-install
-(define-key embark-package-map "i" #'embark-insert)
+(define-key embark-package-map "i" #'embark-ace-insert)
 (define-key embark-package-map "I" #'package-install)
 
 

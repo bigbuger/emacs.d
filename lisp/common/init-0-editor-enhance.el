@@ -209,29 +209,40 @@ ARG is pass to `sp-end-of-sexp'"
 
 ;; end auto-save
 
-;; visual-regexp 正则替换可视化，替换时在原文本中预览替换后的结果
-(require 'visual-regexp)
-(global-set-key (kbd "C-c r") 'vr/query-replace)
-
-(defun my-vr--minibuffer-setup ()
-  "Setup prompt and help when entering minibuffer."
-  (when vr--in-minibuffer
-    (progn
-      (vr--update-minibuffer-prompt)
-      (add-hook 'completion-at-point-functions 'elisp-completion-at-point nil t)
-      (when vr/auto-show-help (vr--minibuffer-help)))))
-
-(advice-add 'vr--minibuffer-setup :override #'my-vr--minibuffer-setup)
+;; visual-replace 替换可视化，替换时在原文本中预览替换后的结果
+(use-package visual-replace
+  :defer t
+  :bind (("C-c r" . visual-replace-regexp)
+	 ("C-c R" . visual-replace-thing-at-point)
+         :map isearch-mode-map
+         ("C-c r" . visual-replace-from-isearch))
+  :config
+  (define-key visual-replace-mode-map (kbd "C-o")
+	      visual-replace-secondary-mode-map))
 
 (defun query-replace-read-to-with-completion (orign &rest args)
- (minibuffer-with-setup-hook
-	(:append
-	 (lambda ()
-	   (add-hook 'completion-at-point-functions
-		     #'elisp-completion-at-point nil t)))
-      (apply orign args)))
+  (minibuffer-with-setup-hook
+      (:append
+       (lambda ()
+	 (add-hook 'completion-at-point-functions
+		   #'elisp-completion-at-point nil t)))
+    (apply orign args)))
 (advice-add 'query-replace-read-to :around #'query-replace-read-to-with-completion)
-;; end visual-regexp
+;; end visual-replace
+
+;; isearch-mb 有更好的搜索体验, 可以直接按箭头移到，也不用搞 isearch 复杂的编辑按钮
+(use-package isearch-mb
+  :bind (("C-s" . isearch-forward-regexp)
+	 ("C-r" . isearch-backward-regexp))
+
+  :config
+  (add-to-list 'isearch-mb--with-buffer #'isearch-yank-word)
+  (add-to-list 'isearch-mb--after-exit #'isearch-occur)
+  (define-key isearch-mb-minibuffer-map (kbd "C-w") #'isearch-yank-word)
+  (define-key isearch-mb-minibuffer-map (kbd "C-c r") #'visual-replace-from-isearch)
+
+  :init
+  (isearch-mb-mode))
 
 
 ;; about indent

@@ -15,7 +15,6 @@
     expand-region
     smartparens
     auto-highlight-symbol
-    visual-regexp
     pyim
     
     which-key
