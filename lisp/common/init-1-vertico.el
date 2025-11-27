@@ -204,14 +204,14 @@ since the whatis index is broken post-SIP."
   (defun consult--get-completion-options-from-help (exec)
     "Generate exec options table vai `exec' -h."
     (when (executable-find exec)
-      (let* ((-h (shell-command-to-string (concat exec  " --help")))
-	     (-h-list (string-split -h "\\(\\.\\|:\\)\n"))
+      (let* ((-h (replace-regexp-in-string "^[[:space:]]*-" "@-" (shell-command-to-string (concat exec  " -h"))))
+	     (-h-list (string-split -h "@"))
 	     (doc-left-pad 30))
 	(mapcan (lambda (h)
 		  (let ((l (string-replace "\n" "" h)))
 		    (when (string-match (rx-to-string
 					 '(: bol (* space)
-					     (group "-" (? "-") (+ (or alnum "-")))
+					     (group "-" (? "-") (+ (or alnum "-"))) (? "NUM")
 					     (? ", ") (? (group "-" (? "-") (+ (or alnum "-"))))
 					     (? "=" (+ (or "_" "-" alnum)))
 					     (+ space)
