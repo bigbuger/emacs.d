@@ -231,28 +231,13 @@ since the whatis index is broken post-SIP."
 		-h-list))))
 
   (defmacro def-consult-help (command exec)
-    (let ((options-fun (intern (format "consult-%s-get-completion-options" exec)))
-	  (options-alist (intern (format "consult-%s-completion-options-alist" exec)))
-	  (annotion (intern (format "consult-%s-completion-annotation" exec)))
-	  (table (intern (format "consult-%s-completion-table" exec)))
+    (let ((options-alist (intern (format "consult-%s-completion-options-alist" exec)))
 	  (capf (intern (format "consult-%s-completion-at-point" exec)))
 	  (adv (intern (format "consult-%s-with-completion-at-point" exec))))
       `(progn
-	 (defun ,options-fun ()
-	     "Generate options table vai -h."
-	   (consult--get-completion-options-from-help ,exec))
-
 	 (defcustom ,options-alist
-	   (,options-fun)
+	   (consult--get-completion-options-from-help ,exec)
 	   ,(format "%s options alist." exec))
-	 
-	 (defun ,annotion (candidate)
-	   "Annotation for rg option."
-	   (cdr (assoc candidate ,options-alist)))
-	 
-	 (defun ,table ()
-	   "List all option for rg."
-	   (mapcar #'car ,options-alist))
 	 
 	 (defun ,capf ()
 	   "Completion option.
@@ -261,8 +246,10 @@ This is the function to be used for the hook `completion-at-point-functions'."
 	   (let* ((bds (bounds-of-thing-at-point 'symbol))
 		  (start (car bds))
 		  (end (cdr bds)))
-	     (list start end (,table) :annotation-function #',annotion)))
-
+	     (list start end ,options-alist
+		   :annotation-function
+		   (lambda (cand) (cdr (assoc cand ,options-alist))))))
+	 
 	 (defun ,adv (orign &rest args)
 	   (minibuffer-with-setup-hook
 	       (:append
@@ -270,7 +257,7 @@ This is the function to be used for the hook `completion-at-point-functions'."
 		  (add-hook 'completion-at-point-functions
 			    #',capf nil t)))
 	     (apply orign args)))
-
+	 
 	 (advice-add ,command :around ',adv))))
   (def-consult-help 'consult-ripgrep "rg")
   
