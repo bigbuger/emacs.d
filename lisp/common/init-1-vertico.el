@@ -383,6 +383,51 @@ This is the function to be used for the hook `completion-at-point-functions'."
   
   )
 
+(use-package consult
+  :commands (consult-colors-emacs consult-colors-web)
+  :config
+  (defvar consult-colors-history nil
+    "History for `consult-colors-emacs' and `consult-colors-web'.")
+
+  ;; No longer preloaded in Emacs 28.
+  (autoload 'list-colors-duplicates "facemenu")
+  ;; No preloaded in consult.el
+  (autoload 'consult--read "consult")
+
+  (defun consult-colors-emacs (color)
+    "Show a list of all supported colors for a particular frame.\
+
+You can insert the name (default), or insert or kill the hexadecimal or RGB value of the
+selected color."
+    (interactive
+     (list (consult--read (list-colors-duplicates (defined-colors))
+                          :prompt "Emacs color: "
+                          :require-match t
+                          :category 'color
+                          :history '(:input consult-colors-history)
+                          )))
+    (insert color))
+
+  ;; Adapted from counsel.el to get web colors.
+  (defun counsel-colors--web-list nil
+    "Return list of CSS colors for `counsult-colors-web'."
+    (require 'shr-color)
+    (sort (mapcar #'downcase (mapcar #'car shr-color-html-colors-alist)) #'string-lessp))
+
+  (defun consult-colors-web (color)
+    "Show a list of all CSS colors.\
+
+You can insert the name (default), or insert or kill the hexadecimal or RGB value of the
+selected color."
+    (interactive
+     (list (consult--read (counsel-colors--web-list)
+                          :prompt "Color: "
+                          :require-match t
+                          :category 'color
+                          :history '(:input consult-colors-history)
+                          )))
+    (insert color)))
+
 
 (use-package embark
   :ensure t
@@ -506,10 +551,24 @@ targets."
 	 nil nil t (lambda (binding)
                      (not (string-suffix-p "-argument" (cdr binding))))))))
 
+  (require 'posframe)
+  (defun embark-posframe-indicators ()
+    (lambda (&optional keymap targets prefix)
+      (unless (null keymap)
+	(posframe-show " *embark-indicator-posframe*"
+	 :string (format "Act on %s" (plist-get (car targets) :type))
+	 :position (point)
+	 :background-color "LightYellow1"
+	 :timeout 0.8
+	 
+	 :border-color "LightYellow2"
+	 :border-width 1))))
+  
   (setq embark-indicators
 	'(embark-which-key-indicator
 	  embark-highlight-indicator
-	  embark-isearch-highlight-indicator))
+	  embark-isearch-highlight-indicator
+	  embark-posframe-indicators))
 
   (defun embark-hide-which-key-indicator (fn &rest args)
     "Hide the which-key indicator immediately when using the completing-read prompter."
