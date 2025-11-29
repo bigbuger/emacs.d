@@ -215,10 +215,14 @@ ARG is pass to `sp-end-of-sexp'"
   :bind (("C-c r" . visual-replace-regexp)
 	 ("C-c R" . visual-replace-thing-at-point)
          :map isearch-mode-map
-         ("C-c r" . visual-replace-from-isearch))
+         ("C-c r" . visual-replace-from-isearch)
+	 :map visual-replace-mode-map
+	 ("C-o" . visual-replace-secondary-mode-map)
+	 ("C-n" . visual-replace-next-match)
+	 ("C-p" . visual-replace-prev-match))
+  :hook ((visual-replace-minibuffer-mode . visual-replace-toggle-query))
   :config
-  (define-key visual-replace-mode-map (kbd "C-o")
-	      visual-replace-secondary-mode-map))
+  (setq visual-replace-display-total t))
 
 (defun query-replace-read-to-with-completion (orign &rest args)
   (minibuffer-with-setup-hook
