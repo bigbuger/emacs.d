@@ -238,6 +238,7 @@ ARG is pass to `sp-end-of-sexp'"
   :config
   (add-to-list 'isearch-mb--with-buffer #'isearch-yank-word)
   (add-to-list 'isearch-mb--after-exit #'isearch-occur)
+  (add-to-list 'isearch-mb--after-exit #'visual-replace-from-isearch)
   (define-key isearch-mb-minibuffer-map (kbd "C-w") #'isearch-yank-word)
   (define-key isearch-mb-minibuffer-map (kbd "C-c r") #'visual-replace-from-isearch)
 
