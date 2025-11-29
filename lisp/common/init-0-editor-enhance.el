@@ -219,11 +219,15 @@ ARG is pass to `sp-end-of-sexp'"
 	 :map visual-replace-mode-map
 	 ("C-n" . visual-replace-next-match)
 	 ("C-p" . visual-replace-prev-match))
-  :hook ((visual-replace-minibuffer-mode . visual-replace-toggle-query))
+  ;; :hook ((visual-replace-minibuffer-mode . visual-replace-toggle-query)) ;; FIXME using visual-replace-apply-one also query, I dont know why
   :config
   (define-key visual-replace-mode-map (kbd "C-o")
 	      visual-replace-secondary-mode-map)
-  (setq visual-replace-display-total t))
+  (define-key visual-replace-transient-map (kbd "C-n") #'visual-replace-next-match)
+  (define-key visual-replace-transient-map (kbd "C-p") #'visual-replace-prev-match)
+  
+  (setq visual-replace-display-total t)
+  (setq visual-replace-min-length 1))
 
 (defun query-replace-read-to-with-completion (orign &rest args)
   (minibuffer-with-setup-hook
