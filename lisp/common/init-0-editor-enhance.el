@@ -218,9 +218,11 @@ ARG is pass to `sp-end-of-sexp'"
          ("C-c r" . visual-replace-from-isearch)
 	 :map visual-replace-mode-map
 	 ("C-n" . visual-replace-next-match)
-	 ("C-p" . visual-replace-prev-match))
-  ;; :hook ((visual-replace-minibuffer-mode . visual-replace-toggle-query)) ;; FIXME using visual-replace-apply-one also query, I dont know why
+	 ("C-p" . visual-replace-prev-match)
+	 ("M-<RET>" . visual-replace-apply-one))
+  ;; :hook ((visual-replace-minibuffer-mode . visual-replace-toggle-query)) ;; FIXME using visual-replace-apply-one also query, I don't know why
   :config
+  (setq visual-replace-default-to-full-scope t)
   (define-key visual-replace-mode-map (kbd "C-o")
 	      visual-replace-secondary-mode-map)
   (define-key visual-replace-transient-map (kbd "C-n") #'visual-replace-next-match)
