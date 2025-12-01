@@ -37,9 +37,6 @@
 [submodule "lisp/libs/embark-org-roam"]
 	path = lisp/libs/embark-org-roam
 	url = git@github.com:bramadams/embark-org-roam.git
-[submodule "lisp/libs/consult-omni"]
-	path = lisp/libs/consult-omni
-	url = git@github.com:armindarvish/consult-omni.git
 [submodule "lisp/libs/emt"]
 	path = lisp/libs/emt
 	url = git@github.com:roife/emt.git
