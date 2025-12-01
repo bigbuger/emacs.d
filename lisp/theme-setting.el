@@ -88,6 +88,11 @@
 				    :height 160
 				    :foreground "#a094a2"
 				    :background "#efeae9"))))
+ ;; visual-replace
+ '(visual-replace-delete-match ((t (:inherit lazy-highlight :distant-foreground "black" :strike-through t))))
+ '(visual-replace-delete-match-highlight ((t (:inherit visual-replace-delete-match :background "#ba2f59" :foreground "#fbf8ef" :weight bold))))
+ '(visual-replace-match ((t (:inherit lazy-highlight))))
+ '(visual-replace-match-highlight ((t (:inherit isearch :weight bold))))
 
  '(consult-file ((t (:inherit font-lock-keyword-face))))
  '(mode-line ((t (:background "#f7e9eb" :foreground "#655370" :box (:line-width (1 . 1) :color "#b3b9be"))))))
