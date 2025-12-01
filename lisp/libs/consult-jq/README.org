@@ -1,0 +1,12 @@
+* consult-jq
+
+** Live queries against JSON vai jq and consult
+
+This package provider an interactive UI for jq in emacs.
+Features:
++ live preview result in a buffer '*consult-jq-result*'.
++ suggesting jq paths in candidates.
++ complete jq paths and functions by type 'C-M-i' (aka. call 'complete-symbol').
+
+
+
