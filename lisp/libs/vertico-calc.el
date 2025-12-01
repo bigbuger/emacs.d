@@ -27,7 +27,7 @@
     all-calc-func))
 
 (defun vertico-calc-completion-at-point ()
-  "This is the function to be used for the hook `completion-at-point-functions'."
+  "This is the function to be used for the hook `completion-at-point-functions'.Complete function of calc."
   (interactive)
   (let* ((bds (bounds-of-thing-at-point 'word))
          (start (car bds))
@@ -39,9 +39,8 @@
   :parent minibuffer-mode-map
   "TAB" #'completion-at-point)
 
-(defun vertico-calc-read-calc()
-  "Read input and calc."
-  (interactive)
+(defun vertico-calc--read()
+  "Read input and cal."
   (kill-new
      (let (out)
        (completing-read
@@ -66,7 +65,7 @@
 	 (use-local-map calc-completion-map)
 	 (add-hook 'completion-at-point-functions
 		   #'vertico-calc-completion-at-point nil t)))
-    (vertico-calc-read-calc)))
+    (vertico-calc--read)))
   
 
 (provide 'vertico-calc)
