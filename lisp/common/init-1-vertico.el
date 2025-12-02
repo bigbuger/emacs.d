@@ -553,7 +553,8 @@ targets."
   (require 'posframe)
   (defun embark-posframe-indicators ()
     (lambda (&optional keymap targets prefix)
-      (unless (null keymap)
+      (unless (or (minibufferp)
+		  (null keymap))
 	(posframe-show " *embark-indicator-posframe*"
 	 :string (format "Act on %s" (plist-get (car targets) :type))
 	 :position (point)
