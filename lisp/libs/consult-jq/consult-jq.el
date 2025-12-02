@@ -67,15 +67,15 @@
             (while (search-forward-regexp "def *\\([a-zA-Z_]+\\)" nil t 1)
               (push (match-string 1) matches)))
 	  matches))))
-  
+
 (defun consult-jq-get-all-jq-function ()
-  "Retrun all jq function."
+  "Return all jq function."
   (let ((builtins (mapcar (lambda (c) (car (split-string c "/")))
 			  (string-split (shell-command-to-string "echo '{}' | jq -r 'builtins | .[]'"))))
 	(customs (consult-jq-get-custom-function)))
     (append builtins customs)))
 
-(defun consult-jq--indent-p (ch)
+(defun consult-jq-indent-p (ch)
   (when ch
     (or (and (<= ?A ch)
 	     (>= ?z ch))
@@ -86,28 +86,28 @@
 
 (defun make-consult-jq-completion-function-at-point (buffer)
   "This is the function to be used for the hook `completion-at-point-functions'."
-  (interactive)
   (lambda ()
     (let* ((contents (minibuffer-contents-no-properties))
            (start (save-excursion
 		    (while (let ((ch (char-before)))
-			     (consult-jq--indent-p ch))
+			     (consult-jq-indent-p ch))
 		      (backward-char))
 		    (point)))
 	   (end (save-excursion
-		    (while (let ((ch (char-after)))
-			      (consult-jq--indent-p ch))
-		      (forward-char))
-		    (point)))
+		  (while (let ((ch (char-after)))
+			   (consult-jq-indent-p ch))
+		    (forward-char))
+		  (point)))
 	   (need-path? (eq ?. (char-after start)))
 	   (pip-index (string-match-p (regexp-quote "|") contents))
 	   (query (when pip-index
 		    (replace-regexp-in-string (rx "|" (* (not "|")) line-end)
 					      ""
-					      contents)))
-	   (paths (cl-remove-if #'string-blank-p
-				(consult-jq-path buffer query))))
-      (list start end (if need-path? paths (consult-jq-get-all-jq-function)) . nil ))))
+					      contents))))
+      (list start end (if need-path? (cl-remove-if #'string-blank-p
+						   (consult-jq-path buffer query))
+			(consult-jq-get-all-jq-function))
+	    :category 'consult-jq))))
 
 (defun consult-jq-call-jq (&optional query args output-buffer)
   "Call 'jq' use OUTPUT-BUFFER as output (default is 'standard-output').
@@ -122,15 +122,8 @@ with the QUERY and ARGS."
    (or args  "-M")
    (or query ".")))
 
-
-(defun consult-jq-json (buffer &optional query)
-  "Call 'jq' under BUFFER with the QUERY with a default of '.'."
-  (with-current-buffer
-      buffer
-    (consult-jq-call-jq query nil consult-jq-buffer)))
-
 (defun consult-jq-path (buffer &optional query)
-  "Get all json path, after apply QUERY in BUFFER."
+  "Get all json path, after apply `QUERY' in `BUFFER'."
   (with-current-buffer buffer
     (split-string
      (with-output-to-string
@@ -139,21 +132,24 @@ with the QUERY and ARGS."
      "\n")))
 
 
-(defun consult-jq-query-function (buffer input)
-  "Wrapper function passing INPUT over to `consult-jq-json'."
+(defun consult-jq-query (buffer query)
+  "Call jq with `QUERY' and context of `BUFFER' as input.
+Then output the result into `consult-jq-buffer'."
   (when (get-buffer consult-jq-buffer)
-      (with-current-buffer consult-jq-buffer
-        (funcall consult-jq-json-buffer-mode)
-        (erase-buffer)))
-  (consult-jq-json buffer input)
+    (with-current-buffer consult-jq-buffer
+      (funcall consult-jq-json-buffer-mode)
+      (erase-buffer)))
+  (with-current-buffer
+      buffer
+    (consult-jq-call-jq query nil consult-jq-buffer))
   (list (with-current-buffer consult-jq-buffer
 	  (buffer-string))))
 
 
 (defun consult-jq-state-builder (buffer)
-  "Build STATE of consult-jq."
+  "Build consult STATE of consult-jq."
   (lambda (_act cand)
-    (consult-jq-query-function buffer cand)
+    (consult-jq-query buffer cand)
     (display-buffer consult-jq-buffer)))
 
 (defcustom consult-jq-completion-styles
@@ -164,20 +160,17 @@ with the QUERY and ARGS."
   )
 
 (defun consult-jq-read (buffer)
-  "Read input and run jq."
+  "Read input and run jq.Use context of `BUFFER' as input."
   (interactive)
-  (let ((canditdates (consult-jq-path buffer))
-	(state (consult-jq-state-builder buffer))
-	(completion-styles (or consult-jq-completion-styles completion-styles)))
-    (minibuffer-with-setup-hook
-	(:append
-	 (lambda ()
-	   (add-hook 'completion-at-point-functions
-		     (make-consult-jq-completion-function-at-point buffer) nil t)))
-      (consult--prompt
-       :prompt "jq: "
-       :initial "."
-       :state state))))
+  (let ((completion-styles (or consult-jq-completion-styles completion-styles))
+	(completion-at-point-functions
+	 (list (make-consult-jq-completion-function-at-point buffer))))
+    (consult--read
+     (consult-jq-path buffer)
+     :prompt "jq: "
+     :category 'consult-jq
+     :initial "."
+     :state (consult-jq-state-builder buffer))))
 
 ;;;###autoload
 (defun consult-jq ()
@@ -185,8 +178,7 @@ with the QUERY and ARGS."
 Whenever you're happy with the query, hit RET and the results
 will be displayed to you in the buffer in `consult-jq-buffer'."
   (interactive)
-  (let ((buffer (current-buffer)))
-    (consult-jq-read buffer)))
+  (consult-jq-read (current-buffer)))
 
 (provide 'consult-jq)
 
