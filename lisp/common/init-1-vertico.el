@@ -619,7 +619,7 @@ targets."
 
 (require 'ace-window)
 (defun embark-ace-insert(arg str)
-  "Insert `STRING' into select window by `ace-window'."
+  "Insert `STR' into select window by `ace-window'."
   (interactive "P\ns")
   (let ((aw-dispatch-always arg))
     (aw-select " Ace - Insert"
@@ -630,6 +630,14 @@ targets."
 		       (insert str)))))))
 (define-key embark-general-map (kbd "i") #'embark-ace-insert)
 
+(defun embark-avy-copy (strs)
+  "Insert `STRS' below line select by `avy-goto-line'."
+  (avy-goto-end-of-line)
+  (insert "\n")
+  (insert (string-join strs "\n"))
+  (insert "\n"))
+(add-to-list 'embark-multitarget-actions 'embark-avy-copy)
+(define-key embark-general-map (kbd "y") #'embark-avy-copy)
 
 ;; i for insert
 (unbind-key "i" embark-package-map) ;; #'package-install
