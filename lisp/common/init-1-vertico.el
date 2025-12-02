@@ -106,7 +106,7 @@ since the whatis index is broken post-SIP."
 	  (project (styles orderless+initialism+pinyin))
 	  (project-file (styles orderless+initialism+pinyin))
 	  (project-buffer (styles orderless+initialism+pinyin))
-	  (line (styles orderless+pinyin))
+	  (consult-location (styles orderless+initialism+pinyin))
 	  (bookmark (styles orderless+initialism+pinyin))))
   
   
@@ -128,8 +128,7 @@ since the whatis index is broken post-SIP."
   (dolist (e `((,#'projectile-find-file . project-file)
                (,#'projectile-find-dir . project-file)
 	       (,#'projectile-switch-to-buffer . project-buffer)
-               (,#'projectile-switch-project . project-file)
-	       (,#'consult-line . line)))
+               (,#'projectile-switch-project . project-file)))
     (add-to-list 'marginalia-command-categories e))
   
   (add-to-list 'marginalia-prompt-categories '("\\<buffer\\>" . buffer)))
@@ -186,11 +185,8 @@ since the whatis index is broken post-SIP."
   (global-set-key (kbd "M-s e")  'consult-isearch-history)
   
   (global-set-key (kbd "C-h I") 'consult-info)
-
   
   (define-key minibuffer-local-map (kbd "M-r") 'consult-history)
-  ;; (with-eval-after-load 'visual-regexp
-  ;;   (define-key vr/minibuffer-keymap (kbd "M-r") 'consult-history))
   
   (with-eval-after-load "org"
     (define-key org-mode-map (kbd "C-c i") #'consult-outline)
@@ -297,9 +293,6 @@ This is the function to be used for the hook `completion-at-point-functions'."
           (completion-category-defaults nil)
           (completion-category-overrides nil))
       (consult-line)))
-  
-  (advice-add #'consult-focus-lines :around #'using-orderless)
-  (advice-add #'consult-keep-lines :around #'using-orderless)
 
   ;; 修正 "$" 匹配行结尾
   ;; https://github.com/minad/consult/wiki#orderless-style-dispatchers-ensure-that-the--regexp-works-with-consult-buffer
