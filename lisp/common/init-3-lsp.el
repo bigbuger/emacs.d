@@ -204,7 +204,7 @@
 ;; topsy 面包屑展示函数名称
 (use-package topsy
   :config
-  (setq topsy-header-line-format  '(:eval (list " # "
+  (setq topsy-header-line-format  '(:eval (list " " (lsp-headerline--arrow-icon) " "
                 (funcall topsy-fn))))
   (add-hook 'topsy-mode-hook
 	    (lambda ()
