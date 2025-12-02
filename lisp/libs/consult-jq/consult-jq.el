@@ -49,6 +49,8 @@
   :require 'consult-jq
   :group 'consult-jq)
 
+(defvar consult--jq-history nil)
+
 (add-to-list 'display-buffer-alist
 	     `(,consult-jq-buffer
 	       display-buffer-in-direction
@@ -146,7 +148,7 @@ Then output the result into `consult-jq-buffer'."
 	  (buffer-string))))
 
 
-(defun consult-jq-state-builder (buffer)
+(defun consult-jq-state (buffer)
   "Build consult STATE of consult-jq."
   (lambda (_act cand)
     (consult-jq-query buffer cand)
@@ -159,26 +161,40 @@ Then output the result into `consult-jq-buffer'."
   :group 'consult-jq
   )
 
-(defun consult-jq-read (buffer)
-  "Read input and run jq.Use context of `BUFFER' as input."
+;;;###autoload
+(defun consult-jq ()
+  "Consult interface for dynamically querying jq.
+The results will be displayed to you in the buffer in `consult-jq-buffer'."
   (interactive)
-  (let ((completion-styles (or consult-jq-completion-styles completion-styles))
-	(completion-at-point-functions
-	 (list (make-consult-jq-completion-function-at-point buffer))))
+  (let* ((buffer (current-buffer))
+	 (completion-styles (or consult-jq-completion-styles completion-styles))
+	 (completion-at-point-functions
+	  (list (make-consult-jq-completion-function-at-point buffer))))
     (consult--read
      (consult-jq-path buffer)
      :prompt "jq: "
      :category 'consult-jq
      :initial "."
-     :state (consult-jq-state-builder buffer))))
+     :sort nil
+     :state (consult-jq-state buffer)
+     :history '(:input consult--jq-history))))
 
 ;;;###autoload
-(defun consult-jq ()
+(defun consult-jq-without-cand ()
   "Consult interface for dynamically querying jq.
-Whenever you're happy with the query, hit RET and the results
-will be displayed to you in the buffer in `consult-jq-buffer'."
+The results will be displayed to you in the buffer in `consult-jq-buffer'."
   (interactive)
-  (consult-jq-read (current-buffer)))
+  (let* ((buffer (current-buffer))
+	 (completion-styles (or consult-jq-completion-styles completion-styles))
+	 (completion-at-point-functions
+	  (list (make-consult-jq-completion-function-at-point buffer))))
+    (consult--prompt
+     :prompt "jq: "
+     :category 'consult-jq
+     :initial "."
+     :state (consult-jq-state buffer)
+     :history '(:input consult--jq-history))))
+
 
 (provide 'consult-jq)
 
