@@ -503,8 +503,6 @@
 		 '(go . t))))
 
 (use-package topsy
-  :disabled
-  
   :init
   (defun topsy--go-beginning-scope ()
     "Return the line moved to top ast parent."
