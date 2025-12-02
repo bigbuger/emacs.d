@@ -554,7 +554,8 @@ targets."
   (defun embark-posframe-indicators ()
     (lambda (&optional keymap targets prefix)
       (unless (or (minibufferp)
-		  (null keymap))
+		  (null keymap)
+		  (eq (lookup-key keymap [13]) #'embark-done))
 	(posframe-show " *embark-indicator-posframe*"
 	 :string (format "Act on %s" (plist-get (car targets) :type))
 	 :position (point)
