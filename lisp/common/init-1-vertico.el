@@ -585,9 +585,12 @@ targets."
     `(defun ,(intern (concat "my-embark-ace-" (symbol-name fn))) ()
        (interactive)
        (with-demoted-errors "%s"
+	
 	 (require 'ace-window)
 	 (let ((aw-dispatch-always t))
-           (aw-switch-to-window (aw-select nil))
+	   (if (length< (aw-window-list) 2)
+	       (other-window-prefix)
+             (aw-switch-to-window (aw-select nil)))
            (call-interactively (symbol-function ',fn)))))))
 
 (define-key embark-file-map     (kbd "o") (my-embark-ace-action find-file))
@@ -603,6 +606,7 @@ targets."
 					  (symbol-name split-type) "-"))))) ()
        (interactive)
        (funcall #',split-type)
+       (other-window-prefix)
        (call-interactively #',fn))))
 
 (define-key embark-file-map     (kbd "2") (my-embark-split-action find-file split-window-below))
