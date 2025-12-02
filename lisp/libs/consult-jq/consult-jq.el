@@ -163,23 +163,20 @@ with the QUERY and ARGS."
   :group 'consult-jq
   )
 
-(defun consult-jq-read-jq (buffer)
+(defun consult-jq-read (buffer)
   "Read input and run jq."
   (interactive)
   (let ((canditdates (consult-jq-path buffer))
-	(state (consult-jq-state-builder buffer)))
+	(state (consult-jq-state-builder buffer))
+	(completion-styles (or consult-jq-completion-styles completion-styles)))
     (minibuffer-with-setup-hook
 	(:append
 	 (lambda ()
 	   (add-hook 'completion-at-point-functions
-		     (make-consult-jq-completion-function-at-point buffer) nil t)
-	   (when consult-jq-completion-styles
-	     (setq-local completion-styles consult-jq-completion-styles))))
-      (consult--read
-       canditdates
+		     (make-consult-jq-completion-function-at-point buffer) nil t)))
+      (consult--prompt
        :prompt "jq: "
        :initial "."
-       :sort nil
        :state state))))
 
 ;;;###autoload
@@ -189,7 +186,7 @@ Whenever you're happy with the query, hit RET and the results
 will be displayed to you in the buffer in `consult-jq-buffer'."
   (interactive)
   (let ((buffer (current-buffer)))
-    (consult-jq-read-jq buffer)))
+    (consult-jq-read buffer)))
 
 (provide 'consult-jq)
 

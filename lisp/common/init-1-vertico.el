@@ -111,10 +111,16 @@ since the whatis index is broken post-SIP."
   
   
   :init
-  (defun +orderless-completion-style()
-    (setq-local completion-styles '(orderless basic partial-completion emacs22)))
-  (add-hook 'minibuffer-setup-hook '+orderless-completion-style)
-
+  (setq completion-styles '(orderless basic partial-completion emacs22))
+  (with-eval-after-load 'company
+    ;; We follow a suggestion by company maintainer u/hvis:
+;; https://www.reddit.com/r/emacs/comments/nichkl/comment/gz1jr3s/
+    (defun company-completion-styles (capf-fn &rest args)
+      (let ((completion-styles '(basic partial-completion)))
+	(apply capf-fn args)))
+    
+    (advice-add 'company-capf :around #'company-completion-styles))
+  
   (defun using-orderless(orig_fun &rest args)
     "Using orderless for sepecial function."
     (let ((completion-styles '(orderless)))
