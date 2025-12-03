@@ -77,7 +77,7 @@
 	(customs (consult-jq-get-custom-function)))
     (append builtins customs)))
 
-(defun consult-jq-indent-p (ch)
+(defun consult-jq-identifier-p (ch)
   (when ch
     (or (and (<= ?A ch)
 	     (>= ?z ch))
@@ -92,12 +92,12 @@
     (let* ((contents (minibuffer-contents-no-properties))
            (start (save-excursion
 		    (while (let ((ch (char-before)))
-			     (consult-jq-indent-p ch))
+			     (consult-jq-identifier-p ch))
 		      (backward-char))
 		    (point)))
 	   (end (save-excursion
 		  (while (let ((ch (char-after)))
-			   (consult-jq-indent-p ch))
+			   (consult-jq-identifier-p ch))
 		    (forward-char))
 		  (point)))
 	   (need-path? (eq ?. (char-after start)))
@@ -115,8 +115,8 @@
   "Call 'jq' use OUTPUT-BUFFER as output (default is 'standard-output').
 with the QUERY and ARGS."
   (call-process-region
-   (point-min)
-   (point-max)
+   nil
+   nil
    consult-jq-command
    nil
    (or output-buffer standard-output)
@@ -180,7 +180,7 @@ The results will be displayed to you in the buffer in `consult-jq-buffer'."
      :history '(:input consult--jq-history))))
 
 ;;;###autoload
-(defun consult-jq-without-cand ()
+(defun consult-jq-without-candidate ()
   "Consult interface for dynamically querying jq.
 The results will be displayed to you in the buffer in `consult-jq-buffer'."
   (interactive)
@@ -190,10 +190,9 @@ The results will be displayed to you in the buffer in `consult-jq-buffer'."
 	  (list (make-consult-jq-completion-function-at-point buffer))))
     (consult--prompt
      :prompt "jq: "
-     :category 'consult-jq
      :initial "."
      :state (consult-jq-state buffer)
-     :history '(:input consult--jq-history))))
+     :history 'consult--jq-history)))
 
 
 (provide 'consult-jq)
