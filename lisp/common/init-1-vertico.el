@@ -97,6 +97,8 @@ since the whatis index is broken post-SIP."
 				 orderless-regex-pinyin)))
   
   (setq orderless-component-separator #'orderless-escapable-split-on-space)
+
+  (setq completion-styles '(orderless basic partial-completion))
   
   ;; use initialism for command, buffer and file
   (setq completion-category-overrides
@@ -111,7 +113,6 @@ since the whatis index is broken post-SIP."
   
   
   :init
-  (setq completion-styles '(orderless basic partial-completion))
   (with-eval-after-load 'company
     ;; We follow a suggestion by company maintainer u/hvis:
     ;; https://www.reddit.com/r/emacs/comments/nichkl/comment/gz1jr3s/
