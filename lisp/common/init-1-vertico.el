@@ -619,16 +619,23 @@ targets."
 (define-key embark-bookmark-map (kbd "3") (my-embark-split-action bookmark-jump split-window-right))
 
 (require 'ace-window)
-(defun embark-ace-insert(arg str)
-  "Insert `STR' into select window by `ace-window'."
-  (interactive "P\ns")
-  (let ((aw-dispatch-always arg))
-    (aw-select " Ace - Insert"
-	       #'(lambda (win)
-		   (with-selected-window win
-		     (if buffer-read-only
-			 (message "Buffer is read-only")
-		       (insert str)))))))
+(defun embark-ace-insert(strings)
+  "Insert `STRING' into select window by `ace-window'."
+  (let ((mb-win (active-minibuffer-window)))
+    (cond
+     (mb-win (progn
+	    (select-window mb-win)
+	    (insert (string-join strings " "))))
+     ((length< (aw-window-list) 2)
+      (embark-insert strings))
+     (t (let ((aw-dispatch-always t))
+	  (aw-select " Ace - Insert"
+		     #'(lambda (window)
+			 (with-selected-window window
+			   (if buffer-read-only
+			       (message "Buffer is read-only")
+			     (embark-insert strings))))))))))
+(add-to-list 'embark-multitarget-actions #'embark-ace-insert)
 (define-key embark-general-map (kbd "i") #'embark-ace-insert)
 
 (defun embark-avy-copy (strs)
