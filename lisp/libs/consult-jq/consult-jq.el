@@ -168,9 +168,8 @@ The results will be displayed to you in the buffer in `consult-jq-buffer'."
 	 (completion-styles (or consult-jq-completion-styles completion-styles))
 	 (completion-at-point-functions
 	  (list (make-consult-jq-completion-function-at-point buffer))))
-    (when (get-buffer consult-jq-buffer)
-      (with-current-buffer consult-jq-buffer
-	(funcall consult-jq-json-buffer-mode)))
+    (with-current-buffer  (get-buffer-create consult-jq-buffer)
+      (funcall consult-jq-json-buffer-mode))
     (consult--read
      (consult-jq-path buffer)
      :prompt "jq: "
@@ -189,6 +188,8 @@ The results will be displayed to you in the buffer in `consult-jq-buffer'."
 	 (completion-styles (or consult-jq-completion-styles completion-styles))
 	 (completion-at-point-functions
 	  (list (make-consult-jq-completion-function-at-point buffer))))
+    (with-current-buffer  (get-buffer-create consult-jq-buffer)
+      (funcall consult-jq-json-buffer-mode))
     (consult--prompt
      :prompt "jq: "
      :initial "."
