@@ -111,42 +111,40 @@
 			(consult-jq-get-all-jq-function))
 	    :category 'consult-jq))))
 
-(defun consult-jq-call-jq (&optional query args output-buffer)
-  "Call 'jq' use OUTPUT-BUFFER as output (default is 'standard-output').
-with the QUERY and ARGS."
-  (call-process-region
-   nil
-   nil
-   consult-jq-command
-   nil
-   (or output-buffer standard-output)
-   nil
-   (or args  "-M")
-   (or query ".")))
-
+(defun consult-jq-call-jq (&optional query args)
+  "Call `jq' With the QUERY and ARGS."
+  (let* (status
+	 (output
+	  (with-output-to-string
+	    (setq status (call-process-region nil nil
+			  consult-jq-command
+			  nil standard-output nil
+			  (or args  "-M") (or query "."))))))
+    (if (eq status 0)
+	output
+      (progn (message "jq error: %s" output)
+	     nil))))
+	  
 (defun consult-jq-path (buffer &optional query)
   "Get all json path, after apply `QUERY' in `BUFFER'."
   (with-current-buffer buffer
-    (split-string
-     (with-output-to-string
-       (consult-jq-call-jq (concat (or query "." ) " | " consult-jq-path-query)
-			   "-r"))
-     "\n")))
+    (let ((output (consult-jq-call-jq
+		   (concat (or query "." ) " | " consult-jq-path-query)
+		   "-r")))
+      (when output
+	(split-string output "\n")))))
 
 
 (defun consult-jq-query (buffer query)
   "Call jq with `QUERY' and context of `BUFFER' as input.
 Then output the result into `consult-jq-buffer'."
-  (when (get-buffer consult-jq-buffer)
-    (with-current-buffer consult-jq-buffer
-      (funcall consult-jq-json-buffer-mode)
-      (erase-buffer)))
-  (with-current-buffer
-      buffer
-    (consult-jq-call-jq query nil consult-jq-buffer))
-  (list (with-current-buffer consult-jq-buffer
-	  (buffer-string))))
-
+  (let ((result (with-current-buffer buffer
+		  (consult-jq-call-jq query nil))))
+    (when result
+      (list (with-current-buffer consult-jq-buffer
+	      (erase-buffer)
+	      (insert result)
+	      (buffer-string))))))
 
 (defun consult-jq-state (buffer)
   "Build consult STATE of consult-jq."
@@ -170,6 +168,9 @@ The results will be displayed to you in the buffer in `consult-jq-buffer'."
 	 (completion-styles (or consult-jq-completion-styles completion-styles))
 	 (completion-at-point-functions
 	  (list (make-consult-jq-completion-function-at-point buffer))))
+    (when (get-buffer consult-jq-buffer)
+      (with-current-buffer consult-jq-buffer
+	(funcall consult-jq-json-buffer-mode)))
     (consult--read
      (consult-jq-path buffer)
      :prompt "jq: "
