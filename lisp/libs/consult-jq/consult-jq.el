@@ -122,7 +122,7 @@
 			  (or args  "-M") (or query "."))))))
     (if (eq status 0)
 	output
-      (progn (message "jq error: %s" output)
+      (progn (message "jq error: %s" (propertize output 'face 'error))
 	     nil))))
 	  
 (defun consult-jq-path (buffer &optional query)
