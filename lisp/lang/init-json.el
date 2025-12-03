@@ -12,7 +12,7 @@
 (use-package consult-jq
   :load-path "~/.emacs.d/lisp/libs/consult-jq/"
   :config
-  (setq consult-jq-completion-styles '(basic partial-completion emacs22))
+  (setq consult-jq-completion-styles '(basic partial-completion))
   :bind (:map json-mode-map
 	      ("C-c C-j" . 'consult-jq)
 	      ("C-c i"   . 'consult-jq)))

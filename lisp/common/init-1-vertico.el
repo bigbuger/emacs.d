@@ -111,16 +111,16 @@ since the whatis index is broken post-SIP."
   
   
   :init
-  (setq completion-styles '(orderless basic partial-completion emacs22))
+  (setq completion-styles '(orderless basic partial-completion))
   (with-eval-after-load 'company
     ;; We follow a suggestion by company maintainer u/hvis:
-;; https://www.reddit.com/r/emacs/comments/nichkl/comment/gz1jr3s/
+    ;; https://www.reddit.com/r/emacs/comments/nichkl/comment/gz1jr3s/
     (defun company-completion-styles (capf-fn &rest args)
-      (let ((completion-styles '(basic partial-completion)))
+      (let ((completion-styles '(basic partial-completion emacs22)))
 	(apply capf-fn args)))
     
     (advice-add 'company-capf :around #'company-completion-styles))
-  
+
   (defun using-orderless(orig_fun &rest args)
     "Using orderless for sepecial function."
     (let ((completion-styles '(orderless)))
@@ -557,13 +557,13 @@ targets."
 		  (null keymap)
 		  (eq (lookup-key keymap [13]) #'embark-done))
 	(posframe-show " *embark-indicator-posframe*"
-	 :string (format "Act on %s" (plist-get (car targets) :type))
-	 :position (point)
-	 :background-color "LightYellow1"
-	 :timeout 0.8
-	 
-	 :border-color "LightYellow2"
-	 :border-width 1))))
+		       :string (format "Act on %s" (plist-get (car targets) :type))
+		       :position (point)
+		       :background-color "LightYellow1"
+		       :timeout 0.8
+		       
+		       :border-color "LightYellow2"
+		       :border-width 1))))
   
   (setq embark-indicators
 	'(embark-which-key-indicator
@@ -586,7 +586,7 @@ targets."
     `(defun ,(intern (concat "my-embark-ace-" (symbol-name fn))) ()
        (interactive)
        (with-demoted-errors "%s"
-	
+	 
 	 (require 'ace-window)
 	 (let ((aw-dispatch-always t))
 	   (if (length< (aw-window-list) 2)
@@ -624,8 +624,8 @@ targets."
   (let ((mb-win (active-minibuffer-window)))
     (cond
      (mb-win (progn
-	    (select-window mb-win)
-	    (insert (string-join strings " "))))
+	       (select-window mb-win)
+	       (insert (string-join strings " "))))
      ((length< (aw-window-list) 2)
       (embark-insert strings))
      (t (let ((aw-dispatch-always t))
