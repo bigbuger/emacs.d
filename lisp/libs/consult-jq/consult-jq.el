@@ -56,26 +56,32 @@
 	       display-buffer-in-direction
 	       (direction . right)))
 
-(defun consult-jq-get-custom-function ()
-  "Retrun all jq custom function which define in .jq file."
-  (let ((jq-file (file-truename "~/.jq"))
-	(matches))
-    (if (file-readable-p jq-file)
-	(with-temp-buffer
-	  (insert-file-contents jq-file)
-	  (goto-char (point-min))
-	  (save-match-data
-	    (goto-char 1)
-            (while (search-forward-regexp "def *\\([a-zA-Z_]+\\)" nil t 1)
-              (push (match-string 1) matches)))
-	  matches))))
+(defvar consult-jq-buildin-functions nil)
+(defvar consult-jq-custom-functions nil)
+(defconst consult-jq-custom-function-file
+  (file-truename "~/.jq"))
+
+(defun consult-jq-load-custom-functions ()
+  "Load all jq custom function which define in .jq file."
+  (when (file-readable-p consult-jq-custom-function-file)
+    (with-temp-buffer
+      (insert-file-contents consult-jq-custom-function-file)
+      (goto-char (point-min))
+      (save-match-data
+	(goto-char 1)
+	(while (search-forward-regexp "def *\\([a-zA-Z_]+\\)" nil t 1)
+	  (message "fuck?")
+	  (push (match-string 1) consult-jq-custom-functions))))))
+
+(defun consult-jq-load-builtins ()
+  "Load all jq builtins into `consult-jq-buildin-functions'."
+  (setq consult-jq-buildin-functions
+	(mapcar (lambda (c) (car (split-string c "/")))
+		(string-split (shell-command-to-string "echo '{}' | jq -r 'builtins | .[]'")))))
 
 (defun consult-jq-get-all-jq-function ()
   "Return all jq function."
-  (let ((builtins (mapcar (lambda (c) (car (split-string c "/")))
-			  (string-split (shell-command-to-string "echo '{}' | jq -r 'builtins | .[]'"))))
-	(customs (consult-jq-get-custom-function)))
-    (append builtins customs)))
+  (append consult-jq-buildin-functions consult-jq-custom-functions nil))
 
 (defun consult-jq-identifier-p (ch)
   (when ch
@@ -86,8 +92,12 @@
 	(eq ?\] ch)
 	(eq ?. ch))))
 
-(defun make-consult-jq-completion-function-at-point (buffer)
+(defun consult-jq-make-capf (buffer)
   "This is the function to be used for the hook `completion-at-point-functions'."
+  (unless consult-jq-buildin-functions (consult-jq-load-builtins))
+  (when (and (not consult-jq-custom-functions)
+	     (file-readable-p consult-jq-custom-function-file))
+    (consult-jq-load-custom-functions))
   (lambda ()
     (let* ((contents (minibuffer-contents-no-properties))
            (start (save-excursion
@@ -122,7 +132,7 @@
 			  (or args  "-M") (or query "."))))))
     (if (eq status 0)
 	output
-      (progn (message "jq error: %s" (propertize output 'face 'error))
+      (progn (message "%s" (propertize output 'face 'error))
 	     nil))))
 	  
 (defun consult-jq-path (buffer &optional query)
@@ -167,7 +177,7 @@ The results will be displayed to you in the buffer in `consult-jq-buffer'."
   (let* ((buffer (current-buffer))
 	 (completion-styles (or consult-jq-completion-styles completion-styles))
 	 (completion-at-point-functions
-	  (list (make-consult-jq-completion-function-at-point buffer))))
+	  (list (consult-jq-make-capf buffer))))
     (with-current-buffer  (get-buffer-create consult-jq-buffer)
       (funcall consult-jq-json-buffer-mode))
     (consult--read
@@ -187,7 +197,7 @@ The results will be displayed to you in the buffer in `consult-jq-buffer'."
   (let* ((buffer (current-buffer))
 	 (completion-styles (or consult-jq-completion-styles completion-styles))
 	 (completion-at-point-functions
-	  (list (make-consult-jq-completion-function-at-point buffer))))
+	  (list (consult-jq-make-capf buffer))))
     (with-current-buffer  (get-buffer-create consult-jq-buffer)
       (funcall consult-jq-json-buffer-mode))
     (consult--prompt
