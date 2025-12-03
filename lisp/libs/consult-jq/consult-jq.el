@@ -70,7 +70,6 @@
       (save-match-data
 	(goto-char 1)
 	(while (search-forward-regexp "def *\\([a-zA-Z_]+\\)" nil t 1)
-	  (message "fuck?")
 	  (push (match-string 1) consult-jq-custom-functions))))))
 
 (defun consult-jq-load-builtins ()

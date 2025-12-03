@@ -8,7 +8,11 @@ Features:
 + complete jq paths and functions by type 'C-M-i' (aka. call 'complete-symbol').
 
 Demo:
+[[file:images/consult-jq.gif][demo]]
 
+** Usage
+Call `consult-jq` or `consult-jq-without-candidate` in a json buffer.
+Use 'C-M-i' to complete jq function or json path.
 
 ** Tips about orderless
 If you using [[https://github.com/oantolin/orderless][orderless]], this package maybe fail to preview result when your input contain '[]'.
