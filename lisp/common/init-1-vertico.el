@@ -638,13 +638,11 @@ targets."
 (add-to-list 'embark-multitarget-actions #'embark-ace-insert)
 (define-key embark-general-map (kbd "i") #'embark-ace-insert)
 
-(defun embark-avy-copy (strs)
-  "Insert `STRS' below line select by `avy-goto-line'."
+(defun embark-avy-copy (str)
+  "Insert `STR' below line select by `avy-goto-end-of-line."
+  (interactive "s")
   (avy-goto-end-of-line)
-  (insert "\n")
-  (insert (string-join strs "\n"))
-  (insert "\n"))
-(add-to-list 'embark-multitarget-actions 'embark-avy-copy)
+  (insert "\n" str "\n"))
 (define-key embark-general-map (kbd "y") #'embark-avy-copy)
 
 ;; i for insert
