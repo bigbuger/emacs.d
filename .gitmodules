@@ -52,3 +52,6 @@
 [submodule "lisp/libs/pic-ts-mode"]
 	path = lisp/libs/pic-ts-mode
 	url = git@github.com:smoeding/pic-ts-mode.git
+[submodule "lisp/libs/consult-jq"]
+	path = lisp/libs/consult-jq
+	url = git@github.com:bigbuger/consult-jq.git
