@@ -607,8 +607,7 @@ targets."
 			     (car (last  (split-string
 					  (symbol-name split-type) "-"))))) ()
        (interactive)
-       (funcall #',split-type)
-       (other-window-prefix)
+       (select-window (funcall #',split-type))
        (call-interactively #',fn))))
 
 (define-key embark-file-map     (kbd "2") (my-embark-split-action find-file split-window-below))
