@@ -10,10 +10,13 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
+(setq duplicate-line-final-position -1)
+(setq duplicate-region-final-position -1)
+(global-set-key (kbd "C-d") #'duplicate-dwim)
+
 ;; crux
 (require 'crux)
 ;; (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line) ;; just use M-m `back-to-indentation'
-(global-set-key (kbd "C-d") 'crux-duplicate-current-line-or-region)
 (global-set-key (kbd "C-<backspace>") #'crux-kill-line-backwards)
 (global-set-key (kbd "C-c M-r") #'crux-rename-file-and-buffer)
 ;; end curx
