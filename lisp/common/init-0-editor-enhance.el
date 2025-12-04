@@ -129,7 +129,6 @@ ARG is pass to `sp-end-of-sexp'"
 
 ;; string-inflection 驼峰/下划线/横线风格自由切换
 (require 'string-inflection)
-(global-set-key (kbd "C-c u") 'string-inflection-toggle)
 (global-set-key (kbd "M-c") 'string-inflection-lower-camelcase) ;; orig capitalize-word
 (global-set-key (kbd "M-C") 'string-inflection-camelcase) ;; orig capitalize-word
 (global-set-key (kbd "M-u") 'string-inflection-underscore) ;; orig upcase-word
@@ -145,7 +144,7 @@ ARG is pass to `sp-end-of-sexp'"
    ("U" "upcase          FOO_BAR" string-inflection-upcase)
    ("k" "kebab           foo-bar" string-inflection-kebab-case)
    ])
-(global-set-key (kbd "C-c M-u") 'string-inflection-transient)
+(global-set-key (kbd "C-c u") 'string-inflection-transient)
 ;; end string-inflection
 
 

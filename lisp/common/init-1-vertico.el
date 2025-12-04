@@ -149,8 +149,6 @@ since the whatis index is broken post-SIP."
 					      (lambda (x) (not (car x)))
 					      nerd-icons-completion-category-icons )))
 
-(recentf-mode t)
-
 (use-package consult
   :demand t
 
