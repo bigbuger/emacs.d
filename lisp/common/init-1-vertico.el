@@ -29,7 +29,7 @@
     (setq cand (cl-call-next-method cand prefix suffix index start))
     (if (bound-and-true-p vertico-grid-mode)
 	(if (= vertico--index index)
-            (concat #("➤ " 0 1 (face vertico-current)) cand)
+            (concat #("➤" 0 1 (face vertico-current)) cand)
           (concat #("_" 0 1 (display " ")) cand))
       (if (= vertico--index index)
           (concat #("➤ " 0 2 (face vertico-current)) cand)
