@@ -308,7 +308,7 @@ ARG is pass to `sp-end-of-sexp'"
   :files "everything"
   :confirm prefix
   :dir project)
-(global-set-key (kbd "M-s r") #'my-rg-project)
+(global-set-key (kbd "M-s r") #'rg-menu)
 
 (use-package avy
   :bind
