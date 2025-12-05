@@ -177,7 +177,6 @@ since the whatis index is broken post-SIP."
   (global-set-key (kbd "C-c s") 'consult-ripgrep)
   (global-set-key (kbd "C-c f") 'consult-fd)
   (global-set-key (kbd "C-c e") 'consult-recent-file)
-  (global-set-key (kbd "C-c l") 'consult-line)
   (global-set-key (kbd "C-c i") 'consult-imenu)
   
   (global-set-key (kbd "M-g i") 'consult-imenu)	      ;; orig. imenu
@@ -185,6 +184,7 @@ since the whatis index is broken post-SIP."
   (global-set-key (kbd "M-g g") 'consult-goto-line) ;; orig. goto-line
   ;; (global-set-key (kbd "M-g m") 'consult-mark)
   
+  (global-set-key (kbd "M-s l") 'consult-line)
   (global-set-key (kbd "M-s k")  'consult-keep-lines)
   (global-set-key (kbd "M-s u")  'consult-focus-lines)
   (global-set-key (kbd "M-s e")  'consult-isearch-history)
