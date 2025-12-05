@@ -108,7 +108,7 @@ since the whatis index is broken post-SIP."
 	  (project (styles orderless+initialism+pinyin))
 	  (project-file (styles orderless+initialism+pinyin))
 	  (project-buffer (styles orderless+initialism+pinyin))
-	  (consult-location (styles orderless+initialism+pinyin))
+	  (consult-location (styles orderless))
 	  (bookmark (styles orderless+initialism+pinyin))))
   
   
