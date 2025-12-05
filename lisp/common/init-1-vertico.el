@@ -328,8 +328,25 @@ This is the function to be used for the hook `completion-at-point-functions'."
      (mapcar (lambda (r) (consult--convert-regexp r type)) input)
      (lambda (str) (orderless--highlight input t str))))
 
+  (defun consult--orign-regexp-compiler (input _type ignore-case)
+    "不转换 input，直接当做一个 regex."
+    (cons (list input)
+          (when-let (regexps (seq-filter #'consult--valid-regexp-p (list input)))
+            (apply-partially #'consult--highlight-regexps regexps ignore-case))))
+  
   ;; OPTION 1: Activate globally for all consult-grep/ripgrep/find/...
   (setq consult--regexp-compiler #'consult--orderless-regexp-compiler)
+
+  (defun consult-async-switch-to-orderless ()
+    (interactive)
+    (setq-local consult--regexp-compiler #'consult--orderless-regexp-compiler))
+
+  (defun consult-async-switch-to-orign ()
+    (interactive)
+    (setq-local consult--regexp-compiler #'consult--orign-regexp-compiler))
+
+  (define-key consult-async-map (kbd "C-o o") '("orderless style" . consult-async-switch-to-orderless))
+  (define-key consult-async-map (kbd "C-o r") '("regex style" . consult-async-switch-to-orign))
 
   ;; OPTION 2: Activate only for some commands, e.g., consult-ripgrep!
   ;; (defun consult--with-orderless (&rest args)
