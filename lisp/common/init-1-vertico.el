@@ -172,7 +172,8 @@ since the whatis index is broken post-SIP."
   ;; (setq consult-line-start-from-top t)
   
   (global-set-key (kbd "C-x b") 'consult-buffer)
-  (global-set-key (kbd "C-c M-y") 'consult-yank-pop)
+  (global-set-key (kbd "M-y") 'consult-yank-pop) ;; orig. yank-pop
+  
   (global-set-key (kbd "C-c m") 'consult-bookmark)
   (global-set-key (kbd "C-c s") 'consult-ripgrep)
   (global-set-key (kbd "C-c f") 'consult-fd)
