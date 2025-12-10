@@ -324,10 +324,11 @@ This is the function to be used for the hook `completion-at-point-functions'."
 
   ;; Use Orderless as pattern compiler for consult-grep/ripgrep/find
   (defun consult--orderless-regexp-compiler (input type &rest _config)
-    (setq input (cdr (orderless-compile input)))
-    (cons
-     (mapcar (lambda (r) (consult--convert-regexp r type)) input)
-     (lambda (str) (orderless--highlight input t str))))
+    (let ((orderless-matching-styles '(orderless-regexp)))
+      (setq input (cdr (orderless-compile input)))
+      (cons
+       (mapcar (lambda (r) (consult--convert-regexp r type)) input)
+       (lambda (str) (orderless--highlight input t str)))))
 
   (defun consult--orign-regexp-compiler (input _type ignore-case)
     "不转换 input，直接当做一个 regex."
@@ -359,10 +360,11 @@ This is the function to be used for the hook `completion-at-point-functions'."
 
   ;; fd --full-path 会包含文件名，所以会导致用当前目录/项目名去搜索是有问题，这里给正则加上开头为当前目录，大部分情况可以适配掉
   (defun consult-fd--orderless-regexp-compiler (input type &rest _config)
-    (setq input (cdr (orderless-compile input)))
-    (cons
-     (mapcar (lambda (r) (consult--convert-regexp (concat "^" default-directory  ".*" r) type)) input)
-     (lambda (str) (orderless--highlight input t str))))
+    (let ((orderless-matching-styles '(orderless-regexp)))
+      (setq input (cdr (orderless-compile input)))
+      (cons
+       (mapcar (lambda (r) (consult--convert-regexp (concat "^" default-directory  ".*" r) type)) input)
+       (lambda (str) (orderless--highlight input t str)))))
 
   (defun consult-fd--with-orderless (&rest args)
     (minibuffer-with-setup-hook
