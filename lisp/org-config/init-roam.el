@@ -69,7 +69,8 @@
          (file-name-directory
           (file-relative-name (org-roam-node-file node) org-roam-directory)))
       (error "")))
-  (org-roam-db-autosync-mode))
+  (when (file-exists-p org-roam-directory)
+    (org-roam-db-autosync-mode)))
 
 (defun my-roam-filter-by-type (type-name)
   (lambda (node)

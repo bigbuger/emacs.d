@@ -335,28 +335,22 @@ This is the function to be used for the hook `completion-at-point-functions'."
     (cons (list input)
           (when-let (regexps (seq-filter #'consult--valid-regexp-p (list input)))
             (apply-partially #'consult--highlight-regexps regexps ignore-case))))
+
+  (defun my-consult-regex-compiler (input type ignore-case)
+    "用 / 开头时使用原始正则."
+    (if (string-prefix-p "/" (minibuffer-contents))
+	(consult--orign-regexp-compiler input type ignore-case)
+      (consult--orderless-regexp-compiler input type ignore-case)))
   
-  ;; OPTION 1: Activate globally for all consult-grep/ripgrep/find/...
+  ;; globally for all consult-grep/ripgrep/find/...
   (setq consult--regexp-compiler #'consult--orderless-regexp-compiler)
 
-  (defun consult-async-switch-to-orderless ()
-    (interactive)
-    (setq-local consult--regexp-compiler #'consult--orderless-regexp-compiler))
-
-  (defun consult-async-switch-to-orign ()
-    (interactive)
-    (setq-local consult--regexp-compiler #'consult--orign-regexp-compiler))
-
-  (define-key consult-async-map (kbd "C-o o") '("orderless style" . consult-async-switch-to-orderless))
-  (define-key consult-async-map (kbd "C-o r") '("regex style" . consult-async-switch-to-orign))
-
-  ;; OPTION 2: Activate only for some commands, e.g., consult-ripgrep!
-  ;; (defun consult--with-orderless (&rest args)
-  ;;   (minibuffer-with-setup-hook
-  ;;     (lambda ()
-  ;;       (setq-local consult--regexp-compiler #'consult--orderless-regexp-compiler))
-  ;;     (apply args)))
-  ;; (advice-add #'consult-ripgrep :around #'consult--with-orderless)
+  (defun consult--with-orderless (&rest args)
+    (minibuffer-with-setup-hook
+      (lambda ()
+        (setq-local consult--regexp-compiler #'my-consult-regex-compiler))
+      (apply args)))
+  (advice-add #'consult-ripgrep :around #'consult--with-orderless)
 
   ;; fd --full-path 会包含文件名，所以会导致用当前目录/项目名去搜索是有问题，这里给正则加上开头为当前目录，大部分情况可以适配掉
   (defun consult-fd--orderless-regexp-compiler (input type &rest _config)
