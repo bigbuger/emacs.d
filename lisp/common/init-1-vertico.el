@@ -347,8 +347,8 @@ This is the function to be used for the hook `completion-at-point-functions'."
 
   (defun consult--with-orderless (&rest args)
     (minibuffer-with-setup-hook
-      (lambda ()
-        (setq-local consult--regexp-compiler #'my-consult-regex-compiler))
+	(lambda ()
+          (setq-local consult--regexp-compiler #'my-consult-regex-compiler))
       (apply args)))
   (advice-add #'consult-ripgrep :around #'consult--with-orderless)
 
@@ -521,6 +521,7 @@ selected color."
   (define-key embark-region-map "N" #'narrow-to-region)
 
   (define-key embark-become-file+buffer-map "p" #'projectile-find-file)
+  (define-key embark-become-file+buffer-map "P" #'projectile-switch-project)
 
   :init
   (setq which-key-use-C-h-commands nil
