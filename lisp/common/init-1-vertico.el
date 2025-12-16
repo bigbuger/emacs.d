@@ -64,7 +64,7 @@ since the whatis index is broken post-SIP."
   
   (setq orderless-matching-styles
 	'(orderless-literal		; use = to dispatch
-	  orderless-regexp		; use % to dispatch
+	  orderless-regexp		;
 	  ;; orderless-prefixes          ; re-re matches query-replace-regexp, recode-region and magit-remote-list-refs; f-d.t matches final-draft.txt
 	  ;; orderless-literal-prefix    ; The component is treated as a literal string that must occur as a prefix of a candidate. use ^ to dispatch , 和正则开头类似？
 	  ;; orderless-initialism        ; This maps abc to \<a.*\<b.*\c, use , to dispatch
@@ -102,14 +102,14 @@ since the whatis index is broken post-SIP."
   
   ;; use initialism for command, buffer and file
   (setq completion-category-overrides
-	'((command (styles orderless+initialism+prefixes))
-          (buffer (styles orderless+initialism+pinyin))
-	  (file (styles orderless+initialism+pinyin))
-	  (project (styles orderless+initialism+pinyin))
-	  (project-file (styles orderless+initialism+pinyin))
-	  (project-buffer (styles orderless+initialism+pinyin))
-	  (consult-location (styles orderless))
-	  (bookmark (styles orderless+initialism+pinyin))))
+	'((command          (styles orderless+initialism+prefixes))
+          (buffer           (styles orderless+initialism+pinyin))
+	  (file             (styles orderless+initialism+pinyin))
+	  (project          (styles orderless+initialism+pinyin))
+	  (project-file     (styles orderless+initialism+pinyin))
+	  ;; (project-buffer   (styles orderless+initialism+pinyin))
+	  (bookmark         (styles orderless+initialism+pinyin))
+	  (consult-location (styles orderless))))
   
   
   :init
