@@ -103,11 +103,11 @@ since the whatis index is broken post-SIP."
   ;; use initialism for command, buffer and file
   (setq completion-category-overrides
 	'((command          (styles orderless+initialism+prefixes))
-          (buffer           (styles orderless+initialism+pinyin))
-	  (file             (styles orderless+initialism+pinyin))
-	  (project          (styles orderless+initialism+pinyin))
-	  (project-file     (styles orderless+initialism+pinyin))
-	  ;; (project-buffer   (styles orderless+initialism+pinyin))
+          (buffer           (styles orderless+initialism))
+	  (file             (styles orderless+initialism))
+	  (project          (styles orderless+initialism))
+	  (project-file     (styles orderless+initialism))
+	  (project-buffer   (styles orderless+initialism))
 	  (bookmark         (styles orderless+initialism+pinyin))
 	  (consult-location (styles orderless))))
   
