@@ -328,7 +328,9 @@ This is the function to be used for the hook `completion-at-point-functions'."
       (setq input (cdr (orderless-compile input)))
       (cons
        (mapcar (lambda (r) (consult--convert-regexp r type)) input)
-       (lambda (str) (orderless--highlight input t str)))))
+       (lambda (str)
+	 (let ((orderless-match-faces [consult-highlight-match]))
+	   (orderless--highlight input t str))))))
 
   (defun consult--orign-regexp-compiler (input _type ignore-case)
     "不转换 input，直接当做一个 regex."
@@ -343,14 +345,14 @@ This is the function to be used for the hook `completion-at-point-functions'."
       (consult--orderless-regexp-compiler input type ignore-case)))
   
   ;; globally for all consult-grep/ripgrep/find/...
-  ;; (setq consult--regexp-compiler #'consult--orderless-regexp-compiler) ;; fixme 用 embark export 后会导致没有命中高亮
-
-  ;; (defun consult--with-orderless (&rest args)
-  ;;   (minibuffer-with-setup-hook
-  ;; 	(lambda ()
-  ;;         (setq-local consult--regexp-compiler #'my-consult-regex-compiler))
-  ;;     (apply args)))
-  ;; (advice-add #'consult-ripgrep :around #'consult--with-orderless)
+  ;; (setq consult--regexp-compiler #'consult--orderless-regexp-compiler)
+  
+  (defun consult--with-orderless (&rest args)
+    (minibuffer-with-setup-hook
+	(lambda ()
+          (setq-local consult--regexp-compiler #'my-consult-regex-compiler))
+      (apply args)))
+  (advice-add #'consult-ripgrep :around #'consult--with-orderless)
 
   ;; fd --full-path 会包含文件名，所以会导致用当前目录/项目名去搜索是有问题，这里给正则加上开头为当前目录，大部分情况可以适配掉
   (defun consult-fd--orderless-regexp-compiler (input type &rest _config)
