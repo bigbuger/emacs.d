@@ -18,6 +18,7 @@
 
 (global-set-key (kbd "<C-tab>") 'company-complete)
 (global-set-key (kbd "<C-M-tab>") 'company-files)
+(global-set-key [remap dabbrev-expand] 'company-dabbrev)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/company-english-helper")
 (require 'company-english-helper)

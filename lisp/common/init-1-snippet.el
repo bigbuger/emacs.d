@@ -142,7 +142,6 @@ about what flexible matching means in this context."
 	try-expand-line-all-buffers
 	))
 
-(global-set-key [remap dabbrev-expand] 'hippie-expand)
 (require 'bind-key)
 (bind-key* "M-h" 'hippie-expand) ;; 原来是 mark-paragraph, 不过我不怎么用
 
