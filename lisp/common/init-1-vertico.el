@@ -343,14 +343,14 @@ This is the function to be used for the hook `completion-at-point-functions'."
       (consult--orderless-regexp-compiler input type ignore-case)))
   
   ;; globally for all consult-grep/ripgrep/find/...
-  (setq consult--regexp-compiler #'consult--orderless-regexp-compiler)
+  ;; (setq consult--regexp-compiler #'consult--orderless-regexp-compiler) ;; fixme 用 embark export 后会导致没有命中高亮
 
-  (defun consult--with-orderless (&rest args)
-    (minibuffer-with-setup-hook
-	(lambda ()
-          (setq-local consult--regexp-compiler #'my-consult-regex-compiler))
-      (apply args)))
-  (advice-add #'consult-ripgrep :around #'consult--with-orderless)
+  ;; (defun consult--with-orderless (&rest args)
+  ;;   (minibuffer-with-setup-hook
+  ;; 	(lambda ()
+  ;;         (setq-local consult--regexp-compiler #'my-consult-regex-compiler))
+  ;;     (apply args)))
+  ;; (advice-add #'consult-ripgrep :around #'consult--with-orderless)
 
   ;; fd --full-path 会包含文件名，所以会导致用当前目录/项目名去搜索是有问题，这里给正则加上开头为当前目录，大部分情况可以适配掉
   (defun consult-fd--orderless-regexp-compiler (input type &rest _config)
