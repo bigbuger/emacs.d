@@ -21,6 +21,22 @@
 (global-set-key (kbd "C-c M-r") #'crux-rename-file-and-buffer)
 ;; end curx
 
+(defun insert-current-file-name-at-point (&optional full-path)
+  "Insert the current filename at point.
+With prefix argument, use full path."
+  (interactive "P")
+  (let* ((buffer
+	  (if (minibufferp)
+	      (window-buffer
+	       (minibuffer-selected-window))
+	    (current-buffer)))
+	 (filename (buffer-file-name buffer)))
+    (if filename
+	(insert (if full-path filename (file-name-nondirectory filename)))
+      (error (format "Buffer %s is not visiting a file" (buffer-name buffer))))))
+
+(global-set-key (kbd "M-o") #'insert-current-file-name-at-point)
+
 (use-package vundo
   :ensure t
   :bind
