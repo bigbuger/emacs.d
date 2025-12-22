@@ -135,6 +135,8 @@ ARG is pass to `sp-end-of-sexp'"
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 (global-set-key (kbd "C-c M-i") 'mc/insert-numbers)
 (define-key mc/keymap (kbd "C-c C-g") 'mc/keyboard-quit)
+(unbind-key (kbd "<return>") mc/keymap)
+(setq mc/always-run-for-all t)
 ;; end multiple-cursors
 
 
