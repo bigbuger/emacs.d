@@ -524,6 +524,7 @@ selected color."
 
   (define-key embark-become-file+buffer-map "p" #'projectile-find-file)
   (define-key embark-become-file+buffer-map "P" #'projectile-switch-project)
+  (define-key embark-become-file+buffer-map "d" #'projectile-find-dir)
 
   :init
   (setq which-key-use-C-h-commands nil
@@ -679,6 +680,13 @@ targets."
                (concat "/sudo:root@localhost:" file))))
 
 (define-key embark-file-map (kbd "S") 'sudo-find-file)
+
+(defun consult-fd-other-file ()
+  "Use fd find other file which name like current `buffer' in project."
+  (interactive)
+  (let ((pattern (concat (file-name-base buffer-file-name) "[^/]*?$")))
+    (consult-fd nil (concat pattern " -- -tf"))))
+(global-set-key (kbd "C-c a") #'consult-fd-other-file)
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
