@@ -139,6 +139,13 @@ ARG is pass to `sp-end-of-sexp'"
 (setq mc/always-run-for-all t)
 ;; end multiple-cursors
 
+;; dmacro 动态生成键盘宏
+;; 重复一套操作两次后直接用 `C-S-e' 后就直接调用
+;; 例如输入 hello he 之后按 `C-S-e' 会变成 hello hello
+(use-package dmacro
+  :ensure t
+  :init
+  (global-dmacro-mode t))
 
 ;; expland-regin
 (require 'expand-region)
