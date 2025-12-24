@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rpc
+# key: rpc
+# --
+rpc ${1:fun}(${2:Request}) returns(${3:Response});
