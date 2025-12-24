@@ -684,7 +684,7 @@ targets."
 (defun consult-fd-other-file ()
   "Use fd find other file which name like current `buffer' in project."
   (interactive)
-  (let ((pattern (concat (file-name-base buffer-file-name) "[^/]*?$")))
+  (let ((pattern (concat (replace-regexp-in-string "\\..*$" "" (file-name-base buffer-file-name)) "[^/]*?$")))
     (consult-fd nil (concat pattern " -- -tf"))))
 (global-set-key (kbd "C-c a") #'consult-fd-other-file)
 
