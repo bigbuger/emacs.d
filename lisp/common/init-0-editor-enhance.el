@@ -144,11 +144,12 @@ ARG is pass to `sp-end-of-sexp'"
   ;; :init (kmacro-x-atomic-undo-mode 1)
   :bind (("C-<" . kmacro-x-mc-mark-previous)
          ("C->" . kmacro-x-mc-mark-next)
+	 ("C-S-<mouse-1>" . kmacro-x-mc-mark-at-click)
 	 :map kmacro-x-mc-mode-map
 	 ("C-<return>" . kmacro-x-mc-apply))
   :config
   (setq kmacro-x-mc-live-preview t)
-  (unbind-key (kbd "<return>") kmacro-x-mc-mode-map))
+  (unbind-key (kbd "<return>") 'kmacro-x-mc-mode-map))
 
 ;; dmacro 动态生成键盘宏
 ;; 重复一套操作两次后直接用 `C-S-e' 后就直接调用
