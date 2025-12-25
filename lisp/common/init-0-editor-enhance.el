@@ -127,17 +127,28 @@ ARG is pass to `sp-end-of-sexp'"
 
 
 ;; multiple-cursors 多光标编辑
-(require 'multiple-cursors)
-(global-set-key (kbd "C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
-(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
-(global-set-key (kbd "C-c M-i") 'mc/insert-numbers)
-(define-key mc/keymap (kbd "C-c C-g") 'mc/keyboard-quit)
-(unbind-key (kbd "<return>") mc/keymap)
-(setq mc/always-run-for-all t)
+;; (require 'multiple-cursors)
+;; (global-set-key (kbd "C-S-c") 'mc/edit-lines)
+;; (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+;; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+;; (global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
+;; (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
+;; (global-set-key (kbd "C-c M-i") 'mc/insert-numbers)
+;; (define-key mc/keymap (kbd "C-c C-g") 'mc/keyboard-quit)
+;; (unbind-key (kbd "<return>") mc/keymap)
+;; (setq mc/always-run-for-all t)
 ;; end multiple-cursors
+
+(use-package kmacro-x
+  :ensure t
+  ;; :init (kmacro-x-atomic-undo-mode 1)
+  :bind (("C-<" . kmacro-x-mc-mark-previous)
+         ("C->" . kmacro-x-mc-mark-next)
+	 :map kmacro-x-mc-mode-map
+	 ("C-<return>" . kmacro-x-mc-apply))
+  :config
+  (setq kmacro-x-mc-live-preview t)
+  (unbind-key (kbd "<return>") kmacro-x-mc-mode-map))
 
 ;; dmacro 动态生成键盘宏
 ;; 重复一套操作两次后直接用 `C-S-e' 后就直接调用
