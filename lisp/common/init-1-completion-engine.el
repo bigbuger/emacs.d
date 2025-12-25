@@ -1,4 +1,5 @@
-;;; init-1-vertico.el --- vertico  -*- lexical-binding: t; -*-
+;;; init-1-completion-engine.el --- completion engine config -*- lexical-binding: t; -*-
+;;; 
 
 ;;; Commentary:
 ;; 
@@ -179,6 +180,7 @@ since the whatis index is broken post-SIP."
   (global-set-key (kbd "C-c f") 'consult-fd)
   (global-set-key (kbd "C-c e") 'consult-recent-file)
   (global-set-key (kbd "C-c i") 'consult-imenu)
+  (global-set-key (kbd "C-c k") 'consult-kmacro)
   
   (global-set-key (kbd "M-g i") 'consult-imenu)	      ;; orig. imenu
   (global-set-key (kbd "M-g M-g") 'consult-goto-line) ;; orig. goto-line
@@ -636,7 +638,7 @@ targets."
 
 (require 'ace-window)
 (defun embark-ace-insert(strings)
-  "Insert `STRING' into select window by `ace-window'."
+  "Insert `STRINGS' into select window by `ace-window'."
   (let ((mb-win (active-minibuffer-window)))
     (cond
      (mb-win (progn
@@ -713,6 +715,6 @@ targets."
   :config
   (setq vertico-posframe-truncate-lines nil))
 
-(provide 'init-1-vertico)
+(provide 'init-1-completion-engine)
 
-;;; init-1-vertico.el ends here
+;;; init-1-completion-engine.el ends here

@@ -148,7 +148,8 @@ ARG is pass to `sp-end-of-sexp'"
 	 :map kmacro-x-mc-mode-map
 	 ("C-<return>" . kmacro-x-mc-apply))
   :config
-  (setq kmacro-x-mc-live-preview t)
+  (require 'kmacro-x-mc)
+  ;; (setq kmacro-x-mc-live-preview t)
   (unbind-key (kbd "<return>") 'kmacro-x-mc-mode-map))
 
 ;; dmacro 动态生成键盘宏
