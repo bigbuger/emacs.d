@@ -186,21 +186,6 @@ ARG is pass to `sp-end-of-sexp'"
 (global-set-key (kbd "C-c u") 'string-inflection-transient)
 ;; end string-inflection
 
-
-;; auto-highlight-symbol 高亮展示当前光标下的变量
-;; (require 'auto-highlight-symbol)
-;; (with-eval-after-load 'auto-highlight-symbol
-;;   (setq auto-highlight-symbol-mode-map (make-sparse-keymap)))
-;; (add-hook 'auto-highlight-symbol-mode-hook
-;; 	  #'(lambda ()
-;; 	      (assq-delete-all 'auto-highlight-symbol-mode minor-mode-map-alist)))
-
-;; (dolist (hook (list 'emacs-lisp-mode-hook 'scheme-mode-hook 'lisp-mode-hook))
-;;   (add-hook hook #'auto-highlight-symbol-mode))
-
-
-;; end auto-highlight-symbol-mode
-
 (use-package symbol-overlay
   :hook
   (emacs-lisp-mode . symbol-overlay-mode)

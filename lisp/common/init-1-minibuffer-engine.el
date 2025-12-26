@@ -1,4 +1,4 @@
-;;; init-1-completion-engine.el --- completion engine config -*- lexical-binding: t; -*-
+;;; init-1-minibuffer-engine.el --- minibuffer engine config -*- lexical-binding: t; -*-
 ;;; 
 
 ;;; Commentary:
@@ -715,6 +715,6 @@ targets."
   :config
   (setq vertico-posframe-truncate-lines nil))
 
-(provide 'init-1-completion-engine)
+(provide 'init-1-minibuffer-engine)
 
-;;; init-1-completion-engine.el ends here
+;;; init-1-minibuffer-engine.el ends here
