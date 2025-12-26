@@ -12,7 +12,7 @@
 (define-key clojure-mode-map (kbd "C-}") 'sp-forward-slurp-sexp)
 (define-key clojure-mode-map (kbd "C-M-a") 'sp-beginning-of-sexp)
 (define-key clojure-mode-map (kbd "C-M-e") 'sp-end-of-sexp)
-(define-key clojure-mode-map (kbd "C-<return>") 'sp-up-sexp-and-new-line)
+(define-key clojure-mode-map (kbd "M-<return>") 'sp-up-sexp-and-new-line)
 
 (add-hook 'clojure-mode-hook 'lsp)
 (add-hook 'clojurescript-mode-hook 'lsp)

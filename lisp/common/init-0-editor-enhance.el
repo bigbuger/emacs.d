@@ -74,7 +74,7 @@ ARG is pass to `sp-end-of-sexp'"
   (progn
     (sp-up-sexp)
     (newline-and-indent)))
-(define-key emacs-lisp-mode-map (kbd "C-<return>") 'sp-up-sexp-and-new-line)
+(define-key emacs-lisp-mode-map (kbd "M-<return>") 'sp-up-sexp-and-new-line)
 
 (require 'cl-lib)
 (defmacro def-pairs (pairs)
@@ -125,34 +125,28 @@ ARG is pass to `sp-end-of-sexp'"
   (advice-add 'drag-stuff-up :after 'indent-region-advice)
   (advice-add 'drag-stuff-down :after 'indent-region-advice))
 
+(setq cua-enable-cua-keys nil)
+;; (setq cua-highlight-region-shift-only t) ;; no transient mark mode
+(setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
+(cua-mode t)
+(unbind-key "C-<return>" 'cua-global-keymap)
+(define-key cua-global-keymap (kbd "C-S-<return>") #'cua-set-rectangle-mark)
 
-;; multiple-cursors 多光标编辑
-;; (require 'multiple-cursors)
-;; (global-set-key (kbd "C-S-c") 'mc/edit-lines)
-;; (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-;; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-;; (global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
-;; (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
-;; (global-set-key (kbd "C-c M-i") 'mc/insert-numbers)
-;; (define-key mc/keymap (kbd "C-c C-g") 'mc/keyboard-quit)
-;; (unbind-key (kbd "<return>") mc/keymap)
-;; (setq mc/always-run-for-all t)
-;; end multiple-cursors
-
+;; kmacro-x 利用键盘宏支持选择多个匹配地方进行编辑
 (use-package kmacro-x
   :ensure t
-  ;; :init (kmacro-x-atomic-undo-mode 1)
-  :bind (("C-<" . kmacro-x-mc-mark-previous)
-         ("C->" . kmacro-x-mc-mark-next-or-rect)
-	 ("M-<mouse-1>" . kmacro-x-mc-mark-at-click)
-	 :map kmacro-x-mc-mode-map
-	 ("C-<return>" . kmacro-x-mc-apply))
-  :config
+  :init
   (require 'kmacro-x-mc)
-  ;; (setq kmacro-x-mc-live-preview t)
-  (unbind-key (kbd "<return>") 'kmacro-x-mc-mode-map))
 
-
+  (global-set-key (kbd "C-<")  #'kmacro-x-mc-mark-previous)
+  (global-set-key (kbd "C->") #'kmacro-x-mc-mark-next)
+  (global-set-key (kbd "M-<mouse-1>") #'kmacro-x-mc-mark-at-click)
+  
+  (setq kmacro-x-mc-live-preview t)
+  (define-key kmacro-x-mc-mode-map (kbd "C-<return>") #'kmacro-x-mc-apply)
+  (unbind-key "RET" kmacro-x-mc-mode-map)
+  )
+ 
 ;; dmacro 动态生成键盘宏
 ;; 重复一套操作两次后直接用 `C-S-e' 后就直接调用
 ;; 例如输入 hello he 之后按 `C-S-e' 会变成 hello hello
