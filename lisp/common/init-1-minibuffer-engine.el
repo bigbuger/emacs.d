@@ -521,7 +521,7 @@ selected color."
   (unbind-key "R" embark-region-map) ;; #'repunctuate-sentences
 
   ;; make all map use same bind, N for narrow
-  (unbind-key "n" embark-region-map) ;; #'narrow-to-region
+  ;; (unbind-key "n" embark-region-map) ;; #'narrow-to-region
   (define-key embark-region-map "N" #'narrow-to-region)
 
   (define-key embark-become-file+buffer-map "p" #'projectile-find-file)
@@ -655,6 +655,34 @@ targets."
 			     (embark-insert strings))))))))))
 (add-to-list 'embark-multitarget-actions #'embark-ace-insert)
 (define-key embark-general-map (kbd "i") #'embark-ace-insert)
+
+(defun embark-region-next ()
+  (interactive)
+  (let ((str (buffer-substring-no-properties (region-beginning) (region-end)))
+	end)
+    (goto-char (region-end))
+    (search-forward str nil t)
+    (set-mark-command nil)
+    (backward-char (length str))
+    (setq mark-active t)))
+
+(defun embark-region-prev ()
+  (interactive)
+  (let ((str (buffer-substring-no-properties (region-beginning) (region-end)))
+	end)
+    (goto-char (region-beginning))
+    (search-backward str nil t)
+    (set-mark-command nil)
+    (forward-char (length str))
+    (setq mark-active t)
+    (exchange-point-and-mark)))
+
+(define-key embark-region-map (kbd "n") #'embark-region-next)
+(define-key embark-region-map (kbd "p") #'embark-region-prev)
+
+(add-to-list 'embark-repeat-actions #'embark-region-next)
+(add-to-list 'embark-repeat-actions #'embark-region-prev)
+(add-to-list 'embark-target-injection-hooks '(embark-region-next embark--ignore-target))
 
 (defun embark-avy-copy (str)
   "Insert `STR' below line select by `avy-goto-end-of-line."
