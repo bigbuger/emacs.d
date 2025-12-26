@@ -130,7 +130,7 @@ ARG is pass to `sp-end-of-sexp'"
 (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
 (cua-mode t)
 (unbind-key "C-<return>" 'cua-global-keymap)
-(define-key cua-global-keymap (kbd "C-S-<return>") #'cua-set-rectangle-mark)
+(define-key cua-global-keymap (kbd "C-c C-SPC") #'cua-set-rectangle-mark)
 
 ;; kmacro-x 利用键盘宏支持选择多个匹配地方进行编辑
 (use-package kmacro-x
