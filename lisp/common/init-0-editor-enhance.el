@@ -125,6 +125,13 @@ ARG is pass to `sp-end-of-sexp'"
   (advice-add 'drag-stuff-up :after 'indent-region-advice)
   (advice-add 'drag-stuff-down :after 'indent-region-advice))
 
+;; 二次选择，用了会导致一直高亮不知道怎么去掉
+(global-unset-key (kbd "<M-drag-mouse-1>"))   ; was mouse-set-secondary
+(global-unset-key (kbd "<M-down-mouse-1>"))   ; was mouse-drag-secondary
+(global-unset-key (kbd "<M-mouse-1>"))	  ; was mouse-start-secondary
+(global-unset-key (kbd "<M-mouse-2>"))	  ; was mouse-yank-secondary
+(global-unset-key (kbd "<M-mouse-3>"))	  ; was mouse-secondary-save-then-kill
+
 (setq cua-enable-cua-keys nil)
 ;; (setq cua-highlight-region-shift-only t) ;; no transient mark mode
 (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
