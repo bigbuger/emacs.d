@@ -18,7 +18,6 @@
 (require 'crux)
 ;; (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line) ;; just use M-m `back-to-indentation'
 (global-set-key (kbd "C-<backspace>") #'crux-kill-line-backwards)
-(global-set-key (kbd "C-c M-r") #'crux-rename-file-and-buffer)
 ;; end curx
 
 (defun insert-current-file-name-at-point (&optional full-path)

@@ -178,7 +178,7 @@ since the whatis index is broken post-SIP."
   (global-set-key (kbd "C-c m") 'consult-bookmark)
   (global-set-key (kbd "C-c s") 'consult-ripgrep)
   (global-set-key (kbd "C-c f") 'consult-fd)
-  (global-set-key (kbd "C-c e") 'consult-recent-file)
+  (global-set-key (kbd "C-c C-r") 'consult-recent-file)
   (global-set-key (kbd "C-c i") 'consult-imenu)
   (global-set-key (kbd "C-c k") 'consult-kmacro)
   
@@ -385,16 +385,16 @@ This is the function to be used for the hook `completion-at-point-functions'."
                 :action   ,#'projectile-switch-project-by-name
                 :items    ,(lambda () (projectile-known-projects))))
   
-  (setq consult-buffer-sources '(consult--source-buffer
-				 consult--source-hidden-buffer
-				 consult--source-modified-buffer
-				 consult--source-other-buffer
-				 consult--source-recent-file
-				 consult--source-buffer-register
-				 ;; consult--source-file-register
-				 consult--source-bookmark
-				 consult--source-project-buffer-hidden
-				 consult--source-project-recent-file-hidden
+  (setq consult-buffer-sources '(consult-source-buffer
+				 consult-source-hidden-buffer
+				 consult-source-modified-buffer
+				 consult-source-other-buffer
+				 consult-source-recent-file
+				 consult-source-buffer-register
+				 ;; consult-source-file-register
+				 consult-source-bookmark
+				 consult-source-project-buffer-hidden
+				 consult-source-project-recent-file-hidden
 				 my-consult-source-projectile-projects))
   
   )
