@@ -178,7 +178,7 @@ since the whatis index is broken post-SIP."
   (global-set-key (kbd "C-c m") 'consult-bookmark)
   (global-set-key (kbd "C-c s") 'consult-ripgrep)
   (global-set-key (kbd "C-c f") 'consult-fd)
-  (global-set-key (kbd "C-c C-r") 'consult-recent-file)
+  (global-set-key (kbd "C-c e") 'consult-recent-file)
   (global-set-key (kbd "C-c i") 'consult-imenu)
   (global-set-key (kbd "C-c k") 'consult-kmacro)
   
