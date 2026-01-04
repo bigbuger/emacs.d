@@ -199,6 +199,10 @@ If failed try to complete the common part with `company-complete-common'"
 (with-eval-after-load 'company
   (define-key company-active-map (kbd "<tab>") #'smarter-yas-expand-next-field-complete))
 
+(add-to-list 'load-path "~/.emacs.d/lisp/libs/flash-fill.el")
+(require 'flash-fill)
+(global-set-key (kbd "M-L") #'flash-fill-line)
+
 (provide 'init-1-snippet)
 
 ;;; init-1-snippet.el ends here
