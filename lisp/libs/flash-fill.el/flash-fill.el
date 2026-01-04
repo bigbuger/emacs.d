@@ -2,9 +2,13 @@
 
 ;;; Commentary:
 ;;
+;;; Code:
 
 (require 'cl-lib)
 (require 's)
+
+(defgroup flash-fill nil
+  "Flash fill, automating String Processing.")
 
 (defcustom flash-fill-processor-list
   '(flash-fill-make-processor-find-column
@@ -14,12 +18,19 @@
     flash-fill-make-processor-find-column-camel
     flash-fill-make-processor-find-column-upper-camel
     flash-fill-make-processor-find-column-snake
-    flash-fill-make-processor-find-column-upper-snake
-    flash-fill-identity)
-  "Flash fill processor list.")
+    flash-fill-make-processor-find-column-upper-snake)
+  "Flash fill processor list."
+  :group 'flash-fill
+  :local t
+  :type '(repeat (choice (function :tag "Processor function")
+			 ((list function function) "Condition function and Processor function"))))
 
-(defvar-local flash-fill-column-regxp
-  (rx (group symbol-start (+ (or word "_")) symbol-end) (? ( group (* (not word))))))
+(defcustom flash-fill-column-regxp
+  (rx (group symbol-start (+ (or word "_")) symbol-end) (? ( group (* (not word)))))
+  "Flash fill regex to collection the columns."
+  :group 'flash-fill
+  :local t
+  :type '(regexp))
 
 (defun flash-fill-make-processor-find-column-with-convert (target inputs convert)
   (let ((context (funcall convert (car target)))
@@ -65,7 +76,7 @@
 						      #'(lambda (str)
 							  (upcase (s-snake-case str)))))
 
-(defun flash-fill-identity (target _inputs)
+(defun flash-fill-identity (target)
   (lambda (_)
     (string-join target)))
 
@@ -91,7 +102,20 @@
 			 (let ((tmp (funcall m target inputs)))
 			   (when tmp
 			     (setq processor tmp))))
-		(or processor #'flash-fill-identity)))
+		(or processor (flash-fill-identity target))))
+	    targets)))
+
+;; TODO multiple processor from more then one example
+(defun flash-fill-make-multi-processor (fill-start example-columns)
+  (let ((targets (seq-subseq example-columns fill-start))
+	(inputs (seq-subseq example-columns 0 fill-start)))
+    (mapcar (lambda (target)
+	      (let ((processors
+		     (append (mapcard
+			      (lambda (m) (funcall m target inputs)
+				flash-fill-processor-list))
+			     (flash-fill-identity target))))
+		(cl-remove-if #'identity processors)))
 	    targets)))
 
 (defun flash-fill-line ()
@@ -108,9 +132,8 @@
   (interactive)
   (when (region-active-p)
     (save-excursion
-        (when (> (region-beginning) (region-end))
-	  (exchange-point-and-mark))
-
+      (when (> (region-beginning) (region-end))
+	(exchange-point-and-mark))
       (let ((start-point (region-beginning))
 	    (end-line (line-number-at-pos (region-end))))
 	(goto-char (region-end))
