@@ -201,7 +201,7 @@ If failed try to complete the common part with `company-complete-common'"
 
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/flash-fill.el")
 (require 'flash-fill)
-(global-set-key (kbd "M-L") #'flash-fill-line)
+(global-set-key (kbd "M-L") #'flash-fill-region-or-line)
 
 (provide 'init-1-snippet)
 

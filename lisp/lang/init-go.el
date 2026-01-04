@@ -524,6 +524,26 @@
   :hook
   (go-ts-mode . topsy-mode))
 
+(require 'flash-fill)
+(defun go-flash-fill-struct-from-previous-line ()
+  (interactive)
+  (save-excursion
+    (beginning-of-line)
+    (let ((start-pos (point))
+	  (end-pos))
+      (forward-line -1)
+      (set-mark-command nil)
+      (search-forward "}" nil t)
+      (forward-line -1)
+      (end-of-line)
+      (setq end-pos (point))
+      (setq mark-active t)
+      (save-mark-and-excursion
+	(replace-regexp (rx ":" (* any) "," eol) ":" nil start-pos end-pos))
+      (flash-fill-region))))
+(define-key go-ts-mode-map (kbd "C-c h") #'go-flash-fill-struct-from-previous-line)
+
+
 (provide 'init-go)
 
 ;;; init-go.el ends here

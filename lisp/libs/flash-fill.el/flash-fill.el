@@ -39,6 +39,9 @@
 		(funcall convert (car (aref inputs match-pos)))
 		speartor)))))
 
+(defun flash-fill-make-processor-find-column (target inputs)
+  (flash-fill-make-processor-find-column-with-convert target inputs #'identity))
+
 (defun flash-fill-make-processor-find-column-capitalize (target inputs)
   (flash-fill-make-processor-find-column-with-convert target inputs #'capitalize))
 
@@ -60,7 +63,7 @@
 (defun flash-fill-make-processor-find-column-upper-snake (target inputs)
   (flash-fill-make-processor-find-column-with-convert target inputs
 						      #'(lambda (str)
-							(upcase (s-snake-case srt)))))
+							  (upcase (s-snake-case str)))))
 
 (defun flash-fill-identity (target _inputs)
   (lambda (_)
@@ -104,9 +107,15 @@
 (defun flash-fill-region ()
   (interactive)
   (when (region-active-p)
-    (let ((start-point (region-beginning))
-	  (end-line (line-number-at-pos (region-end))))
-      (save-excursion
+    (save-excursion
+        (when (> (region-beginning) (region-end))
+	  (exchange-point-and-mark))
+
+      (let ((start-point (region-beginning))
+	    (end-line (line-number-at-pos (region-end))))
+	(goto-char (region-end))
+	(if (= (current-column) 0)
+	    (setq end-line (- end-line 1)))
 	(goto-char start-point)
 	(let* ((example-columns (flash-fill-collect-line-columns)))
 	  (while (< (line-number-at-pos) end-line)
@@ -118,6 +127,12 @@
 		   (fill-result (string-join (mapcar (lambda (f) (funcall f current-columns)) fill-processor-list))))
 	      (end-of-line)
 	      (insert fill-result))))))))
+
+(defun flash-fill-region-or-line ()
+  (interactive)
+  (if (region-active-p)
+      (flash-fill-region)
+    (flash-fill-line)))
 
 (provide 'flash-fill)
 
