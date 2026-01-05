@@ -136,35 +136,36 @@ Concat with `SPEARTOR'"
 		(or processor `(flash-fill-identity ,target))))
 	    targets)))
 
-(defun flash-fill-make-multi-processor (fill-start example-columns &optional makers)
-  (let ((targets (seq-subseq example-columns fill-start))
-	(inputs (seq-subseq example-columns 0 fill-start)))
-    (if (not makers)
-	(setq makers flash-fill-processor-maker-list))
-    (mapcar (lambda (target)
-	      (or (cl-remove-if-not #'identity
-				    (mapcar (lambda (m) (funcall m target inputs)) makers))
-		  `((flash-fill-identity ,target))))
-	    targets)))
 
 (defun flash-fill-make-processor-for-region (fill-start example-rows)
-  (let* ((makers (append flash-fill-processor-maker-list flash-fill-region-processor-maker-list nil))
-	 (all-processors (mapcar (lambda (example-columns)
-				   (flash-fill-make-multi-processor fill-start example-columns makers))
-				 example-rows)))
-    (let (result)
-      (dotimes (i (length example-rows) result)
-	(setq result
-	      (append result
-		      (mapcar #'car 	;; just get first processor
-			      (mapcar (lambda (column-multil-processors)
-					;; get intersection of each rows
-					(seq-reduce
-					 (lambda (processors init) (seq-intersection processors init))
-					 column-multil-processors
-					 (car column-multil-processors)))
-				      (mapcar (lambda (row-processors) (nth i row-processors)) all-processors) ;; get the same columns processors)
-				      ))))))))
+  (let* ((first-row (car example-rows))
+	 (other-rows (cdr example-rows))
+	 (first-inputs (seq-subseq first-row 0 fill-start))
+	 (first-targets (seq-subseq first-row fill-start))
+	 (other-inputs (mapcar (lambda (r) (seq-subseq r 0 fill-start)) other-rows))
+	 (other-targets (mapcar (lambda (r) (seq-subseq r fill-start)) other-rows))
+	 result)
+    (if (not other-rows)
+	(flash-fill-make-processor fill-start first-row)
+      (dotimes (target-column-iter (length first-targets) result)
+	(let* ((target (aref first-targets target-column-iter))
+	       (markes (append flash-fill-processor-maker-list flash-fill-region-processor-maker-list nil))
+	       (processors-canditions
+		(cl-remove-if-not #'identity
+				  (mapcar (lambda (m) (funcall m target first-inputs)) markes))))
+	  (setq processors-canditions
+		(cl-remove-if-not (lambda (processor)
+				    (let ((match-all? t))
+				      (dotimes (other-rows-iter (length other-inputs) match-all?)
+					(let* ((inputs (nth other-rows-iter other-inputs))
+					       (target (aref (nth other-rows-iter other-targets) target-column-iter))
+					       (match (string-equal
+						       (string-join target)
+						       (ignore-errors (apply (car processor) inputs (cdr processor))))))
+					   (setq match-all? (and match-all? match))))))
+				  processors-canditions)) 
+	  (setq result
+		(append result (list (or (car processors-canditions) `(flash-fill-identity ,target))))))))))
 
 (defun flash-fill-line ()
   (interactive)
@@ -203,11 +204,10 @@ Concat with `SPEARTOR'"
 	   ((not fill-processor-list)
 	    (setq fill-processor-list (flash-fill-make-processor-for-region (length current-columns) example-rows))
 	    ))
-	 
-
+	  
 	  (when fill-processor-list
-	    (message "fuck %s" fill-processor-list)
 	    (end-of-line)
+	    (message "fuck %s" fill-processor-list)
 	    (insert (string-join (mapcar (lambda (processor) (apply (car processor) current-columns (cdr processor))) fill-processor-list))))
 	  
 	  (forward-line)
