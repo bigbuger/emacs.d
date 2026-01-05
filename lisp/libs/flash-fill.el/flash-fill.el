@@ -22,8 +22,14 @@
   "Flash fill processor maker list."
   :group 'flash-fill
   :local t
-  :type '(repeat (choice (function :tag "Processor maker function")
-			 ((list function function) "Condition function and Processor maker function"))))
+  :type '(repeat (function :tag "Processor maker function")))
+
+(defcustom flash-fill-region-processor-maker-list
+  '(flash-fill-make-processor-find-substring)
+  "Flash fill processor maker list for flash-fill-region only."
+  :group 'flash-fill
+  :local t
+  :type '(repeat (function :tag "Processor maker function")))
 
 (defcustom flash-fill-column-regxp
   (rx (group symbol-start (+ (or word "_")) symbol-end) (? ( group (* (not word)))))
@@ -45,12 +51,18 @@
 		 (setq match-idx iter))
 	(setq iter (+ 1 iter))))
     (when match?
-     `(flash-fill--by-column-with-convert ,match-idx ,speartor ,convert))))
+      `(flash-fill--by-column-with-convert ,match-idx ,speartor ,convert))))
 
 (defun flash-fill--by-column-with-convert (inputs match-idx speartor convert)
   "Fill by using `INPUTS' ref of `MATCH-IDX', after do `CONVERT'.
 Concat with `SPEARTOR'"
   (format "%s%s" (funcall convert (car (aref inputs match-idx)))
+	  speartor))
+
+(defun flash-fill--by-column-substring (inputs match-idx speartor substr-from substr-end)
+  "Fill by using `INPUTS' ref of `MATCH-IDX', after do `CONVERT'.
+Concat with `SPEARTOR'"
+  (format "%s%s" (substring (car (aref inputs match-idx)) substr-from substr-end)
 	  speartor))
 
 (defun flash-fill-make-processor-find-column (target inputs)
@@ -78,6 +90,23 @@ Concat with `SPEARTOR'"
   (flash-fill-make-processor-find-column-with-convert target inputs
 						      #'(lambda (str)
 							  (upcase (s-snake-case str)))))
+
+(defun flash-fill-make-processor-find-substring (target inputs)
+  (let ((context (car target))
+	(speartor (cadr target))
+	(iter 0)
+	(match?)
+	(match-idx)
+	(substr-idx))
+    (while (and (< iter (length inputs))
+		(not match?))
+      (if-let* ((current-substr-idx (string-search context (car (aref inputs iter)))))
+	  (progn (setq match? t)
+		 (setq match-idx iter)
+		 (setq substr-idx current-substr-idx))
+	(setq iter (+ 1 iter))))
+    (when match?
+      `(flash-fill--by-column-substring ,match-idx ,speartor ,substr-idx ,(length context)))))
 
 (defun flash-fill-identity (_inputs target)
   (string-join target))
@@ -107,18 +136,35 @@ Concat with `SPEARTOR'"
 		(or processor `(flash-fill-identity ,target))))
 	    targets)))
 
-;; TODO multiple processor from more then one example
-(defun flash-fill-make-multi-processor (fill-start example-columns)
+(defun flash-fill-make-multi-processor (fill-start example-columns &optional makers)
   (let ((targets (seq-subseq example-columns fill-start))
 	(inputs (seq-subseq example-columns 0 fill-start)))
+    (if (not makers)
+	(setq makers flash-fill-processor-maker-list))
     (mapcar (lambda (target)
-	      (let ((processors
-		     (append (mapcard
-			      (lambda (m) (funcall m target inputs)
-				flash-fill-processor-maker-list))
-			     (flash-fill-identity target))))
-		(cl-remove-if-not #'identity processors)))
+	      (or (cl-remove-if-not #'identity
+				    (mapcar (lambda (m) (funcall m target inputs)) makers))
+		  `((flash-fill-identity ,target))))
 	    targets)))
+
+(defun flash-fill-make-processor-for-region (fill-start example-rows)
+  (let* ((makers (append flash-fill-processor-maker-list flash-fill-region-processor-maker-list nil))
+	 (all-processors (mapcar (lambda (example-columns)
+				   (flash-fill-make-multi-processor fill-start example-columns makers))
+				 example-rows)))
+    (let (result)
+      (dotimes (i (length example-rows) result)
+	(setq result
+	      (append result
+		      (mapcar #'car 	;; just get first processor
+			      (mapcar (lambda (column-multil-processors)
+					;; get intersection of each rows
+					(seq-reduce
+					 (lambda (processors init) (seq-intersection processors init))
+					 column-multil-processors
+					 (car column-multil-processors)))
+				      (mapcar (lambda (row-processors) (nth i row-processors)) all-processors) ;; get the same columns processors)
+				      ))))))))
 
 (defun flash-fill-line ()
   (interactive)
@@ -130,6 +176,7 @@ Concat with `SPEARTOR'"
     (end-of-line)
     (insert fill-result)))
 
+
 (defun flash-fill-region ()
   (interactive)
   (when (region-active-p)
@@ -137,21 +184,34 @@ Concat with `SPEARTOR'"
       (when (> (region-beginning) (region-end))
 	(exchange-point-and-mark))
       (let ((start-point (region-beginning))
-	    (end-line (line-number-at-pos (region-end))))
+	    (end-line (line-number-at-pos (region-end)))
+	    fill-processor-list)
 	(goto-char (region-end))
 	(if (= (current-column) 0)
 	    (setq end-line (- end-line 1)))
 	(goto-char start-point)
-	(let* ((example-columns (flash-fill-collect-line-columns)))
-	  (while (< (line-number-at-pos) end-line)
-	    (beginning-of-line)
-	    (forward-line)
-	    (let* ((current-columns (flash-fill-collect-line-columns))
-		   (fill-start (length current-columns))
-		   (fill-processor-list (flash-fill-make-processor fill-start example-columns)) ; TODO do not re calc when the columns length is same for previous line
-		   (fill-result (string-join (mapcar (lambda (processor) (apply (car processor) current-columns (cdr processor))) fill-processor-list))))
-	      (end-of-line)
-	      (insert fill-result))))))))
+
+	(cl-do* ((current-columns (flash-fill-collect-line-columns) (flash-fill-collect-line-columns))
+		 (example-length (length current-columns))
+		 example-rows)
+	    ((> (line-number-at-pos) end-line))
+
+	  (cond
+	   ((and (not fill-processor-list)
+		 (>= (length current-columns) example-length))
+	    (setq example-rows (append example-rows (list current-columns))))
+	   ((not fill-processor-list)
+	    (setq fill-processor-list (flash-fill-make-processor-for-region (length current-columns) example-rows))
+	    ))
+	 
+
+	  (when fill-processor-list
+	    (message "fuck %s" fill-processor-list)
+	    (end-of-line)
+	    (insert (string-join (mapcar (lambda (processor) (apply (car processor) current-columns (cdr processor))) fill-processor-list))))
+	  
+	  (forward-line)
+	  (beginning-of-line))))))
 
 (defun flash-fill-region-or-line ()
   (interactive)
