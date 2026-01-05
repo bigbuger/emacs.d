@@ -10,7 +10,7 @@
 (defgroup flash-fill nil
   "Flash fill, automating String Processing.")
 
-(defcustom flash-fill-processor-list
+(defcustom flash-fill-processor-maker-list
   '(flash-fill-make-processor-find-column
     flash-fill-make-processor-find-column-capitalize
     flash-fill-make-processor-find-column-downcase
@@ -19,11 +19,11 @@
     flash-fill-make-processor-find-column-upper-camel
     flash-fill-make-processor-find-column-snake
     flash-fill-make-processor-find-column-upper-snake)
-  "Flash fill processor list."
+  "Flash fill processor maker list."
   :group 'flash-fill
   :local t
-  :type '(repeat (choice (function :tag "Processor function")
-			 ((list function function) "Condition function and Processor function"))))
+  :type '(repeat (choice (function :tag "Processor maker function")
+			 ((list function function) "Condition function and Processor maker function"))))
 
 (defcustom flash-fill-column-regxp
   (rx (group symbol-start (+ (or word "_")) symbol-end) (? ( group (* (not word)))))
@@ -37,18 +37,21 @@
 	(speartor (cadr target))
 	(iter 0)
 	(match?)
-	(match-pos))
+	(match-idx))
     (while (and (< iter (length inputs))
 		(not match?))
       (if (string-equal context (car (aref inputs iter)))
 	  (progn (setq match? t)
-		 (setq match-pos iter))
+		 (setq match-idx iter))
 	(setq iter (+ 1 iter))))
     (when match?
-      (lambda (inputs)
-	(format "%s%s"
-		(funcall convert (car (aref inputs match-pos)))
-		speartor)))))
+     `(flash-fill--by-column-with-convert ,match-idx ,speartor ,convert))))
+
+(defun flash-fill--by-column-with-convert (inputs match-idx speartor convert)
+  "Fill by using `INPUTS' ref of `MATCH-IDX', after do `CONVERT'.
+Concat with `SPEARTOR'"
+  (format "%s%s" (funcall convert (car (aref inputs match-idx)))
+	  speartor))
 
 (defun flash-fill-make-processor-find-column (target inputs)
   (flash-fill-make-processor-find-column-with-convert target inputs #'identity))
@@ -76,9 +79,8 @@
 						      #'(lambda (str)
 							  (upcase (s-snake-case str)))))
 
-(defun flash-fill-identity (target)
-  (lambda (_)
-    (string-join target)))
+(defun flash-fill-identity (_inputs target)
+  (string-join target))
 
 (defun flash-fill-collect-line-columns ()
   "Collect all line column and speartor as a vector."
@@ -96,13 +98,13 @@
 	(inputs (seq-subseq example-columns 0 fill-start)))
     (mapcar (lambda (target)
 	      (let (processor)
-		(cl-loop for m in flash-fill-processor-list
+		(cl-loop for m in flash-fill-processor-maker-list
 			 until processor
 			 do
 			 (let ((tmp (funcall m target inputs)))
 			   (when tmp
 			     (setq processor tmp))))
-		(or processor (flash-fill-identity target))))
+		(or processor `(flash-fill-identity ,target))))
 	    targets)))
 
 ;; TODO multiple processor from more then one example
@@ -113,9 +115,9 @@
 	      (let ((processors
 		     (append (mapcard
 			      (lambda (m) (funcall m target inputs)
-				flash-fill-processor-list))
+				flash-fill-processor-maker-list))
 			     (flash-fill-identity target))))
-		(cl-remove-if #'identity processors)))
+		(cl-remove-if-not #'identity processors)))
 	    targets)))
 
 (defun flash-fill-line ()
@@ -124,7 +126,7 @@
 	 (current-columns (flash-fill-collect-line-columns))
 	 (fill-start (length current-columns))
 	 (fill-processor-list (flash-fill-make-processor fill-start example-columns))
-	 (fill-result (string-join (mapcar (lambda (f) (funcall f current-columns)) fill-processor-list))))
+	 (fill-result (string-join (mapcar (lambda (processor) (apply (car processor) current-columns (cdr processor))) fill-processor-list))))
     (end-of-line)
     (insert fill-result)))
 
@@ -147,7 +149,7 @@
 	    (let* ((current-columns (flash-fill-collect-line-columns))
 		   (fill-start (length current-columns))
 		   (fill-processor-list (flash-fill-make-processor fill-start example-columns)) ; TODO do not re calc when the columns length is same for previous line
-		   (fill-result (string-join (mapcar (lambda (f) (funcall f current-columns)) fill-processor-list))))
+		   (fill-result (string-join (mapcar (lambda (processor) (apply (car processor) current-columns (cdr processor))) fill-processor-list))))
 	      (end-of-line)
 	      (insert fill-result))))))))
 
