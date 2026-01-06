@@ -154,12 +154,12 @@ ARG is pass to `sp-end-of-sexp'"
   )
  
 ;; dmacro 动态生成键盘宏
-;; 重复一套操作两次后直接用 `C-c z' 后就直接调用
-;; 例如输入 hello he 之后按 `C-c z' 会变成 hello hello
+;; 重复一套操作两次后直接用 `M-E' 后就直接调用
+;; 例如输入 hello he 之后按 `M-E' 会变成 hello hello
 (use-package dmacro
   :ensure t
   :init
-  (setq dmacro-key (kbd "C-c z")) ;; like C-x z for repeat
+  (setq dmacro-key (kbd "M-E"))
   (global-dmacro-mode t))
 
 ;; expland-regin
