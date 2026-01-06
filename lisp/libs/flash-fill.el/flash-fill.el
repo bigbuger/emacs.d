@@ -8,7 +8,9 @@
 (require 's)
 
 (defgroup flash-fill nil
-  "Flash fill, automating String Processing.")
+  "Flash fill, automating String Processing."
+  :prefix "flash-fill-"
+  :group 'flash-fill)
 
 (defcustom flash-fill-processor-maker-list
   '(flash-fill-make-processor-find-column
@@ -22,14 +24,7 @@
   "Flash fill processor maker list."
   :group 'flash-fill
   :local t
-  :type '(repeat (function :tag "Processor maker function")))
-
-(defcustom flash-fill-region-processor-maker-list
-  '(flash-fill-make-processor-find-substring)
-  "Flash fill processor maker list for flash-fill-region only."
-  :group 'flash-fill
-  :local t
-  :type '(repeat (function :tag "Processor maker function")))
+  :type '(repeat (function :tag "Processor maker functions")))
 
 (defcustom flash-fill-column-regxp
   (rx (group symbol-start (+ (or word "_")) symbol-end) (? ( group (* (not word)))))
@@ -112,7 +107,7 @@ Concat with `SPEARTOR'"
   (string-join target))
 
 (defun flash-fill-collect-line-columns ()
-  "Collect all line column and speartor as a vector."
+  "Collect all column and separator as a vector."
   (let ((columns []))
     (save-excursion
       (beginning-of-line)
@@ -149,10 +144,9 @@ Concat with `SPEARTOR'"
 	(flash-fill-make-processor fill-start first-row)
       (dotimes (target-column-iter (length first-targets) result)
 	(let* ((target (aref first-targets target-column-iter))
-	       (markes (append flash-fill-processor-maker-list flash-fill-region-processor-maker-list nil))
 	       (processors-canditions
 		(cl-remove-if-not #'identity
-				  (mapcar (lambda (m) (funcall m target first-inputs)) markes))))
+				  (mapcar (lambda (m) (funcall m target first-inputs)) flash-fill-processor-maker-list))))
 	  (setq processors-canditions
 		(cl-remove-if-not (lambda (processor)
 				    (let ((match-all? t))
@@ -162,8 +156,8 @@ Concat with `SPEARTOR'"
 					       (match (string-equal
 						       (string-join target)
 						       (ignore-errors (apply (car processor) inputs (cdr processor))))))
-					   (setq match-all? (and match-all? match))))))
-				  processors-canditions)) 
+					  (setq match-all? (and match-all? match))))))
+				  processors-canditions))
 	  (setq result
 		(append result (list (or (car processors-canditions) `(flash-fill-identity ,target))))))))))
 
@@ -207,7 +201,6 @@ Concat with `SPEARTOR'"
 	  
 	  (when fill-processor-list
 	    (end-of-line)
-	    (message "fuck %s" fill-processor-list)
 	    (insert (string-join (mapcar (lambda (processor) (apply (car processor) current-columns (cdr processor))) fill-processor-list))))
 	  
 	  (forward-line)
