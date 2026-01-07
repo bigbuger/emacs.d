@@ -66,27 +66,14 @@
 		 (setq match-idx iter))
 	(setq iter (+ 1 iter))))
     (when match?
-      `(flash-fill--by-column-with-convert ,match-idx ,speartor ,convert))))
+      (flash-fill--by-column-with-convert match-idx speartor convert))))
 
-(defun flash-fill--by-column-with-convert (inputs match-idx speartor convert)
+(defun flash-fill--by-column-with-convert (match-idx speartor convert)
   "Fill by using `INPUTS' ref of `MATCH-IDX', after do `CONVERT'.
 Concat with `SPEARTOR'"
-  (format "%s%s" (funcall convert (car (aref inputs match-idx)))
-	  speartor))
-
-(defcustom flash-fill-substring-mini-length
-  5
-  "Mini length of target that can use substring process."
-  :group 'flash-fill
-  :local t
-  :type '(string))
-
-(defun flash-fill--by-column-substring (inputs match-idx speartor substr-from length)
-  "Fill by using `INPUTS' ref of `MATCH-IDX', after do `CONVERT'.
-Concat with `SPEARTOR'"
-  (or (ignore-errors
-       (format "%s%s" (substring (car (aref inputs match-idx)) substr-from (+ substr-from length))
-	       speartor)) ""))
+  (lambda (inputs)
+    (format "%s%s" (funcall convert (car (aref inputs match-idx)))
+	    speartor)))
 
 (defun flash-fill-make-processor-find-column (target inputs)
   (flash-fill-make-processor-find-column-with-convert target inputs #'identity))
@@ -114,6 +101,21 @@ Concat with `SPEARTOR'"
 						      #'(lambda (str)
 							  (upcase (s-snake-case str)))))
 
+(defcustom flash-fill-substring-mini-length
+  5
+  "Mini length of target that can use substring process."
+  :group 'flash-fill
+  :local t
+  :type '(string))
+
+(defun flash-fill--by-column-substring (match-idx speartor substr-from length)
+  "Fill by using `INPUTS' ref of `MATCH-IDX', after do `CONVERT'.
+Concat with `SPEARTOR'"
+  (lambda (inputs)
+    (or (ignore-errors
+	  (format "%s%s" (substring (car (aref inputs match-idx)) substr-from (+ substr-from length))
+		  speartor)) "")))
+
 (defun flash-fill-make-processor-find-substring (target inputs)
   (let ((context (car target))
 	(speartor (cadr target))
@@ -130,11 +132,13 @@ Concat with `SPEARTOR'"
 		   (setq substr-idx current-substr-idx))
 	  (setq iter (+ 1 iter))))
       (when match?
-	`(flash-fill--by-column-substring ,match-idx ,speartor ,substr-idx ,(length context))))))
+	(flash-fill--by-column-substring match-idx speartor substr-idx (length context))))))
 
-(defun flash-fill-identity (_inputs target)
+(defun flash-fill-identity (target)
   "Just return `TARGET' as string."
-  (string-join target))
+  (let ((result (string-join target)))
+    (lambda (_inputs)
+      result)))
 
 (defun flash-fill-collect-line-columns ()
   "Collect all column and separator as a vector."
@@ -158,7 +162,7 @@ Concat with `SPEARTOR'"
 			 (let ((tmp (funcall m target inputs)))
 			   (when tmp
 			     (setq processor tmp))))
-		(or processor `(flash-fill-identity ,target))))
+		(or processor (flash-fill-identity target))))
 	    targets)))
 
 
@@ -185,11 +189,11 @@ Concat with `SPEARTOR'"
 					       (target (aref (nth other-rows-iter other-targets) target-column-iter))
 					       (match (string-equal
 						       (string-join target)
-						       (ignore-errors (apply (car processor) inputs (cdr processor))))))
+						       (ignore-errors (funcall processor inputs (cdr processor))))))
 					  (setq match-all? (and match-all? match))))))
 				  processors-canditions))
 	  (setq result
-		(append result (list (or (car processors-canditions) `(flash-fill-identity ,target))))))))))
+		(append result (list (or (car processors-canditions) (flash-fill-identity target))))))))))
 
 ;;;###autoload
 (defun flash-fill-line ()
@@ -199,7 +203,7 @@ Concat with `SPEARTOR'"
 	 (current-columns (flash-fill-collect-line-columns))
 	 (fill-start (length current-columns))
 	 (fill-processor-list (flash-fill-make-processor fill-start example-columns))
-	 (fill-result (string-join (mapcar (lambda (processor) (apply (car processor) current-columns (cdr processor))) fill-processor-list))))
+	 (fill-result (string-join (mapcar (lambda (processor) (funcall processor current-columns)) fill-processor-list))))
     (end-of-line)
     (insert fill-result)))
 
