@@ -130,6 +130,41 @@
    'proced-format-alist
    '(custom user pid ppid sess tree pcpu pmem rss start time state (args comm))))
 
+;; pulsar 跳转时闪亮光标
+(use-package pulsar
+  :ensure t
+  :init
+  (pulsar-global-mode 1)
+  :config
+  (setq pulsar-face 'pulsar-yellow)
+  (setq pulsar-pulse-region-functions nil)
+  (delete 'delete-other-windows pulsar-pulse-functions)
+
+  (remove-hook 'consult-after-jump-hook 'recenter)
+  (add-hook 'consult-after-jump-hook #'pulsar-recenter-center)
+  (add-hook 'next-error-hook #'pulsar-pulse-line)
+
+  (add-to-list 'pulsar-pulse-functions #'xref-find-definitions)
+  (add-to-list 'pulsar-pulse-functions #'xref-go-back)
+  (add-to-list 'pulsar-pulse-functions #'xref-go-forward)
+
+  (add-to-list 'pulsar-pulse-functions #'avy-goto-word-1)
+  (add-to-list 'pulsar-pulse-functions #'avy-goto-end-of-line)
+  (add-to-list 'pulsar-pulse-functions #'avy-goto-word-or-subword-1)
+  (add-to-list 'pulsar-pulse-functions #'avy-goto-line)
+  (add-to-list 'pulsar-pulse-functions #'avy-goto-char)
+
+  (add-to-list 'pulsar-pulse-functions #'flycheck-next-error)
+  (add-to-list 'pulsar-pulse-functions #'flycheck-previous-error)
+  (add-to-list 'pulsar-pulse-functions #'flycheck-error-list-goto-error)
+
+  (add-to-list 'pulsar-pulse-functions #'magit-diff-visit-file)
+  (add-to-list 'pulsar-pulse-functions #'magit-diff-visit-file-other-window)
+  (add-to-list 'pulsar-pulse-functions #'magit-diff-visit-worktree-file)
+  (add-to-list 'pulsar-pulse-functions #'magit-diff-visit-worktree-file-other-window)
+
+  (add-to-list 'pulsar-pulse-functions #'embark-avy-copy))
+
 (provide 'init-z-misc)
 
 ;;; init-z-misc.el ends here
