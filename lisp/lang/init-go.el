@@ -89,8 +89,8 @@
 ;; (add-to-list 'lsp-disabled-clients 'golangci-lint) ;; too slow
 
 (defun my-treesit-go-var-name (node)
-    "Return the defun name of NODE for Go node types."
-    (treesit-node-text (treesit-node-child-by-field-name node "name") t))
+  "Return the defun name of NODE for Go node types."
+  (treesit-node-text (treesit-node-child-by-field-name node "name") t))
 
 (setq go-ts-mode-indent-offset 4)
 (defun my-treesit-go-not-in-function (node)
@@ -542,6 +542,18 @@
 	(replace-regexp (rx ":" (* any) "," eol) ":" nil start-pos end-pos))
       (flash-fill-region))))
 (define-key go-ts-mode-map (kbd "C-c h") #'go-flash-fill-struct-from-previous-line)
+(setq-mode-local go-ts-mode
+		 flash-fill-processor-maker-list
+		 '(flash-fill-make-processor-find-column
+		   flash-fill-make-processor-find-column-capitalize
+		   flash-fill-make-processor-find-column-downcase
+		   flash-fill-make-processor-find-column-upcase
+		   flash-fill-make-processor-find-column-camel
+		   flash-fill-make-processor-find-column-upper-camel
+		   flash-fill-make-processor-find-column-snake
+		   flash-fill-make-processor-find-column-upper-snake
+		   ;; flash-fill-make-processor-find-substring 
+		   ))
 
 
 (provide 'init-go)

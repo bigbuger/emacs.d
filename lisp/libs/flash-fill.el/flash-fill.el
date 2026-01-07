@@ -20,14 +20,15 @@
     flash-fill-make-processor-find-column-camel
     flash-fill-make-processor-find-column-upper-camel
     flash-fill-make-processor-find-column-snake
-    flash-fill-make-processor-find-column-upper-snake)
+    flash-fill-make-processor-find-column-upper-snake
+    flash-fill-make-processor-find-substring)
   "Flash fill processor maker list."
   :group 'flash-fill
   :local t
   :type '(repeat (function :tag "Processor maker functions")))
 
 (defcustom flash-fill-column-regxp
-  (rx (group symbol-start (+ (or word "_")) symbol-end) (? ( group (* (not word)))))
+  (rx (group word-start (+ (or word "_")) word-end) (? ( group (* (not word)))))
   "Flash fill regex to collection the columns."
   :group 'flash-fill
   :local t
@@ -54,11 +55,19 @@ Concat with `SPEARTOR'"
   (format "%s%s" (funcall convert (car (aref inputs match-idx)))
 	  speartor))
 
-(defun flash-fill--by-column-substring (inputs match-idx speartor substr-from substr-end)
+(defcustom flash-fill-substring-mini-length
+  5
+  "Mini length of target that can use substring process."
+  :group 'flash-fill
+  :local t
+  :type '(string))
+
+(defun flash-fill--by-column-substring (inputs match-idx speartor substr-from length)
   "Fill by using `INPUTS' ref of `MATCH-IDX', after do `CONVERT'.
 Concat with `SPEARTOR'"
-  (format "%s%s" (substring (car (aref inputs match-idx)) substr-from substr-end)
-	  speartor))
+  (or (ignore-errors
+       (format "%s%s" (substring (car (aref inputs match-idx)) substr-from (+ substr-from length))
+	       speartor)) ""))
 
 (defun flash-fill-make-processor-find-column (target inputs)
   (flash-fill-make-processor-find-column-with-convert target inputs #'identity))
@@ -93,17 +102,19 @@ Concat with `SPEARTOR'"
 	(match?)
 	(match-idx)
 	(substr-idx))
-    (while (and (< iter (length inputs))
-		(not match?))
-      (if-let* ((current-substr-idx (string-search context (car (aref inputs iter)))))
-	  (progn (setq match? t)
-		 (setq match-idx iter)
-		 (setq substr-idx current-substr-idx))
-	(setq iter (+ 1 iter))))
-    (when match?
-      `(flash-fill--by-column-substring ,match-idx ,speartor ,substr-idx ,(length context)))))
+    (when (not (length< context flash-fill-substring-mini-length))
+      (while (and (< iter (length inputs))
+		  (not match?))
+	(if-let* ((current-substr-idx (string-search context (car (aref inputs iter)))))
+	    (progn (setq match? t)
+		   (setq match-idx iter)
+		   (setq substr-idx current-substr-idx))
+	  (setq iter (+ 1 iter))))
+      (when match?
+	`(flash-fill--by-column-substring ,match-idx ,speartor ,substr-idx ,(length context))))))
 
 (defun flash-fill-identity (_inputs target)
+  "Just return `TARGET' as string."
   (string-join target))
 
 (defun flash-fill-collect-line-columns ()
@@ -161,7 +172,9 @@ Concat with `SPEARTOR'"
 	  (setq result
 		(append result (list (or (car processors-canditions) `(flash-fill-identity ,target))))))))))
 
+;;;###autoload
 (defun flash-fill-line ()
+  "Automating fill current line base on previous line."
   (interactive)
   (let* ((example-columns (save-excursion (forward-line -1) (flash-fill-collect-line-columns)))
 	 (current-columns (flash-fill-collect-line-columns))
@@ -171,8 +184,27 @@ Concat with `SPEARTOR'"
     (end-of-line)
     (insert fill-result)))
 
-
+;;;###autoload
 (defun flash-fill-region ()
+  "Automating fill selected region base on region beginning,
+which number of columns is same.
+e.g, active region is
+`
+flash fill,flash-fill
+emacs config,emacs-config
+gnu software,
+free software,
+'
+
+This will fill last two line, using first and second line to guess what you want to do.
+With the default config, the result will be
+`
+flash fill,flash-fill
+emacs config,emacs-config
+gnu software,gnu-software
+free software,free-software
+'
+"
   (interactive)
   (when (region-active-p)
     (save-excursion
@@ -189,8 +221,9 @@ Concat with `SPEARTOR'"
 	(cl-do* ((current-columns (flash-fill-collect-line-columns) (flash-fill-collect-line-columns))
 		 (example-length (length current-columns))
 		 example-rows)
-	    ((> (line-number-at-pos) end-line))
-
+	    ((or (> (line-number-at-pos) end-line)
+		 (= (point) (point-max))))
+	  (beginning-of-line)
 	  (cond
 	   ((and (not fill-processor-list)
 		 (>= (length current-columns) example-length))
@@ -203,10 +236,12 @@ Concat with `SPEARTOR'"
 	    (end-of-line)
 	    (insert (string-join (mapcar (lambda (processor) (apply (car processor) current-columns (cdr processor))) fill-processor-list))))
 	  
-	  (forward-line)
-	  (beginning-of-line))))))
+	  (forward-line))))))
 
+;;;###autoload
 (defun flash-fill-region-or-line ()
+  "Call `flash-fill-region' if region is actived.
+Otherwise, call `flash-fill-line'"
   (interactive)
   (if (region-active-p)
       (flash-fill-region)
