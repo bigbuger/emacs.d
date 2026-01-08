@@ -16,8 +16,9 @@
 (unbind-key "M-3" 'magit-section-mode-map)
 (unbind-key "M-4" 'magit-section-mode-map)
 
+(setq magit-commit-show-diff nil)
 (add-to-list 'display-buffer-alist
-	     '("magit-revision"
+	     '("magit-.*"
 	       display-buffer-same-window))
 
 (setq magit-delete-by-moving-to-trash nil)
