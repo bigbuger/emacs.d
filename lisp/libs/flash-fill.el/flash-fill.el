@@ -257,7 +257,7 @@ free software,free-software
 	  
 	  (when fill-processor-list
 	    (end-of-line)
-	    (insert (string-join (mapcar (lambda (processor) (apply (car processor) current-columns (cdr processor))) fill-processor-list))))
+	    (insert (string-join (mapcar (lambda (processor) (funcall processor current-columns)) fill-processor-list))))
 	  
 	  (forward-line))))))
 
