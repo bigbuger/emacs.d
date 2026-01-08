@@ -17,7 +17,7 @@
 (unbind-key "M-4" 'magit-section-mode-map)
 
 (add-to-list 'display-buffer-alist
-	     '("magit-.*"
+	     '("magit-revision"
 	       display-buffer-same-window))
 
 (setq magit-delete-by-moving-to-trash nil)
