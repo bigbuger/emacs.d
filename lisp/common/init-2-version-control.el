@@ -16,6 +16,10 @@
 (unbind-key "M-3" 'magit-section-mode-map)
 (unbind-key "M-4" 'magit-section-mode-map)
 
+(add-to-list 'display-buffer-alist
+	     '("magit-.*"
+	       display-buffer-same-window))
+
 (setq magit-delete-by-moving-to-trash nil)
 
 (defun +my-magit-ediff-dwim (fun)
