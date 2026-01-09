@@ -29,7 +29,17 @@
 			  ("Service" "^[[:space:]]*service[[:space:]]+\\([[:alnum:]]+\\)" 1)
 			  ("Function" "^[[:space:]]*rpc[[:space:]]+\\([[:alnum:]]+\\)" 1)))))
 
-(setq lsp-buf-args '("beta" "lsp" "--timeout" "0"))
+(setq lsp-buf-args '("lsp" "serve" "--timeout" "0"))
+
+;; cargo install protols
+(lsp-register-client
+ (make-lsp-client :new-connection (lsp-stdio-connection
+                                   '("protols"))
+                  :activation-fn (lsp-activate-on "protobuf")
+                  :language-id "protobuf"
+                  :priority 0
+                  :server-id 'protols))
+
 (use-package ob-grpc
   :load-path "~/.emacs.d/lisp/libs/ob-grpc"
   :bind (:map org-mode-map
