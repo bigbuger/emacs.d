@@ -23,6 +23,7 @@
 	    (setq-local company-backends
 			(cl-adjoin '(company-proto :with company-yasnippet) company-backends :test #'equal)
 			lsp-diagnostics-flycheck-default-level 'warning)
+	    (setq-local lsp-enable-imenu nil)		
 	    (setq-local imenu-generic-expression
 			'(("Message" "^[[:space:]]*message[[:space:]]+\\([[:alnum:]]+\\)" 1)
 			  ("Enum" "^[[:space:]]*enum[[:space:]]+\\([[:alnum:]]+\\)" 1)
