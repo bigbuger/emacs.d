@@ -112,8 +112,11 @@
 ;; 允许执行清空 buffer 命令
 (put 'erase-buffer 'disabled nil)
 
-;;像素滚动
+;; 像素滚动
 (pixel-scroll-precision-mode 1)
+;; 滚动时保留光标下几行，看起来更平滑，光标不会跳，特别是 C-v 和 M-v
+(setq scroll-conservatively 100
+      scroll-margin 2)
 
 (setq mouse-wheel-tilt-scroll t)
 
