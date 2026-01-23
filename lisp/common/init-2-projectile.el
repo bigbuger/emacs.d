@@ -32,6 +32,25 @@
 (with-eval-after-load 'consult
   (setq consult-project-function 'projectile-project-root))
 
+;; 每个项目独立进行 xref 跳转
+(defvar xref-project-history-hash (make-hash-table :test 'equal)
+  "Storage for per-project xref histories.")
+
+(defun xref-project-history-current-project ()
+  "Get the current or associated project."
+  (or (projectile-project-root)
+      ""))
+
+(defun xref-project-history (&optional new-value)
+  "Return or set a project specific xref-history."
+  (let ((proj (xref-project-history-current-project)))
+    (if new-value
+        (puthash proj new-value xref-project-history-hash)
+      (or
+       (gethash proj xref-project-history-hash)
+       (puthash proj (xref--make-xref-history) xref-project-history-hash)))))
+(setq xref-history-storage #'xref-project-history)
+
 ;; projectile rg 有时候比 consult-rg 好用
 (define-key projectile-mode-map (kbd "C-c p s") 'projectile-ripgrep)
 

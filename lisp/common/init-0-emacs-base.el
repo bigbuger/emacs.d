@@ -206,8 +206,6 @@
 				      ".gmo" ".mo" ".toc" ".aux" ".cp" ".fn" ".ky" ".pg" ".tp" ".vr" ".cps"
 				      ".fns" ".kys" ".pgs" ".tps" ".vrs" ".pyc" ".pyo"))
 
-(setq xref-history-storage 'xref-window-local-history)
-
 (with-eval-after-load 'transient
   (unbind-key "<up>" 'transient-popup-navigation-map)
   (unbind-key "<down>" 'transient-popup-navigation-map)
