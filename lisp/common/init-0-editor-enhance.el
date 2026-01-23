@@ -137,6 +137,9 @@ ARG is pass to `sp-end-of-sexp'"
 (cua-mode t)
 (unbind-key "C-<return>" 'cua-global-keymap)
 (define-key cua-global-keymap (kbd "C-c C-SPC") #'cua-set-rectangle-mark)
+(advice-add 'cua-scroll-up :override #'scroll-up)
+(advice-add 'cua-scroll-down :override #'scroll-down)
+
 
 ;; kmacro-x 利用键盘宏支持选择多个匹配地方进行编辑
 (use-package kmacro-x
