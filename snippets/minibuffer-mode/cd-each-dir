@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
 # name: cd in each dir
-# key: cde
+# key: >cde
 # --
 (cd \`?\` && $0)

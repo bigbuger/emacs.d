@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: cd in each file's dir and run it
+# key: >run-all
+# --
+(cd \$(dirname \`?\`) && ./\$(basename \`?\`))
