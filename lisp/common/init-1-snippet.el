@@ -106,20 +106,21 @@ string).  It returns t if a new completion is found, nil otherwise."
 See docstring for `try-expand-flexible-abbrev' for information
 about what flexible matching means in this context."
   (let ((collection nil)
+	(case-fold-search t)
         (regexp (he-flexible-abbrev-create-regexp str)))
     (save-excursion
       (goto-char (point-min))
       (while (search-forward-regexp regexp nil t)
         ;; Is there a better or quicker way than using
         ;; `thing-at-point' here?
-        (setq collection (cons (thing-at-point 'word) collection))))
+        (setq collection (cons (match-string 0) collection))))
     collection))
 
 (defun he-flexible-abbrev-create-regexp (str)
   "Generate regexp for flexible matching of STR.
 See docstring for `try-expand-flexible-abbrev' for information
 about what flexible matching means in this context."
-  (concat "\\b" (mapconcat (lambda (x) (concat "\\w*" (list x))) str "")
+  (concat "\\b" (mapconcat (lambda (x) (concat "\\(?:\\w\\|_\\|-\\)*" (list x))) str "")
           "\\w*" "\\b"))
 
 (defun hippie-expand-flex ()
@@ -144,6 +145,7 @@ about what flexible matching means in this context."
 
 (require 'bind-key)
 (bind-key* "M-h" 'hippie-expand) ;; 原来是 mark-paragraph, 不过我不怎么用
+(bind-key* "M-H" 'hippie-expand-flex)
 
 (defun hippie-expand-line ()
   "Call try-expand-line."
