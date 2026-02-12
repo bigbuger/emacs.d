@@ -189,7 +189,7 @@ Concat with `SPEARTOR'"
 					       (target (aref (nth other-rows-iter other-targets) target-column-iter))
 					       (match (string-equal
 						       (string-join target)
-						       (ignore-errors (funcall processor inputs (cdr processor))))))
+						       (ignore-errors (funcall processor inputs)))))
 					  (setq match-all? (and match-all? match))))))
 				  processors-canditions))
 	  (setq result
