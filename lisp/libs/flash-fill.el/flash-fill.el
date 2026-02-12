@@ -204,10 +204,12 @@ Concat with `SPEARTOR'"
 	 (fill-start (length current-columns))
 	 (fill-processor-list (flash-fill-make-processor fill-start example-columns))
 	 (last-sp (cadr (aref current-columns (- fill-start 1))))
+	 (result-sp (cadr (aref example-columns (- fill-start 1))))
 	 (fill-result (string-join (mapcar (lambda (processor) (funcall processor current-columns)) fill-processor-list))))
     (end-of-line)
-    (when (string-blank-p last-sp)
-      (insert (cadr (aref example-columns (- fill-start 1)))))
+    (when (not (string-equal last-sp result-sp))
+      (delete-char (- (length last-sp)))
+      (insert result-sp))
     (insert fill-result)))
 
 ;;;###autoload
@@ -260,10 +262,12 @@ free software,free-software
 	  
 	  (when fill-processor-list
 	    (let* ((current-length (length current-columns))
-		   (last-sp (cadr (aref current-columns (- current-length 1)))))
+		   (last-sp (cadr (aref current-columns (- current-length 1))))
+		   (result-sp (cadr (aref (nth 0 example-rows) (- current-length 1)))))
 	      (end-of-line)
-	      (when (string-blank-p last-sp)
-		(insert (cadr (aref (nth 0 example-rows) (- current-length 1)))))
+	   (when (not (string-equal last-sp result-sp))
+	     (delete-char (- (length last-sp)))
+	     (insert result-sp))
 	      (insert (string-join (mapcar (lambda (processor) (funcall processor current-columns)) fill-processor-list)))))
 	  
 	  (forward-line))))))
