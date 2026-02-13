@@ -66,14 +66,12 @@
 		 (setq match-idx iter))
 	(setq iter (+ 1 iter))))
     (when match?
-      (flash-fill--by-column-with-convert match-idx speartor convert))))
+      (flash-fill--by-column-with-convert match-idx convert))))
 
-(defun flash-fill--by-column-with-convert (match-idx speartor convert)
-  "Fill by using `INPUTS' ref of `MATCH-IDX', after do `CONVERT'.
-Concat with `SPEARTOR'"
+(defun flash-fill--by-column-with-convert (match-idx convert)
+  "Fill by using `INPUTS' ref of `MATCH-IDX', after do `CONVERT'."
   (lambda (inputs)
-    (format "%s%s" (funcall convert (car (aref inputs match-idx)))
-	    speartor)))
+    (funcall convert (car (aref inputs match-idx)))))
 
 (defun flash-fill-make-processor-find-column (target inputs)
   (flash-fill-make-processor-find-column-with-convert target inputs #'identity))
@@ -108,17 +106,15 @@ Concat with `SPEARTOR'"
   :local t
   :type '(string))
 
-(defun flash-fill--by-column-substring (match-idx speartor substr-from length)
+(defun flash-fill--by-column-substring (match-idx substr-from length)
   "Fill by using `INPUTS' ref of `MATCH-IDX', after do `CONVERT'.
 Concat with `SPEARTOR'"
   (lambda (inputs)
     (or (ignore-errors
-	  (format "%s%s" (substring (car (aref inputs match-idx)) substr-from (+ substr-from length))
-		  speartor)) "")))
+	  (substring (car (aref inputs match-idx)) substr-from (+ substr-from length))) "")))
 
 (defun flash-fill-make-processor-find-substring (target inputs)
   (let ((context (car target))
-	(speartor (cadr target))
 	(iter 0)
 	(match?)
 	(match-idx)
@@ -132,11 +128,11 @@ Concat with `SPEARTOR'"
 		   (setq substr-idx current-substr-idx))
 	  (setq iter (+ 1 iter))))
       (when match?
-	(flash-fill--by-column-substring match-idx speartor substr-idx (length context))))))
+	(flash-fill--by-column-substring match-idx substr-idx (length context))))))
 
 (defun flash-fill-identity (target)
   "Just return `TARGET' as string."
-  (let ((result (string-join target)))
+  (let ((result (car target)))
     (lambda (_inputs)
       result)))
 
@@ -188,12 +184,23 @@ Concat with `SPEARTOR'"
 					(let* ((inputs (nth other-rows-iter other-inputs))
 					       (target (aref (nth other-rows-iter other-targets) target-column-iter))
 					       (match (string-equal
-						       (string-join target)
+						       (car target)
 						       (ignore-errors (funcall processor inputs)))))
 					  (setq match-all? (and match-all? match))))))
 				  processors-canditions))
 	  (setq result
 		(append result (list (or (car processors-canditions) (flash-fill-identity target))))))))))
+
+(defun flash-fill-append (last-sp example-last-sp fill-processor-list fill-start current-columns example-columns)
+  (end-of-line)
+  (when (not (string-equal last-sp example-last-sp))
+    (delete-char (- (length last-sp)))
+    (insert example-last-sp))
+  (insert (string-join
+	   (seq-map-indexed (lambda (processor idx)
+			      (concat (funcall processor current-columns)
+				      (cadr (aref example-columns (+ fill-start idx)))))
+			    fill-processor-list))))
 
 ;;;###autoload
 (defun flash-fill-line ()
@@ -204,13 +211,8 @@ Concat with `SPEARTOR'"
 	 (fill-start (length current-columns))
 	 (fill-processor-list (flash-fill-make-processor fill-start example-columns))
 	 (last-sp (cadr (aref current-columns (- fill-start 1))))
-	 (result-sp (cadr (aref example-columns (- fill-start 1))))
-	 (fill-result (string-join (mapcar (lambda (processor) (funcall processor current-columns)) fill-processor-list))))
-    (end-of-line)
-    (when (not (string-equal last-sp result-sp))
-      (delete-char (- (length last-sp)))
-      (insert result-sp))
-    (insert fill-result)))
+	 (example-last-sp (cadr (aref example-columns (- fill-start 1)))))
+    (flash-fill-append last-sp example-last-sp fill-processor-list fill-start current-columns example-columns)))
 
 ;;;###autoload
 (defun flash-fill-region ()
@@ -240,7 +242,8 @@ free software,free-software
 	(exchange-point-and-mark))
       (let ((start-point (region-beginning))
 	    (end-line (line-number-at-pos (region-end)))
-	    fill-processor-list)
+	    fill-processor-list
+	    fill-start)
 	(goto-char (region-end))
 	(if (= (current-column) 0)
 	    (setq end-line (- end-line 1)))
@@ -257,19 +260,17 @@ free software,free-software
 		 (>= (length current-columns) example-length))
 	    (setq example-rows (append example-rows (list current-columns))))
 	   ((not fill-processor-list)
-	    (setq fill-processor-list (flash-fill-make-processor-for-region (length current-columns) example-rows))
+	    (setq fill-start (length current-columns))
+	    (setq fill-processor-list (flash-fill-make-processor-for-region fill-start example-rows))
 	    ))
 	  
 	  (when fill-processor-list
 	    (let* ((current-length (length current-columns))
 		   (last-sp (cadr (aref current-columns (- current-length 1))))
-		   (result-sp (cadr (aref (nth 0 example-rows) (- current-length 1)))))
-	      (end-of-line)
-	   (when (not (string-equal last-sp result-sp))
-	     (delete-char (- (length last-sp)))
-	     (insert result-sp))
-	      (insert (string-join (mapcar (lambda (processor) (funcall processor current-columns)) fill-processor-list)))))
-	  
+		   (example-last-sp (cadr (aref (nth 0 example-rows) (- current-length 1)))))
+	      (flash-fill-append last-sp example-last-sp
+				 fill-processor-list fill-start
+				 current-columns (nth 0 example-rows))))
 	  (forward-line))))))
 
 ;;;###autoload
