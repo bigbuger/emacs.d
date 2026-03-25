@@ -57,16 +57,13 @@
 ;; (setq lsp-go-use-placeholders nil)
 
 (lsp-register-custom-settings
- '(("gopls.analyses.simplifycompositelit" t t)
+ '(("simplifycompositelit" t t)
    ("gopls.completeUnimported" t t)
-   ("gopls.staticcheck" t t)
+   ("gopls.staticcheck" nil)
    ("gopls.vulncheck" "Imports" nil)
    ;; ("gopls.matcher" "CaseInsensitive")
    ;; ("gopls.completeFunctionCalls" nil t)
-   ("gopls.analyses.ST1000" nil t) ;; Incorrect or missing package comment
-   ("gopls.analyses.ST1001" nil t) ;; dot import warning
-   ("gopls.analyses.ST1003" nil t) ;; Poorly chosen identifier
-
+   
    ("gopls.hints.assignVariableTypes" nil t)
    ("gopls.hints.compositeLiteralFields" t t)
    ("gopls.hints.compositeLiteralTypes" nil t)
@@ -74,6 +71,18 @@
    ("gopls.hints.functionTypeParameters" nil t)
    ("gopls.hints.parameterNames" t t)
    ("gopls.hints.rangeVariableTypes" nil t)))
+
+(setq lsp-go-diagnostics-delay "10s")
+
+(setq lsp-go-analyses
+      '((ST1000 . :json-false) ;; Incorrect or missing package comment
+	(ST1001 . :json-false) ;; dot import warning
+	(ST1003 . :json-false) ;; Poorly chosen identifier
+	(unusedfunc . t) ;; check for unused functions, methods, etc
+	(unusedparams . t) ;; check for unused parameters of functions
+	(unusedvariable . t) ;; check for unused variables and suggest fixes
+	(unusedresult . t) ;; check for unused variables and suggest fixes
+))
 
 (setq lsp-golangci-lint-fast t)
 (setq lsp-golangci-lint-enable '("makezero"))
@@ -86,7 +95,7 @@
     (puthash "command" command opts)
     opts))
 (advice-add 'lsp-golangci-lint--get-initialization-options :override 'my-lsp-golangci-lint--get-initialization-options)
-;; (add-to-list 'lsp-disabled-clients 'golangci-lint) ;; too slow
+(add-to-list 'lsp-disabled-clients 'golangci-lint) ;; too slow
 
 (defun my-treesit-go-var-name (node)
   "Return the defun name of NODE for Go node types."

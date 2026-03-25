@@ -269,7 +269,7 @@ This is the function to be used for the hook `completion-at-point-functions'."
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
    consult-xref
-   consult--source-file-register
+   consult-source-file-register
    consult-line
    consult-goto-line
    :preview-key '(:debounce 0.4 any) ;; Option 1: Delay preview
@@ -279,12 +279,12 @@ This is the function to be used for the hook `completion-at-point-functions'."
   (consult-customize
    consult-bookmark
    consult-recent-file
-   consult--source-recent-file
-   consult--source-project-recent-file
-   consult--source-bookmark
+   consult-source-recent-file
+   consult-source-project-recent-file
+   consult-source-bookmark
    consult-theme
    consult-buffer
-   consult--source-buffer
+   consult-source-buffer
    
    :preview-key '("M-.")))
 
@@ -722,9 +722,7 @@ targets."
 (use-package embark-consult
   :ensure t ; only need to install it, embark loads it after consult if found
   :after (consult embark)
-  :demand t
-  :hook
-  (embark-collect-mode . consult-preview-at-point-mode)
+  :demand
 
   :init
   ;; embark-consult-export-grep 添加路径，不然在没有项目的情况下，导出 grep mode 不识别

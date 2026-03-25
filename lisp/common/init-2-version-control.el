@@ -9,6 +9,8 @@
 ;;; Code:
 (require 'transient)
 
+(setq vc-git-diff-switches '("--histogram"))
+
 (require 'magit)
 (global-set-key (kbd "C-c g") 'magit-file-dispatch)
 (unbind-key "M-1" 'magit-section-mode-map)
@@ -80,15 +82,15 @@ instead of the hash, like `kill-ring-save' would."
     (magit-run-git "checkout" magit-file-checkout-multiple--rev "--" files)))
 
 (defvar-keymap embark-magit-file-checkout-multiple-actions
-    :doc "Keymap for actions for lsp-identifier."
-    :parent embark-general-map
-    "c" #'magit-file-checkout-multiple--run)
+  :doc "Keymap for actions for lsp-identifier."
+  :parent embark-general-map
+  "c" #'magit-file-checkout-multiple--run)
 
 (defun magit-file-checkout-multiple (files)
   "Checkout FILE from REV."
   (interactive
    (let ((rev (magit-read-branch-or-commit
-               "Checkout from revision" magit-buffer-revision)))
+	       "Checkout from revision" magit-buffer-revision)))
      (setq magit-file-checkout-multiple--rev rev)
      (list (minibuffer-with-setup-hook
 	       (lambda ()
@@ -102,7 +104,7 @@ instead of the hash, like `kill-ring-save' would."
   '("f" "Files" magit-file-checkout-multiple))
 
 (with-eval-after-load 'embark
-   (add-to-list 'embark-multitarget-actions 'magit-file-checkout-multiple--run))
+  (add-to-list 'embark-multitarget-actions 'magit-file-checkout-multiple--run))
 
 (use-package magit-delta
   :disabled ;; some time slow when too many changes, just disabled
@@ -132,7 +134,7 @@ instead of the hash, like `kill-ring-save' would."
 ;; -d --minimal
 ;; -B --ignore-blank-lines
 (setopt ediff-diff-options "-dB")
-
+;; (setopt ediff-diff-program "hdiff")
 
 ;; casual ediff 菜单
 (use-package casual
@@ -141,7 +143,7 @@ instead of the hash, like `kill-ring-save' would."
   (casual-ediff-install) ; run this to enable Casual Ediff
   (add-hook 'ediff-keymap-setup-hook
             (lambda ()
-            (keymap-set ediff-mode-map "C-o" #'casual-ediff-tmenu))))
+              (keymap-set ediff-mode-map "C-o" #'casual-ediff-tmenu))))
 
 ;; end ediff
 
@@ -175,6 +177,7 @@ instead of the hash, like `kill-ring-save' would."
 ;; end smerge
 
 (use-package difftastic-bindings
+  :after magit
   :ensure difftastic ;; or nil if you prefer manual installation
   :init
   (use-package transient               ; to silence compiler warnings
@@ -182,7 +185,8 @@ instead of the hash, like `kill-ring-save' would."
                transient-parse-suffix))
 
   (use-package magit-blame
-    :defer t :ensure magit
+    :defer t
+    :ensure magit
     :bind
     (:map magit-blame-read-only-mode-map
           ("M-RET" . #'difftastic-magit-show))
@@ -201,23 +205,27 @@ instead of the hash, like `kill-ring-save' would."
           (transient-append-suffix 'magit-diff '(-1 -1) suffix))))))
 
 ;; diff-hl 侧边显示每一行的版本状态
-(require 'diff-hl)
-(global-diff-hl-mode)
-(diff-hl-flydiff-mode)
-(add-hook 'dired-mode-hook 'diff-hl-dired-mode)
-(add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-(add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+(use-package diff-hl
+  :after magit
+  :init
+  (global-diff-hl-mode)
+  (diff-hl-flydiff-mode)
 
-(transient-define-prefix diff-hl-transient ()
-  "Diff hl."
-  ["Jump to git change hunk:"
-   [("n" "Next hunk" diff-hl-next-hunk :transient t)]
-   [("p" "Previous hunk" diff-hl-previous-hunk :transient t)]
-   [("k" "Revert hunk" diff-hl-revert-hunk :transient t)]
-   [("q" "Quite" transient-quit-all)]
-   [("RET" "Quite" transient-quit-all)]])
-(global-set-key (kbd "C-c v") 'diff-hl-transient)
-
+  (transient-define-prefix diff-hl-transient ()
+    "Diff hl."
+    ["Jump to git change hunk:"
+     [("n" "Next hunk" diff-hl-next-hunk :transient t)]
+     [("p" "Previous hunk" diff-hl-previous-hunk :transient t)]
+     [("k" "Revert hunk" diff-hl-revert-hunk :transient t)]
+     [("q" "Quite" transient-quit-all)]
+     [("RET" "Quite" transient-quit-all)]])
+  (global-set-key (kbd "C-c v") 'diff-hl-transient)
+  
+  
+  :hook
+  ((magit-pre-refresh . diff-hl-magit-pre-refresh)
+   (magit-post-refresh . diff-hl-magit-post-refresh)
+   (dired-mode . diff-hl-dired-mode)))
 ;; end diff-hl
 
 ;; gitlab
@@ -281,7 +289,7 @@ candidate, if given.  PROMPT passed to `completing-read-multiple' as is."
 	   (ref (read-string (concat base-prompt "Base branch: ")))
 	   (branch (read-string (concat base-prompt "Target branch: "))))
       (lab--create-branch-multiple projects ref branch)))
-   
+  
   (defun lab-create-branch-multiple-for-owned-projects ()
     (interactive)
     (lab--read-and-create-branch-multiple (lab-get-all-owned-projects)))
@@ -295,7 +303,7 @@ candidate, if given.  PROMPT passed to `completing-read-multiple' as is."
 	  (alist-get 'lab-create-branch-multiple-for-group-projects embark-default-action-overrides) #'lab--read-and-create-branch-multiple-run)
     (add-to-list 'embark-multitarget-actions #'lab--read-and-create-branch-multiple-run)) ; FIXME no work 
   )
-  
+
 
 (provide 'init-2-version-control)
 
