@@ -128,6 +128,25 @@
   (interactive "r")
   (align-regexp BEG END "\\(\\s-*?\\)\\(\\s\"\\S\"*\\s\"\\|\\_<\\S-*\\_>\\)" 1 1 t))
 
+
+
+;; 跳转文件时支持走到后面的行号
+(defun find-file-at-point-with-line(prefix)
+  "if file has an attached line num goto that line, ie boom.rb:12"
+  (interactive "p")
+  (let ((line-num 0))
+    (save-excursion
+      (search-forward-regexp "[^ ]:" (point-max) t)
+      (if (looking-at "[0-9]+")
+          (setq line-num (string-to-number (buffer-substring (match-beginning 0) (match-end 0))))))
+    (if (> prefix 1)
+	(find-file (ffap-guesser))
+      (find-file-other-window (ffap-guesser)))
+    (if (not (equal line-num 0))
+	(progn
+	  (goto-char (point-min))
+	  (forward-line (- line-num 1))))))
+
 (provide 'my-command)
 
 ;;; my-command.el ends here

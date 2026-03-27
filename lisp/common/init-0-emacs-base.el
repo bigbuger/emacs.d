@@ -34,6 +34,8 @@
 
 ;; 硬盘文件更改时，自动同步
 (global-auto-revert-mode)
+;; Revert Dired and other buffers
+(setq global-auto-revert-non-file-buffers t)
 
 ;; 撤销就是撤销，不要 redo
 (global-set-key [remap undo] #'undo-only)
