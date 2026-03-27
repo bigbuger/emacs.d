@@ -14,3 +14,4 @@ elpa
 /eln-cache/
 /edraw-ui-state.config
 /.#edraw-custom.eshapes
+/.agent-shell/
