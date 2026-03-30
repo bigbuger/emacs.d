@@ -136,7 +136,11 @@
   (interactive "p")
   (let ((line-num 0))
     (save-excursion
-      (search-forward-regexp "[^ ]:" (point-max) t)
+      (unless (search-forward-regexp "[^ ]:" (line-end-position) t)
+	(when (and
+	       (search-backward-regexp "[^0-9][0-9]+:[0-9]+:" (line-beginning-position) t)
+	       (not (looking-at "[0-9]")))
+	  (forward-char 1)))
       (if (looking-at "[0-9]+")
           (setq line-num (string-to-number (buffer-substring (match-beginning 0) (match-end 0))))))
     (if (> prefix 1)
