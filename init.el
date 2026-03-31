@@ -10,6 +10,8 @@
 
 (set-default-coding-systems 'utf-8)
 (define-coding-system-alias 'UTF-8 'utf-8)
+(prefer-coding-system 'utf-8-unix)
+
 
 ;; (setq byte-compile-warnings '(not obsolete))
 ;; (setq warning-suppress-log-types '((comp) (bytecomp)))

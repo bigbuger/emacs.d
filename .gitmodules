@@ -55,6 +55,6 @@
 [submodule "lisp/libs/consult-jq"]
 	path = lisp/libs/consult-jq
 	url = git@github.com:bigbuger/consult-jq.git
-[submodule "lisp/libs/agent-review"]
-	path = lisp/libs/agent-review
-	url = git@github.com:nineluj/agent-review.git
+[submodule "lisp/libs/agent-shell"]
+	path = lisp/libs/agent-shell
+	url = git@github.com:Lenbok/agent-shell.git
