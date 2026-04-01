@@ -8,7 +8,6 @@
 ;;; Code:
 
 (use-package agent-shell
-  :ensure t
   :defer nil
   :load-path "~/.emacs.d/lisp/libs/agent-shell"
   :bind (:map agent-shell-mode-map
