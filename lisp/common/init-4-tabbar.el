@@ -39,6 +39,10 @@
      ;; Is not temp version
      (string-match-p "^.+\\.~.+~$" name)
      (string-prefix-p "xenops" name)
+
+     ;; acp
+     (string-prefix-p "acp-client-stderr" name)
+     
      )))
 
 
