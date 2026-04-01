@@ -41,12 +41,6 @@
                   :priority 0
                   :server-id 'protols))
 
-(use-package ob-grpc
-  :load-path "~/.emacs.d/lisp/libs/ob-grpc"
-  :bind (:map org-mode-map
-              ("C-c C-g i" . ob-grpc-init)
-              ("C-c C-g b" . ob-grpc-insert-block)))
-
 (flycheck-define-checker protobuf-protoc
   "A protobuf syntax checker using the protoc compiler.
 
@@ -84,6 +78,29 @@ See URL `https://developers.google.com/protocol-buffers/'."
                  :types ((?m "Message" font-lock-type-face)
                          (?s "Service" font-lock-type-face)
 			 (?f "Function" font-lock-type-face)))))
+
+(add-to-list 'org-src-lang-modes '("grpc" . json))
+(defun org-babel-execute:grpc (body params)
+  "Execute a block of grpc code with org-babel."
+  (let* ((out-buffer "ob-grpc.json")
+	 (err-buffer "*ob-grpc-stderr*")
+	 (in-file (org-babel-temp-file "grpc.json"))
+	 (cmd (cdr (assq :cmd params)))
+	 (proto (cdr (assq :args params)))
+	 (method (cdr (assq :method params)))
+	 (service (cdr (assq :service params)))
+	 (args (list cmd
+		     "-d @"
+		     (when proto (format "-proto %s" proto))
+		     (format "%s %s" service method)))
+	 (grpcurl (format "cat %s | grpcurl %s | jq '.'" in-file (string-join args " "))))
+    (with-temp-file in-file
+      (insert body))
+    (message "ob-grpc: %s" grpcurl)
+   
+    (async-shell-command grpcurl out-buffer)
+    ))
+(provide 'ob-grpc)
 
 (provide 'init-protobuf)
 
