@@ -165,6 +165,10 @@
 
   (add-to-list 'pulsar-pulse-functions #'embark-avy-copy))
 
+
+;; tooltips 大小用在 mac 中用 system 的不能正确调整
+(setq use-system-tooltips nil)
+
 (provide 'init-z-misc)
 
 ;;; init-z-misc.el ends here

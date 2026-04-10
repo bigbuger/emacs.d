@@ -95,7 +95,9 @@
  '(visual-replace-match-highlight ((t (:inherit isearch :weight bold))))
 
  '(consult-file ((t (:inherit font-lock-keyword-face))))
- '(mode-line ((t (:background "#f7e9eb" :foreground "#655370" :box (:line-width (1 . 1) :color "#b3b9be"))))))
+ '(mode-line ((t (:background "#f7e9eb" :foreground "#655370" :box (:line-width (1 . 1) :color "#b3b9be")))))
+
+ '(tooltip ((t (:background "#c8c6dd" :foreground "#655370" :underline nil :slant normal :weight normal :height 1.3)))))
 
  
 (require 'doom-modeline)
