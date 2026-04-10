@@ -5,6 +5,8 @@
 
 (use-package markdown-mode)
 
+(modify-coding-system-alist 'file "\\.md\\'" 'utf-8)
+
 ;; npm install -g git+https://gitlab.com/matsievskiysv/math-preview
 (use-package math-preview
   :config
