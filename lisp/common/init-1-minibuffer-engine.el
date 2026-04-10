@@ -285,6 +285,8 @@ This is the function to be used for the hook `completion-at-point-functions'."
    consult-theme
    consult-buffer
    consult-source-buffer
+   consult-keep-lines
+   consult-focus-lines
    
    :preview-key '("M-.")))
 
