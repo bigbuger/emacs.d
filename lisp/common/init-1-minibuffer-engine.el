@@ -272,6 +272,9 @@ This is the function to be used for the hook `completion-at-point-functions'."
    consult-source-file-register
    consult-line
    consult-goto-line
+   consult-keep-lines 			;加入 debounce 防止正则出错时中断
+   consult-focus-lines
+   
    :preview-key '(:debounce 0.4 any) ;; Option 1: Delay preview
    ;; :preview-key "M-."             ;; Option 2: Manual preview
    )
@@ -285,8 +288,6 @@ This is the function to be used for the hook `completion-at-point-functions'."
    consult-theme
    consult-buffer
    consult-source-buffer
-   consult-keep-lines
-   consult-focus-lines
    
    :preview-key '("M-.")))
 
