@@ -18,6 +18,9 @@
 (unbind-key "M-3" 'magit-section-mode-map)
 (unbind-key "M-4" 'magit-section-mode-map)
 
+(remove-hook 'git-commit-setup-hook
+	     #'git-commit-setup-capf) ;; this break company
+
 (setq magit-commit-show-diff nil)
 (add-to-list 'display-buffer-alist
 	     '("magit-.*"
