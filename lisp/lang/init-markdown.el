@@ -3,7 +3,14 @@
 ;;; Commentary:
 ;; 
 
-(use-package markdown-mode)
+(use-package markdown-mode
+  :config
+  (setq markdown-fontify-code-blocks-natively t)
+  (setq markdown-enable-math t))
+
+(use-package md-mermaid
+  :vc (:url "https://github.com/ahmetus/md-mermaid" :rev :newest)
+  :commands (md-mermaid-render-current md-mermaid-transient))
 
 (modify-coding-system-alist 'file "\\.md\\'" 'utf-8)
 

@@ -204,11 +204,12 @@
 ;; topsy 面包屑展示函数名称
 (use-package topsy
   :config
-  (setq topsy-header-line-format  '(:eval (list " " (lsp-headerline--arrow-icon) " "
-                (funcall topsy-fn))))
-  (add-hook 'topsy-mode-hook
-	    (lambda ()
-	      (setq-local lsp-headerline-breadcrumb-segments '(path-up-to-project file)))))
+  (with-eval-after-load 'lsp-mode
+    (setq topsy-header-line-format  '(:eval (list " " (lsp-headerline--arrow-icon) " "
+						  (funcall topsy-fn))))
+    (add-hook 'topsy-mode-hook
+	      (lambda ()
+		(setq-local lsp-headerline-breadcrumb-segments '(path-up-to-project file))))))
 
 
 (use-package vertico-posframe
