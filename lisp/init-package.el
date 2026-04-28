@@ -11,7 +11,7 @@
     popup
     crux
     string-inflection
-    multiple-cursors
+    ;; multiple-cursors
     expand-region
     smartparens
     pyim

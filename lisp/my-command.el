@@ -151,6 +151,8 @@
 	  (goto-char (point-min))
 	  (forward-line (- line-num 1))))))
 
+(global-set-key (kbd "C-<RET>") #'find-file-at-point-with-line)
+
 (provide 'my-command)
 
 ;;; my-command.el ends here

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: grpc
+# key: >grpc
+# --
+
+#+begin_src grpc :results none :cmd "-plaintext" :method ${1} :service "${2}" :proto "${3}"
+${0}
+#+end_src

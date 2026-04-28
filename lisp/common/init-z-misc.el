@@ -144,6 +144,38 @@
   (add-hook 'consult-after-jump-hook #'pulsar-recenter-center)
   (add-hook 'next-error-hook #'pulsar-pulse-line)
 
+  (add-to-list 'pulsar-pulse-functions #'narrow-to-defun)
+  (add-to-list 'pulsar-pulse-functions #'narrow-to-page)
+  (add-to-list 'pulsar-pulse-functions #'narrow-to-region)
+  
+  (add-to-list 'pulsar-pulse-functions #'next-buffer)
+  (add-to-list 'pulsar-pulse-functions #'next-error)
+  (add-to-list 'pulsar-pulse-functions #'next-error-recenter)
+  
+  (add-to-list 'pulsar-pulse-functions #'recenter-top-bottom)
+  (add-to-list 'pulsar-pulse-functions #'reposition-window)
+  (add-to-list 'pulsar-pulse-functions #'scroll-down-command)
+  (add-to-list 'pulsar-pulse-functions #'scroll-up-command)
+  
+  (add-to-list 'pulsar-pulse-functions #'move-to-window-line-top-bottom)
+  (add-to-list 'pulsar-pulse-functions #'forward-page)
+  (add-to-list 'pulsar-pulse-functions #'backward-page)
+  
+  (add-to-list 'pulsar-pulse-functions #'goto-line)
+  (add-to-list 'pulsar-pulse-functions #'handle-switch-frame)
+  (add-to-list 'pulsar-pulse-functions #'imenu)
+  
+  (add-to-list 'pulsar-pulse-functions #'dired-maybe-insert-subdir)
+  (add-to-list 'pulsar-pulse-functions #'dired-up-directory)
+  (add-to-list 'pulsar-pulse-functions #'dired-goto-file)
+  (add-to-list 'pulsar-pulse-functions #'dired-next-dirline)
+  (add-to-list 'pulsar-pulse-functions #'dired-prev-dirline)
+  (add-to-list 'pulsar-pulse-functions #'ace-window)
+  (add-to-list 'pulsar-pulse-functions #'bookmark-jump)
+  
+  (add-to-list 'pulsar-pulse-functions #'cua-scroll-up)
+  (add-to-list 'pulsar-pulse-functions #'cua-scroll-down)
+
   (add-to-list 'pulsar-pulse-functions #'xref-find-definitions)
   (add-to-list 'pulsar-pulse-functions #'xref-go-back)
   (add-to-list 'pulsar-pulse-functions #'xref-go-forward)

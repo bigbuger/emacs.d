@@ -205,7 +205,11 @@
 (use-package topsy
   :config
   (with-eval-after-load 'lsp-mode
-    (setq topsy-header-line-format  '(:eval (list " " (lsp-headerline--arrow-icon) " "
+    (setq topsy-header-line-format  '(:eval (list " "
+						  (if (functionp 'lsp-headerline--arrow-icon)
+						      (lsp-headerline--arrow-icon)
+						    "")
+						  " "
 						  (funcall topsy-fn))))
     (add-hook 'topsy-mode-hook
 	      (lambda ()
