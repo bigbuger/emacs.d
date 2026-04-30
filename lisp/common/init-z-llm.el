@@ -19,6 +19,8 @@
 	      ("C-<down-mouse-1>" . find-file-at-point-with-line))
 
   :config
+  (setq agent-shell-google-gemini-acp-command '("gemini" "--acp"))
+  
   (defalias 'ag> #'agent-shell-send-dwim)
   (add-to-list 'display-buffer-alist
 	       '((major-mode . agent-shell-mode)
@@ -45,7 +47,15 @@
   ;; (add-hook 'agent-shell-section-functions
   ;;           #'agent-shell-latex-section
   ;;           nil nil)
-)
+  )
+
+(use-package agent-shell-macext
+  :vc (:url "https://github.com/cxa/agent-shell-macext")
+  :hook (agent-shell-mode . agent-shell-macext-setup)
+  :custom
+  (agent-shell-macext-file-copy-policy 'auto)    ; auto, always-copy, always-original
+  (agent-shell-macext-notifications t)           ; enable native notifications
+  (agent-shell-macext-notify-current-buffer nil)) ; nil = suppress when shell/viewport is current and Emacs is focused
 
 (provide 'init-z-llm)
 

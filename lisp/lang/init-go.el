@@ -209,9 +209,24 @@
 ;; gof is a shell file
 ;; #+begin_src shell
 ;; #!/bin/zsh
-;; gofmt -s $@ && goimports $@
+;; #!/bin/zsh
+;; 
+;; local gofmt_args=("-s")
+;; local last=""
+;; for a ($*) {
+;;     if [[ $last != "-srcdir" && $a != "-srcdir" ]]; then
+;; 	gofmt_args+=$a
+;;     fi
+;;     last="$a"
+;; }
+;; 
+;; gofmt ${gofmt_args[*]} && goimports $@
+;; 
 ;; #+end_src
 (setq gofmt-command "gof")
+
+(defun gofmt--is-goimports-p ()
+  (member (file-name-base gofmt-command) '("goimports" "gof")))
 ;; Set up before-save hooks to format buffer and add/delete imports.
 ;; Make sure you don't have other gofmt/goimports hooks enabled.
 ;; (defun lsp-go-install-save-hooks ()
