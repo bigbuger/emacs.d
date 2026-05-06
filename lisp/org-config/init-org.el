@@ -65,8 +65,17 @@
   '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t)) ;; 预览 tikz
 
 
-(setq org-latex-compiler "xelatex")
-(setq org-latex-pdf-process '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+(add-to-list 'org-preview-latex-process-alist
+	     '(xelatex-ch
+	       :programs ("xelatex" "dvisvgm")
+	       :description "xdv > svg"
+	       :message "You need to install xelatex & dvisvgm"
+	       :image-input-type "xdv"
+	       :image-output-type "svg"
+	       :latex-compiler ("xelatex -no-pdf -interaction nonstopmode -output-directory %o %f")
+	        :latex-header "\\RequirePackage{xcolor}\n\\RequirePackage{amsmath}\n\\RequirePackage[fontset=none]{ctex}\n\\setCJKmainfont{PingFang SC}\n"
+	       :image-converter ("dvisvgm %f --no-fonts --exact-bbox --scale=%S --output=%O")))
+(setq org-preview-latex-default-process 'xelatex-ch)
 (setq org-latex-listings 'minted)
 
 (add-hook 'org-mode-hook #'smartparens-mode)
