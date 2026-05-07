@@ -56,7 +56,7 @@
 ;; 添加 latex 头
 (with-eval-after-load 'org
   (add-to-list 'org-latex-packages-alist '("" "tikz" t)) ;; 需要 Ghostscript， dvisvgm -V1 检查，mac 要加链接 export LIBGS=/opt/homebrew/lib/libgs.dylib
-  (add-to-list 'org-latex-packages-alist '("" "ctex" t)) ;; 支持中文
+  (add-to-list 'org-latex-packages-alist '("fontset=macnew,UTF8" "ctex" t)) ;; 支持中文
   (add-to-list 'org-latex-packages-alist '("" "minted")) ;; 支持代码高亮
   (add-to-list 'org-latex-packages-alist '("" "listingsutf8")))
 
@@ -64,8 +64,6 @@
 (eval-after-load "preview"
   '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t)) ;; 预览 tikz
 
-(setq org-latex-compiler "xelatex")
-(setq org-latex-pdf-process '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 (add-to-list 'org-preview-latex-process-alist
 	     '(xelatex-ch
 	       :programs ("xelatex" "dvisvgm")
@@ -74,7 +72,7 @@
 	       :image-input-type "xdv"
 	       :image-output-type "svg"
 	       :latex-compiler ("xelatex -no-pdf -interaction nonstopmode -output-directory %o %f")
-	       :latex-header "\\RequirePackage{xcolor}\n\\RequirePackage{amsmath}\n\\RequirePackage[fontset=none]{ctex}\n\\setCJKmainfont{PingFang SC}\n"
+	       ;; :latex-header "\\RequirePackage{xcolor}\n\\RequirePackage{amsmath}\n\\RequirePackage[fontset=none]{ctex}\n\\setCJKmainfont{PingFang SC}\n"
 	       :image-converter ("dvisvgm %f --no-fonts --exact-bbox --scale=%S --output=%O")))
 (setq org-preview-latex-default-process 'xelatex-ch)
 (setq org-latex-listings 'minted)
