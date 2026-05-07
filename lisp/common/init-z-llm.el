@@ -50,6 +50,7 @@
   )
 
 (use-package agent-shell-macext
+  :disabled
   :vc (:url "https://github.com/cxa/agent-shell-macext")
   :hook (agent-shell-mode . agent-shell-macext-setup)
   :custom
