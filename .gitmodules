@@ -55,3 +55,6 @@
 [submodule "lisp/libs/agent-shell"]
 	path = lisp/libs/agent-shell
 	url = git@github.com:Lenbok/agent-shell.git
+[submodule "lisp/libs/agent-shell-ediff"]
+	path = lisp/libs/agent-shell-ediff
+	url = git@github.com:cassandracomar/agent-shell-ediff.git

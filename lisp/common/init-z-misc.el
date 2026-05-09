@@ -162,6 +162,14 @@
   (add-to-list 'pulsar-pulse-functions #'backward-page)
   
   (add-to-list 'pulsar-pulse-functions #'goto-line)
+  (add-to-list 'pulsar-pulse-functions #'find-file)
+  (add-to-list 'pulsar-pulse-functions #'find-file-other-window)
+  (with-eval-after-load 'server
+    (add-hook 'server-visit-hook #'pulsar-pulse-line))
+  (with-eval-after-load 'projectile
+    (add-hook 'projectile-find-dir-hook #'pulsar-pulse-line)
+    (add-to-list 'pulsar-pulse-functions #'projectile-switch-to-buffer)
+    (add-hook 'projectile-find-file-hook #'pulsar-pulse-line))
   (add-to-list 'pulsar-pulse-functions #'handle-switch-frame)
   (add-to-list 'pulsar-pulse-functions #'imenu)
   

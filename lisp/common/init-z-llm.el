@@ -49,14 +49,13 @@
   ;;           nil nil)
   )
 
-(use-package agent-shell-macext
-  :disabled
-  :vc (:url "https://github.com/cxa/agent-shell-macext")
-  :hook (agent-shell-mode . agent-shell-macext-setup)
+(use-package agent-shell-ediff
+  :load-path "~/.emacs.d/lisp/libs/agent-shell-ediff"
+  :after agent-shell
   :custom
-  (agent-shell-macext-file-copy-policy 'auto)    ; auto, always-copy, always-original
-  (agent-shell-macext-notifications t)           ; enable native notifications
-  (agent-shell-macext-notify-current-buffer nil)) ; nil = suppress when shell/viewport is current and Emacs is focused
+  (agent-shell-ediff-quick-quit t)
+  :config
+  (agent-shell-ediff-mode 1))
 
 (provide 'init-z-llm)
 

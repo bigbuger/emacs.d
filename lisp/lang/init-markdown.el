@@ -6,7 +6,10 @@
 (use-package markdown-mode
   :config
   (setq markdown-fontify-code-blocks-natively t)
-  (setq markdown-enable-math t))
+  (setq markdown-enable-math t)
+  (add-hook 'markdown-mode-hook
+	    (lambda ()
+	      (toggle-truncate-lines -1))))
 
 (use-package md-mermaid
   :vc (:url "https://github.com/ahmetus/md-mermaid" :rev :newest)
