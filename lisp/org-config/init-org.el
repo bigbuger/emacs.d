@@ -48,10 +48,10 @@
 (setf (alist-get 'file org-link-frame-setup) 'find-file)
 
 ;; org 内嵌 LaTeX 相关配置
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0)
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5)
       org-startup-with-latex-preview t
       org-preview-latex-image-directory "~/.cache/emacs/data/org/ltximg/"
-      org-preview-latex-default-process 'dvisvgm)
+      )
 
 ;; 添加 latex 头
 (with-eval-after-load 'org
@@ -72,7 +72,7 @@
 	       :image-input-type "xdv"
 	       :image-output-type "svg"
 	       :latex-compiler ("xelatex -no-pdf -interaction nonstopmode -output-directory %o %f")
-	       ;; :latex-header "\\RequirePackage{xcolor}\n\\RequirePackage{amsmath}\n\\RequirePackage[fontset=none]{ctex}\n\\setCJKmainfont{PingFang SC}\n"
+	       :image-size-adjust (1.7 . 1.5)
 	       :image-converter ("dvisvgm %f --no-fonts --exact-bbox --scale=%S --output=%O")))
 (setq org-preview-latex-default-process 'xelatex-ch)
 (setq org-latex-listings 'minted)
