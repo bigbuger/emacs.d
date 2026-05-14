@@ -261,9 +261,20 @@
 ;; verb 网络请求客户端
 (use-package verb
   :demand t
+  :config
+  (define-key verb-response-body-mode-map (kbd "C-c i") #'consult-jq)
+  
   :init
   (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "C-c C-r") verb-command-map)))
+    (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
+
+  (defun verb-graphql (rs)
+    "Converts Verb-mode's request object RS into a GraphQL request.
+For use with Verb-Map-Request property."
+  (pcase-let* ((`(,query ,variables) (split-string (oref rs body) ":variables:"))
+               (body `(:query ,query :variables ,(json-parse-string (or variables "{}")))))
+    (oset rs body (json-encode body)))
+  rs))
 
 (use-package impostman
   :ensure t)

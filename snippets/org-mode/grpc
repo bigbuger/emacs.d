@@ -2,7 +2,9 @@
 # name: grpc
 # key: >grpc
 # --
-
-#+begin_src grpc :results none :cmd "-plaintext" :method ${1} :service "${2}" :proto "${3}"
+#+HEADER: :method ${1}
+#+HEADER: :service "${2}"
+#+HEADER: :proto "${3}"
+#+begin_src grpc :results none :cmd "-plaintext" 
 ${0}
 #+end_src

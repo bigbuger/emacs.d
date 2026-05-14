@@ -9,6 +9,8 @@
   :ensure t
   :mode ("\\.graphql\\'" "\\.gql\\'")
   :init
+  (add-to-list 'org-src-lang-modes
+	       '("graphql" . graphql-ts))
   (with-eval-after-load 'treesit
     (add-to-list 'treesit-language-source-alist
                  '(graphql "https://github.com/bkegley/tree-sitter-graphql"))))
