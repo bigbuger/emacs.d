@@ -59,7 +59,7 @@ See URL `https://developers.google.com/protocol-buffers/'."
   ((info line-start (file-name) ":" line ":" column
          ": note: " (message) line-end)
    (warning line-start (file-name) ":" line ":" column
-         ": warning: " (message) line-end)
+            ": warning: " (message) line-end)
    (error line-start (file-name) ":" line ":" column
           ": " (message) line-end)
    (error line-start
@@ -115,8 +115,7 @@ See URL `https://developers.google.com/protocol-buffers/'."
 		 (req-message (match-string 3 method-description))
 		 (resp-stream (match-string 4 method-description))
 		 (resp-message (match-string 5 method-description))
-                 (grpc-block-prefix (org-entry-get nil "GRPC-BLOCK-PREFIX" t)))
-             
+                 )
              (let ((msg-desc (ob-grpc--grpcurl-describe proto-file import-paths req-message t)))
 	       (and (string-match "Message template:\n\\(.*\\(?:\n.*\\)*?\\)\\(?:\n\\'\\)"
 				  msg-desc)
@@ -130,7 +129,8 @@ See URL `https://developers.google.com/protocol-buffers/'."
 (add-to-list 'org-src-lang-modes '("grpc" . json))
 (defun org-babel-execute:grpc (body params)
   "Execute a block of grpc code with org-babel."
-  (let* ((out-buffer "ob-grpc.json")
+  (let* ((name (nth 4 (org-babel-get-src-block-info)))
+	 (out-buffer (format "ob-grpc%s.json"  (if name (concat "-" name) "")))
 	 (err-buffer "*ob-grpc-stderr*")
 	 (in-file (org-babel-temp-file "grpc.json"))
 	 (cmd (cdr (assq :cmd params)))
@@ -147,7 +147,7 @@ See URL `https://developers.google.com/protocol-buffers/'."
     (with-temp-file in-file
       (insert body))
     (message "ob-grpc: %s" grpcurl)
-   
+    
     (async-shell-command grpcurl out-buffer)
     ))
 
