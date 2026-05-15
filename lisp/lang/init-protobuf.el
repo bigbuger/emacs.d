@@ -79,6 +79,54 @@ See URL `https://developers.google.com/protocol-buffers/'."
                          (?s "Service" font-lock-type-face)
 			 (?f "Function" font-lock-type-face)))))
 
+;; copy from https://github.com/shsms/ob-grpc/blob/main/ob-grpc.el
+(defun ob-grpc--concat-imports (import-paths)
+  "Take a list of IMPORT-PATHS and return string of grpcurl cli arguments."
+  (let (result)
+    (dolist (item import-paths result)
+      (setq result (concat " -import-path " item result)))
+    result))
+(defun ob-grpc--grpcurl-describe (proto-file import-paths name &optional msg-template)
+  "Return a `grpcurl describe' for NAME, defined in PROTO-FILE and IMPORT-PATHS."
+  (let ((command (message "grpcurl %s %s -proto %s describe %s"
+			  (or (ob-grpc--concat-imports import-paths) "")
+			  (if msg-template " --msg-template " "")
+			  proto-file
+			  name)))
+    (message (shell-command-to-string command))))
+
+(defun ob-grpc--grpcurl-msg-template ()
+  "Return the method signature and request msg template for method NAME, using grpcurl."
+  (let* ((args (caddr (org-babel-get-src-block-info)))
+	 (method (cdr (assq :method args)))
+	 (proto-file (cdr (assq :proto args)))
+	 (import-paths (cdr (assq :import-paths args)))
+	 (method-description (ob-grpc--grpcurl-describe proto-file import-paths method))
+	 (msg-template "uninitialized")
+         (block-prefix nil))
+    (message "%s" method-description)
+    (save-match-data
+      (and (string-match
+	    "^rpc \\([A-Za-z_0-9]+\\) (\\( stream\\)? \\([a-zA-Z._0-9]+\\) ) returns (\\( stream\\)? \\([a-zA-Z._0-9]+\\) )"
+	    method-description)
+           (let ((decl (match-string 0 method-description))
+                 (method-short (match-string 1 method-description))
+		 (req-stream (match-string 2 method-description))
+		 (req-message (match-string 3 method-description))
+		 (resp-stream (match-string 4 method-description))
+		 (resp-message (match-string 5 method-description))
+                 (grpc-block-prefix (org-entry-get nil "GRPC-BLOCK-PREFIX" t)))
+             
+             (let ((msg-desc (ob-grpc--grpcurl-describe proto-file import-paths req-message t)))
+	       (and (string-match "Message template:\n\\(.*\\(?:\n.*\\)*?\\)\\(?:\n\\'\\)"
+				  msg-desc)
+                    (setq msg-template (match-string 1 msg-desc)))))))
+    msg-template))
+
+(defun org-grpc-insert-request-template ()
+  (interactive)
+  (insert (ob-grpc--grpcurl-msg-template)))
+
 (add-to-list 'org-src-lang-modes '("grpc" . json))
 (defun org-babel-execute:grpc (body params)
   "Execute a block of grpc code with org-babel."
@@ -86,12 +134,14 @@ See URL `https://developers.google.com/protocol-buffers/'."
 	 (err-buffer "*ob-grpc-stderr*")
 	 (in-file (org-babel-temp-file "grpc.json"))
 	 (cmd (cdr (assq :cmd params)))
-	 (proto (cdr (assq :args params)))
+	 (proto (cdr (assq :proto params)))
 	 (method (cdr (assq :method params)))
 	 (service (cdr (assq :service params)))
+	 (import-paths (cdr (assq :import-paths params)))
 	 (args (list cmd
 		     "-d @"
 		     (when proto (format "-proto %s" proto))
+		     (when import-paths (ob-grpc--concat-imports import-paths))
 		     (format "%s %s" service method)))
 	 (grpcurl (format "cat %s | grpcurl %s | jq '.'" in-file (string-join args " "))))
     (with-temp-file in-file
@@ -100,7 +150,10 @@ See URL `https://developers.google.com/protocol-buffers/'."
    
     (async-shell-command grpcurl out-buffer)
     ))
+
 (provide 'ob-grpc)
+
+
 
 (provide 'init-protobuf)
 
