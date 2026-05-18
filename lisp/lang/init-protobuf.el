@@ -153,7 +153,40 @@ See URL `https://developers.google.com/protocol-buffers/'."
 
 (provide 'ob-grpc)
 
+(defun protobuf-quick-test ()
+  (interactive)
+  (let ((file (file-relative-name (buffer-file-name)))
+	method package service)
+    (save-excursion
+      (beginning-of-line)
+      (when (search-forward-regexp "^\\s-*rpc\\s-*\\(\\sw+\\)\\s-*(\\s-*\\sw+\\s-*)\\s-*returns" (pos-eol) t)
+	(setq method (match-string 1)))
+      (when (search-backward-regexp "^\\s-*service\\s-*\\(\\sw+\\)\\s-*{" (point-min) t 1)
+	(setq service (match-string 1)))
+      (when (search-backward-regexp "^\\s-*package\\s-*\\(.*?\\)\\s-*;" (point-min) t 1)
+	(setq package (match-string 1))))
+    (when method
+      (let ((buffer (get-buffer-create (format "* Grpc test %s/%s *" service method))))
+	(with-current-buffer buffer
+	  (org-mode)
+	  (when (= (point-min) (point-max))
+	    (insert (format "#+NAME: %s
+#+HEADER: :method %s%s.%s
+#+HEADER: :service \"127.0.0.1:30000\"
+#+HEADER: :proto \"%s\"
+#+HEADER: :import-paths '(\".\")
+"
+			    method
+			    (if package (concat package ".") "") service method
+			    file))
+	    (insert "#+begin_src grpc :results none :cmd \"-plaintext\" \n")
+	    (insert "\n\n")
+	    (insert "#+end_src")
+	    (forward-line -2)
+	    (org-grpc-insert-request-template)))
+	(display-buffer buffer)))))
 
+(define-key protobuf-mode-map (kbd "C-c C-t") #'protobuf-quick-test)
 
 (provide 'init-protobuf)
 
