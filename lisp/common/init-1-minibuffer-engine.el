@@ -101,16 +101,7 @@ since the whatis index is broken post-SIP."
 
   (setq completion-styles '(orderless basic partial-completion))
   
-  ;; use initialism for command, buffer and file
-  (setq completion-category-overrides
-	'((command          (styles orderless+initialism+prefixes))
-          (buffer           (styles orderless+initialism))
-	  (file             (styles orderless+initialism))
-	  (project          (styles orderless+initialism))
-	  (project-file     (styles orderless+initialism))
-	  (project-buffer   (styles orderless+initialism))
-	  (bookmark         (styles orderless+initialism+pinyin))
-	  (consult-location (styles orderless))))
+  
   
   
   :init
@@ -127,6 +118,22 @@ since the whatis index is broken post-SIP."
     "Using orderless for sepecial function."
     (let ((completion-styles '(orderless)))
       (apply orig_fun args))))
+
+(use-package dl-completion
+  :after orderless
+  :load-path "~/.emacs.d/lisp/libs/dl-completion"
+
+  :config
+  ;; use initialism for command, buffer and file
+  (setq completion-category-overrides
+	'((command         (styles orderless+initialism+prefixes dl-completion))
+          (buffer           (styles orderless+initialism dl-completion))
+	  (file             (styles orderless+initialism dl-completion))
+	  (project          (styles orderless+initialism dl-completion))
+	  (project-file     (styles orderless+initialism dl-completion))
+	  (project-buffer   (styles orderless+initialism dl-completion))
+	  (bookmark         (styles orderless+initialism+pinyin dl-completion))
+	  (consult-location (styles orderless)))))
 
 
 ;; Enable rich annotations using the Marginalia package

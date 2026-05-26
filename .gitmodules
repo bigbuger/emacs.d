@@ -58,3 +58,6 @@
 [submodule "lisp/libs/agent-shell-ediff"]
 	path = lisp/libs/agent-shell-ediff
 	url = git@github.com:cassandracomar/agent-shell-ediff.git
+[submodule "lisp/libs/dl-completion"]
+	path = lisp/libs/dl-completion
+	url = https://codeberg.org/Hyudoro/dl-completion.git
