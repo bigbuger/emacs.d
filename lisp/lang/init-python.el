@@ -17,8 +17,8 @@
   :config
   (delete `elpy-module-highlight-indentation elpy-modules)
 
-  :init
-  (advice-add 'python-mode :before 'elpy-enable)
+  ;; :init
+  ;; (advice-add 'python-mode :before 'elpy-enable)
 
   :config
   (setq elpy-rpc-python-command "python3")
