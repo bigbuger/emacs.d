@@ -14,7 +14,8 @@
 (use-package md-mermaid
   :vc (:url "https://github.com/ahmetus/md-mermaid" :rev :newest)
   :commands (md-mermaid-render-current md-mermaid-transient)
-  :hook (markdown-mode . md-mermaid-live-mode))
+  ;; :hook (markdown-mode . md-mermaid-live-mode)
+  )
 
 (modify-coding-system-alist 'file "\\.md\\'" 'utf-8)
 
