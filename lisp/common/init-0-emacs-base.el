@@ -33,7 +33,9 @@
              (recentf-expand-file-name "~/.cache/emacs/data/bookmark-default.el"))
 
 ;; 硬盘文件更改时，自动同步
-(global-auto-revert-mode)
+;; (global-auto-revert-mode) ;; some time slow
+;; (setq auto-revert-interval 10)
+;; (setq auto-revert-use-notify nil)
 ;; Revert Dired and other buffers
 ;; (setq global-auto-revert-non-file-buffers t)
 

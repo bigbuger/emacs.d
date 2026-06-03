@@ -35,6 +35,7 @@
   (unbind-key "<down-mouse-3>" jinx-overlay-map) ;; disable mouse
   (put 'jinx-overlay 'mouse-face nil)            ;; disable mouse hover face
   (add-to-list 'jinx-camel-modes 'protobuf-mode)
+  (setq jinx-delay 1)
   
   (setq jinx-exclude-regexps
 	'((emacs-lisp-mode "Package-Requires:.*$")

@@ -12,6 +12,7 @@
 (setq vc-git-diff-switches '("--histogram"))
 
 (require 'magit)
+(magit-auto-revert-mode -1)
 (global-set-key (kbd "C-c g") 'magit-file-dispatch)
 (unbind-key "M-1" 'magit-section-mode-map)
 (unbind-key "M-2" 'magit-section-mode-map)
