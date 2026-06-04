@@ -131,16 +131,6 @@ ARG is pass to `sp-end-of-sexp'"
 (global-unset-key (kbd "<M-mouse-2>"))	  ; was mouse-yank-secondary
 (global-unset-key (kbd "<M-mouse-3>"))	  ; was mouse-secondary-save-then-kill
 
-(setq cua-enable-cua-keys nil)
-;; (setq cua-highlight-region-shift-only t) ;; no transient mark mode
-(setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
-(cua-mode t)
-(unbind-key "C-<return>" 'cua-global-keymap)
-(define-key cua-global-keymap (kbd "C-c C-SPC") #'cua-set-rectangle-mark)
-(advice-add 'cua-scroll-up :override #'scroll-up)
-(advice-add 'cua-scroll-down :override #'scroll-down)
-
-
 ;; kmacro-x 利用键盘宏支持选择多个匹配地方进行编辑
 (use-package kmacro-x
   :ensure t
