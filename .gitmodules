@@ -61,3 +61,6 @@
 [submodule "lisp/libs/dl-completion"]
 	path = lisp/libs/dl-completion
 	url = https://codeberg.org/Hyudoro/dl-completion.git
+[submodule "lisp/libs/curl-to-elisp"]
+	path = lisp/libs/curl-to-elisp
+	url = git@github.com:xuchunyang/curl-to-elisp.git

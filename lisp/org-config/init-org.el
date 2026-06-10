@@ -265,6 +265,8 @@
   (define-key verb-response-body-mode-map (kbd "C-c i") #'consult-jq)
   
   :init
+  (add-to-list 'load-path "~/.emacs.d/lisp/libs/curl-to-elisp")
+  (require 'curl-to-elisp)
   (with-eval-after-load 'org
     (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
 
