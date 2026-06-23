@@ -145,7 +145,10 @@ ARG is pass to `sp-end-of-sexp'"
   (define-key kmacro-x-mc-mode-map (kbd "C-<return>") #'kmacro-x-mc-apply)
   (unbind-key "RET" kmacro-x-mc-mode-map)
   )
- 
+
+(setq cua-enable-cua-keys nil)
+(setq cua-auto-tabify-rectangles nil)
+
 ;; dmacro 动态生成键盘宏
 ;; 重复一套操作两次后直接用 `M-E' 后就直接调用
 ;; 例如输入 hello he 之后按 `M-E' 会变成 hello hello
