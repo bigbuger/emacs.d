@@ -54,7 +54,7 @@
 	url = git@github.com:bigbuger/consult-jq.git
 [submodule "lisp/libs/agent-shell"]
 	path = lisp/libs/agent-shell
-	url = git@github.com:Lenbok/agent-shell.git
+	url = git@github.com:bigbuger/agent-shell.git
 [submodule "lisp/libs/agent-shell-ediff"]
 	path = lisp/libs/agent-shell-ediff
 	url = git@github.com:cassandracomar/agent-shell-ediff.git
