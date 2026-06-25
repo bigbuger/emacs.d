@@ -47,6 +47,7 @@ With prefix argument, use full path."
 ;; smartparens
 (require 'smartparens-config)
 (add-hook 'prog-mode-hook #'smartparens-mode)
+(setq sp-autoinsert-pair t) ;; 自动输入匹配的括号对，有时候行为不对，例如做键盘宏的时候
 (sp-pair "\"" nil :unless '(sp-point-before-word-p sp-point-after-word-p)) ;; 单词前的字符不要做自动插入引号
 (sp-local-pair 'emacs-lisp-mode "'" nil :actions '(wrap))
 
@@ -137,8 +138,25 @@ ARG is pass to `sp-end-of-sexp'"
   :init
   (require 'kmacro-x-mc)
 
+  ;;;###autoload
+  (defun kmacro-x-mc-mark-next-or-cua-rect ()
+    "A smart version of `kmacro-x-mc-mark-next' with a fallback.
+
+Acts just like `kmacro-x-mc-mark-next' but falls back to
+`rectangle-mark-mode' when there is no selection."
+    (interactive)
+    (require 'cua-rect)
+    (if (and (not cua-rectangle-mark-mode)
+             (use-region-p))
+	(progn
+          (setq this-command 'kmacro-x-mc-mark-next)
+          (kmacro-x-mc-mark-next))
+      (unless cua-rectangle-mark-mode
+	(cua-rectangle-mark-mode 1))
+      (cua-resize-rectangle-down 1)))
+
   (global-set-key (kbd "C-<")  #'kmacro-x-mc-mark-previous)
-  (global-set-key (kbd "C->") #'kmacro-x-mc-mark-next)
+  (global-set-key (kbd "C->") #'kmacro-x-mc-mark-next-or-cua-rect)
   (global-set-key (kbd "M-<mouse-1>") #'kmacro-x-mc-mark-at-click)
   
   (setq kmacro-x-mc-live-preview t)
@@ -148,6 +166,7 @@ ARG is pass to `sp-end-of-sexp'"
 
 (setq cua-enable-cua-keys nil)
 (setq cua-auto-tabify-rectangles nil)
+(global-set-key [remap rectangle-mark-mode] #'cua-rectangle-mark-mode)
 
 ;; dmacro 动态生成键盘宏
 ;; 重复一套操作两次后直接用 `M-E' 后就直接调用
@@ -218,11 +237,11 @@ ARG is pass to `sp-end-of-sexp'"
 
 (require 'dash)
 (defvar auto-read-only-patterns `(,(concat (file-truename "~")  "/Library"))
-   "File paths matching any pattern in list will be started in `read-only-mode'.")
+  "File paths matching any pattern in list will be started in `read-only-mode'.")
 
 (defun should-be-read-only-p (file)
   "Return t if FILE should be read-only."
-   (-any? 'identity (mapcar (lambda (x) (string-match-p x file)) auto-read-only-patterns)))
+  (-any? 'identity (mapcar (lambda (x) (string-match-p x file)) auto-read-only-patterns)))
 
 (defun auto-read-only-maybe ()
   "Auto make buffer read only."
