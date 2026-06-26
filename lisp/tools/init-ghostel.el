@@ -22,21 +22,22 @@ Like normal Emacs `C-k'.  Kill to end of line and put content in kill-ring."
     (interactive)
     (kill-ring-save (point) (line-end-position))
     (ghostel-send-key "k" "ctrl"))
-  
-  (defun ghostel-projectile (&optional arg)
-    "Start a new Ghostel terminal in the current project's root.
+  )
+
+(defun ghostel-projectile (&optional arg)
+  "Start a new Ghostel terminal in the current project's root.
 The buffer name is prefixed with the project name.
 If a buffer already exists for this project, switch to it.
 Otherwise create a new Ghostel buffer.  ARG is passed through to
 `ghostel' and accepts the same universal argument conventions.
 Returns the buffer."
-    (interactive "P")
-    (let ((default-directory (projectile-acquire-root))
-          (ghostel-buffer-name (projectile-generate-process-name "ghostel" arg)))
-      (ghostel arg)))
-  (with-eval-after-load 'projectile
-    (define-key projectile-command-map (kbd "t") 'ghostel-project))
-  )
+  (interactive "P")
+  (let ((default-directory (projectile-acquire-root))
+        (ghostel-buffer-name (projectile-generate-process-name "ghostel" arg)))
+    (ghostel arg)))
+
+(with-eval-after-load 'projectile
+  (define-key projectile-command-map (kbd "t") 'ghostel-project))
 
 (provide 'init-ghostel)
 
