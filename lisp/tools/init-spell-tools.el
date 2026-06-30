@@ -34,6 +34,8 @@
   :config
   (unbind-key "<down-mouse-3>" jinx-overlay-map) ;; disable mouse
   (put 'jinx-overlay 'mouse-face nil)            ;; disable mouse hover face
+  (put 'jinx-overlay 'help-echo nil)
+  
   (add-to-list 'jinx-camel-modes 'protobuf-mode)
   (setq jinx-delay 1)
   

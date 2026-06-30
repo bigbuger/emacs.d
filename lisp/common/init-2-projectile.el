@@ -17,6 +17,10 @@
 (setq projectile-git-submodule-command nil)
 (setq projectile-per-project-compilation-buffer t)
 
+(defun my-projectile-ignore-git-project (project-root)
+    (string-match-p ".git" project-root))
+(setq projectile-ignored-project-function #'my-projectile-ignore-git-project)
+
 (setq frame-title-format
       '(""
 	(:eval

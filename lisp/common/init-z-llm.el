@@ -53,7 +53,7 @@
   :load-path "~/.emacs.d/lisp/libs/agent-shell-ediff"
   :after agent-shell
   :custom
-  (agent-shell-ediff-quick-quit t)
+  (agent-shell-ediff-quick-quit nil)
   :config
   (agent-shell-ediff-mode 1))
 
