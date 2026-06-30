@@ -63,6 +63,14 @@ since the whatis index is broken post-SIP."
   ;; (setq orderless-style-dispatchers (list #'orderless-kwd-dispatch ; 查询可以通过 :mod:lisp :dir:xxx 之类的命令查询 buffer
   ;;                                         #'orderless-affix-dispatch))
   
+  (defun my-orderless-fuzzy (component)
+    "abc 匹配 a\w*[_-]b\w*[_-]c"
+    (orderless--separated-by '(seq (zero-or-more word) (in "-" "_"))
+      (cl-loop for char across component collect `(seq ,char))))
+"product-plugin"
+  (add-to-list 'orderless-affix-dispatch-alist
+	       `(?@ . ,#'my-orderless-fuzzy))
+  
   (setq orderless-matching-styles
 	'(orderless-literal		; use = to dispatch
 	  orderless-regexp		;
