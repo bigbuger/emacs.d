@@ -128,6 +128,8 @@ since the whatis index is broken post-SIP."
       (apply orig_fun args))))
 
 (use-package dl-completion
+  ;; A fuzzy completion style for Emacs based on the Damerau-Levenshtein edit distance algorithm.
+  ;; 根据编辑距离进行修正
   :after orderless
   :load-path "~/.emacs.d/lisp/libs/dl-completion"
 
