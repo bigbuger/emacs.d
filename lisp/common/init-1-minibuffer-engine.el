@@ -66,8 +66,7 @@ since the whatis index is broken post-SIP."
   (defun my-orderless-fuzzy (component)
     "abc 匹配 a\w*[_-]b\w*[_-]c"
     (orderless--separated-by '(seq (zero-or-more word) (in "-" "_"))
-      (cl-loop for char across component collect `(seq ,char))))
-"product-plugin"
+      (cl-loop for char across component collect `(seq bow ,char))))
   (add-to-list 'orderless-affix-dispatch-alist
 	       `(?@ . ,#'my-orderless-fuzzy))
   
