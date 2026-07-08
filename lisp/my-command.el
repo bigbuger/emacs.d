@@ -153,6 +153,14 @@
 
 (global-set-key (kbd "C-<return>") #'find-file-at-point-with-line)
 
+(defun my-copy-current-line-position-to-clipboard ()
+  "Copy current line in file to clipboard as '</path/to/file>:<line-number>'."
+  (interactive)
+  (let ((path-with-line-number
+         (concat (buffer-file-name) ":" (number-to-string (line-number-at-pos)))))
+    (kill-new path-with-line-number)
+    (message (concat path-with-line-number " copied to clipboard"))))
+
 (provide 'my-command)
 
 ;;; my-command.el ends here
