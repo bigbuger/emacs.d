@@ -7,6 +7,10 @@
 (use-package ghostel
   :bind (("C-c t" . ghostel)
          :map ghostel-semi-char-mode-map
+	 ("M-<left>" . (lambda () (interactive) (ghostel-send-key "b" "meta")))
+	 ("M-<right>" . (lambda () (interactive) (ghostel-send-key "f" "meta")))
+	 ("M-<up>" . (lambda () (interactive) (ghostel-send-key "p" "meta")))
+	 ("M-<down>" . (lambda () (interactive) (ghostel-send-key "n" "meta")))
          ("C-c l"  . consult-line)
          ("C-k"  . my/ghostel-send-C-k-and-kill)
 	 ("M-0"  . delete-window)
