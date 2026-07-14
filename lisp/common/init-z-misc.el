@@ -114,6 +114,42 @@
   :init
   (defalias 'pcomplete/rg 'pcmpl-args-pcomplete-on-help))
 
+(defvar pcmpl-git-ref-list-cmd "git for-each-ref refs/ --format='%(refname)'"
+  "The `git' command to run to get a list of refs.")
+
+(defun pcmpl-git-get-refs (type)
+  "Return a list of `git' refs filtered by TYPE."
+  (with-temp-buffer
+    (insert (shell-command-to-string pcmpl-git-ref-list-cmd))
+    (goto-char (point-min))
+    (let ((ref-list))
+      (while (re-search-forward (concat "^refs/" type "/\\(.+\\)$") nil t)
+        (add-to-list 'ref-list (propertize (match-string 1)
+					   'pcomplete-annotation (propertize (concat "  " type) 'face font-lock-comment-face))))
+      ref-list)))
+
+(defun pcmpl-git-commands-with-annotation ()
+  "Return a list of git commands."
+  (mapcar (lambda (c)
+	    (propertize (car c)
+			'pcomplete-annotation (propertize (concat "  " (cadr c)) 'face font-lock-comment-face)))
+	  pcmpl-args-git-commands))
+
+(defun pcomplete/git ()
+  "Completion for `git'."
+  ;; Completion for the command argument.
+  (pcomplete-here* (pcmpl-git-commands-with-annotation))
+  ;; complete files/dirs forever if the command is `add' or `rm'
+  (cond
+   ((pcomplete-match (regexp-opt '("add" "rm")) 1)
+    (while (pcomplete-here (pcomplete-entries))))
+   ;; provide branch completion for the command `checkout'.
+   ((pcomplete-match "checkout" 1)
+    (pcomplete-here* (append (pcmpl-git-get-refs "heads")
+			     (pcmpl-git-get-refs "tags")
+			     (list "--ours" "--theirs" "--merge")))))
+  (while (pcomplete-here (pcomplete-entries))))
+
 (setq Info-additional-directory-list '("/opt/homebrew/share/info"))
 
 (use-package proced
