@@ -251,6 +251,10 @@
     (c1-control			.	hex-code)
     (variation-selectors	.	acronym)))
 
+(use-package context-clues
+  :ensure t
+  :bind ("C-x c" . context-clues))
+
 (provide 'init-z-misc)
 
 ;;; init-z-misc.el ends here
