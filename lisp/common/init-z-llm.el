@@ -9,7 +9,6 @@
 
 (use-package agent-shell
   :defer nil
-  :load-path "~/.emacs.d/lisp/libs/agent-shell"
   :bind (:map agent-shell-mode-map
               ("RET" . newline)
               ("C-c C-c" . shell-maker-submit)
@@ -20,6 +19,8 @@
 
   :config
   (setq agent-shell-google-gemini-acp-command '("gemini" "--acp"))
+  (setq agent-shell-activity-group-header-label-function
+	#'agent-shell-activity-group-tally-label)
   
   (defalias 'ag> #'agent-shell-send-dwim)
   (add-to-list 'display-buffer-alist
