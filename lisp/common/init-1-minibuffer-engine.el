@@ -107,9 +107,16 @@ since the whatis index is broken post-SIP."
   (setq orderless-component-separator #'orderless-escapable-split-on-space)
 
   (setq completion-styles '(orderless basic partial-completion))
-  
-  
-  
+
+  (setq completion-category-overrides
+	'((command         (styles orderless+initialism+prefixes))
+          (buffer           (styles orderless+initialism))
+	  (file             (styles orderless+initialism))
+	  (project          (styles orderless+initialism))
+	  (project-file     (styles orderless+initialism))
+	  (project-buffer   (styles orderless+initialism))
+	  (bookmark         (styles orderless+initialism+pinyin))
+	  (consult-location (styles orderless))))
   
   :init
   (with-eval-after-load 'company
@@ -127,6 +134,7 @@ since the whatis index is broken post-SIP."
       (apply orig_fun args))))
 
 (use-package dl-completion
+  :disabled
   ;; A fuzzy completion style for Emacs based on the Damerau-Levenshtein edit distance algorithm.
   ;; 根据编辑距离进行修正
   :after orderless
