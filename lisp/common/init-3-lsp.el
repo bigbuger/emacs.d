@@ -71,7 +71,7 @@
   (define-key lsp-command-map (kbd "s") 'consult-lsp-symbols)
   (define-key lsp-command-map (kbd "e") 'consult-lsp-diagnostics))
 
-(setq dap-auto-configure-features '()
+(setq dap-auto-configure-features '(controls)
       dap-ui-variable-length 10000)
 ;; (define-key lsp-mode-map (kbd "M-?") 'lsp-ui-peek-find-references)
 (define-key lsp-mode-map [f5] 'dap-debug)

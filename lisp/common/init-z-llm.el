@@ -51,6 +51,7 @@
   )
 
 (use-package agent-shell-ediff
+  :disabled
   :load-path "~/.emacs.d/lisp/libs/agent-shell-ediff"
   :after agent-shell
   :custom

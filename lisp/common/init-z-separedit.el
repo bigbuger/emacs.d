@@ -13,6 +13,8 @@
 	       '(ruby-mode "\"\"\"" "'''" "\"" "'" "`"))
   (add-to-list 'separedit-string-quotes-alist
 	       '(go-mode  "\"" "`"))
+  (add-to-list 'separedit-string-quotes-alist
+	       '(go-ts-mode  "\"" "`"))
   :init
   (defun bind-separedit-key()
     (local-set-key (kbd "C-c '") #'separedit))
