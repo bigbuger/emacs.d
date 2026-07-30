@@ -17,6 +17,16 @@
   ;; :hook (markdown-mode . md-mermaid-live-mode)
   )
 
+(use-package md-mode
+  :disabled
+  :vc (:url "https://github.com/yibie/md-mode" :rev :newest)
+  :mode ("\\.md\\'" . md-mode)
+  :config
+  (setopt md-mode-heading-scaling-values
+          '(1.6 1.4 1.2 1.0 1.0 1.0))
+  (setopt md-render-image-max-width 0.8))
+
+
 (modify-coding-system-alist 'file "\\.md\\'" 'utf-8)
 
 ;; npm install -g git+https://gitlab.com/matsievskiysv/math-preview
