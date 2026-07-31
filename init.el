@@ -76,7 +76,7 @@
 		  (load  "~/.emacs.d/lisp/theme-setting.el"))))
   (load "~/.emacs.d/lisp/theme-setting.el"))
 
-
+(desktop-save-mode 1)
 
 ;; load private setting, like passowd, token etc
 (defconst private-setting-dir "~/.emacs.d/private/")
