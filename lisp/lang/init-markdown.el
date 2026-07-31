@@ -20,7 +20,6 @@
 (use-package md-mode
   :disabled
   :vc (:url "https://github.com/yibie/md-mode" :rev :newest)
-  :mode ("\\.md\\'" . md-mode)
   :config
   (setopt md-mode-heading-scaling-values
           '(1.6 1.4 1.2 1.0 1.0 1.0))

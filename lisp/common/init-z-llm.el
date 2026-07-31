@@ -59,6 +59,12 @@
   :config
   (agent-shell-ediff-mode 1))
 
+(use-package agent-shell-desktop
+  :vc (:url "https://github.com/timfel/agent-shell-desktop.el")
+  :after (agent-shell desktop)
+  :config
+  (agent-shell-desktop-mode 1))
+
 (provide 'init-z-llm)
 
 ;;; init-z-llm.el ends here
