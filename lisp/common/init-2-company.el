@@ -8,6 +8,7 @@
 ;;; Code:
 
 (require 'company)
+(setq company-global-minibuffer nil)
 (global-company-mode 1)
 (setq company-minimum-prefix-length 1)
 (setq company-require-match 'never)
