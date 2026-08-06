@@ -768,6 +768,6 @@ targets."
   :config
   (setq vertico-posframe-truncate-lines nil))
 
-(provide 'init-1-minibuffer-engine)
+(provide 'init-2-minibuffer-engine)
 
 ;;; init-1-minibuffer-engine.el ends here

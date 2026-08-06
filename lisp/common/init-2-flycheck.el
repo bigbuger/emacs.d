@@ -65,6 +65,6 @@
   (add-to-list 'embark-repeat-actions #'flycheck-next-error)
   (add-to-list 'embark-repeat-actions #'flycheck-previous-error))
 
-(provide 'init-1-flycheck)
+(provide 'init-2-flycheck)
 
 ;;; init-1-flycheck.el ends here

@@ -59,6 +59,6 @@
   (setq prescient-history-length 0)
   (company-prescient-mode))
 
-(provide 'init-2-company)
+(provide 'init-3-company)
 
 ;;; init-2-company.el ends here
