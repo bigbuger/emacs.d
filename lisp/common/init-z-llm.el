@@ -28,6 +28,11 @@
 		 display-buffer-in-direction
 		 (direction . down)))
 
+  ;; Support to display directory in buffer listings.
+  (add-hook 'agent-shell-mode-hook
+	    (lambda ()
+	      (setq list-buffers-directory (expand-file-name default-directory))))
+
   (defun agent-shell-latex-section (section)
     (when (and (map-nested-elt section '(:body :start))
 	       (map-nested-elt section '(:body :end)))
