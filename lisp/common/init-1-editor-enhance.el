@@ -210,30 +210,27 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
 
 
 ;; 自动保存
-(add-to-list 'load-path "~/.emacs.d/lisp/libs/auto-save/")
-(require 'auto-save)            ;; 加载自动保存模块
-(auto-save-enable)              ;; 开启自动保存功能
-(setq auto-save-silent t)       ;; 自动保存的时候静悄悄的， 不要打扰我
-(setq auto-save-disable-predicates
-      '((lambda ()
-	  (and
-	   (string-suffix-p ".gpg" (buffer-file-name))
-	   (not epa-file-encrypt-to))) ;; 不知道密钥时，总是问加密密钥，老烦了
-	(lambda ()
-	  (not (string-prefix-p (concat (file-truename "~") "/") (file-truename (buffer-file-name))))) ;; 家目录以外的不要自动保存
-	(lambda ()
+(setq auto-save-visited-interval 1)
+(auto-save-visited-mode t)
+(setq auto-save-visited-predicate
+      (lambda ()
+	(and
+	 (string-prefix-p (concat (file-truename "~") "/") (file-truename (buffer-file-name)))  ;; 家目录以外的不要自动保存
+	 (not (and
+	       (string-suffix-p ".gpg" (buffer-file-name))
+	       (not epa-file-encrypt-to))) ;; 不知道密钥时，总是问加密密钥，老烦了)
+	 (not
 	  (string-prefix-p (file-truename "~/Library/") (file-truename (buffer-file-name)))) ;; Library 不要自动 保存
-	(lambda ()
+	 (not
 	  (and (string-prefix-p (concat (file-truename "~") "/.") (file-truename (buffer-file-name)))
 	       (not (string-prefix-p (file-truename "~/.emacs.d") (file-truename (buffer-file-name)))))) ;; 其它配置文件不要自动保存
-	(lambda ()
-	  (not (file-writable-p (buffer-file-name)))) ;; 不可写文件不自动保存
-	(lambda ()
+	 (file-writable-p (buffer-file-name)) ;; 不可写文件不自动保存
+	 (not
 	  (tramp-tramp-file-p (buffer-file-name))) ;; tramp 模式不自动保存
-	(lambda ()
+	 (not
 	  (string-prefix-p "*" (buffer-file-name)))
-	(lambda ()
-	  (string-prefix-p "#" (buffer-file-name)))))
+	 (not
+	  (string-prefix-p "#" (buffer-file-name))))))
 
 (require 'dash)
 (defvar auto-read-only-patterns `(,(concat (file-truename "~")  "/Library"))
