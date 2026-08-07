@@ -215,6 +215,19 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
 (setq auto-save-visited-predicate
       (lambda ()
 	(and
+	 (file-writable-p (buffer-file-name)) ;; 不可写文件不自动保存
+	 ;; Yassnippet is not active?
+         (or (not (boundp 'yas--active-snippets))
+             (not yas--active-snippets))
+         ;; Company is not active?
+         (or (not (boundp 'company-candidates))
+             (not company-candidates))
+         ;; Corfu is not active?
+         (or (not (boundp 'corfu--total))
+                     (zerop corfu--total))
+         ;; Org-capture is not active?
+         (not (eq (buffer-base-buffer (get-buffer (concat "CAPTURE-" (buffer-name))))
+                          (current-buffer)))
 	 (string-prefix-p (concat (file-truename "~") "/") (file-truename (buffer-file-name)))  ;; 家目录以外的不要自动保存
 	 (not (and
 	       (string-suffix-p ".gpg" (buffer-file-name))
@@ -224,7 +237,6 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
 	 (not
 	  (and (string-prefix-p (concat (file-truename "~") "/.") (file-truename (buffer-file-name)))
 	       (not (string-prefix-p (file-truename "~/.emacs.d") (file-truename (buffer-file-name)))))) ;; 其它配置文件不要自动保存
-	 (file-writable-p (buffer-file-name)) ;; 不可写文件不自动保存
 	 (not
 	  (tramp-tramp-file-p (buffer-file-name))) ;; tramp 模式不自动保存
 	 (not
