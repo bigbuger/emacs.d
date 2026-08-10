@@ -197,6 +197,8 @@ since the whatis index is broken post-SIP."
   ;; (setq consult-line-start-from-top t)
   
   (global-set-key (kbd "C-x b") 'consult-buffer)
+  (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+  (global-set-key (kbd "C-x 5 b") 'consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
   (global-set-key (kbd "M-y") 'consult-yank-pop) ;; orig. yank-pop
   
   (global-set-key (kbd "C-c m") 'consult-bookmark)
@@ -210,6 +212,7 @@ since the whatis index is broken post-SIP."
   (global-set-key (kbd "M-g M-g") 'consult-goto-line) ;; orig. goto-line
   (global-set-key (kbd "M-g g") 'consult-goto-line) ;; orig. goto-line
   (global-set-key (kbd "M-g m") 'consult-global-mark)
+  (global-set-key (kbd "M-g r") 'consult-grep-match)
   
   (global-set-key (kbd "M-s l") 'consult-line)
   (global-set-key (kbd "M-s k")  'consult-keep-lines)
