@@ -19,6 +19,7 @@
 	 ("M-3"  . split-window-horizontally))
   :config
   (setopt ghostel-glyph-scale-floor 1.0)
+  (setopt ghostel-mouse-drag-input-mode nil)
   
   (defun my/ghostel-send-C-k-and-kill ()
     "Send `C-k' to ghostel.

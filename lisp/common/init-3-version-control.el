@@ -23,9 +23,9 @@
 	     #'git-commit-setup-capf) ;; this break company
 
 (setq magit-commit-show-diff nil)
-(add-to-list 'display-buffer-alist
-	     '("magit-.*"
-	       display-buffer-same-window))
+;; (add-to-list 'display-buffer-alist
+;; 	     '("magit-.*"
+;; 	       display-buffer-same-window))
 
 (setq magit-delete-by-moving-to-trash nil)
 
