@@ -27,7 +27,7 @@
       (beginning-of-line)
       (kill-line num))))
 
-(global-set-key (kbd "C-c d") 'my-delete-line)
+(global-set-key (kbd "C-c w") 'my-delete-line)
 
 (defun my-copy-line (num)
   "Copy NUM lines into killring."
