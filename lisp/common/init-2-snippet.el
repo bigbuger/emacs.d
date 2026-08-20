@@ -145,6 +145,9 @@ about what flexible matching means in this context."
 
 (require 'bind-key)
 (bind-key* "M-h" 'hippie-expand) ;; 原来是 mark-paragraph, 不过我不怎么用
+(with-eval-after-load 'company
+  (unbind-key "M-h" 'company-active-map)) ;; company-show-doc-buffer
+
 (bind-key* "M-H" 'hippie-expand-flex)
 
 (defun hippie-expand-line ()
