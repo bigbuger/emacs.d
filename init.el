@@ -1,3 +1,5 @@
+(setq warning-minimum-level :error)
+
 (require 'package)
 
 (setq package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")

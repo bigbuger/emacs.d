@@ -15,6 +15,7 @@
   :ensure t)
 
 (use-package docker-compose-mode
+  :disabled
   :ensure t)
 
 (provide 'init-docker)
