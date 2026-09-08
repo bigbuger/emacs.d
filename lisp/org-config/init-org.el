@@ -184,9 +184,9 @@
 		    ("#+end_example"   . "▀")
 		    ("#+BEGIN_EXAMPLE" . "✎")
 		    ("#+END_EXAMPLE"   . "▀")
-		    ("[ ]"             .  "⬜")
-		    ("[X]"             . "✅")
-		    ("[-]              . "🟩"")))
+		    ("[ ]"             .  "☐")
+		    ("[X]"             . "✓")
+		    ("[-]"             . "◔")))
 	    (prettify-symbols-mode)))
 
 ;; header line 展示当前 org 标题
