@@ -1,6 +1,3 @@
-[submodule "lisp/libs/auto-save"]
-	path = lisp/libs/auto-save
-	url = https://github.com/manateelazycat/auto-save.git
 [submodule "lisp/libs/counsel-jq-ex"]
 	path = lisp/libs/counsel-jq-ex
 	url = git@github.com:bigbuger/counsel-jq.git
