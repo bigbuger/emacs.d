@@ -263,6 +263,7 @@
   :demand t
   :config
   (define-key verb-response-body-mode-map (kbd "C-c i") #'consult-jq)
+  (setq verb-tag "curl")
   
   :init
   (add-to-list 'load-path "~/.emacs.d/lisp/libs/curl-to-elisp")
