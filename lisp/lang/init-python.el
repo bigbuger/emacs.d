@@ -27,9 +27,9 @@
   (remove-hook 'elpy-modules 'elpy-module-flymake))
 
 
-(setq python-shell-interpreter "python3"
-      python-shell-completion-native-disabled-interpreters '("python3")
-      dap-python-executable "python3")
+;; (setq python-shell-interpreter "python3"
+;;       python-shell-completion-native-disabled-interpreters '("python3")
+;;       dap-python-executable "python3")
 
 ;; use python-lsp-server
 ;; pip3 install 'python-lsp-server[all]'
@@ -56,6 +56,12 @@
 (with-eval-after-load 'org
   (add-to-list 'org-babel-load-languages
 	       '(python . t)))
+
+(use-package auto-virtualenv
+  :config
+  (setq auto-virtualenv-verbose t)
+  (setq auto-virtualenv-reload-lsp t)
+  (auto-virtualenv-setup))
 
 (provide 'init-python)
 
