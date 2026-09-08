@@ -7,23 +7,16 @@
 
 
 
-;; go install github.com/go-delve/delve/cmd/dlv
-;; go get golang.org/x/tools/cmd/guru
-;; go get golang.org/x/tools/cmd/gorename
-;; go install github.com/golangci/golangci-lint/cmd/golangci-lint@
+;; go install github.com/go-delve/delve/cmd/dlv@latest
+;; go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 ;; go get golang.org/x/tools/gopls@latest
-;; go install golang.org/x/tools/cmd/goimports@latest
 ;; go install github.com/cweill/gotests/...@latest
-;; go install github.com/josharian/impl@latest
 ;; go install github.com/fatih/gomodifytags@latest
-;; go install github.com/davidrjenni/reftools/cmd/fillstruct@latest
 ;; go install github.com/x-motemen/gore/cmd/gore@latest
 (require 'go-mode)
 (require 'go-dlv)
 (require 'go-gen-test)
-(require 'go-impl)
 (require 'go-tag)
-(require 'go-fill-struct)
 (require 'gorepl-mode)
 (require 'gotest)
 
