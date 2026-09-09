@@ -125,11 +125,6 @@
     cider
     ;;clj-refactor
     
-    
-    ;; python
-    pyvenv
-    lsp-pyright
-
     ;; elm lang
     elm-mode
 

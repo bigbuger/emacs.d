@@ -7,8 +7,6 @@
 ;;; Code:
 
 
-;; pip3 install pyright
-;;(require 'lsp-pyright)
 (require 'dap-python)
 
 (use-package elpy
@@ -33,11 +31,23 @@
 
 ;; use python-lsp-server
 ;; pip3 install 'python-lsp-server[all]'
-(with-eval-after-load "lsp-mode"
-  (add-to-list 'lsp-disabled-clients 'mspyls)
-  (add-to-list 'lsp-disabled-clients 'pyright))
+;; (with-eval-after-load "lsp-mode"
+;;   (add-to-list 'lsp-disabled-clients 'mspyls)
+;;   (add-to-list 'lsp-disabled-clients 'pyright))
 
-(add-hook 'python-mode-hook #'lsp-deferred)
+(use-package lsp-pyright
+  :ensure t
+  :init
+  (setq lsp-pyright-langserver-command "basedpyright") ;; or basedpyright
+  (setq lsp-pyright-diagnostic-severity-overrides
+	'(("reportAttributeAccessIssue" . "warning")
+	  ("reportCallIssue" . "warning")))
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright)
+			 (setq-local lsp-enable-imenu nil)
+			 (setq-local lsp-inlay-hint-enable t)
+                         (lsp))))  ; or lsp-deferred
+
 (setq dap-python-debugger 'debugpy)
 
 ;; pip install importmagic
