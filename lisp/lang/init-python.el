@@ -39,10 +39,19 @@
   :ensure t
   :init
   (setq lsp-pyright-langserver-command "basedpyright") ;; or basedpyright
+  (setq lsp-pyright-type-checking-mode "basic")
   (setq lsp-pyright-diagnostic-severity-overrides
-	'(("reportAttributeAccessIssue" . "warning")
-	  ("reportCallIssue" . "warning")
-	  ("reportReturnType" . "warning")))
+	'(("reportArgumentType"			.	"warning")
+	  ("reportAssignmentType"		.	"warning")
+	  ("reportAttributeAccessIssue"		.	"warning")
+	  ("reportCallIssue"			.	"warning")
+	  ("reportFunctionMemberAccess"		.	"warning")
+	  ("reportGeneralTypeIssues"		.	"warning")
+	  ("reportIncompatibleMethodOverride"	.	"warning")
+	  ("reportInvalidTypeForm"	        .	"warning")
+	  ("reportOptionalMemberAccess"	        .	"warning")
+	  ("reportRedeclaration"		.	"warning")
+	  ("reportReturnType"			.	"warning")))
   :hook (python-mode . (lambda ()
                          (require 'lsp-pyright)
 			 (setq-local lsp-enable-imenu nil)
