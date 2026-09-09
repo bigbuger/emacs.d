@@ -41,7 +41,8 @@
   (setq lsp-pyright-langserver-command "basedpyright") ;; or basedpyright
   (setq lsp-pyright-diagnostic-severity-overrides
 	'(("reportAttributeAccessIssue" . "warning")
-	  ("reportCallIssue" . "warning")))
+	  ("reportCallIssue" . "warning")
+	  ("reportReturnType" . "warning")))
   :hook (python-mode . (lambda ()
                          (require 'lsp-pyright)
 			 (setq-local lsp-enable-imenu nil)
