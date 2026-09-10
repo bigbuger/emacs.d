@@ -58,3 +58,15 @@
 [submodule "lisp/libs/curl-to-elisp"]
 	path = lisp/libs/curl-to-elisp
 	url = git@github.com:xuchunyang/curl-to-elisp.git
+[submodule "lisp/libs/mongodb.el"]
+	path = lisp/libs/mongodb.el
+	url = https://github.com/LuciusChen/mongodb.el.git
+[submodule "lisp/libs/mysql.el"]
+	path = lisp/libs/mysql.el
+	url = https://github.com/LuciusChen/mysql.el.git
+[submodule "lisp/libs/redis.el"]
+	path = lisp/libs/redis.el
+	url = git@github.com:LuciusChen/redis.el.git
+[submodule "lisp/libs/clutch"]
+	path = lisp/libs/clutch
+	url = https://github.com/LuciusChen/clutch.git
