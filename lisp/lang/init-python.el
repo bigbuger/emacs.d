@@ -79,6 +79,19 @@
 
 (use-package auto-virtualenv
   :config
+  (setq auto-virtualenv-mode-line nil)
+  (add-to-list 'mode-line-misc-info
+	       '(auto-virtualenv-mode-line ((:eval (propertize auto-virtualenv-mode-line 'face '(:weight bold :foreground "DeepSkyBlue"))) " ")) t)
+  ;; overrides
+  (defun auto-virtualenv-update-mode-line ()
+    "Update the mode line to show the active virtual environment, or 'N/A' if none."
+    (setq auto-virtualenv-mode-line
+          (if auto-virtualenv-current-virtualenv
+              (format "[Venv: %s]" (file-name-nondirectory
+				    (directory-file-name (replace-regexp-in-string "\\.venv/?" "" auto-virtualenv-current-virtualenv))))
+	    ""))
+    (force-mode-line-update t))
+  
   (setq auto-virtualenv-verbose t)
   (setq auto-virtualenv-reload-lsp nil)
   (auto-virtualenv-setup))
