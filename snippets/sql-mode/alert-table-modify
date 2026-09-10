@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: alter modify
+# key: alert
+ALTER TABLE \`${1:table}\` MODIFY \`${2:field}\` ${3:NEW-FIELD-TYPE}${4: NOT NULL} ${5:AFTER \`${6:field}\`};

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: add column
+# key: alter-add
+# --
+ALTER TABLE \`${1:table}\` ADD COLUMN \`${2:col_name}\` ${3:INT}${4: NOT NULL};
+

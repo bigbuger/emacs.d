@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: insert
+# key: insert
+# --
+INSERT INTO \`$1\`(\`$2\`) VALUES
+($3)${4:,
+};

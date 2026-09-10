@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: add unique key
+# key: alter-uk
+ALTER TABLE \`${1:table_name}\` ADD UNIQUE \`unique_${2:index_name}\` (\`${3:column_1}\`${4:, \`${5:column_2}\`});
