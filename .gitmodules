@@ -30,7 +30,7 @@
 	url = git@github.com:zellio/j-mode.git
 [submodule "lisp/libs/emacs-ob-racket"]
 	path = lisp/libs/emacs-ob-racket
-	url = https://github.com/hasu/emacs-ob-racket.git
+	url = git@github.com:hasu/emacs-ob-racket.git
 [submodule "lisp/libs/embark-org-roam"]
 	path = lisp/libs/embark-org-roam
 	url = git@github.com:bramadams/embark-org-roam.git
@@ -42,7 +42,7 @@
 	url = git@github.com:bigbuger/corg.el.git
 [submodule "lisp/libs/lean4-mode"]
 	path = lisp/libs/lean4-mode
-	url = https://github.com/leanprover-community/lean4-mode.git
+	url = git@github.com:leanprover-community/lean4-mode.git
 [submodule "lisp/libs/pic-ts-mode"]
 	path = lisp/libs/pic-ts-mode
 	url = git@github.com:smoeding/pic-ts-mode.git
@@ -60,13 +60,13 @@
 	url = git@github.com:xuchunyang/curl-to-elisp.git
 [submodule "lisp/libs/mongodb.el"]
 	path = lisp/libs/mongodb.el
-	url = https://github.com/LuciusChen/mongodb.el.git
+	url = git@github.com:LuciusChen/mongodb.el.git
 [submodule "lisp/libs/mysql.el"]
 	path = lisp/libs/mysql.el
-	url = https://github.com/LuciusChen/mysql.el.git
+	url = git@github.com:LuciusChen/mysql.el.git
 [submodule "lisp/libs/redis.el"]
 	path = lisp/libs/redis.el
 	url = git@github.com:LuciusChen/redis.el.git
 [submodule "lisp/libs/clutch"]
 	path = lisp/libs/clutch
-	url = https://github.com/LuciusChen/clutch.git
+	url = git@github.com:LuciusChen/clutch.git
