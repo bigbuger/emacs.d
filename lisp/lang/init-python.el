@@ -80,7 +80,7 @@
 (use-package auto-virtualenv
   :config
   (setq auto-virtualenv-verbose t)
-  (setq auto-virtualenv-reload-lsp t)
+  (setq auto-virtualenv-reload-lsp nil)
   (auto-virtualenv-setup))
 
 (provide 'init-python)
