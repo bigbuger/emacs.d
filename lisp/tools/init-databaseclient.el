@@ -26,6 +26,7 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/mongodb.el") ; only for :backend mongodb
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/redis.el")   ; only for :backend redis
 (require 'clutch)
+(unbind-key "TAB" clutch-mode-map)
 
 
 (with-eval-after-load 'flycheck
