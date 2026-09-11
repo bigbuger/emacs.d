@@ -1,4 +1,5 @@
 # -*- mode: snippet -*-
 # name: add index
 # key: alter-idx
+# --
 ALTER TABLE \`${1:table}\` ADD ${2:INDEX} \`${3:index_name}\`(\`${4:field}\` ASC$5);

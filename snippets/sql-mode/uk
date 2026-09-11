@@ -1,4 +1,5 @@
 # -*- mode: snippet -*-
 # name: UNIQUE KEY in create table
 # key: uk
+# --
 UNIQUE KEY \`unique_${1:id}\`(\`$1\`$2)${3:,

@@ -1,4 +1,5 @@
 # -*- mode: snippet -*-
 # name: drop index
 # key: dorp-index
+# --
 ALTER TABLE \`${1:table}\` DROP INDEX \`${3:index_name}\`;

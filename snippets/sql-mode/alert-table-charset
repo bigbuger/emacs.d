@@ -1,4 +1,5 @@
 # -*- mode: snippet -*-
 # name: change table charset
 # key alter-table-charset
+# --
 ALTER TABLE \`${1:table}\` CHARACTER SET ${2:utf8} COLLATE ${3:utf8_unicode_ci};

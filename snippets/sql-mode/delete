@@ -1,4 +1,5 @@
 # -*- mode: snippet -*-
 # name: delete
 # key: delete
+# --
 DELETE FROM \`${1:table}\`${2: WHERE \`$3\` = '$4'};

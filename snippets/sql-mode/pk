@@ -1,4 +1,5 @@
 # -*- mode: snippet -*-
 # name: PRIMARY key in create table
 # key: pk
+# --
 PRIMARY KEY \`pk_${1:id}\`(\`$1\`)${2:,

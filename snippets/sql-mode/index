@@ -1,4 +1,5 @@
 # -*- mode: snippet -*-
 # name: index in create table
 # key: index
+# --
 INDEX \`$1_idx\` (\`${1:email}\` ASC$2)${3:,
