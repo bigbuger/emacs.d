@@ -66,25 +66,23 @@ Output example:`
 ]
 '
 "
-    (let* ((parsed (flycheck-parse-json output))
-           (files  (car parsed)))          ; vector of file alists
-      (apply #'append
-             (mapcar
-              (lambda (file)
-		(mapcar
-		 (lambda (v)
-                   (flycheck-error-new-at
-                    (alist-get 'start_line_no v)
-                    (alist-get 'start_line_pos v)
-                    'error
-                    (alist-get 'description v)
-                    :id (alist-get 'code v)
-                    :end-line (alist-get 'end_line_no v)
-                    :end-column (alist-get 'end_line_pos v)
-                    :checker checker
-                    :buffer buffer))
-		 (alist-get 'violations file)))
-              files))))
+    (flatten-list
+     (mapcar
+      (lambda (node)
+	(mapcar
+	 (lambda (item)
+           (flycheck-error-new-at
+            (gethash "start_line_no" item)
+            (gethash "start_line_pos" item)
+            'error
+            (gethash "description" item)
+            :id (gethash "code" item)
+            :end-line (gethash "end_line_no" item)
+            :end-column (gethash "end_line_pos" item)
+            :checker checker
+            :buffer buffer))
+	 (gethash "violations" node)))
+      (json-parse-string output))))
   
   (defvar sql-product->sqlfluff-dialect
     '((mysql       . "mysql")
