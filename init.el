@@ -40,9 +40,9 @@
 
 (require 'exec-path-from-shell)
 (setq exec-path-from-shell-variables
-      (append exec-path-from-shell-variables '("LC_ALL" "LANG" "GOPATH" "GEM_HOME" "GEM_PATH" "JAVA_HOME" "LIBGS" "MPINPUTS")))
-(exec-path-from-shell-initialize)
-
+      (append exec-path-from-shell-variables '("LC_ALL" "LANG" "GOPATH" "GEM_HOME" "GEM_PATH" "JAVA_HOME" "LIBGS" "MPINPUTS" "DEEPSEEK_API_KEY")))
+(when (memq window-system '(mac ns x pgtk))
+  (exec-path-from-shell-initialize))
 
 ;; Keep Folders Clean
 (setq no-littering-var-directory

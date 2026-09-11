@@ -202,7 +202,6 @@
 ;; gof is a shell file
 ;; #+begin_src shell
 ;; #!/bin/zsh
-;; #!/bin/zsh
 ;; 
 ;; local gofmt_args=("-s")
 ;; local last=""
