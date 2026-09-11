@@ -41,7 +41,8 @@
   (setq lsp-pyright-langserver-command "basedpyright") ;; or basedpyright
   (setq lsp-pyright-type-checking-mode "basic")
   (setq lsp-pyright-diagnostic-severity-overrides
-	'(("reportArgumentType"			.	"warning")
+	'(("reportMissingTypeStubs"		.	"hint")
+	  ("reportArgumentType"			.	"warning")
 	  ("reportAssignmentType"		.	"warning")
 	  ("reportAttributeAccessIssue"		.	"warning")
 	  ("reportCallIssue"			.	"warning")
