@@ -27,7 +27,12 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/redis.el")   ; only for :backend redis
 (require 'clutch)
 (unbind-key "TAB" clutch-mode-map)
+(define-key clutch-result-mode-map (kbd "y") #'clutch-result-copy-pending-sql)
+(define-key clutch-result-mode-map (kbd "e") #'clutch-result-edit-cell)
+(define-key clutch-result-mode-map (kbd "E") #'clutch-result-export)
 
+(transient-append-suffix 'clutch-result-copy-dispatch "u"
+  '("y" "Pending sql" clutch-result-copy-pending-sql))
 
 (with-eval-after-load 'flycheck
   (defun flycheck-parse-sqlfluff (output checker buffer)
