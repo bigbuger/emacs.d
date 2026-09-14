@@ -81,7 +81,6 @@
 (require 'init-treemacs)
 (require 'init-dired)
 (require 'init-compile)
-(require 'init-llm)
 (require 'init-misc)
 (require 'init-separedit)
 
