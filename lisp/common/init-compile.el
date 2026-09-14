@@ -34,6 +34,6 @@
 		 (window-width . 0.5))))
 ;; end rmsbolt
 
-(provide 'init-z-compile)
+(provide 'init-compile)
 
-;;; init-z-compile.el ends here
+;;; init-compile.el ends here

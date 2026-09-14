@@ -367,6 +367,6 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
    ("M-g l"	.	avy-goto-line)
    ("M-g M-l"	.	avy-goto-line)))
 
-(provide 'init-1-editor-enhance)
+(provide 'init-editor-enhance)
 
-;;; init-0-editor-enhance.el ends here
+;;; init-editor-enhance.el ends here

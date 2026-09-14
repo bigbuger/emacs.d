@@ -255,6 +255,6 @@
   :ensure t
   :bind ("C-x c" . context-clues))
 
-(provide 'init-z-misc)
+(provide 'init-misc)
 
-;;; init-z-misc.el ends here
+;;; init-misc.el ends here

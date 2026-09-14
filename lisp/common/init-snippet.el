@@ -208,6 +208,6 @@ If failed try to complete the common part with `company-complete-common'"
 (require 'flash-fill)
 (global-set-key (kbd "M-L") #'flash-fill-region-or-line)
 
-(provide 'init-2-snippet)
+(provide 'init-snippet)
 
-;;; init-1-snippet.el ends here
+;;; init-snippet.el ends here

@@ -273,6 +273,6 @@ Otherwise use `nerd-icons-icon-for-buffer' to fetch icon for buffer."
 (with-eval-after-load 'projectile
   (setq projectile-switch-project-action 'smart-switch-project))
 
-(provide 'init-5-tabbar)
+(provide 'init-tabbar)
 
-;;; init-4-tabbar.el ends here
+;;; init-tabbar.el ends here

@@ -309,6 +309,6 @@ candidate, if given.  PROMPT passed to `completing-read-multiple' as is."
   )
 
 
-(provide 'init-3-version-control)
+(provide 'init-version-control)
 
-;;; init-2-version-control.el ends here
+;;; init-version-control.el ends here

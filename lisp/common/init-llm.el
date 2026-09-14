@@ -70,6 +70,6 @@
   :config
   (agent-shell-desktop-mode 1))
 
-(provide 'init-z-llm)
+(provide 'init-llm)
 
-;;; init-z-llm.el ends here
+;;; init-llm.el ends here

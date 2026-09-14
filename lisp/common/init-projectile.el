@@ -81,6 +81,6 @@
   (advice-add 'magit-pull
 	      :after #'run-projectile-invalidate-cache))
 
-(provide 'init-3-projectile)
+(provide 'init-projectile)
 
-;;; init-2-projectile.el ends here
+;;; init-projectile.el ends here

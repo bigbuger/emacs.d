@@ -81,6 +81,6 @@
               ("/" . #'casual-dired-search-replace-tmenu)))
 
 
-(provide 'init-y-dired)
+(provide 'init-dired)
 
-;;; init-y-dired.el ends here
+;;; init-dired.el ends here

@@ -66,9 +66,33 @@
 
 
 (require 'my-command)
-(load-dir "~/.emacs.d/lisp/common")
+
+(add-to-list 'load-path "~/.emacs.d/lisp/common")
+(require 'init-emacs-base)
+(require 'init-editor-enhance)
+(require 'init-flycheck)
+(require 'init-minibuffer-engine)
+(require 'init-snippet)
+(require 'init-company)
+(require 'init-projectile)
+(require 'init-version-control)
+(require 'init-lsp)
+(require 'init-tabbar)
+(require 'init-treemacs)
+(require 'init-dired)
+(require 'init-compile)
+(require 'init-llm)
+(require 'init-misc)
+(require 'init-separedit)
+
 (load-dir "~/.emacs.d/lisp/lang")
-(load-dir "~/.emacs.d/lisp/org-config")
+
+(add-to-list 'load-path "~/.emacs.d/lisp/org-config")
+(require 'init-org)
+(require 'init-calendar)
+(require 'init-roam)
+(require 'init-easydraw)
+
 (load-dir "~/.emacs.d/lisp/tools")
 
 (if (daemonp)

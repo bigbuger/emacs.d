@@ -219,6 +219,6 @@
       '("hi-blue" "hi-pink" "hi-green" "hi-yellow" "hi-salmon" "hi-aquamarine"
 	"hi-black-b" "hi-blue-b" "hi-red-b" "hi-green-b" "hi-black-hb"))
 
-(provide 'init-0-emacs-base)
+(provide 'init-emacs-base)
 
-;;; init-0-emacs-base.el ends here
+;;; init-base.el ends here

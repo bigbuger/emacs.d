@@ -21,6 +21,6 @@
 (setq treemacs-no-delete-other-windows nil)
 (setq treemacs-width-is-initially-locked nil)
 
-(provide 'init-5-treemacs)
+(provide 'init-treemacs)
 
-;;; init-4-treemacs.el ends here
+;;; init-treemacs.el ends here

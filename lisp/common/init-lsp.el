@@ -235,6 +235,6 @@
 
 (define-key lsp-mode-map (kbd "M-<RET>") #'lsp-execute-code-action)
 
-(provide 'init-4-lsp)
+(provide 'init-lsp)
 
-;;; init-3-lsp.el ends here
+;;; init-lsp.el ends here
