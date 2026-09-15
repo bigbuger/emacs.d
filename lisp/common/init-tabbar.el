@@ -253,8 +253,7 @@ Otherwise use `nerd-icons-icon-for-buffer' to fetch icon for buffer."
 (define-key awesome-tab-mode-map (kbd "s-9") 'awesome-tab-select-visible-tab)
 ;; (define-key awesome-tab-mode-map (kbd "s-0") 'awesome-tab-select-visible-tab)
 
-(add-hook 'after-init-hook
-	  (awesome-tab-mode t))
+(add-hook 'after-init-hook #'(lambda () (awesome-tab-mode 1)))
 
 
 ;; hack, ueing awesome-tab-switch-group to let projectile switch to opened project buffer.

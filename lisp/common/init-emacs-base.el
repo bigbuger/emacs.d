@@ -20,8 +20,7 @@
 
 ;; 记录文件上次打开的位置
 (require 'saveplace)
-(add-hook 'after-init-hook
-	  (save-place-mode))
+(add-hook 'after-init-hook #'save-place-mode)
 
 (require 'recentf)
 (recentf-mode 1)
