@@ -177,7 +177,7 @@
     "p"     #'lsp-ui-find-prev-reference
     "t"     #'lsp-find-type-definition
     "I"     #'lsp-find-implementation
-    "r"     #'xref-find-references
+    "r"     #'lsp-find-references
     "v"     #'dap-ui-eval-variable-in-buffer
     "h"     #'lsp-treemacs-call-hierarchy
     "H"     #'embark-toggle-highlight
@@ -200,6 +200,9 @@
       (push 'embark-target-lsp-identifier-at-point embark-target-finders)))
   
   (add-to-list 'embark-keymap-alist '(lsp-identifier . embark-lsp-indetifier-actions)))
+
+(with-eval-after-load 'lsp-mode
+  (define-key lsp-mode-map [remap xref-find-references] #'lsp-find-references))
 
 ;; topsy 面包屑展示函数名称
 (use-package topsy
