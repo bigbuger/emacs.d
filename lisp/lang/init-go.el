@@ -536,6 +536,10 @@
   
   :config
   (setf (alist-get 'go-ts-mode  topsy-mode-functions) #'topsy--go-beginning-scope)
+
+  (add-hook 'go-ts-mode-hook
+	      (lambda ()
+		(setq-local lsp-headerline-breadcrumb-segments '(path-up-to-project file))))
   
   :hook
   (go-ts-mode . topsy-mode))

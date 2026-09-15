@@ -211,9 +211,7 @@
 						    "")
 						  " "
 						  (funcall topsy-fn))))
-    (add-hook 'topsy-mode-hook
-	      (lambda ()
-		(setq-local lsp-headerline-breadcrumb-segments '(path-up-to-project file))))))
+    ))
 
 
 (use-package vertico-posframe
