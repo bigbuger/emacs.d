@@ -32,6 +32,7 @@
 ;; use python-lsp-server
 ;; pip install 'python-lsp-server[all]'
 ;; pip install pylsp-rope # for code action
+;; pip install pylsp-workspace-symbols # for call_hierarchy
 (with-eval-after-load "lsp-mode"
   (add-to-list 'lsp-disabled-clients 'mspyls)
   (add-to-list 'lsp-disabled-clients 'pyright)
