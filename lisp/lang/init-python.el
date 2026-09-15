@@ -33,28 +33,33 @@
 ;; pip install 'python-lsp-server[all]'
 ;; pip install pylsp-rope # for code action
 ;; pip install pylsp-workspace-symbols # for call_hierarchy
-(with-eval-after-load "lsp-mode"
+(setq use-pylsp nil) ;; yep, too slow
+(use-package lsp-mode
+  :if use-pylsp
+  :init
   (add-to-list 'lsp-disabled-clients 'mspyls)
   (add-to-list 'lsp-disabled-clients 'pyright)
-  (add-to-list 'lsp-disabled-clients 'ruff))
+  (add-to-list 'lsp-disabled-clients 'ruff)
 
-(setopt lsp-pylsp-plugins-mypy-enabled t
-	lsp-pylsp-plugins-mypy-live-mode t)
+  (setopt lsp-pylsp-plugins-mypy-enabled t
+	  lsp-pylsp-plugins-mypy-dmypy t
+	  lsp-pylsp-plugins-mypy-live-mode nil)
 
-(lsp-register-custom-settings
- '(("pylsp.plugins.jedi_workspace_symbols.enable" t t)
-   ("pylsp.plugins.call_hierarchy.enable" t t)))
+  (lsp-register-custom-settings
+   '(("pylsp.plugins.jedi_workspace_symbols.enable" t t)
+     ("pylsp.plugins.call_hierarchy.enable" t t)
+     ("pylsp.plugins.rope_autoimport.enabled" nil t) ;; maybe slow
+     ("pylsp.plugins.rope_autoimport.completions.enabled" nil t)))
 
-(add-hook 'python-mode-hook
-	  #'(lambda ()
-              (require 'lsp-pyright)
-	      (setq-local lsp-enable-imenu nil)
-	      (setq-local lsp-inlay-hint-enable t)
-              (lsp)))
+  (add-hook 'python-mode-hook
+	    #'(lambda ()
+		(setq-local lsp-enable-imenu nil)
+		(setq-local lsp-inlay-hint-enable t)
+		(lsp))))
 
 
 (use-package lsp-pyright
-  :disabled
+  :unless use-pylsp
   :ensure t
   :init
   (setq lsp-pyright-langserver-command "basedpyright") ;; or pyright
@@ -114,7 +119,7 @@
     (force-mode-line-update t))
   
   (setq auto-virtualenv-verbose t)
-  (setq auto-virtualenv-reload-lsp t) ;; need for pylsp. but not need for pyright/basedpyright, it can be auto find .venv
+  (setq auto-virtualenv-reload-lsp use-pylsp) ;; need for pylsp. but not need for pyright/basedpyright, it can be auto find .venv
   (auto-virtualenv-setup))
 
 (provide 'init-python)
