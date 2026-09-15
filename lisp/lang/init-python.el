@@ -30,18 +30,37 @@
 ;;       dap-python-executable "python3")
 
 ;; use python-lsp-server
-;; pip3 install 'python-lsp-server[all]'
-;; (with-eval-after-load "lsp-mode"
-;;   (add-to-list 'lsp-disabled-clients 'mspyls)
-;;   (add-to-list 'lsp-disabled-clients 'pyright))
+;; pip install 'python-lsp-server[all]'
+;; pip install pylsp-rope # for code action
+(with-eval-after-load "lsp-mode"
+  (add-to-list 'lsp-disabled-clients 'mspyls)
+  (add-to-list 'lsp-disabled-clients 'pyright)
+  (add-to-list 'lsp-disabled-clients 'ruff))
+
+(setopt lsp-pylsp-plugins-mypy-enabled t
+	lsp-pylsp-plugins-mypy-live-mode t)
+
+(lsp-register-custom-settings
+ '(("pylsp.plugins.jedi_workspace_symbols.enable" t t)
+   ("pylsp.plugins.call_hierarchy.enable" t t)))
+
+(add-hook 'python-mode-hook
+	  #'(lambda ()
+              (require 'lsp-pyright)
+	      (setq-local lsp-enable-imenu nil)
+	      (setq-local lsp-inlay-hint-enable t)
+              (lsp)))
+
 
 (use-package lsp-pyright
+  :disabled
   :ensure t
   :init
-  (setq lsp-pyright-langserver-command "basedpyright") ;; or basedpyright
+  (setq lsp-pyright-langserver-command "basedpyright") ;; or pyright
   (setq lsp-pyright-type-checking-mode "basic")
   (setq lsp-pyright-diagnostic-severity-overrides
 	'(("reportMissingTypeStubs"		.	"hint")
+	  ("reportMissingParameterType"		.	"hint")
 	  ("reportArgumentType"			.	"warning")
 	  ("reportAssignmentType"		.	"warning")
 	  ("reportAttributeAccessIssue"		.	"warning")
@@ -94,7 +113,7 @@
     (force-mode-line-update t))
   
   (setq auto-virtualenv-verbose t)
-  (setq auto-virtualenv-reload-lsp nil)
+  (setq auto-virtualenv-reload-lsp t) ;; need for pylsp. but not need for pyright/basedpyright, it can be auto find .venv
   (auto-virtualenv-setup))
 
 (provide 'init-python)
