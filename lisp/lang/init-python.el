@@ -6,6 +6,35 @@
 
 ;;; Code:
 
+(setq major-mode-remap-alist
+      '((python-mode . python-ts-mode)))
+
+(defun my-python-ts-get-method-name (node)
+  "Return name of `class method'."
+  (let*  ((method (treesit-node-text
+		   (treesit-node-child-by-field-name node "name")))
+	  (class-node (treesit-parent-until node
+					    (lambda (p)
+					      (string-equal "class_definition"
+							    (treesit-node-type p)))))
+	  (class (when class-node (treesit-node-text (treesit-node-child-by-field-name class-node "name")))))
+    (if class
+	(concat class "." method)
+      method)))
+
+(add-hook 'python-ts-mode-hook
+	  #'(lambda ()
+	      (setq-local imenu-create-index-function #'treesit-simple-imenu)
+	      (setq-local treesit-simple-imenu-settings
+			  `(("Class" "\\`class_definition\\'" nil nil)
+			    ("Function" "\\`function_definition\\'" nil my-python-ts-get-method-name)))))
+
+(with-eval-after-load 'consult-imenu
+  (add-to-list 'consult-imenu-config
+	       '(python-ts-mode
+		 :toplevel "Function"
+		 :types ((?f "Function" font-lock-function-name-face)
+			 (?c "Class" font-lock-type-face)))))
 
 (require 'dap-python)
 
@@ -51,11 +80,47 @@
      ("pylsp.plugins.rope_autoimport.enabled" nil t) ;; maybe slow
      ("pylsp.plugins.rope_autoimport.completions.enabled" nil t)))
 
-  (add-hook 'python-mode-hook
+  (add-hook 'python-mode-ts-hook
 	    #'(lambda ()
 		(setq-local lsp-enable-imenu nil)
 		(setq-local lsp-inlay-hint-enable t)
 		(lsp))))
+
+(use-package lsp-mode
+  :ensure t
+  :config
+  (lsp-register-custom-settings
+   '(;; ===== 彻底禁用 Jedi =====
+     ("pylsp.plugins.jedi_completion.enabled" false t)
+     ("pylsp.plugins.jedi_definition.enabled" false t)
+     ("pylsp.plugins.jedi_hover.enabled" false t)
+     ("pylsp.plugins.jedi_references.enabled" false t)
+     ("pylsp.plugins.jedi_signature_help.enabled" false t)
+     ("pylsp.plugins.jedi_symbols.enabled" false t)
+     ("pylsp.plugins.jedi.environment" nil t)
+     ("pylsp.plugins.jedi.extra_paths" [] t)
+
+     ;; ===== 禁用 Rope 的非重构功能 =====
+     ("pylsp.plugins.rope_completion.enabled" false t)
+     ("pylsp.plugins.rope_rename.enabled" false t)
+     ("pylsp.plugins.rope_autoimport.completions.enabled" false t)
+
+     ;; ===== 只启用 Rope 的 Code Action =====
+     ("pylsp.plugins.rope_refactor.enabled" true t)
+     ("pylsp.plugins.rope_autoimport.code_actions.enabled" true t)
+
+     ;; ===== 禁用所有诊断/格式化 =====
+     ("pylsp.plugins.flake8.enabled" false t)
+     ("pylsp.plugins.mccabe.enabled" false t)
+     ("pylsp.plugins.pycodestyle.enabled" false t)
+     ("pylsp.plugins.pydocstyle.enabled" false t)
+     ("pylsp.plugins.pyflakes.enabled" false t)
+     ("pylsp.plugins.pylint.enabled" false t)
+     ("pylsp.plugins.yapf.enabled" false t)
+     ("pylsp.plugins.autopep8.enabled" false t)
+     ("pylsp.plugins.black.enabled" false t)
+     ("pylsp.plugins.isort.enabled" false t)))
+  :hook (python-ts-mode . lsp))
 
 
 (use-package lsp-pyright
@@ -78,11 +143,11 @@
 	  ("reportOptionalMemberAccess"	        .	"warning")
 	  ("reportRedeclaration"		.	"warning")
 	  ("reportReturnType"			.	"warning")))
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-			 (setq-local lsp-enable-imenu nil)
-			 (setq-local lsp-inlay-hint-enable t)
-                         (lsp))))  ; or lsp-deferred
+  :hook (python-ts-mode . (lambda ()
+                            (require 'lsp-pyright)
+			    (setq-local lsp-enable-imenu nil)
+			    (setq-local lsp-inlay-hint-enable t)
+                            (lsp))))  ; or lsp-deferred
 
 (setq dap-python-debugger 'debugpy)
 
@@ -94,7 +159,7 @@
   (:map importmagic-mode-map
 	("C-c C-o" . importmagic-fix-symbol-at-point))
   :hook
-  (python-mode . importmagic-mode)
+  (python-ts-mode . importmagic-mode)
   
   :config
   (unbind-key "C-c C-l" importmagic-mode-map))
