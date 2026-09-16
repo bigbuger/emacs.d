@@ -125,8 +125,8 @@ See URL `https://developers.google.com/protocol-buffers/'."
 (defun org-grpc-insert-request-template ()
   (interactive)
   (insert (ob-grpc--grpcurl-msg-template)))
-
-(add-to-list 'org-src-lang-modes '("grpc" . json))
+(with-eval-after-load 'org
+  (add-to-list 'org-src-lang-modes '("grpc" . json)))
 (defun org-babel-execute:grpc (body params)
   "Execute a block of grpc code with org-babel."
   (let* ((name (nth 4 (org-babel-get-src-block-info)))
