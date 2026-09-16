@@ -11,8 +11,22 @@
 
 (defun my-python-ts-get-method-name (node)
   "Return name of `class method'."
-  (let*  ((method (treesit-node-text
-		   (treesit-node-child-by-field-name node "name")))
+  (let*  ((decorated-node (treesit-parent-until node
+						(lambda (p)
+						  (string-equal "decorated_definition"
+								(treesit-node-type p)))))
+	  (decorator-text (cl-find-if
+			   (lambda (text) (member text '("classmethod" "staticmethod")))
+			   (mapcar (lambda (d)
+				     (treesit-node-text (cl-second (treesit-node-children d)) t))
+				   (treesit-filter-child decorated-node
+							 (lambda (d)
+							   (string-equal "decorator" (treesit-node-type d)))))))
+	  (method (concat (treesit-node-text
+			   (treesit-node-child-by-field-name node "name"))
+			  (when decorator-text
+			    (concat " "
+				    (propertize decorator-text 'face 'font-lock-comment-face)))))
 	  (class-node (treesit-parent-until node
 					    (lambda (p)
 					      (string-equal "class_definition"
