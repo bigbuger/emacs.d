@@ -21,7 +21,9 @@
           (lambda ()
             (make-local-variable 'js-indent-level)
             (setq tab-width 4)
-            (setq js-indent-level 4)))
+            (setq js-indent-level 4)
+	    (when (executable-find "jq")
+	      (setq-local flycheck-checker 'json-jq))))
 
 (defun json-sort-keys ()
   "Sort json by keys using jq."
