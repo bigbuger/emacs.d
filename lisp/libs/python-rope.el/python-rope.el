@@ -60,18 +60,22 @@
   (let* ((offset (- (point) 1)))
     (rope-run-cli-action "inline_method" offset)))
 
-(defun rope-move ()
+(defun rope-move (target)
   "Call rope move."
-  (interactive)
+  (interactive
+   (let ((dir (or (projectile-project-root) default-directory)))
+     (list (file-relative-name (read-file-name "target: " dir) dir))))
   (save-buffer)
   (let* ((offset (- (point) 1)))
-    (rope-run-cli-action "move" offset)))
+    (rope-run-cli-action "move" offset target)))
 
 (defun rope-move-module (target)
   "Call rope move module."
-  (interactive "")
+  (interactive
+      (let ((dir (or (projectile-project-root) default-directory)))
+     (list (file-relative-name (read-file-name "target: " dir) dir))))
   (save-buffer)
-  (rope-run-cli-action "move_module"))
+  (rope-run-cli-action "move_module" target))
 
 (provide 'python-rope)
 
