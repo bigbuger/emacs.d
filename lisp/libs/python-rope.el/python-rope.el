@@ -60,20 +60,20 @@
   (let* ((offset (- (point) 1)))
     (rope-run-cli-action "inline_method" offset)))
 
+(defun rope--read-target ()
+  (let ((dir (or (projectile-project-root) default-directory)))
+    (file-relative-name (read-file-name "target: " nil nil t) dir)))
+
 (defun rope-move (target)
   "Call rope move."
-  (interactive
-   (let ((dir (or (projectile-project-root) default-directory)))
-     (list (file-relative-name (read-file-name "target: " dir) dir))))
+  (interactive (list (rope--read-target)))
   (save-buffer)
   (let* ((offset (- (point) 1)))
     (rope-run-cli-action "move" offset target)))
 
 (defun rope-move-module (target)
   "Call rope move module."
-  (interactive
-      (let ((dir (or (projectile-project-root) default-directory)))
-     (list (file-relative-name (read-file-name "target: " dir) dir))))
+  (interactive (list (rope--read-target)))
   (save-buffer)
   (rope-run-cli-action "move_module" target))
 
