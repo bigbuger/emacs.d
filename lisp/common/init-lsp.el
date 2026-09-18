@@ -15,6 +15,8 @@
 (setq lsp-ui-flycheck-enable t)
 (setq lsp-diagnostic-clean-after-change t)
 ;; (setq lsp-inlay-hint-enable t)
+(define-key lsp--inlay-hint-mouse-map [mouse-1] nil)
+(define-key lsp--inlay-hint-mouse-map [double-mouse-1] #'lsp--inlay-hint-mouse-handler)
 
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 
