@@ -8,6 +8,7 @@
 
 (setq major-mode-remap-alist
       '((python-mode . python-ts-mode)))
+(add-hook 'python-ts-mode-hook #'superword-mode)
 
 (defun my-python-ts-get-method-name (node)
   "Return name of `class method'."
