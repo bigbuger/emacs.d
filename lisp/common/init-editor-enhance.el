@@ -294,8 +294,8 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
 
 ;; isearch-mb 有更好的搜索体验, 可以直接按箭头移到，也不用搞 isearch 复杂的编辑按钮
 (use-package isearch-mb
-  ;; :bind (("C-s" . isearch-forward-regexp) ;; just "C-M-s"
-  ;; 	 ("C-r" . isearch-backward-regexp)) ;; just "C-M-r"
+  :bind (("C-s" . isearch-forward-regexp) ;; just "C-M-s"
+	 ("C-r" . isearch-backward-regexp)) ;; just "C-M-r"
 
   :config
   (add-to-list 'isearch-mb--with-buffer #'isearch-yank-word)

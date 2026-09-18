@@ -9,6 +9,10 @@
 (setq major-mode-remap-alist
       '((python-mode . python-ts-mode)))
 (add-hook 'python-ts-mode-hook #'superword-mode)
+(add-hook 'python-ts-mode-hook
+	  #'(lambda ()
+              (setq python-indent 4)
+              (setq tab-width 4)))
 
 (defun my-python-ts-get-method-name (node)
   "Return name of `class method'."
