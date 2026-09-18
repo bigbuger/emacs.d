@@ -11,11 +11,30 @@
 
 (defcustom rope-python-executable
   (or (executable-find "python") (executable-find "python3"))
-  "Python executable for rope.When using venv, you maybe want to change this.")
+  "Python executable for rope.When using venv, you maybe want to change this."
+  :group 'python-rope)
+
+(defcustom rope-project-function
+  #'rope--default-project-function
+  "Function which returns project root directory."
+  :type `(choice
+          (const :tag "Default project function" ,#'rope--default-project-function)
+          (function :tag "Custom function"))
+  :group 'python-rope)
+
+(defun rope--default-project-function ()
+  "Return project root directory.
+Use projectile if it exits.  Then use build in project.
+Otherwise just return `default-directory'."
+  (or (when (functionp 'projectile-project-root) (projectile-project-root))
+      (when (featurep 'project)
+	(when-let* ((proj (project-current)))
+	  (project-root proj)))
+      default-directory))
 
 (defun rope-run-cli-action (action &rest args)
   "Run the rope cli action."
-  (let* ((project (or (projectile-project-root) default-directory)) ;; TODO make it a custom function
+  (let* ((project (funcall rope-project-function))
 	 (file (file-relative-name (buffer-file-name) project))
 	 (cmd (string-join
 	       `(,rope-python-executable ,rope-cli ,action ,project ,file ,@(mapcar (lambda (arg) (format "%s" arg)) args))
@@ -61,18 +80,19 @@
     (rope-run-cli-action "inline_method" offset)))
 
 (defun rope--read-target ()
-  (let ((dir (or (projectile-project-root) default-directory)))
+  "Read target file."
+  (let ((dir (funcall rope-project-function)))
     (file-relative-name (read-file-name "target: " nil nil t) dir)))
 
 (defun rope-move (target)
-  "Call rope move."
+  "Call rope move.  Move thing at point to TARGET file."
   (interactive (list (rope--read-target)))
   (save-buffer)
   (let* ((offset (- (point) 1)))
     (rope-run-cli-action "move" offset target)))
 
 (defun rope-move-module (target)
-  "Call rope move module."
+  "Call rope move module.  Move module to TARGET file."
   (interactive (list (rope--read-target)))
   (save-buffer)
   (rope-run-cli-action "move_module" target))
