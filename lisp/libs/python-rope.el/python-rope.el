@@ -97,6 +97,19 @@ Otherwise just return `default-directory'."
   (save-buffer)
   (rope-run-cli-action "move_module" target))
 
+(require 'transient)
+(transient-define-prefix rope-transient ()
+  "Rope Refactor action."
+  ["Refactor Action"
+   ("i" "inlint method"  rope-inline-method)
+   ("m" "move thing" rope-move)
+   ("M" "move module" rope-move-module)]
+  
+  [:if region-active-p
+   "Extract"
+    ("e" "extract variable" rope-extract-variable)
+    ("E" "extract variable" rope-extract-method)])
+
 (provide 'python-rope)
 
 ;;; python-rope.el ends here
