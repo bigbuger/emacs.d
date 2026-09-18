@@ -54,6 +54,7 @@ Otherwise just return `default-directory'."
 			 (error "Rope action %s fail.  see *rope log* for get detail" action))))))
     (set-process-sentinel proc sentinel)))
 
+;;;###autoload
 (defun rope-extract-variable (var-name)
   "Call rope extract variable for marking region.VAR-NAME is the variable name after extract."
   (interactive "svar name:")
@@ -63,6 +64,7 @@ Otherwise just return `default-directory'."
 	   (end (- (region-end) 1)))
       (rope-run-cli-action "extract_variable" start end var-name))))
 
+;;;###autoload
 (defun rope-extract-method (method-name)
   "Call rope extract method for marking region.  METHOD-NAME is the method name after extract."
   (interactive "smethod name:")
@@ -72,6 +74,7 @@ Otherwise just return `default-directory'."
 	   (end (- (region-end) 1)))
       (rope-run-cli-action "extract_method" start end method-name))))
 
+;;;###autoload
 (defun rope-inline-method ()
   "Call rope inline method.  Inline occurrences of a method."
   (interactive)
@@ -84,6 +87,7 @@ Otherwise just return `default-directory'."
   (let ((dir (funcall rope-project-function)))
     (file-relative-name (read-file-name "target: " nil nil t) dir)))
 
+;;;###autoload
 (defun rope-move (target)
   "Call rope move.  Move thing at point to TARGET file."
   (interactive (list (rope--read-target)))
@@ -91,6 +95,7 @@ Otherwise just return `default-directory'."
   (let* ((offset (- (point) 1)))
     (rope-run-cli-action "move" offset target)))
 
+;;;###autoload
 (defun rope-move-module (target)
   "Call rope move module.  Move module to TARGET file."
   (interactive (list (rope--read-target)))
