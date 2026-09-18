@@ -77,6 +77,24 @@
 ;;       python-shell-completion-native-disabled-interpreters '("python3")
 ;;       dap-python-executable "python3")
 
+;; chain python-ruff as flycheck checker for python lsp
+(flycheck-define-generic-checker 'lsp-python
+  "LSP diagnostics checker for Python, cloned from `lsp'."
+  :start (lambda (checker callback)
+           ;; 复用 lsp-diagnostics 的后端逻辑
+           (lsp-diagnostics--flycheck-start checker callback))
+  :modes '(python-mode python-ts-mode)
+  :next-checkers '((t . python-ruff)))
+;; only use ruff
+(flycheck-remove-next-checker 'python-ruff 'python-mypy)
+
+(add-to-list 'flycheck-checkers 'lsp-python 'append)
+
+(add-hook 'lsp-managed-mode-hook
+          (lambda ()
+            (when (derived-mode-p 'python-ts-mode 'python-mode)
+              (setq-local flycheck-checker 'lsp-python))))
+
 ;; use python-lsp-server
 ;; pip install 'python-lsp-server[all]'
 ;; pip install pylsp-rope # for code action
