@@ -201,6 +201,11 @@
   (setq auto-virtualenv-reload-lsp use-pylsp) ;; need for pylsp. but not need for pyright/basedpyright, it can be auto find .venv
   (auto-virtualenv-setup))
 
+(add-to-list 'load-path "~/.emacs.d/lisp/libs/python-rope.el")
+(require 'python-rope)
+(with-eval-after-load 'python
+  (define-key python-base-mode-map (kbd "C-c <RET>") #'rope-transient))
+
 (provide 'init-python)
 
 ;;; init-python.el ends here
