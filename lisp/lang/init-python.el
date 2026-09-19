@@ -78,22 +78,26 @@
 ;;       dap-python-executable "python3")
 
 ;; chain python-ruff as flycheck checker for python lsp
+(require 'lsp-diagnostics)
 (flycheck-define-generic-checker 'lsp-python
   "LSP diagnostics checker for Python, cloned from `lsp'."
-  :start (lambda (checker callback)
-           ;; 复用 lsp-diagnostics 的后端逻辑
-           (lsp-diagnostics--flycheck-start checker callback))
+  :start #'lsp-diagnostics--flycheck-start ;; 复用 lsp-diagnostics 的后端逻辑
   :modes '(python-mode python-ts-mode)
+  :predicate (lambda () lsp-diagnostics-mode) ; 与内置 lsp 保持一致的启用条件
+  :error-explainer (lambda (e)
+                     (lsp-diagnostics-flycheck-error-explainer
+                      e (lsp--workspace-server-id (car-safe (lsp-workspaces)))))
   :next-checkers '((t . python-ruff)))
+
 ;; only use ruff
 (flycheck-remove-next-checker 'python-ruff 'python-mypy)
 
 (add-to-list 'flycheck-checkers 'lsp-python 'append)
 
-(add-hook 'lsp-managed-mode-hook
-          (lambda ()
-            (when (derived-mode-p 'python-ts-mode 'python-mode)
-              (setq-local flycheck-checker 'lsp-python))))
+(advice-add 'lsp-diagnostics-flycheck-enable :after
+  (lambda ()
+    (when (derived-mode-p 'python-mode 'python-ts-mode)
+      (setq-local flycheck-checker 'lsp-python))))
 
 ;; use python-lsp-server
 ;; pip install 'python-lsp-server[all]'
