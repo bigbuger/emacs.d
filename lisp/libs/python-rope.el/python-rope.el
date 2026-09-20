@@ -199,8 +199,8 @@ WARNING: rope will make all type hint gone!"
   "Rope Refactor action."
   ["Refactor Action"
    ("i" "inlint method"  rope-inline-method)
-   ("m" "move thing" rope-move)
-   ("M" "move module" rope-move-module)]
+   ("mm" "move thing" rope-move)
+   ("mM" "move module" rope-move-module)]
   
   [:if region-active-p
        "Extract"
