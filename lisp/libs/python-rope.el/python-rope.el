@@ -174,8 +174,10 @@ WARNING: rope will make all type hint gone!"
 	 (parameter (read-string (format "Add parameter for %s at index %s: " function-name index)))
 	 (name-and-default (split-string parameter "=" t " "))
 	 (name (car name-and-default))
-	 (default (or (cadr name-and-default) "")))
-    (rope-run-cli-action "argument_add" offset index name default)))
+	 (default (cadr name-and-default)))
+    (if default
+	(rope-run-cli-action "argument_add" offset index name default) ;; can do this more tasteful
+      (rope-run-cli-action "argument_add" offset index name))))
 
 ;;;###autoload
 (defun rope-remove-parameter (index)
