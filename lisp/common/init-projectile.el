@@ -6,6 +6,7 @@
 
 ;;; Code:
 (require 'projectile)
+(require 'cl-lib)
 
 (projectile-mode)
 (setq projectile-require-project-root t)
@@ -14,8 +15,11 @@
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 (define-key projectile-command-map (kbd "c") 'projectile-compile-project)
 ;; (setq projectile-enable-caching t)
-(setq projectile-git-submodule-command nil)
+;; (setq projectile-git-submodule-command nil)
 (setq projectile-per-project-compilation-buffer t)
+(setq projectile-project-root-files-bottom-up
+      (remove ".git" projectile-project-root-files-bottom-up))
+(add-to-list 'projectile-project-root-files-top-down-recurring ".git")
 
 (defun my-projectile-ignore-git-project (project-root)
     (string-match-p ".git" project-root))
