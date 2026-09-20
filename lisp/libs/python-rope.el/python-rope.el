@@ -37,7 +37,12 @@ Otherwise just return `default-directory'."
   (let* ((project (funcall rope-project-function))
 	 (file (file-relative-name (buffer-file-name) project))
 	 (cmd (string-join
-	       `(,rope-python-executable ,rope-cli ,action ,project ,file ,@(mapcar (lambda (arg) (format "%s" arg)) args))
+	       `(,rope-python-executable ,rope-cli
+					 ,action ,project ,file
+					 ,@(mapcar (lambda (arg) (if (stringp arg)
+								     (format "\"%s\"" arg)
+								   (format "%s" arg)))
+						   args))
 	       " "))
 	 (default-directory project)
 	 (proc (start-process-shell-command "rope" "*rope log*" cmd))
@@ -102,6 +107,91 @@ Otherwise just return `default-directory'."
   (save-buffer)
   (rope-run-cli-action "move_module" target))
 
+(defun rope--get-parameter-name-of-node (node)
+  "Find node's paremter-name."
+  (let* ((typed-node (treesit-parent-until
+		      node
+		      (lambda (p)
+			(string-equal "typed_parameter"
+				      (treesit-node-type p)))
+		      t))
+	 (ident-node (if typed-node
+			 (treesit-node-child typed-node 0)
+		       node)))
+    (when ident-node
+      (treesit-node-text ident-node t))))
+
+(defun rope--find-parameter-index ()
+  "Find current point's parameter index of def function.
+Need treesit."
+  (when (derived-mode-p 'python-ts-mode)
+    (let* ((node-at-point (treesit-node-at (point)))
+	   (node (if (string-equal "," (treesit-node-type node-at-point))
+		     (treesit-node-next-sibling node-at-point)
+		   node-at-point))
+	   (parameter-name (rope--get-parameter-name-of-node node))
+	   (parameters (treesit-parent-until
+			node
+			(lambda (p)
+			  (string-equal "parameters"
+					(treesit-node-type p)))))
+	   (parameter-nodes (when parameters
+			      (treesit-filter-child parameters
+						    (lambda (c)
+						      (member (treesit-node-type c) '("typed_parameter" "identifier"))))))
+	   index)
+      (when parameter-nodes
+	(cl-position-if (lambda (n) (string-equal (rope--get-parameter-name-of-node n) parameter-name))
+			parameter-nodes)))))
+
+(defun rope--find-function-name-and-offset ()
+  (let* ((function-node (treesit-parent-until
+			 (treesit-node-at (point))
+			 (lambda (n)
+			   (string-equal "function_definition"
+					 (treesit-node-type n)))))
+	 (name-node (when function-node
+		      (treesit-node-child-by-field-name function-node "name"))))
+    (when name-node
+      (list
+       (treesit-node-text name-node)
+       (- (treesit-node-start name-node) 1)))))
+
+;;;###autoload
+(defun rope-add-parameter (index)
+  "Call rope add parameter.
+If INDEX has value，add parameter at this index, else add by index at current point,
+otherwise if current point not at parameters, add at end.
+
+WARNING: rope will make all type hint gone!"
+  (interactive "P")
+  (let* ((index (or index
+		    (rope--find-parameter-index)
+		    -1))
+	 (function-name-and-offset (rope--find-function-name-and-offset))
+	 (function-name (car function-name-and-offset))
+	 (offset (cadr function-name-and-offset))
+	 (parameter (read-string (format "Add parameter for %s at index %s: " function-name index)))
+	 (name-and-default (split-string parameter "=" t " "))
+	 (name (car name-and-default))
+	 (default (or (cadr name-and-default) "")))
+    (rope-run-cli-action "argument_add" offset index name default)))
+
+;;;###autoload
+(defun rope-remove-parameter (index)
+  "Call rope remove parameter.
+If INDEX has value，remove parameter at this index, else remove by index at current point.
+
+WARNING: rope will make all type hint gone!"
+  (interactive "P")
+  (let* ((index (or index
+		    (rope--find-parameter-index)))
+	 (function-name-and-offset (rope--find-function-name-and-offset))
+	 (function-name (car function-name-and-offset))
+	 (offset (cadr function-name-and-offset)))
+    (when index
+      (rope-run-cli-action "argument_remove" offset index))))
+
 (require 'transient)
 (transient-define-prefix rope-transient ()
   "Rope Refactor action."
@@ -111,9 +201,14 @@ Otherwise just return `default-directory'."
    ("M" "move module" rope-move-module)]
   
   [:if region-active-p
-   "Extract"
-    ("e" "extract variable" rope-extract-variable)
-    ("E" "extract variable" rope-extract-method)])
+       "Extract"
+       ("ev" "extract variable" rope-extract-variable)
+       ("em" "extract method" rope-extract-method)]
+
+  [:if (lambda () (derived-mode-p 'python-ts-mode))
+       "Change signature"
+       ("pa" "add parameter" rope-add-parameter)
+       ("pr" "remove parameter" rope-remove-parameter)])
 
 (provide 'python-rope)
 
