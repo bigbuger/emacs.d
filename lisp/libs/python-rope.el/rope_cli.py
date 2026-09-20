@@ -49,14 +49,14 @@ def inline_method():
     
 def move():
     offset = int(sys.argv[4])
-    target_file = sys.argv[5]
+    target_file = sys.argv[5].rstrip("/")
     mover = create_move(project, resource, offset)
     target_resource = project.get_resource(resource_name=target_file)
     project.validate(target_resource)
     project.do(mover.get_changes(target_resource))
 
 def move_module():
-    target_file = sys.argv[4]
+    target_file = sys.argv[4].rstrip("/")
     mover:  MoveModule = create_move(project, resource)
     target_resource = project.get_resource(resource_name=target_file)
     project.validate(target_resource)
