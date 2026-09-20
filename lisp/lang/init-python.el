@@ -93,6 +93,7 @@
 (flycheck-remove-next-checker 'python-ruff 'python-mypy)
 
 (add-to-list 'flycheck-checkers 'lsp-python 'append)
+(setq lsp-ruff-lint-enable nil)
 
 (advice-add 'lsp-diagnostics-flycheck-enable :after
   (lambda ()
