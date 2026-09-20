@@ -117,7 +117,7 @@
 
 ;; change of branch reflect in modeline
 (setq auto-revert-check-vc-info t)
-(setq doom-modeline-vcs-max-length 50)
+(setq doom-modeline-vcs-max-length 30)
 
 (setq doom-modeline-buffer-file-name-style 'truncate-with-project)
 (doom-modeline-mode)
