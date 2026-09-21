@@ -19,9 +19,13 @@
 ;; (setq projectile-enable-caching t)
 ;; (setq projectile-git-submodule-command nil)
 (setq projectile-per-project-compilation-buffer t)
-(setq projectile-project-root-files-bottom-up
-      (remove ".git" projectile-project-root-files-bottom-up))
-(add-to-list 'projectile-project-root-files-top-down-recurring ".git")
+
+;; make git submodule the same root of parent
+;; see https://github.com/bbatsov/projectile/issues/712
+;; (setq projectile-project-root-files-bottom-up
+;;       (remove ".git" projectile-project-root-files-bottom-up))
+;; (add-to-list 'projectile-project-root-files-top-down-recurring ".git")
+(cl-nsubstitute ".git/" ".git" projectile-project-root-files-bottom-up :test #'string=)
 
 (defun my-projectile-ignore-git-project (project-root)
     (string-match-p ".git" project-root))
