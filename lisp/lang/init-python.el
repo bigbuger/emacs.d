@@ -128,7 +128,6 @@
   :init
   (add-to-list 'lsp-disabled-clients 'mspyls)
   (add-to-list 'lsp-disabled-clients 'pyright)
-  (add-to-list 'lsp-disabled-clients 'ruff)
 
   (setopt lsp-pylsp-plugins-mypy-enabled t
 	  lsp-pylsp-plugins-mypy-dmypy t
@@ -229,6 +228,7 @@
 	       '(python . t)))
 
 (use-package auto-virtualenv
+  :disabled
   :config
   (setq auto-virtualenv-mode-line nil)
   (add-to-list 'mode-line-misc-info
@@ -246,6 +246,21 @@
   (setq auto-virtualenv-verbose t)
   (setq auto-virtualenv-reload-lsp use-pylsp) ;; need for pylsp. but not need for pyright/basedpyright, it can be auto find .venv
   (auto-virtualenv-setup))
+
+;; pet auto set python venv for lsp and flycheck and etc
+(use-package pet
+  :config
+  (add-hook 'python-base-mode-hook 'pet-mode -10))
+
+(with-eval-after-load 'projectile
+  (defun my-get-python-run-command (args)
+    (let ((default-directory (projectile-acquire-root)))
+      (concat (if (file-exists-p ".venv") "./.venv/bin/python " "python ")
+	      args)))
+  (projectile-update-project-type 'django
+				  :compile #'(lambda () (my-get-python-run-command "manage.py collectstatic"))
+				  :test #'(lambda () (my-get-python-run-command "manage.py test"))
+				  :run #'(lambda () (my-get-python-run-command "manage.py runserver"))))
 
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/python-rope.el")
 (require 'python-rope)
