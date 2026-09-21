@@ -55,11 +55,23 @@
 ;; 		 :types ((?f "Function" font-lock-function-name-face)
 ;; 			 (?c "Class" font-lock-type-face)))))
 
+
+(defun my-python-imenu-format-item-label (type name)
+  "Return Imenu label for single node using TYPE and NAME."
+  (format "%s %s" name (propertize (format "(:%s)" type) 'face 'font-lock-comment-face)))
+
 (defun my-python-imenu-format-parent-item-label (type name)
   "Return Imenu label for parent node using TYPE and NAME."
-  (format "%s" (python-imenu-format-item-label type name)))
+  (format "%s " (my-python-imenu-format-item-label type name)))
 
+(setq python-imenu-format-item-label-function #'my-python-imenu-format-item-label)
 (setq python-imenu-format-parent-item-label-function #'my-python-imenu-format-parent-item-label)
+
+(add-hook 'python-ts-mode-hook
+	  #'(lambda ()
+	      (setq-local imenu-space-replacement nil)
+	      ;; (setq-local imenu-flatten t)
+	      ))
 
 (require 'dap-python)
 
