@@ -95,6 +95,7 @@ buffer's text scale."
   (add-to-list 'org-babel-load-languages
 	       '(latex . t)))
 
+;; Asymptote 语言，c like 绘图语言
 (when (file-exists-p "/usr/local/share/emacs/site-lisp/asymptote")
   (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/asymptote")
   (autoload 'asy-mode "asy-mode.el" "Asymptote major mode." t)
@@ -130,6 +131,7 @@ buffer's text scale."
 
 (defconst ob-metapost-output-buffer-name "*Org babel metapost*")
 
+;; metapost 绘图语言，宏语言
 (defun org-babel-execute:metapost (body params)
   "Execute a block of metapost code with org-babel."
   (let* ((in-file (org-babel-temp-file "metapost" ".mp"))

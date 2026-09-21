@@ -227,26 +227,6 @@
   (add-to-list 'org-babel-load-languages
 	       '(python . t)))
 
-(use-package auto-virtualenv
-  :disabled
-  :config
-  (setq auto-virtualenv-mode-line nil)
-  (add-to-list 'mode-line-misc-info
-	       '(auto-virtualenv-mode-line ((:eval (propertize auto-virtualenv-mode-line 'face '(:weight bold :foreground "DeepSkyBlue"))) " ")) t)
-  ;; overrides
-  (defun auto-virtualenv-update-mode-line ()
-    "Update the mode line to show the active virtual environment, or 'N/A' if none."
-    (setq auto-virtualenv-mode-line
-          (if auto-virtualenv-current-virtualenv
-              (format "[Venv: %s]" (file-name-nondirectory
-				    (directory-file-name (replace-regexp-in-string "\\.venv/?" "" auto-virtualenv-current-virtualenv))))
-	    ""))
-    (force-mode-line-update t))
-  
-  (setq auto-virtualenv-verbose t)
-  (setq auto-virtualenv-reload-lsp use-pylsp) ;; need for pylsp. but not need for pyright/basedpyright, it can be auto find .venv
-  (auto-virtualenv-setup))
-
 ;; pet auto set python venv for lsp and flycheck and etc
 (use-package pet
   :config

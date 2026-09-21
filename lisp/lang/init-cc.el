@@ -28,7 +28,7 @@
 
 (use-package cmake-mode)
 (with-eval-after-load 'cc-mode
-  (unbind-key "C-d" c-mode-base-map))
+  (unbind-key "C-d" c-mode-base-map)) ;; c-electric-delete-forward, I bind this to duplicate-dwim
 
 (with-eval-after-load 'org
   (add-to-list 'org-babel-load-languages

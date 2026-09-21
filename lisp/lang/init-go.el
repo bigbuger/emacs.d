@@ -200,25 +200,12 @@
 
 (setq gofmt-show-errors nil)
 ;; gof is a shell file
-;; #+begin_src shell
-;; #!/bin/zsh
-;; 
-;; local gofmt_args=("-s")
-;; local last=""
-;; for a ($*) {
-;;     if [[ $last != "-srcdir" && $a != "-srcdir" ]]; then
-;; 	gofmt_args+=$a
-;;     fi
-;;     last="$a"
-;; }
-;; 
-;; gofmt ${gofmt_args[*]} && goimports $@
-;; 
-;; #+end_src
-(setq gofmt-command "gof")
+;; (setq gofmt-command "~/.emacs.d/bin/gof")
 
+;; override
 (defun gofmt--is-goimports-p ()
   (member (file-name-base gofmt-command) '("goimports" "gof")))
+
 ;; Set up before-save hooks to format buffer and add/delete imports.
 ;; Make sure you don't have other gofmt/goimports hooks enabled.
 ;; (defun lsp-go-install-save-hooks ()
@@ -226,7 +213,6 @@
 ;;   (add-hook 'before-save-hook #'lsp-organize-imports t t))
 ;; (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 ;;(add-hook 'before-save-hook 'gofmt-before-save)
-
 
 
 (defvar golangci-lint-cmd "LOG_LEVEL=error golangci-lint run --issues-exit-code 0 --out-format=line-number --print-issued-lines=false ./..."
@@ -354,14 +340,6 @@
 						   :process-asm-custom-fn #'rmsbolt--process-go-plan9-lines)))))))
 
 
-;; go install github.com/godoctor/godoctor@latest
-;; (use-package godoctor)
-;; overwrite godoctor--get-pos-region for utf-8 charset
-;; (defun godoctor--get-pos-region ()
-;;   (let* ((start (position-bytes (region-beginning)))
-;; 	 (end (position-bytes (region-end)))
-;;          (len (- end start)))
-;;     (format "%d,%d" start len)))
 
 (setq go-tag-args '("-transform" "camelcase" "-add-options" "json=omitempty"))
 (require 'company-go-tag)
