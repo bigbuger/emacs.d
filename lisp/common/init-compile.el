@@ -12,8 +12,6 @@
 (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 (define-key menu-bar-tools-menu [compile] '("Compile..." . smart-compile))
 (define-key prog-mode-map (kbd "s-r") 'smart-compile)
-(with-eval-after-load 'projectile
-  (define-key projectile-command-map (kbd "r") 'projectile-run-project))
 
 ;; end smart-compile
 

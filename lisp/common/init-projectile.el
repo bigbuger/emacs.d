@@ -14,6 +14,8 @@
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 ;; (define-key projectile-command-map (kbd "c") 'projectile-compile-project)
+(define-key projectile-command-map (kbd "r") 'projectile-run-project)
+
 ;; (setq projectile-enable-caching t)
 ;; (setq projectile-git-submodule-command nil)
 (setq projectile-per-project-compilation-buffer t)
