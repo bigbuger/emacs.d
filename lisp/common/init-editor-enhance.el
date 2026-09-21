@@ -317,9 +317,16 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
 
 ;; hideshow
 (use-package hideshow
+  :if (>= emacs-major-version 31)
+  :config
+  (setq hs-show-indicators t)
+  (setq hs-indicator-type nil) ;; Emacs 31 show at eol
+  
   :bind
-  (:map hs-minor-mode
-	("S-<tab>" . hs-toggle-hiding)))
+  (:map hs-minor-mode-map
+	("S-<tab>" . hs-cycle))
+  :hook
+  (prog-mode . hs-minor-mode))
 ;; end hideshow
 
 

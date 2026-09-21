@@ -41,19 +41,25 @@
 	(concat class "." method)
       method)))
 
-(add-hook 'python-ts-mode-hook
-	  #'(lambda ()
-	      (setq-local imenu-create-index-function #'treesit-simple-imenu)
-	      (setq-local treesit-simple-imenu-settings
-			  `(("Class" "\\`class_definition\\'" nil nil)
-			    ("Function" "\\`function_definition\\'" nil my-python-ts-get-method-name)))))
+;; (add-hook 'python-ts-mode-hook
+;; 	  #'(lambda ()
+;; 	      (setq-local imenu-create-index-function #'treesit-simple-imenu)
+;; 	      (setq-local treesit-simple-imenu-settings
+;; 			  `(("Class" "\\`class_definition\\'" nil nil)
+;; 			    ("Function" "\\`function_definition\\'" nil my-python-ts-get-method-name)))))
 
-(with-eval-after-load 'consult-imenu
-  (add-to-list 'consult-imenu-config
-	       '(python-ts-mode
-		 :toplevel "Function"
-		 :types ((?f "Function" font-lock-function-name-face)
-			 (?c "Class" font-lock-type-face)))))
+;; (with-eval-after-load 'consult-imenu
+;;   (add-to-list 'consult-imenu-config
+;; 	       '(python-ts-mode
+;; 		 :toplevel "Function"
+;; 		 :types ((?f "Function" font-lock-function-name-face)
+;; 			 (?c "Class" font-lock-type-face)))))
+
+(defun my-python-imenu-format-parent-item-label (type name)
+  "Return Imenu label for parent node using TYPE and NAME."
+  (format "%s" (python-imenu-format-item-label type name)))
+
+(setq python-imenu-format-parent-item-label-function #'my-python-imenu-format-parent-item-label)
 
 (require 'dap-python)
 

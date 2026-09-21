@@ -43,6 +43,7 @@
 (setq undo-strong-limit 100663296) ; 96mb.
 (setq undo-outer-limit 201326592) ; 192mb.
 
+;; winner 快速回复窗口布局
 (require 'winner)
 (winner-mode t)
 
@@ -140,6 +141,7 @@
       ;; invisible here anyway.
       (assq-delete-all 'which-function-mode mode-line-misc-info))
 
+;; 高亮 TODO 等关键词
 (add-hook 'prog-mode-hook
 	  (lambda ()
 	    (font-lock-add-keywords nil
@@ -214,6 +216,7 @@
   (unbind-key "C-s" 'transient-popup-navigation-map)
   (unbind-key "<down-mouse-1>" 'transient-popup-navigation-map))
 
+;; 高亮 symbol 样式
 (setq hi-lock-face-defaults
       '("hi-blue" "hi-pink" "hi-green" "hi-yellow" "hi-salmon" "hi-aquamarine"
 	"hi-black-b" "hi-blue-b" "hi-red-b" "hi-green-b" "hi-black-hb"))
