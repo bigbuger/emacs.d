@@ -34,14 +34,19 @@
 (setq frame-title-format
       '(""
 	(:eval
-	 (let ((project-name (projectile-project-name)))
-           (unless (string= "-" project-name)
-             (format " [%s] - " project-name))))
+	 (let ((project-name (projectile-project-name))
+	       (filename (buffer-file-name)))
+           (cond
+	    ((not (string= "-" project-name))
+	     (format " [%s]" project-name))
+	    (filename (abbreviate-file-name (buffer-file-name)))
+	    (t (buffer-name)))))
+
 	(:eval
-	 (let ((filename (buffer-file-name)))
-	   (if filename
-	       (abbreviate-file-name filename)
-	     (buffer-name))))))
+	 (let ((root (projectile-project-root)))
+	   (when (and root (eq 'git (ignore-errors (projectile-project-vcs root))))
+	     (format " @ %s"
+		     (plist-get (projectile-dashboard--git-status (projectile-project-root)) :branch)))))))
 
 (with-eval-after-load 'consult
   (setq consult-project-function 'projectile-project-root))
