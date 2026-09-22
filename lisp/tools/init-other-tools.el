@@ -1,9 +1,11 @@
-;;; init-other-tools.el ---
+;;; init-other-tools.el --- other tools
 
+;;; Commentary:
+;; 
 
-;; dash doc 查 dash 文档
 ;;; Code:
 
+;; dash doc 查 dash 文档
 (use-package consult-dash
   :demand t
   :bind (("M-s d" . consult-dash))
@@ -12,10 +14,7 @@
   (consult-customize consult-dash :initial (thing-at-point 'symbol))
   (setq dash-docs-docsets-path "~/.docset")
   (setq dash-docs-enable-debugging nil)
-  (setq dash-docs-browser-func
-	#'(lambda (url &rest args)
-	    (xwidget-webkit-browse-url url args)
-	    (display-buffer xwidget-webkit-last-session-buffer)))
+  (setq dash-docs-browser-func #'eww)
   
   :init
   (setq-default consult-dash-docsets '("Redis" "MySql" "MongoDB" "SQLite")))
@@ -25,10 +24,6 @@
   :after calc
   :ensure t
   :bind (:map calc-mode-map ("C-o" . 'casual-calc-tmenu)))
-
-
-;;; Commentary:
-;; 
 
 (require 're-builder)
 (setq reb-re-syntax 'string)

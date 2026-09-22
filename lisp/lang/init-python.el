@@ -71,6 +71,9 @@
 	  #'(lambda ()
 	      (setq-local imenu-space-replacement nil)
 	      ;; (setq-local imenu-flatten t)
+	      (when (functionp 'consult-dash)
+		(setq-local consult-dash-docsets
+			    (append '("Python") consult-dash-docsets)))
 	      ))
 
 (require 'dap-python)
