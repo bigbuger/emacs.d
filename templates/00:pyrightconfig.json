@@ -1,0 +1,18 @@
+{
+	"venvPath": ".",
+	"venv": ".venv",
+	"typeCheckingMode": "basic",
+	"reportMissingTypeStubs": "information",
+	"reportMissingParameterType": "information",
+	"reportArgumentType": "warning",
+	"reportAssignmentType": "warning",
+	"reportAttributeAccessIssue": "warning",
+	"reportCallIssue": "warning",
+	"reportFunctionMemberAccess": "warning",
+	"reportGeneralTypeIssues": "warning",
+	"reportIncompatibleMethodOverride": "warning",
+	"reportInvalidTypeForm": "warning",
+	"reportOptionalMemberAccess": "warning",
+	"reportRedeclaration": "warning",
+	"reportReturnType": "warning"
+}

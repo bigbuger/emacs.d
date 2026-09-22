@@ -67,6 +67,14 @@
 (setq python-imenu-format-item-label-function #'my-python-imenu-format-item-label)
 (setq python-imenu-format-parent-item-label-function #'my-python-imenu-format-parent-item-label)
 
+(with-eval-after-load 'treemacs
+  (defun my-py-treemacs--post-process-index(orign index index-mode)
+    (if (eq 'python-ts-mode index-mode)
+	index
+      (funcall orign index index-mode)))
+  ;; treemacs--post-process-index always add "Functions" as toplevel tab, so disbale it
+  (advice-add 'treemacs--post-process-index :around 'my-py-treemacs--post-process-index))
+
 (add-hook 'python-ts-mode-hook
 	  #'(lambda ()
 	      (setq-local imenu-space-replacement nil)
