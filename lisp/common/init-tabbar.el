@@ -281,7 +281,13 @@ The default tab-bar name uses the buffer name."
         "*Non project*"
       (projectile-project-name))))
 
+(defun my-tab-new-tab-choice ()
+  "Switch to projectile."
+  (let ((projectile-switch-project-action #'projectile-dired))
+    (projectile-switch-project)))
+
 (setq tab-bar-show 1)			;only show tab bar when more then 1
+(setq tab-bar-new-tab-choice #'my-tab-new-tab-choice)
 (setq tab-bar-tab-name-function #'my-name-tab-by-project-or-default)
 (add-hook 'after-init-hook #'(lambda () (tab-bar-mode 1)))
 
