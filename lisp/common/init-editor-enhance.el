@@ -12,7 +12,7 @@
 
 (setq duplicate-line-final-position -1)
 (setq duplicate-region-final-position -1)
-(global-set-key (kbd "s-d") #'duplicate-dwim)
+(global-set-key (kbd "C-d") #'duplicate-dwim) ;; 原来是 'delete-char，但是很少用
 
 ;; crux
 (require 'crux)
