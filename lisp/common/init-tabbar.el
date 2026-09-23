@@ -261,7 +261,7 @@ Otherwise use `nerd-icons-icon-for-buffer' to fetch icon for buffer."
   "Open latest edited buffer when switched the exist project, find files when switched to a new project."
   (let* ((exists-projects (awesome-tab-get-groups))
 	 (project-root (projectile-project-root))
-	 (tab-group-name (format "Project: %s" bproject-root)))
+	 (tab-group-name (format "Project: %s" project-root)))
     (if (and awesome-tab-mode
 	     (member tab-group-name exists-projects))
 	(let ((result (awesome-tab-switch-group tab-group-name)))
