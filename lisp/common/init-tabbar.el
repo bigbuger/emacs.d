@@ -248,6 +248,32 @@ Otherwise use `nerd-icons-icon-for-buffer' to fetch icon for buffer."
 
 (add-hook 'after-init-hook #'(lambda () (awesome-tab-mode 1)))
 
+;; hack, ueing awesome-tab-switch-group to let projectile switch to opened project buffer.
+(defun smart-switch-project ()
+  "Open latest edited buffer when switched the exist project, find files when switched to a new project."
+  (let* ((exists-projects (awesome-tab-get-groups))
+	 (project-root (projectile-project-root))
+	 (tab-group-name (format "Project: %s" project-root)))
+    (if (and awesome-tab-mode
+	     (member tab-group-name exists-projects))
+	(let ((result (awesome-tab-switch-group tab-group-name)))
+	  (if (not (buffer-live-p result))
+	      (project-find-file)))
+      (projectile-find-file))))
+
+(with-eval-after-load 'projectile
+  (unless (eq projectile-switch-project-action 'projectile-session-switch-project-action)
+    (setq projectile-switch-project-action 'smart-switch-project)))
+
+;; copy from https://www.rousette.org.uk/archives/using-the-tab-bar-in-emacs/
+(defun my-name-tab-by-project-or-default ()
+  "Return project name if in a project, or default tab-bar name if not.
+The default tab-bar name uses the buffer name."
+  (let ((project-name (projectile-project-name)))
+    (if (string= "-" project-name)
+        "*Non project*"
+      (projectile-project-name))))
+
 (provide 'init-tabbar)
 
 ;;; init-tabbar.el ends here

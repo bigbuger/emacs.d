@@ -29,8 +29,8 @@ The default tab-bar name uses the buffer name."
 
 (setq tab-bar-tab-name-function #'my-name-tab-by-project-or-default)
 
-;; 每个项目一个 tab bar
-(projectile-session-mode +1)
+;; 每个项目一个 tab bar。 但是 没法多个项目分屏 :(，先关了
+;; (projectile-session-mode +1)
 
 (setq projectile-per-project-compilation-buffer t)
 
