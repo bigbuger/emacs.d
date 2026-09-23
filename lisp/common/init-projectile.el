@@ -16,9 +16,26 @@
 ;; (define-key projectile-command-map (kbd "c") 'projectile-compile-project)
 (define-key projectile-command-map (kbd "r") 'projectile-run-project)
 
+(setq tab-bar-show 1) ;; only show tab bar when more then 1
+
+;; copy from https://www.rousette.org.uk/archives/using-the-tab-bar-in-emacs/
+(defun my-name-tab-by-project-or-default ()
+  "Return project name if in a project, or default tab-bar name if not.
+The default tab-bar name uses the buffer name."
+  (let ((project-name (projectile-project-name)))
+    (if (string= "-" project-name)
+        "*Non project*"
+      (projectile-project-name))))
+
+(setq tab-bar-tab-name-function #'my-name-tab-by-project-or-default)
+
+;; 每个项目一个 tab bar
+(projectile-session-mode +1)
+
+(setq projectile-per-project-compilation-buffer t)
+
 ;; (setq projectile-enable-caching t)
 ;; (setq projectile-git-submodule-command nil)
-(setq projectile-per-project-compilation-buffer t)
 
 ;; make git submodule the same root of parent
 ;; see https://github.com/bbatsov/projectile/issues/712

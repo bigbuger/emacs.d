@@ -242,55 +242,11 @@ Otherwise use `nerd-icons-icon-for-buffer' to fetch icon for buffer."
 	    'awesome-tab-move-current-tab-to-beg)
 (setq awesome-tab-show-tab-index t)
 (setq awesome-tab-index-format-str " %s§")
-(define-key awesome-tab-mode-map (kbd "s-1") 'awesome-tab-select-visible-tab)
-(define-key awesome-tab-mode-map (kbd "s-2") 'awesome-tab-select-visible-tab)
-(define-key awesome-tab-mode-map (kbd "s-3") 'awesome-tab-select-visible-tab)
-(define-key awesome-tab-mode-map (kbd "s-4") 'awesome-tab-select-visible-tab)
-(define-key awesome-tab-mode-map (kbd "s-5") 'awesome-tab-select-visible-tab)
-(define-key awesome-tab-mode-map (kbd "s-6") 'awesome-tab-select-visible-tab)
-(define-key awesome-tab-mode-map (kbd "s-7") 'awesome-tab-select-visible-tab)
-(define-key awesome-tab-mode-map (kbd "s-8") 'awesome-tab-select-visible-tab)
-(define-key awesome-tab-mode-map (kbd "s-9") 'awesome-tab-select-visible-tab)
-;; (define-key awesome-tab-mode-map (kbd "s-0") 'awesome-tab-select-visible-tab)
+
+(dolist (n (number-sequence 1 9))
+  (define-key awesome-tab-mode-map (kbd (format "s-%d" n)) 'awesome-tab-select-visible-tab))
 
 (add-hook 'after-init-hook #'(lambda () (awesome-tab-mode 1)))
-
-
-;; hack, ueing awesome-tab-switch-group to let projectile switch to opened project buffer.
-(defun smart-switch-project ()
-  "Open latest edited buffer when switched the exist project, find files when switched to a new project."
-  (let* ((exists-projects (awesome-tab-get-groups))
-	 (project-root (projectile-project-root))
-	 (tab-group-name (format "Project: %s" project-root)))
-    (if (and awesome-tab-mode
-	     (member tab-group-name exists-projects))
-	(let ((result (awesome-tab-switch-group tab-group-name)))
-	  (if (not (buffer-live-p result))
-	      (project-find-file)))
-      (projectile-find-file))))
-
-(with-eval-after-load 'projectile
-  (setq projectile-switch-project-action 'smart-switch-project))
-
-;; copy from https://www.rousette.org.uk/archives/using-the-tab-bar-in-emacs/
-(defun my-name-tab-by-project-or-default ()
-  "Return project name if in a project, or default tab-bar name if not.
-The default tab-bar name uses the buffer name."
-  (let ((project-name (projectile-project-name)))
-    (if (string= "-" project-name)
-        "*Non project*"
-      (projectile-project-name))))
-
-(defun my-tab-new-tab-choice ()
-  "Switch to projectile."
-  (let ((projectile-switch-project-action #'projectile-dired))
-    (projectile-switch-project)))
-
-(setq tab-bar-show 1)			;only show tab bar when more then 1
-(setq tab-bar-new-tab-choice #'my-tab-new-tab-choice)
-(setq tab-bar-tab-name-function #'my-name-tab-by-project-or-default)
-(add-hook 'after-init-hook #'(lambda () (tab-bar-mode 1)))
-
 
 (provide 'init-tabbar)
 
