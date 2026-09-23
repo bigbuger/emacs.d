@@ -100,9 +100,9 @@
 (setq awesome-tab-icon-file-v-adjust 0)
 (setq awesome-tab-height 195)
 
-(defcustom centaur-tabs-close-button (make-string 1 #x00D7)
+(defcustom my-tabs-close-button (make-string 1 #x00D7)
   "Display appearance of the close buttons, if enabled."
-  :group 'centaur-tabs
+  :group 'awesome-tab
   :type 'string)
 
 (defun awesome-tab-get-tab-from-event (event)
@@ -192,7 +192,7 @@ That is, a string used to represent it on the tab bar."
 
      ;; Close button.
      (propertize
-      centaur-tabs-close-button
+      my-tabs-close-button
       'face tab-face
       'pointer 'hand
       'help-echo "Close buffer"
@@ -261,7 +261,7 @@ Otherwise use `nerd-icons-icon-for-buffer' to fetch icon for buffer."
   "Open latest edited buffer when switched the exist project, find files when switched to a new project."
   (let* ((exists-projects (awesome-tab-get-groups))
 	 (project-root (projectile-project-root))
-	 (tab-group-name (format "Project: %s" project-root)))
+	 (tab-group-name (format "Project: %s" bproject-root)))
     (if (and awesome-tab-mode
 	     (member tab-group-name exists-projects))
 	(let ((result (awesome-tab-switch-group tab-group-name)))
@@ -271,6 +271,20 @@ Otherwise use `nerd-icons-icon-for-buffer' to fetch icon for buffer."
 
 (with-eval-after-load 'projectile
   (setq projectile-switch-project-action 'smart-switch-project))
+
+;; copy from https://www.rousette.org.uk/archives/using-the-tab-bar-in-emacs/
+(defun my-name-tab-by-project-or-default ()
+  "Return project name if in a project, or default tab-bar name if not.
+The default tab-bar name uses the buffer name."
+  (let ((project-name (projectile-project-name)))
+    (if (string= "-" project-name)
+        "*Non project*"
+      (projectile-project-name))))
+
+(setq tab-bar-show 1)			;only show tab bar when more then 1
+(setq tab-bar-tab-name-function #'my-name-tab-by-project-or-default)
+(add-hook 'after-init-hook #'(lambda () (tab-bar-mode 1)))
+
 
 (provide 'init-tabbar)
 
