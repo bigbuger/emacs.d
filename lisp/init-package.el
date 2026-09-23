@@ -54,9 +54,6 @@
     auto-yasnippet
     yatemplate
 
-    ;; shell term
-    vterm
-
     ;; flycheck
     flycheck
     
