@@ -120,9 +120,9 @@
 
 ;; only use ruff
 (flycheck-remove-next-checker 'python-ruff 'python-mypy)
+(add-to-list 'lsp-disabled-clients 'ruff) ;; not as a lsp but flycheck backend, this will speed up some time
 
 (add-to-list 'flycheck-checkers 'lsp-python 'append)
-(setq lsp-ruff-lint-enable nil)
 
 (advice-add 'lsp-diagnostics-flycheck-enable :after
   (lambda ()
@@ -223,6 +223,7 @@
 
 ;; pip install importmagic
 (use-package importmagic
+  :disabled
   :ensure t
 
   :bind
@@ -241,7 +242,10 @@
 ;; pet auto set python venv for lsp and flycheck and etc
 (use-package pet
   :config
-  (add-hook 'python-base-mode-hook 'pet-mode -10))
+  (add-hook 'python-base-mode-hook 'pet-mode -10)
+  (add-hook 'python-ts-mode-hook (lambda ()
+				   (let ((root (pet-project-root)))
+				     (setq-local flycheck-python-ruff-args `("--config" ,(format "src=[\"%s\", \"%s/src\"]" root root)))))))
 
 (with-eval-after-load 'projectile
   (defun my-get-python-run-command (args)
