@@ -10,6 +10,16 @@
 ;; dumb-jump 跳转到代码定义
 (require 'dumb-jump)
 (setq dumb-jump-force-searcher 'rg)
+
+;; from rg help
+;; -u, --unrestricted
+;;            This flag reduces the level of "smart" filtering. Repeated uses (up to 3) reduces the filtering
+;;            even more. When repeated three times, ripgrep will search every file in a directory tree.
+
+;;            A single -u/--unrestricted flag is equivalent to --no-ignore. Two -u/--unrestricted flags is
+;;            equivalent to --no-ignore -./--hidden.  Three -u/--unrestricted flags is equivalent to
+;;            --no-ignore -./--hidden --binary.
+(setopt dumb-jump-rg-search-args "--pcre2 -uu")
 (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
 (with-eval-after-load 'c-mode
   (unbind-key "C-c ." 'c-mode-base-map))
