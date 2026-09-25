@@ -51,19 +51,14 @@ The default tab-bar name uses the buffer name."
 (setq frame-title-format
       '(""
 	(:eval
-	 (let ((project-name (projectile-project-name))
-	       (filename (buffer-file-name)))
-           (cond
-	    ((not (string= "-" project-name))
-	     (format " [%s]" project-name))
-	    (filename (abbreviate-file-name (buffer-file-name)))
-	    (t (buffer-name)))))
-
+	 (let ((project-name (projectile-project-name)))
+           (unless (string= "-" project-name)
+             (format " [%s] - " project-name))))
 	(:eval
-	 (let ((root (projectile-project-root)))
-	   (when (and root (eq 'git (ignore-errors (projectile-project-vcs root))))
-	     (format " @ %s"
-		     (plist-get (projectile-dashboard--git-status (projectile-project-root)) :branch)))))))
+	 (let ((filename (buffer-file-name)))
+	   (if filename
+	       (abbreviate-file-name filename)
+	     (buffer-name))))))
 
 (with-eval-after-load 'consult
   (setq consult-project-function 'projectile-project-root))
