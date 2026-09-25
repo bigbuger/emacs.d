@@ -138,7 +138,7 @@
                             (require 'lsp-pyright)
 			    (setq-local lsp-enable-imenu nil)
 			    (setq-local lsp-inlay-hint-enable t)
-                            (lsp))))  ; or lsp-deferred
+                            (lsp-deferred))))  ; or lsp-deferred
 
 (setq dap-python-debugger 'debugpy)
 
@@ -162,7 +162,14 @@
 
 ;; pet auto set python venv for lsp and flycheck and etc
 (use-package pet
+  :disabled ;; 太慢了，它找好多应用程序， black、pylsp ，我不是全部都用
   :config
+  ;; Skip slow recursive search for large projects
+  (setq pet-find-file-functions '(pet-find-file-from-project-root
+                                  ;; pet-locate-dominating-file
+                                  ;; pet-find-file-from-project-root-natively
+				  ))
+  
   (add-hook 'python-base-mode-hook 'pet-mode -10)
   (add-hook 'python-ts-mode-hook (lambda ()
 				   (let ((root (pet-project-root)))
@@ -176,7 +183,11 @@
   (projectile-update-project-type 'django
 				  :compile #'(lambda () (my-get-python-run-command "manage.py collectstatic"))
 				  :test #'(lambda () (my-get-python-run-command "manage.py test"))
-				  :run #'(lambda () (my-get-python-run-command "manage.py runserver"))))
+				  :run #'(lambda () (my-get-python-run-command "manage.py runserver")))
+
+  (add-hook 'python-ts-mode-hook (lambda ()
+				   (let ((root (projectile-project-root)))
+				     (setq-local flycheck-python-ruff-args `("--config" ,(format "src=[\"%s\", \"%s/src\"]" root root)))))))
 
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/python-rope.el")
 (require 'python-rope)
