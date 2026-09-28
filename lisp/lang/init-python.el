@@ -118,6 +118,7 @@
   :unless use-pylsp
   :ensure t
   :init
+  (setq lsp-pyright-multi-root nil)
   (setq lsp-pyright-langserver-command "basedpyright") ;; or pyright
   (setq lsp-pyright-type-checking-mode "basic")
   (setq lsp-pyright-diagnostic-severity-overrides
