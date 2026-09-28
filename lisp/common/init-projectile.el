@@ -55,10 +55,12 @@ The default tab-bar name uses the buffer name."
            (unless (string= "-" project-name)
              (format " [%s] - " project-name))))
 	(:eval
-	 (let ((filename (buffer-file-name)))
-	   (if filename
-	       (abbreviate-file-name filename)
-	     (buffer-name))))))
+	 (let ((filename (buffer-file-name))
+	       (vc-name (when vc-mode (cadr (split-string (string-trim vc-mode) "^[A-Z]+[-:]+")))))
+	   (cond
+	    (vc-name (format "@ %s" vc-name))
+	    (filename (abbreviate-file-name filename))
+	    (t (buffer-name)))))))
 
 (with-eval-after-load 'consult
   (setq consult-project-function 'projectile-project-root))
