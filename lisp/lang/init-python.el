@@ -60,9 +60,9 @@
   (remove-hook 'elpy-modules 'elpy-module-flymake))
 
 
-;; (setq python-shell-interpreter "python3"
-;;       python-shell-completion-native-disabled-interpreters '("python3")
-;;       dap-python-executable "python3")
+(setq python-shell-interpreter "python3"
+      python-shell-completion-native-disabled-interpreters '("python3")
+      dap-python-executable "python3")
 
 ;; chain python-ruff as flycheck checker for python lsp
 (require 'lsp-diagnostics)
@@ -87,40 +87,13 @@
     (when (derived-mode-p 'python-mode 'python-ts-mode)
       (setq-local flycheck-checker 'lsp-python))))
 
-;; use python-lsp-server
-;; pip install 'python-lsp-server[all]'
-;; pip install pylsp-rope # for code action
-;; pip install pylsp-workspace-symbols # for call_hierarchy
-(setq use-pylsp nil) ;; yep, too slow
-(use-package lsp-mode
-  :if use-pylsp
-  :init
-  (add-to-list 'lsp-disabled-clients 'mspyls)
-  (add-to-list 'lsp-disabled-clients 'pyright)
-
-  (setopt lsp-pylsp-plugins-mypy-enabled t
-	  lsp-pylsp-plugins-mypy-dmypy t
-	  lsp-pylsp-plugins-mypy-live-mode nil)
-
-  (lsp-register-custom-settings
-   '(("pylsp.plugins.jedi_workspace_symbols.enable" t t)
-     ("pylsp.plugins.call_hierarchy.enable" t t)
-     ("pylsp.plugins.rope_autoimport.enabled" nil t) ;; maybe slow
-     ("pylsp.plugins.rope_autoimport.completions.enabled" nil t)))
-
-  (add-hook 'python-mode-ts-hook
-	    #'(lambda ()
-		(setq-local lsp-enable-imenu nil)
-		(setq-local lsp-inlay-hint-enable t)
-		(lsp))))
-
 (use-package lsp-pyright
-  :unless use-pylsp
   :ensure t
   :init
-  (setq lsp-pyright-multi-root nil)
+  (setq lsp-pyright-multi-root nil) ;; 跳转到 lib 时会跨项目，是 lsp-mode 的 bug，没有处理 scopeUri https://github.com/emacs-lsp/lsp-mode/issues/4857
   (setq lsp-pyright-langserver-command "basedpyright") ;; or pyright
   (setq lsp-pyright-type-checking-mode "basic")
+  (setq lsp-pyright-disable-organize-imports t) ;; 用 ruff
   (setq lsp-pyright-diagnostic-severity-overrides
 	'(("reportMissingTypeStubs"		.	"hint")
 	  ("reportMissingParameterType"		.	"hint")
@@ -143,43 +116,14 @@
 
 (setq dap-python-debugger 'debugpy)
 
-;; pip install importmagic
-(use-package importmagic
-  :disabled
-  :ensure t
-
-  :bind
-  (:map importmagic-mode-map
-	("C-c C-o" . importmagic-fix-symbol-at-point))
-  :hook
-  (python-ts-mode . importmagic-mode)
-  
-  :config
-  (unbind-key "C-c C-l" importmagic-mode-map))
-
 (with-eval-after-load 'org
   (add-to-list 'org-babel-load-languages
 	       '(python . t)))
 
-;; pet auto set python venv for lsp and flycheck and etc
-(use-package pet
-  :disabled ;; 太慢了，它找好多应用程序， black、pylsp ，我不是全部都用
-  :config
-  ;; Skip slow recursive search for large projects
-  (setq pet-find-file-functions '(pet-find-file-from-project-root
-                                  ;; pet-locate-dominating-file
-                                  ;; pet-find-file-from-project-root-natively
-				  ))
-  
-  (add-hook 'python-base-mode-hook 'pet-mode -10)
-  (add-hook 'python-ts-mode-hook (lambda ()
-				   (let ((root (pet-project-root)))
-				     (setq-local flycheck-python-ruff-args `("--config" ,(format "src=[\"%s\", \"%s/src\"]" root root)))))))
-
 (with-eval-after-load 'projectile
   (defun my-get-python-run-command (args)
-    (let ((default-directory (projectile-acquire-root)))
-      (concat (if (file-exists-p ".venv") "./.venv/bin/python " "python ")
+    (let ((default-directory (projectile-project-root)))
+      (concat (if (file-exists-p ".venv") "./.venv/bin/python " "python3 ")
 	      args)))
   (projectile-update-project-type 'django
 				  :compile #'(lambda () (my-get-python-run-command "manage.py collectstatic"))
@@ -187,8 +131,29 @@
 				  :run #'(lambda () (my-get-python-run-command "manage.py runserver")))
 
   (add-hook 'python-ts-mode-hook (lambda ()
-				   (let ((root (projectile-project-root)))
-				     (setq-local flycheck-python-ruff-args `("--config" ,(format "src=[\"%s\", \"%s/src\"]" root root)))))))
+				   (let ((default-directory (projectile-project-root)))
+				     (setq-local flycheck-python-ruff-args
+						 `("--config" ,(format "src=[\"%s\", \"%s/src\"]" default-directory default-directory)))
+				     (when (file-exists-p ".venv")
+				       (setq-local python-shell-virtualenv-root (file-truename ".venv")
+						   python-shell-interpreter (concat (file-truename ".venv") "/bin/" "python")
+						   dap-python-executable (concat (file-truename ".venv") "/bin/" "python")
+					))))))
+
+(dap-register-debug-template "Django :: Runserver"
+			     (list :type "python"
+				   :request "launch"
+				   :name "Django :: Runserver"
+				   :program "${workspaceFolder}/manage.py"
+				   :args "runserver --noreload"
+				   :cwd "${workspaceFolder}"))
+
+;; start django vai --noreload: python -m debugpy --listen 0.0.0.0:5678 --wait-for-client manage.py runserver --noreload
+(dap-register-debug-template  "Django :: Attach"
+			      (list :type "python"
+				    :request "attach"
+				    :connect (list :host "localhost" :port 5678)
+				    :name "Django :: Attach"))
 
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/python-rope.el")
 (require 'python-rope)

@@ -319,8 +319,10 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
 (use-package hideshow
   :if (>= emacs-major-version 31)
   :config
-  (setq hs-show-indicators t)
   (setq hs-indicator-type nil) ;; Emacs 31 show at eol
+  (setq hs-show-indicators t)
+  (unbind-key "<left-fringe> <mouse-1>" hs-minor-mode-map) ;; #'hs-indicator-mouse-toggle-hiding，留给 debug 打断点用
+  (unbind-key "<left-margin> <mouse-1>" hs-indicators-map)
   
   :bind
   (:map hs-minor-mode-map
