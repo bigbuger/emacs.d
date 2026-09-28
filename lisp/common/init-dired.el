@@ -43,6 +43,7 @@
 	  (lambda ()
 	    (dired-omit-mode 1)
 	    (dired-hide-details-mode 1)
+	    (hl-line-mode 1)
 	    ))
 
 (use-package dired-du
