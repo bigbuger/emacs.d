@@ -143,12 +143,19 @@ See URL `https://developers.google.com/protocol-buffers/'."
 		     (when proto (format "-proto %s" proto))
 		     (when import-paths (ob-grpc--concat-imports import-paths))
 		     (format "%s %s" service method)))
-	 (grpcurl (format "cat %s | grpcurl %s | jq '.'" in-file (string-join args " "))))
+	 (grpcurl (format "cat %s | grpcurl %s | jq '.'" in-file (string-join args " ")))
+	 (sentinel (lambda (_proc _state)
+		     (with-current-buffer out-buffer
+		       (json-mode)
+		       (read-only-mode))
+		     (display-buffer out-buffer)))
+	 proc)
     (with-temp-file in-file
       (insert body))
     (message "ob-grpc: %s" grpcurl)
-    
-    (async-shell-command grpcurl out-buffer)
+    (setq proc
+	  (start-process-shell-command "grpcurl" out-buffer grpcurl))
+    (set-process-sentinel proc sentinel)
     ))
 
 (provide 'ob-grpc)
