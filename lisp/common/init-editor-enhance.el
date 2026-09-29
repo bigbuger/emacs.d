@@ -307,6 +307,7 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
   :init
   (isearch-mb-mode))
 
+(add-hook 'occur-mode-hook #'hl-line-mode)
 
 ;; about indent
 ;; highlight-indent-guides 显示缩进对齐线
@@ -354,6 +355,8 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
 
 ;; grep 分组
 (setq grep-use-headings t)
+(with-eval-after-load 'grep
+  (add-hook 'grep-mode-hook #'hl-line-mode))
 
 (use-package wgrep
   :bind (:map grep-mode-map
@@ -367,6 +370,7 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
   :confirm prefix
   :dir project)
 (global-set-key (kbd "M-s r") #'rg-menu)
+(add-hook 'rg-mode-hook #'hl-line-mode)
 
 (use-package avy
   :bind

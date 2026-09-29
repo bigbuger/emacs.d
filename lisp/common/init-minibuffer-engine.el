@@ -478,6 +478,8 @@ selected color."
 (use-package embark
   :ensure t
   :demand t
+  :hook
+  (embark-collect-mode . hl-line-mode)
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
 

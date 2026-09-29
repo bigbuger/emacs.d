@@ -221,6 +221,8 @@
       '("hi-blue" "hi-pink" "hi-green" "hi-yellow" "hi-salmon" "hi-aquamarine"
 	"hi-black-b" "hi-blue-b" "hi-red-b" "hi-green-b" "hi-black-hb"))
 
+(add-hook 'ibuffer-hook #'hl-line-mode)
+
 (provide 'init-emacs-base)
 
 ;;; init-base.el ends here
