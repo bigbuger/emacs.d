@@ -89,12 +89,12 @@
     ;; go
     go-mode
     gotest
-    go-scratch
+    ;; go-scratch
     go-dlv
     go-gen-test
     go-impl
     go-tag
-    go-fill-struct
+    ;; go-fill-struct
     gorepl-mode
 
     ;;rust

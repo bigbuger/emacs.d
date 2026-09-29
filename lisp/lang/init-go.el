@@ -389,7 +389,7 @@
   
   (define-key go-ts-mode-map (kbd "s-g t") #'go-tag-add)
   (define-key go-ts-mode-map (kbd "s-g T") #'go-tag-remove)
-  (define-key go-ts-mode-map (kbd "s-g i") #'go-impl)
+  ;; (define-key go-ts-mode-map (kbd "s-g i") #'go-impl) ;; just use gopls?
   (define-key go-ts-mode-map (kbd "s-g f") #'gofmt)
   (define-key go-ts-mode-map (kbd "s-g l") #'golangci-lint)
   (define-key go-ts-mode-map (kbd "s-g c") #'go-format-struct-comment)

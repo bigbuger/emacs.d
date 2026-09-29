@@ -21,6 +21,8 @@
   (setq agent-shell-google-gemini-acp-command '("gemini" "--acp"))
   (setq agent-shell-activity-group-header-label-function
 	#'agent-shell-activity-group-tally-label)
+
+  (setopt agent-shell-show-cost-indicator t)
   
   (defalias 'ag> #'agent-shell-send-dwim)
   (add-to-list 'display-buffer-alist
