@@ -12,6 +12,7 @@
   (setq docker-container-shell-file-name "/bin/bash"))
 
 (use-package dockerfile-mode
+  :mode ("Dockerfile-.*")
   :ensure t)
 
 (use-package docker-compose-mode
