@@ -193,6 +193,8 @@
     )
 
   (add-to-list 'embark-target-injection-hooks '(lsp-rename embark--allow-edit))
+  (add-to-list 'embark-target-injection-hooks '(lsp-find-implementation embark--ignore-target))
+  (add-to-list 'embark-target-injection-hooks '(lsp-find-references embark--ignore-target))
   (add-to-list 'embark-repeat-actions #'lsp-ui-find-prev-reference)
   (add-to-list 'embark-repeat-actions #'lsp-ui-find-next-reference)
 
