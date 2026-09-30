@@ -141,14 +141,7 @@
 	  (lambda ()
 	    (setq-local defun-prompt-regexp go-func-regexp
 			tab-width 4
-			flycheck-disabled-checkers '(go-gofmt
-						     go-golint
-						     go-vet
-						     ;; go-build
-						     ;; go-test
-						     go-errcheck
-						     go-staticcheck
-						     go-unconvert)
+			flycheck--automatically-enabled-checkers '(lsp)
 			go-test-args "-v -count=1 -gcflags=all=-l"
 			lsp-inlay-hint-enable t)
             (setq-local treesit-simple-imenu-settings

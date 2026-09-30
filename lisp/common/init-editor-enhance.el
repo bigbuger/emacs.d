@@ -5,6 +5,7 @@
 
 ;;; Code:
 
+(add-hook 'tabulated-list-mode-hook 'hl-line-mode)
 
 ;; 允许对选中区域进行大小写转换
 (put 'upcase-region 'disabled nil)
