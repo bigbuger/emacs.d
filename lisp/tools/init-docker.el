@@ -12,7 +12,7 @@
   (setq docker-container-shell-file-name "/bin/bash"))
 
 (use-package dockerfile-mode
-  :mode ("Dockerfile-.*")
+  :mode ("Dockerfile-[-_a-zA-Z0-9]*$")
   :ensure t)
 
 (use-package docker-compose-mode
