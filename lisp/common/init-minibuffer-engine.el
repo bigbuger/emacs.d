@@ -7,6 +7,8 @@
 ;;; Code:
 
 (setq enable-recursive-minibuffers t)
+;; 显示递归 minibuffer 的深度，以防自己忘了，按多几次 <ESC> <ESC> <ESC>
+(minibuffer-depth-indicate-mode)
 
 (use-package vertico
   :bind (:map vertico-map

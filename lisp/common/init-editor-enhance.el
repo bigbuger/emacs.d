@@ -293,11 +293,14 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
 (advice-add 'query-replace-read-to :around #'query-replace-read-to-with-completion)
 ;; end visual-replace
 
+;; 正则搜索按键和非正则换过来
+(global-set-key (kbd "C-s") #'isearch-forward-regexp)
+(global-set-key (kbd "C-r") #'isearch-backward-regexp)
+(global-set-key (kbd "C-M-s") #'isearch-forward)
+(global-set-key (kbd "C-M-r") #'isearch-backward)
+
 ;; isearch-mb 有更好的搜索体验, 可以直接按箭头移到，也不用搞 isearch 复杂的编辑按钮
 (use-package isearch-mb
-  :bind (("C-s" . isearch-forward-regexp) ;; just "C-M-s"
-	 ("C-r" . isearch-backward-regexp)) ;; just "C-M-r"
-
   :config
   (add-to-list 'isearch-mb--with-buffer #'isearch-yank-word)
   (add-to-list 'isearch-mb--after-exit #'isearch-occur)

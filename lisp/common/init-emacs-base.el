@@ -18,6 +18,9 @@
 ;;       )
 (setq make-backup-files nil) ;; 基本没用过备份进行恢复，直接禁用了
 
+;; 不要锁文件 *.#
+(setq create-lockfiles nil)
+
 ;; 记录文件上次打开的位置
 (require 'saveplace)
 (add-hook 'after-init-hook #'save-place-mode)
@@ -68,6 +71,9 @@
 
 ;; 保存命令历史
 (savehist-mode 1)
+;; 删除重复历史
+(setq history-delete-duplicates t)
+
 
 ;; 搜索显示命中数量
 (setq isearch-lazy-count t)
