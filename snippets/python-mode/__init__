@@ -1,7 +1,8 @@
 # -*- mode: snippet -*-
-# name: __int__
-# key: _int
-# group: Special methods
+# name: __init__
+# key: _init
+# group : definitions
 # --
-def __int__(self):
-    $0
+def __init__(self${1:, args}):
+    ${2:"${3:docstring}"
+    }$0
