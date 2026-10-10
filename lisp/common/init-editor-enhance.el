@@ -331,7 +331,7 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
   
   :bind
   (:map hs-minor-mode-map
-	("S-<tab>" . hs-cycle))
+	("S-<tab>" . hs-toggle-hiding))
   :hook
   (prog-mode . hs-minor-mode))
 ;; end hideshow

@@ -14,7 +14,7 @@
   (consult-customize consult-dash :initial (thing-at-point 'symbol))
   (setq dash-docs-docsets-path "~/.docset")
   (setq dash-docs-enable-debugging nil)
-  (setq dash-docs-browser-func #'eww)
+  (setq dash-docs-browser-func #'browse-url)
   
   :init
   (setq-default consult-dash-docsets '("Redis" "MySql" "MongoDB" "SQLite")))
