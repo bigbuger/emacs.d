@@ -23,6 +23,7 @@
 	#'agent-shell-activity-group-tally-label)
 
   (setopt agent-shell-show-cost-indicator t)
+  (setopt agent-shell-persistent-prompt-enabled nil)
   
   (defalias 'ag> #'agent-shell-send-dwim)
   (add-to-list 'display-buffer-alist
