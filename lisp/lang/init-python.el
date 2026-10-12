@@ -73,11 +73,32 @@
 (flycheck-remove-next-checker 'python-ruff 'python-mypy)
 (add-to-list 'lsp-disabled-clients 'ruff) ;; not as a lsp but flycheck backend, this will speed up some time
 
-(add-hook 'python-ts-mode-hook (lambda ()
-				 (setq-local lsp-enabled-clients '(ty-ls)
-					     lsp-enable-imenu nil
-					     lsp-inlay-hint-enable t)
-				 (lsp-deferred)))
+(use-package lsp-pyright
+  :ensure t
+  :init
+  (setq lsp-pyright-multi-root nil) ;; 跳转到 lib 时会跨项目，是 lsp-mode 的 bug，没有处理 scopeUri https://github.com/emacs-lsp/lsp-mode/issues/4857
+  (setq lsp-pyright-langserver-command "basedpyright") ;; or pyright
+  (setq lsp-pyright-type-checking-mode "basic")
+  (setq lsp-pyright-disable-organize-imports t) ;; 用 ruff
+  (setq lsp-pyright-diagnostic-severity-overrides
+	'(("reportMissingTypeStubs"		.	"hint")
+	  ("reportMissingParameterType"		.	"hint")
+	  ("reportArgumentType"			.	"warning")
+	  ("reportAssignmentType"		.	"warning")
+	  ("reportAttributeAccessIssue"		.	"warning")
+	  ("reportCallIssue"			.	"warning")
+	  ("reportFunctionMemberAccess"		.	"warning")
+	  ("reportGeneralTypeIssues"		.	"warning")
+	  ("reportIncompatibleMethodOverride"	.	"warning")
+	  ("reportInvalidTypeForm"	        .	"warning")
+	  ("reportOptionalMemberAccess"	        .	"warning")
+	  ("reportRedeclaration"		.	"warning")
+	  ("reportReturnType"			.	"warning")))
+  :hook (python-ts-mode . (lambda ()
+                            (require 'lsp-pyright)
+			    (setq-local lsp-enable-imenu nil)
+			    (setq-local lsp-inlay-hint-enable t)
+                            (lsp-deferred))))  ; or lsp-deferred
 
 (setq dap-python-debugger 'debugpy)
 
