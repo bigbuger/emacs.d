@@ -129,7 +129,7 @@ See URL `https://github.com/golangci/golangci-lint'."
             (option-flag "--enable-all" flycheck-golangci-lint-enable-all)
             (option-list "--disable=" flycheck-golangci-lint-disable-linters concat)
             (option-list "--enable=" flycheck-golangci-lint-enable-linters concat)
-            source)
+	    ".") 			; golangci-lint can not find package path when check only one source
   :error-patterns
   (
    (error line-start (file-name) ":" line ":" column ": " (message) " (typecheck)" line-end)

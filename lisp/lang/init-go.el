@@ -202,7 +202,7 @@
 ;;(add-hook 'before-save-hook 'gofmt-before-save)
 
 
-(defvar golangci-lint-cmd "LOG_LEVEL=error golangci-lint run --issues-exit-code 0 --out-format=line-number --print-issued-lines=false ./..."
+(defvar golangci-lint-cmd "LOG_LEVEL=error golangci-lint run --issues-exit-code=0 --output.text.colors=false --output.text.print-issued-lines=false ./..."
   "Command for `consult-golangci-lint'.")
 
 (defun consult--go-root ()
@@ -218,10 +218,7 @@
   "Run golangci-lint, and diplay the result by `grep-mode'."
   (interactive)
   (with-go-project-root
-   (let ((cmd (read-shell-command
-	       "Run golangci-lint like this: "
-	       golangci-lint-cmd)))
-     (grep cmd))))
+   (compile golangci-lint-cmd)))
 
 (defun go-mod-tidy ()
   "Run `go mod tidy by compile'."
