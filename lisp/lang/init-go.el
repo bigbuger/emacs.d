@@ -75,7 +75,7 @@
 	(unusedparams . t) ;; check for unused parameters of functions
 	(unusedvariable . t) ;; check for unused variables and suggest fixes
 	(unusedresult . t) ;; check for unused variables and suggest fixes
-))
+	))
 
 (setq lsp-golangci-lint-fast t)
 (setq lsp-golangci-lint-enable '("makezero"))
@@ -89,6 +89,29 @@
     opts))
 (advice-add 'lsp-golangci-lint--get-initialization-options :override 'my-lsp-golangci-lint--get-initialization-options)
 (add-to-list 'lsp-disabled-clients 'golangci-lint) ;; too slow
+
+(add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
+(require 'flycheck-golangci-lint)
+(add-to-list 'flycheck-checkers 'golangci-lint 'append)
+
+(require 'lsp-diagnostics)
+(flycheck-define-generic-checker 'lsp-go
+  "LSP diagnostics checker for go, cloned from `lsp'."
+  :start #'lsp-diagnostics--flycheck-start ;; 复用 lsp-diagnostics 的后端逻辑
+  :modes '(go-mode go-ts-mode)
+  :predicate (lambda () lsp-diagnostics-mode) ; 与内置 lsp 保持一致的启用条件
+  :error-explainer (lambda (e)
+		     (lsp-diagnostics-flycheck-error-explainer
+		      e (lsp--workspace-server-id (car-safe (lsp-workspaces)))))
+  :next-checkers '((t . golangci-lint)))
+
+(add-to-list 'flycheck-checkers 'lsp-go 'append)
+
+(advice-add 'lsp-diagnostics-flycheck-enable :after
+	    (lambda ()
+	      (when (derived-mode-p 'go-mode 'go-ts-mode)
+		(setq-local flycheck-checker 'lsp-go))))
+
 
 (defun my-treesit-go-var-name (node)
   "Return the defun name of NODE for Go node types."
@@ -141,7 +164,7 @@
 	  (lambda ()
 	    (setq-local defun-prompt-regexp go-func-regexp
 			tab-width 4
-			flycheck--automatically-enabled-checkers '(lsp)
+			flycheck--automatically-enabled-checkers '(lsp lsp-go golangci-lint)
 			go-test-args "-v -count=1 -gcflags=all=-l"
 			lsp-inlay-hint-enable t)
             (setq-local treesit-simple-imenu-settings
@@ -509,8 +532,8 @@
   (setf (alist-get 'go-ts-mode  topsy-mode-functions) #'topsy--go-beginning-scope)
 
   (add-hook 'go-ts-mode-hook
-	      (lambda ()
-		(setq-local lsp-headerline-breadcrumb-segments '(path-up-to-project file))))
+	    (lambda ()
+	      (setq-local lsp-headerline-breadcrumb-segments '(path-up-to-project file))))
   
   :hook
   (go-ts-mode . topsy-mode))

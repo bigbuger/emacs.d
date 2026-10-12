@@ -82,11 +82,44 @@
   :type 'integer
   :safe #'integerp)
 
+(defvar flycheck-golangci-lint--version nil
+  "Cached golangci-lint version as (major minor patch).")
+
+(defun flycheck-golangci-lint--parse-version ()
+  "Parse golangci-lint version from --version output.
+Returns a list of (major minor patch) as integers, or nil if parsing fails."
+  (unless flycheck-golangci-lint--version
+    (let* ((output (ignore-errors
+                     (with-temp-buffer
+                       (call-process "golangci-lint" nil t nil "--version")
+                       (buffer-string))))
+           (version-regex "version \\([0-9]+\\)\\.\\([0-9]+\\)\\.\\([0-9]+\\)"))
+      (when (and output (string-match version-regex output))
+        (setq flycheck-golangci-lint--version
+              (list (string-to-number (match-string 1 output))
+                    (string-to-number (match-string 2 output))
+                    (string-to-number (match-string 3 output)))))))
+  flycheck-golangci-lint--version)
+
+(defun flycheck-golangci-lint--output-format-flags ()
+  "Return appropriate output format flags based on golangci-lint version.
+v1.x uses --print-issued-lines=false --out-format=line-number
+v2.x uses --output.text.print-issued-lines=false)."
+  (let ((version (flycheck-golangci-lint--parse-version)))
+    (if (and version (>= (car version) 2))
+        ;; v2.x: Use new format (without text output flag to avoid mixed output)
+        '("--output.text.print-issued-lines=false")
+      ;; v1.x or fallback: Use legacy format
+      '(
+	"--print-issued-lines=false"
+	"--out-format=line-number"))))
+
 (flycheck-define-checker golangci-lint
   "A Go syntax checker using golangci-lint that's 5x faster than gometalinter
 
 See URL `https://github.com/golangci/golangci-lint'."
-  :command ("golangci-lint" "run" "--print-issued-lines=false" "--out-format=line-number"
+  :command ("golangci-lint" "run"
+	    (eval (flycheck-golangci-lint--output-format-flags))
             (option "--config=" flycheck-golangci-lint-config concat)
             (option "--max-issues-per-linter" flycheck-golangci-lint-max-issues-per-linter concat)
             (option "--max-same-issues" flycheck-golangci-lint-max-same-issues concat)
@@ -96,14 +129,14 @@ See URL `https://github.com/golangci/golangci-lint'."
             (option-flag "--enable-all" flycheck-golangci-lint-enable-all)
             (option-list "--disable=" flycheck-golangci-lint-disable-linters concat)
             (option-list "--enable=" flycheck-golangci-lint-enable-linters concat)
-            ".")
+            source)
   :error-patterns
   (
    (error line-start (file-name) ":" line ":" column ": " (message) " (typecheck)" line-end)
    (error line-start (file-name) ":" line ":" (message) " (typecheck)" line-end)
    (info line-start (file-name) ":" line ":" column ": " (message) line-end)
    (info line-start (file-name) ":" line ":" (message) line-end))
-  :modes go-mode)
+  :modes (go-mode go-ts-mode))
 
 ;;;###autoload
 (defun flycheck-golangci-lint-setup ()
