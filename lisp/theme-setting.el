@@ -102,7 +102,17 @@
  '(magit-section-highlight ((t (:inherit hl-line))))
  '(magit-diff-file-heading-selection ((t (:inherit region :extend t :foreground "salmon4"))))
  
- '(tooltip ((t (:background "#c8c6dd" :foreground "#655370" :underline nil :slant normal :weight normal :height 1.3)))))
+ '(tooltip ((t (:background "#c8c6dd" :foreground "#655370" :underline nil :slant normal :weight normal :height 1.3))))
+
+ ;; ediff
+ '(ediff-current-diff-A ((t (:extend t :background "#c2d8f2"))))
+ '(ediff-current-diff-Ancestor ((t (:extend t :background "#c2d8f2"))))
+ '(ediff-current-diff-B ((t (:extend t :background "#c2d8f2"))))
+ '(ediff-current-diff-C ((t (:extend t :background "#c2d8f2"))))
+ '(ediff-fine-diff-A ((t (:background "#f1d9e4"))))
+ '(ediff-fine-diff-B ((t (:background "#f1d9e4"))))
+ '(ediff-fine-diff-C ((t (:background "#f1d9e4"))))
+ )
 
  
 (require 'doom-modeline)
