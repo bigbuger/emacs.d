@@ -109,9 +109,9 @@
  '(ediff-current-diff-Ancestor ((t (:extend t :background "#c2d8f2"))))
  '(ediff-current-diff-B ((t (:extend t :background "#c2d8f2"))))
  '(ediff-current-diff-C ((t (:extend t :background "#c2d8f2"))))
- '(ediff-fine-diff-A ((t (:background "#f1d9e4"))))
- '(ediff-fine-diff-B ((t (:background "#f1d9e4"))))
- '(ediff-fine-diff-C ((t (:background "#f1d9e4"))))
+ '(ediff-fine-diff-A ((t (:background "#ffe9eb"))))
+ '(ediff-fine-diff-B ((t (:background "#f1effb"))))
+ '(ediff-fine-diff-C ((t (:background "#f2c9eb"))))
  )
 
  
