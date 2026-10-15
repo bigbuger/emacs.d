@@ -22,12 +22,6 @@
 
 (setq flycheck-indication-mode 'right-fringe)
 
-(defvar-local flycheck-local-checkers nil)
-(defun +flycheck-checker-get(fn checker property)
-  (or (alist-get property (alist-get checker flycheck-local-checkers))
-      (funcall fn checker property)))
-(advice-add 'flycheck-checker-get :around '+flycheck-checker-get)
-
 (setq flycheck-checker-error-threshold 600
       flycheck-highlighting-style 'level-face)
 
