@@ -18,6 +18,8 @@
 (define-key lsp--inlay-hint-mouse-map [mouse-1] nil)
 (define-key lsp--inlay-hint-mouse-map [double-mouse-1] #'lsp--inlay-hint-mouse-handler)
 
+(setq lsp-modeline-diagnostics-enable nil) ;; 不常用，关闭
+(setq lsp-modeline-code-actions-enable nil)
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 
 (setq lsp-headerline-breadcrumb-enable t)
