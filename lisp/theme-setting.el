@@ -124,7 +124,7 @@
 (require 'doom-modeline)
 ;; How tall the mode-line should be. It's only respected in GUI.
 ;; If the actual char height is larger, it respects the actual height.
-(setq doom-modeline-height 12)
+(setq doom-modeline-height 26)
 
 (defun my-doom-modeline--font-height ()
   "Calculate the actual char height of the mode-line."
