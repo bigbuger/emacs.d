@@ -114,11 +114,17 @@
  '(ediff-fine-diff-C ((t (:background "#f2c9eb"))))
  )
 
+(use-package poke-line
+  :ensure t
+  :config
+  (poke-line-global-mode 1)
+  (setq poke-line-bar-length 12)
+  (setq-default poke-line-pokemon "psyduck"))
  
 (require 'doom-modeline)
 ;; How tall the mode-line should be. It's only respected in GUI.
 ;; If the actual char height is larger, it respects the actual height.
-(setq doom-modeline-height 18)
+(setq doom-modeline-height 12)
 
 (defun my-doom-modeline--font-height ()
   "Calculate the actual char height of the mode-line."
