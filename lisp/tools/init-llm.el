@@ -29,8 +29,7 @@
   (add-to-list 'display-buffer-alist
 	       '((major-mode . agent-shell-mode)
 		 display-buffer-in-direction
-		 (direction . down)
-		 (dedicated . t)))
+		 (direction . down)))
 
   ;; Support to display directory in buffer listings.
   (add-hook 'agent-shell-mode-hook

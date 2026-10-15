@@ -116,7 +116,8 @@
 ;; It is intended to make shell completion in Emacs comparable to the rather excellent completion provided by both Bash and Zsh.
 (use-package pcmpl-args
   :init
-  (defalias 'pcomplete/rg 'pcmpl-args-pcomplete-on-help))
+  (defalias 'pcomplete/rg 'pcmpl-args-pcomplete-on-help)
+  (defalias 'pcomplete/jq 'pcmpl-args-pcomplete-on-help))
 
 (defvar pcmpl-git-ref-list-cmd "git for-each-ref refs/ --format='%(refname)'"
   "The `git' command to run to get a list of refs.")
