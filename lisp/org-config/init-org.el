@@ -20,6 +20,7 @@
       org-fontify-quote-and-verse-blocks t ;; 引用块也高亮
       org-src-preserve-indentation t
       org-bookmark-names-plist nil ;; 不要把 org 的东西放到书签
+      org-tags-column 10 ;; tag 不要加那么多空格，默认是向右对齐，离太远了
       org-id-method 'ts
       )
 
