@@ -47,6 +47,11 @@
   :load-path "~/.emacs.d/lisp/libs/emt"
   :hook (after-init . emt-mode))
 
+(use-package format-all
+  :bind (:map prog-mode-map
+	      ("C-M-l" . format-all-region-or-buffer))
+  :commands (format-all-mode format-all-region-or-buffer))
+
 (provide 'init-other-tools)
 
 ;;; init-other-tools.el ends here

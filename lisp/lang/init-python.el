@@ -2,7 +2,7 @@
 ;;;
 
 ;;; Commentary:
-;; 
+;;
 
 ;;; Code:
 
@@ -145,6 +145,13 @@
 (require 'python-rope)
 (with-eval-after-load 'python
   (define-key python-base-mode-map (kbd "C-c <RET>") #'rope-transient))
+
+(use-package format-all
+  :hook
+  (python-ts-mode . (lambda ()
+		      (setq-local format-all-default-formatters
+				  '(("Python" ruff)))
+		      (format-all-ensure-formatter))))
 
 (provide 'init-python)
 

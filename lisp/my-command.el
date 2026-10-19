@@ -64,13 +64,13 @@
 
 (global-set-key (kbd "C-c :") 'my-sed)
 
-(defun my-indent-buffer ()
-  "Indent whole buffer."
-  (interactive)
-  (save-excursion
-    (indent-region (point-min) (point-max) nil)))
+;; (defun my-indent-buffer ()
+;;   "Indent whole buffer."
+;;   (interactive)
+;;   (save-excursion
+;;     (indent-region (point-min) (point-max) nil)))
 
-(global-set-key (kbd "C-M-l") 'my-indent-buffer)
+;; (global-set-key (kbd "C-M-l") 'my-indent-buffer)
 
 
 (defun my-new-line ()
