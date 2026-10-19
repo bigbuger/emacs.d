@@ -372,6 +372,7 @@ This is the function to be used for the hook `completion-at-point-functions'."
           (when-let (regexps (seq-filter #'consult--valid-regexp-p (list input)))
             (apply-partially #'consult--highlight-regexps regexps ignore-case))))
 
+  ;; 配置 consult-ripgrep 如果开头用 / 就直接给到 rg 作为正则。有时候 order less 和 consult 的行为太复杂了，根本就是另外一套正则语法
   (defun my-consult-regex-compiler (input type ignore-case)
     "用 / 开头时使用原始正则."
     (if (string-prefix-p "/" (minibuffer-contents))

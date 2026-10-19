@@ -377,6 +377,9 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
 (add-hook 'rg-mode-hook #'hl-line-mode)
 
 (use-package avy
+  :config
+  (setq avy-all-windows 'all-frames)
+  
   :bind
   (("C-c j"	.	avy-goto-word-1)
    ("M-g w"	.	avy-goto-word-or-subword-1)
