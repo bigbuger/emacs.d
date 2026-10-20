@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+local gofmt_args=("-s")
+local last=""
+for a ($*) {
+    if [[ $last != "-srcdir" && $a != "-srcdir" ]]; then
+	gofmt_args+=$a
+    fi
+    last="$a"
+}
+
+gofmt ${gofmt_args[*]} && goimports $@

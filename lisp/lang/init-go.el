@@ -8,12 +8,11 @@
 
 
 ;; go install github.com/go-delve/delve/cmd/dlv@latest
-;; go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-;; go get golang.org/x/tools/gopls@latest
+;; go install golang.org/x/tools/gopls@latest
 ;; go install github.com/cweill/gotests/...@latest
 ;; go install github.com/fatih/gomodifytags@latest
 ;; go install github.com/x-motemen/gore/cmd/gore@latest
-(require 'go-mode)
+(require 'go-mode) ;; 现在只用 go-add-import 了，以后看看是不是去掉
 (require 'go-dlv)
 (require 'go-gen-test)
 (require 'go-tag)
@@ -185,13 +184,21 @@
 	       '(gocompile . ("^\\([[:alnum:]-_/@\\\\.]+.go\\):\\([0-9]+\\)")))
   (add-to-list 'compilation-error-regexp-alist 'gopanic))
 
-(setq gofmt-show-errors nil)
-;; gof is a shell file
-;; (setq gofmt-command "~/.emacs.d/bin/gof")
+(use-package format-all
+  :config
+  ;; gof is a shell file
+  (define-format-all-formatter gof
+    (:executable "~/.emacs.d/bin/gof")
+    (:install)
+    (:languages "Go")
+    (:features)
+    (:format (format-all--buffer-easy executable)))
 
-;; override
-(defun gofmt--is-goimports-p ()
-  (member (file-name-base gofmt-command) '("goimports" "gof")))
+  :hook
+  (go-ts-mode . (lambda ()
+		  (setq-local format-all-default-formatters
+			      '(("Go" gof)))
+		  (format-all-ensure-formatter))))
 
 ;; Set up before-save hooks to format buffer and add/delete imports.
 ;; Make sure you don't have other gofmt/goimports hooks enabled.
@@ -374,7 +381,7 @@
   (define-key go-ts-mode-map (kbd "s-g t") #'go-tag-add)
   (define-key go-ts-mode-map (kbd "s-g T") #'go-tag-remove)
   ;; (define-key go-ts-mode-map (kbd "s-g i") #'go-impl) ;; just use gopls?
-  (define-key go-ts-mode-map (kbd "s-g f") #'gofmt)
+  ;; (define-key go-ts-mode-map (kbd "s-g f") #'gofmt)
   (define-key go-ts-mode-map (kbd "s-g l") #'golangci-lint)
   (define-key go-ts-mode-map (kbd "s-g c") #'go-format-struct-comment)
   (define-key go-mod-ts-mode-map (kbd "s-g l") #'golangci-lint)
