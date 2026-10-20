@@ -15,3 +15,7 @@ elpa
 /edraw-ui-state.config
 /.#edraw-custom.eshapes
 /.agent-shell/
+/clutch-jdbc/
+/clutch/
+/projectile-sessions/
+/dap-ui-repl-python-history

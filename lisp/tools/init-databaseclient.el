@@ -119,6 +119,26 @@ Output example:`
 		"\\s-*\\(\\s\".*?\\s\"\\|NULL\\|[0-9]+\\|`.*?`\\|[a-zA-Z0-9_]+\\)\\(\\s-*,\\s-*\\)"
 		-2 1 t))
 
+(use-package ob-duckdb
+  :ensure t
+  :after org
+  :custom
+  ;; Limit output to prevent Emacs freezing on large results
+  (org-babel-duckdb-max-rows 200000)
+
+  ;; Show progress for async queries
+  (org-babel-duckdb-show-progress t)
+  (org-babel-duckdb-progress-display 'minibuffer) ; or 'popup
+
+  ;; Auto-show queue when multiple async queries pending
+  (org-babel-duckdb-queue-display 'auto) ; or 'manual
+  (org-babel-duckdb-queue-position 'bottom) ; or 'side
+
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   (append org-babel-load-languages '((duckdb . t)))))
+
 (provide 'init-databaseclient)
 
 ;;; init-databaseclient.el ends here
