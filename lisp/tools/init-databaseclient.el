@@ -2,7 +2,7 @@
 ;;;###autoload
 
 ;;; Commentary:
-;; 
+;;
 
 ;;; Code:
 
@@ -88,14 +88,15 @@ Output example:`
             :buffer buffer))
 	 (gethash "violations" node)))
       (json-parse-string output))))
-  
+
   (defvar sql-product->sqlfluff-dialect
     '((mysql       . "mysql")
       (postgresql  . "postgres")
       (sqlite      . "sqlite")
       (oracle      . "oracle")
       (db2         . "db2")
-      (ansi        . "ansi"))
+      (ansi        . "ansi")
+      (duckdb      . "duckdb"))
     "Map Emacs `sql-product' symbols to SQLFluff dialect names.")
 
   (defun sqlfluff-dialect-for-buffer ()
@@ -103,7 +104,7 @@ Output example:`
     (let ((product (or sql-product 'ansi)))  ; 默认回退到 ansi
       (or (cdr (assq product sql-product->sqlfluff-dialect))
           "ansi")))
-  
+
   (flycheck-define-checker sql-sqlfluff
     "A MySQL SQL checker using sqlfluff."
     :command ("sqlfluff" "lint" "--dialect" (eval (sqlfluff-dialect-for-buffer)) "--format" "json" "--exclude-rules" "all" "-")
@@ -118,6 +119,13 @@ Output example:`
   (align-regexp (region-beginning) (region-end)
 		"\\s-*\\(\\s\".*?\\s\"\\|NULL\\|[0-9]+\\|`.*?`\\|[a-zA-Z0-9_]+\\)\\(\\s-*,\\s-*\\)"
 		-2 1 t))
+
+(with-eval-after-load 'sql
+  (add-to-list 'sql-product-alist
+	       '(duckdb
+		 :name "duckdb"
+		 :font-lock sql-mode-ansi-font-lock-keywords
+		 :statement sql-ansi-statement-starters)))
 
 (use-package ob-duckdb
   :ensure t
