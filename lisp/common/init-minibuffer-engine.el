@@ -54,6 +54,16 @@ since the whatis index is broken post-SIP."
   (advice-add #'Man-completion-table :before-while #'macos-man-completion-table-before-while)
   )
 
+(use-package vertico-directory
+  :ensure nil ; comes with vertico
+  :after vertico
+  :bind (:map vertico-map
+              ;; ("RET" . vertico-directory-enter) ;; 在目录按 RET 把这个目录变为当前输入候选，要加 C-u 才是打开目录，我平时用 TAB 补全到输入啦
+              ;; ("DEL" . vertico-directory-delete-char) ;; 如果当前光标前是 /，就删掉签名的目录，不然就是删字符
+              ("M-DEL" . vertico-directory-delete-word)) ;; 和 -delete-char 差不多，不过是删除 word 的版本
+  ;; 在目录后输入 ～ 和 / ， 直接删掉前面已经输入的东西, 因为 emacs 的默认行为就是在目录后可以输入 ～ 和 / 直接到 home 或者 root
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+
 ;; Do not allow the cursor in the minibuffer prompt
 (setq minibuffer-prompt-properties
       '(read-only t cursor-intangible t face minibuffer-prompt))
