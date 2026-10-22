@@ -178,10 +178,11 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
   (setq dmacro-key (kbd "M-E"))
   (global-dmacro-mode t))
 
-;; expland-regin
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
-;; end expland-regin
+;; expand region, by expreg, support tree-sitter
+(use-package expreg
+  :ensure t
+  :bind (("C-=" . expreg-expand)
+         ("C--" . expreg-contract)))
 
 ;; string-inflection 驼峰/下划线/横线风格自由切换
 (require 'string-inflection)

@@ -11,8 +11,6 @@
     popup
     crux
     string-inflection
-    ;; multiple-cursors
-    expand-region
     smartparens
     pyim
     
@@ -89,12 +87,10 @@
     ;; go
     go-mode
     gotest
-    ;; go-scratch
     go-dlv
     go-gen-test
     go-impl
     go-tag
-    ;; go-fill-struct
     gorepl-mode
 
     ;;rust
