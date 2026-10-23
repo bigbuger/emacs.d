@@ -10,6 +10,18 @@
 ;; 显示递归 minibuffer 的深度，以防自己忘了，按多几次 <ESC> <ESC> <ESC>
 (minibuffer-depth-indicate-mode)
 
+;; modeline line 显示递归编辑状态， 默认的 mode-line 会用方括号展示层级，比较隐患，用这个展示 @ 表示一层, doom-modeline 不展示这玩意了
+(use-package recursion-indicator
+  :demand t
+  :config
+  (setq recursion-indicator-symbols
+	'((completion "" recursion-indicator-completion) ; completing-read 会到这个，烦
+          (prompt     "" recursion-indicator-prompt) ;
+          (suspend    "S" recursion-indicator-suspend)
+          (t          "@" warning)))
+  (recursion-indicator-mode))
+
+
 (use-package vertico
   :bind (:map vertico-map
 	      ("C-M-n" . vertico-next-group)
@@ -63,6 +75,12 @@ since the whatis index is broken post-SIP."
               ("M-DEL" . vertico-directory-delete-word)) ;; 和 -delete-char 差不多，不过是删除 word 的版本
   ;; 在目录后输入 ～ 和 / ， 直接删掉前面已经输入的东西, 因为 emacs 的默认行为就是在目录后可以输入 ～ 和 / 直接到 home 或者 root
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+
+(use-package vertico-suspend
+  :ensure nil ; comes with vertico
+  :after vertico
+
+  :bind (("C-'" . vertico-suspend)))
 
 ;; Do not allow the cursor in the minibuffer prompt
 (setq minibuffer-prompt-properties
