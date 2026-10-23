@@ -9,4 +9,5 @@ for a ($*) {
     last="$a"
 }
 
-gofmt ${gofmt_args[*]} && goimports $@
+gofmt ${gofmt_args[*]} 2>/dev/null 
+goimports $@ 2>/dev/null 

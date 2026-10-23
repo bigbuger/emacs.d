@@ -12,17 +12,14 @@
 ;; go install github.com/cweill/gotests/...@latest
 ;; go install github.com/fatih/gomodifytags@latest
 ;; go install github.com/x-motemen/gore/cmd/gore@latest
-(require 'go-mode) ;; 现在只用 go-add-import 了，以后看看是不是去掉
-(require 'go-dlv)
+(require 'go-ts-mode)
+(require 'go-mode)
+(require 'go-dlv) ;; 依赖 go-mod
+(require 'go-tag) ;; 依赖 go-mod
+(require 'dap-dlv-go)
 (require 'go-gen-test)
-(require 'go-tag)
 (require 'gorepl-mode)
 (require 'gotest)
-
-
-(require 'dap-dlv-go)
-
-(require 'go-ts-mode)
 
 (setq treesit-language-source-alist
       (append '((go "https://github.com/tree-sitter/tree-sitter-go")
@@ -186,7 +183,7 @@
 
 (use-package format-all
   :config
-  ;; gof is a shell file
+  ;; gof is a shell file, it run gofmt firset, goimports second
   (define-format-all-formatter gof
     (:executable "~/.emacs.d/bin/gof")
     (:install)
@@ -197,7 +194,7 @@
   :hook
   (go-ts-mode . (lambda ()
 		  (setq-local format-all-default-formatters
-			      '(("Go" gof)))
+			      '(("Go" goimports)))
 		  (format-all-ensure-formatter))))
 
 ;; Set up before-save hooks to format buffer and add/delete imports.
@@ -248,6 +245,24 @@
   (with-go-project-root
    (compile (concat "go get " pkg))))
 
+(defun my-go-packages-go-list ()
+  "Return a list of all Go packages, using `go list'."
+  (process-lines go-command "list" "-e" "all"))
+
+(defun my-go-import-add (import)
+  "Add a new IMPORT to the list of imports, by call lsp.
+gopls's doc https://github.com/golang/tools/blob/gopls/v0.24.0/gopls/internal/cmd/usage/execute.hlp.
+This command of gopls is not a stable interface: commands may change or disappear without notice.
+Not support alias."
+  (interactive
+   (list
+    (replace-regexp-in-string "^[\"']\\|[\"']$" "" (completing-read "Package: " (my-go-packages-go-list)))))
+  (save-excursion)
+  (when-let ((uri (lsp--buffer-uri)))
+    (lsp-request "workspace/executeCommand"
+             (list :command "gopls.add_import"
+                   :arguments (vector (list :importPath import
+					  :uri uri))))))
 
 ;; (with-eval-after-load 'projectile
 ;;   (projectile-register-project-type 'go-mod '("go.mod")
@@ -376,7 +391,7 @@
     result))
 
 (with-eval-after-load 'go-ts-mode
-  (define-key go-ts-mode-map (kbd "C-c C-a") #'go-import-add)
+  (define-key go-ts-mode-map (kbd "C-c C-a") #'my-go-import-add)
   
   (define-key go-ts-mode-map (kbd "s-g t") #'go-tag-add)
   (define-key go-ts-mode-map (kbd "s-g T") #'go-tag-remove)

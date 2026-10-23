@@ -105,6 +105,8 @@
     dante
     lsp-haskell
     company-cabal
+
+    ;; idris
     idris-mode
     
     ;; scheme
