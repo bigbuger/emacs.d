@@ -29,6 +29,19 @@ Like normal Emacs `C-k'.  Kill to end of line and put content in kill-ring."
     (ghostel-send-key "k" "ctrl"))
   )
 
+(use-package consult-ghostel
+  :hook (after-init . consult-ghostel-mode)
+  :bind (:map ghostel-semi-char-mode-map
+              ("M-r" . consult-ghostel-history)))
+
+(use-package vertico-posframe
+  :after (vertico consult-ghostel)
+  :config
+  (setf (alist-get 'consult-ghostel-history vertico-multiform-commands)
+        '(posframe
+	  (vertico-posframe-poshandler . posframe-poshandler-point-bottom-left-corner)
+	  (vertico-posframe-width . 80))))
+
 (defun ghostel-projectile (&optional arg)
   "Start a new Ghostel terminal in the current project's root.
 The buffer name is prefixed with the project name.
