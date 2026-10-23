@@ -247,7 +247,7 @@
 
 (defun my-go-packages-go-list ()
   "Return a list of all Go packages, using `go list'."
-  (process-lines go-command "list" "-e" "all"))
+  (process-lines "go" "list" "-e" "all"))
 
 (defun my-go-import-add (import)
   "Add a new IMPORT to the list of imports, by call lsp.
