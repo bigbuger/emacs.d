@@ -225,6 +225,10 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
   :bind (:map embark-region-map
 	      ("t" . transpose-mark-region)
 	      ("T" . transpose-mark-region-abort)))
+  :bind (("C-x M-t" . transpose-mark-region)
+	 :map embark-region-map
+	 ("t" . transpose-mark-region)
+	 ("T" . transpose-mark-region-abort)))
 
 ;; 自动保存
 (setq auto-save-visited-interval 1)
