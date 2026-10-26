@@ -5,6 +5,18 @@
 
 ;;; Code:
 
+;; 调用 rg 搜索, 我一般用 consult-rg，不过有时候它的 regex 会被各种转义, 所以留了这个
+(require 'rg)
+(rg-define-search my-rg-project
+  :query ask
+  :format regexp
+  :files "everything"
+  :confirm prefix
+  :dir project)
+(global-set-key (kbd "M-s r") #'rg-menu)
+(add-hook 'rg-mode-hook #'hl-line-mode)
+
+
 ;; dash doc 查 dash 文档
 (use-package consult-dash
   :demand t

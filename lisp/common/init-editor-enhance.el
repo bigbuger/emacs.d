@@ -359,27 +359,6 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
   (prog-mode . hs-minor-mode))
 ;; end hideshow
 
-
-;; This package provides helper functions to delete, rename, or copy buffer files:
-;; 
-;; bufferfile-rename: Renames the file visited by the current buffer and updates the buffer name for all associated buffers, including clones/indirect buffers. It also ensures that buffer-local features referencing the file, such as Eglot or dired buffers, are correctly updated to reflect the new file name.
-;; bufferfile-delete: Delete the file associated with a buffer and kill all buffers visiting the file, including clones/indirect buffers.
-;; bufferfile-copy: Copies the file visited by the current buffer to a new file.
-;; The functions above also ensures that any modified buffers are saved prior to executing operations like renaming, deleting, or copying.
-(use-package bufferfile
-  :ensure t
-  :custom
-  ;; If non-nil, display messages during file renaming operations
-  (bufferfile-verbose nil)
-
-  ;; If non-nil, enable using version control (VC) when available
-  (bufferfile-use-vc nil)
-
-  ;; Specifies the action taken after deleting a file and killing its buffer.
-  (bufferfile-delete-switch-to 'parent-directory)
-  :bind (("C-c M-d" . bufferfile-delete)
-	 ("C-c M-c" . bufferfile-copy)))
-
 ;; grep 分组
 (setq grep-use-headings t)
 (with-eval-after-load 'grep
@@ -388,16 +367,6 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
 (use-package wgrep
   :bind (:map grep-mode-map
 	      ("e" . wgrep-change-to-wgrep-mode)))
-
-(require 'rg)
-(rg-define-search my-rg-project
-  :query ask
-  :format regexp
-  :files "everything"
-  :confirm prefix
-  :dir project)
-(global-set-key (kbd "M-s r") #'rg-menu)
-(add-hook 'rg-mode-hook #'hl-line-mode)
 
 (use-package avy
   :config
