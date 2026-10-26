@@ -210,6 +210,20 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
   (lisp-mode . symbol-overlay-mode)
   (scheme-mode . symbol-overlay-mode))
 
+;; 跨 windows 高亮当前选择
+(use-package selection-highlight-mode
+  :vc (:url "https://github.com/balloneij/selection-highlight-mode" :rev :newest)
+  :commands (selection-highlight-mode))
+
+;; transpose-xxx 加上高亮
+(use-package transpose-mark
+  :ensure t)
+
+(use-package embark
+  :after (transpose-mark)
+
+  :bind (:map embark-region-map
+	      ("t" . transpose-mark-region)))
 
 ;; 自动保存
 (setq auto-save-visited-interval 1)
