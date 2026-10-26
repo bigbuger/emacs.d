@@ -223,7 +223,8 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
   :after (transpose-mark)
 
   :bind (:map embark-region-map
-	      ("t" . transpose-mark-region)))
+	      ("t" . transpose-mark-region)
+	      ("T" . transpose-mark-region-abort)))
 
 ;; 自动保存
 (setq auto-save-visited-interval 1)
