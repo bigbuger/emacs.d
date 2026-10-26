@@ -222,13 +222,15 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
 (use-package embark
   :after (transpose-mark)
 
-  :bind (:map embark-region-map
-	      ("t" . transpose-mark-region)
-	      ("T" . transpose-mark-region-abort)))
   :bind (("C-x M-t" . transpose-mark-region)
 	 :map embark-region-map
 	 ("t" . transpose-mark-region)
 	 ("T" . transpose-mark-region-abort)))
+
+;; HighlightLibrary https://www.emacswiki.org/emacs/HighlightLibrary, 默认前缀是 C-x X , 不过被 edebug 占用了
+(use-package highlight
+  :ensure t
+  :bind-keymap ("C-c h" . hlt-map))
 
 ;; 自动保存
 (setq auto-save-visited-interval 1)
@@ -327,7 +329,8 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
   (add-to-list 'isearch-mb--after-exit #'visual-replace-from-isearch)
   (define-key isearch-mb-minibuffer-map (kbd "C-w") #'isearch-yank-word)
   (define-key isearch-mb-minibuffer-map (kbd "C-c r") #'visual-replace-from-isearch)
-
+  (define-key isearch-mb-minibuffer-map (kbd "C-c C-o") #'isearch-occur)
+  
   :init
   (isearch-mb-mode))
 
