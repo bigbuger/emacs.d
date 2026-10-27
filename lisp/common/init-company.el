@@ -8,7 +8,13 @@
 ;;; Code:
 
 (require 'company)
-(setq company-global-minibuffer nil)
+(setq company-global-minibuffer t)
+;; minibuffer 只用自动补全 yasnippet, 且要手动触发, 不然好多情况好复杂
+(add-hook 'minibuffer-setup-hook
+	  #'(lambda ()
+	      (setq-local company-backends '(company-yasnippet)
+			  company-idle-delay nil)))
+
 (global-company-mode 1)
 (setq company-minimum-prefix-length 1)
 (setq company-require-match 'never)

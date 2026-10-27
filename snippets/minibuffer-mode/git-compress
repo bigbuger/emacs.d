@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: git rest soft on to merge-base
+# key: >git-compress
+# --
+git reset --soft $(git merge-base master HEAD)
