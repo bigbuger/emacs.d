@@ -1,5 +1,6 @@
 # -*- mode: snippet -*-
 # name: cd in each dir
+# condition: (memq current-minibuffer-command '(dired-do-shell-command dired-do-async-shell-command))
 # key: >cde
 # --
 (cd \`?\` && $0)

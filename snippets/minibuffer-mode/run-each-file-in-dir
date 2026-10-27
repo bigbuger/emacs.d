@@ -1,5 +1,6 @@
 # -*- mode: snippet -*-
 # name: cd in each file's dir and run it
+# condition: (memq current-minibuffer-command '(dired-do-shell-command dired-do-async-shell-command))
 # key: >run-all
 # --
 (cd \$(dirname \`?\`) && ./\$(basename \`?\`))
