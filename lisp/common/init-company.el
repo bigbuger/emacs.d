@@ -8,12 +8,16 @@
 ;;; Code:
 
 (require 'company)
-(setq company-global-minibuffer t)
-;; minibuffer 只用自动补全 yasnippet, 且要手动触发, 不然好多情况好复杂
+
+
+;; minibuffer 只用自动补全 yasnippet, 不然好多情况好复杂, 非常之乱
+(defun my/company-minibuffer-predicate ()
+  (memq this-command '(shell-command compile dired-do-shell-command)))
+(setq company-global-minibuffer #'my/company-minibuffer-predicate)
+
 (add-hook 'minibuffer-setup-hook
 	  #'(lambda ()
-	      (setq-local company-backends '(company-yasnippet)
-			  company-idle-delay nil)))
+	      (setq-local company-backends '(company-yasnippet))))
 
 (global-company-mode 1)
 (setq company-minimum-prefix-length 1)
