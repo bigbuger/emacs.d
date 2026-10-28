@@ -73,6 +73,18 @@
 	(unusedresult . t) ;; check for unused variables and suggest fixes
 	))
 
+;; 将 dap 的 outPutMode 统一设置为 remote，这样就不怕程序输出内容丢失
+(defun my-set-go-output-mode-remote ()
+  "Set Go DAP `outputMode' to remote."
+  (dolist (template dap-debug-template-configurations)
+    (let ((config (cdr template)))
+      (when (equal (plist-get config :type) "go")
+        (plist-put config :outputMode "remote")))))
+
+(with-eval-after-load 'dap-dlv-go
+  (my-set-go-output-mode-remote))
+
+
 (add-to-list 'load-path "~/.emacs.d/lisp/libs/flycheck-golangci-lint")
 (require 'flycheck-golangci-lint)
 (add-to-list 'flycheck-checkers 'golangci-lint 'append)
