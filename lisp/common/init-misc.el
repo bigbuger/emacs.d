@@ -249,16 +249,22 @@
 
 ;; tooltips 大小用在 mac 中用 system 的不能正确调整
 (setq use-system-tooltips nil)
-
 (setopt glyphless-char-display-control
   '((format-control		.	acronym)
     (no-font			.	hex-code)
     (c1-control			.	hex-code)
     (variation-selectors	.	acronym)))
 
+;; 快速拷贝当前路径、文件名、函数名
 (use-package context-clues
   :ensure t
   :bind ("C-x c" . context-clues))
+
+;; 粘贴，撤回时闪烁展示
+(use-package goggles
+  :hook ((prog-mode text-mode) . goggles-mode)
+  :config
+  (setq-default goggles-pulse t)) ;; set to nil to disable pulsing
 
 (provide 'init-misc)
 
