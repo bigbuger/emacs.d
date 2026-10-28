@@ -339,10 +339,10 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
 ;; about indent
 ;; highlight-indent-guides 显示缩进对齐线
 (require 'highlight-indent-guides)
-(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 (setq highlight-indent-guides-method 'character)
-(setq highlight-indent-guides-responsive 'top)
-(setq highlight-indent-guides-auto-top-character-face-perc 23)
+(setq highlight-indent-guides-character ?┊)
+(setq highlight-indent-guides-responsive nil)
+(setq highlight-indent-guides-auto-top-character-face-perc 25)
 (setq highlight-indent-guides-auto-character-face-perc 10)
 
 (defun my-highlighter (level responsive display)
@@ -351,6 +351,11 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
     (highlight-indent-guides--highlighter-default level responsive display)))
 
 (setq highlight-indent-guides-highlighter-function 'my-highlighter)
+
+(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+(add-hook 'conf-mode-hook 'highlight-indent-guides-mode)
+(with-eval-after-load 'yaml-mode
+  (add-hook 'yaml-mode-hook 'highlight-indent-guides-mode))
 ;; end indent
 
 ;; hideshow

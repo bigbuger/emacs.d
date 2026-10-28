@@ -104,8 +104,12 @@
 
 ;; 高亮括号匹配
 (setq show-paren-delay 0
-      show-paren-style 'parenthesis)
+      show-paren-style 'parenthesis
+      show-paren-when-point-inside-paren t)
 (show-paren-mode 1)
+
+;; 屏幕外括号匹配用 overlay 显示出来
+(setq show-paren-context-when-offscreen 'overlay)
 
 ;; 搜索替换时，不要忽略大小写
 (setq case-replace nil)
