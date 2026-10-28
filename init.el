@@ -1,4 +1,4 @@
-(setq warning-minimum-level :error)
+(add-to-list 'warning-suppress-log-types '(files missing-lexbind-cookie))
 
 (require 'package)
 

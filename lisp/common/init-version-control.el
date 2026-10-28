@@ -13,7 +13,7 @@
 (setopt
  vc-auto-revert-mode t                    ; EMACS-31
  ;; vc-allow-rewriting-published-history t   ; EMACS-31
- vc-dir-auto-hide-up-to-date 'revert)     ; EMACS-31
+ vc-dir-auto-hide-up-to-date t)     ; EMACS-31
 
 (require 'magit)
 (magit-auto-revert-mode -1)
