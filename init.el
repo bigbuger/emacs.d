@@ -102,6 +102,7 @@
 		  (load  "~/.emacs.d/lisp/theme-setting.el"))))
   (load "~/.emacs.d/lisp/theme-setting.el"))
 
+(load custom-file 'noerror)
 (desktop-save-mode 1)
 
 ;; load private setting, like passowd, token etc
@@ -110,6 +111,5 @@
     (let ((pfs (directory-files private-setting-dir nil "\\.el$")))
       (dolist (f pfs)
 	(let ((l (concat private-setting-dir f)))
-	  (load-file l)))))
-
-(load custom-file 'noerror)
+	  (with-demoted-errors
+	      (load-file l))))))
