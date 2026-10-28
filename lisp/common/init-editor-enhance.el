@@ -341,6 +341,16 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
 (require 'highlight-indent-guides)
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 (setq highlight-indent-guides-method 'character)
+(setq highlight-indent-guides-responsive 'top)
+(setq highlight-indent-guides-auto-top-character-face-perc 30)
+(setq highlight-indent-guides-auto-character-face-perc 10)
+
+(defun my-highlighter (level responsive display)
+  (if (> 1 level)
+      nil
+    (highlight-indent-guides--highlighter-default level responsive display)))
+
+(setq highlight-indent-guides-highlighter-function 'my-highlighter)
 ;; end indent
 
 ;; hideshow
