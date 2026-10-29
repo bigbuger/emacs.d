@@ -1,6 +1,6 @@
 ;;; init-ghostel.el --- Ghostel is a terminal emulator for Emacs powered by libghostty-vt, the VT engine behind the Ghostty terminal.
 ;;; Commentary:
-;; 
+;;
 
 ;;; Code:
 
@@ -20,7 +20,7 @@
   :config
   (setopt ghostel-glyph-scale-floor 1.0)
   (setopt ghostel-mouse-drag-input-mode nil)
-  
+
   (defun my/ghostel-send-C-k-and-kill ()
     "Send `C-k' to ghostel.
 Like normal Emacs `C-k'.  Kill to end of line and put content in kill-ring."
@@ -30,6 +30,14 @@ Like normal Emacs `C-k'.  Kill to end of line and put content in kill-ring."
   )
 
 (use-package consult-ghostel
+  :config
+  (defun my-set-ghostel-mode-line ()
+    (setq-local mode-line-misc-info
+		'(:eval (when ghostel--mode-line-tag
+			  (substitute-command-keys
+			   "Use \\[ghostel-semi-char-mode] swith to Default mode")))))
+
+  (add-hook 'ghostel-mode-hook #'my-set-ghostel-mode-line)
   :hook (after-init . consult-ghostel-mode)
   :bind (:map ghostel-semi-char-mode-map
               ("M-r" . consult-ghostel-history)))
