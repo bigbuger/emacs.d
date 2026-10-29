@@ -30,9 +30,6 @@
     ;; file manager
     treemacs
     
-    ;; indent
-    highlight-indent-guides
-
     ;; theme
     spacemacs-theme
     color-theme-sanityinc-tomorrow

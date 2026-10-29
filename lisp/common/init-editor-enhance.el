@@ -1,7 +1,7 @@
 ;;; init-editor-enhance.el --- 编辑增强工具
 
 ;;; Commentary:
-;; 
+;;
 
 ;;; Code:
 
@@ -122,7 +122,7 @@ ARG is pass to `sp-end-of-sexp'"
           (indent-region (region-beginning) (region-end))
 	(indent-region (line-beginning-position) (line-end-position)))
       (setq deactivate-mark deactivate)))
-  
+
   (advice-add 'drag-stuff-up :after 'indent-region-advice)
   (advice-add 'drag-stuff-down :after 'indent-region-advice))
 
@@ -159,7 +159,7 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
   (global-set-key (kbd "C-<")  #'kmacro-x-mc-mark-previous)
   (global-set-key (kbd "C->") #'kmacro-x-mc-mark-next-or-cua-rect)
   (global-set-key (kbd "M-<mouse-1>") #'kmacro-x-mc-mark-at-click)
-  
+
   (setq kmacro-x-mc-live-preview t)
   (define-key kmacro-x-mc-mode-map (kbd "C-<return>") #'kmacro-x-mc-apply)
   (unbind-key "RET" kmacro-x-mc-mode-map)
@@ -247,10 +247,10 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
              (not company-candidates))
          ;; Corfu is not active?
          (or (not (boundp 'corfu--total))
-                     (zerop corfu--total))
+             (zerop corfu--total))
          ;; Org-capture is not active?
          (not (eq (buffer-base-buffer (get-buffer (concat "CAPTURE-" (buffer-name))))
-                          (current-buffer)))
+                  (current-buffer)))
 	 (string-prefix-p (concat (file-truename "~") "/") (file-truename (buffer-file-name)))  ;; 家目录以外的不要自动保存
 	 (not (and
 	       (string-suffix-p ".gpg" (buffer-file-name))
@@ -301,7 +301,7 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
 	      visual-replace-secondary-mode-map)
   (define-key visual-replace-transient-map (kbd "C-n") #'visual-replace-next-match)
   (define-key visual-replace-transient-map (kbd "C-p") #'visual-replace-prev-match)
-  
+
   (setq visual-replace-display-total t)
   (setq visual-replace-min-length 1))
 
@@ -330,32 +330,31 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
   (define-key isearch-mb-minibuffer-map (kbd "C-w") #'isearch-yank-word)
   (define-key isearch-mb-minibuffer-map (kbd "C-c r") #'visual-replace-from-isearch)
   (define-key isearch-mb-minibuffer-map (kbd "C-c C-o") #'isearch-occur)
-  
+
   :init
   (isearch-mb-mode))
 
 (add-hook 'occur-mode-hook #'hl-line-mode)
 
 ;; about indent
-;; highlight-indent-guides 显示缩进对齐线
-(require 'highlight-indent-guides)
-(setq highlight-indent-guides-method 'character)
-(setq highlight-indent-guides-character ?┊)
-(setq highlight-indent-guides-responsive nil)
-(setq highlight-indent-guides-auto-top-character-face-perc 25)
-(setq highlight-indent-guides-auto-character-face-perc 10)
-
-(defun my-highlighter (level responsive display)
-  (if (> 1 level)
-      nil
-    (highlight-indent-guides--highlighter-default level responsive display)))
-
-(setq highlight-indent-guides-highlighter-function 'my-highlighter)
-
-(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-(add-hook 'conf-mode-hook 'highlight-indent-guides-mode)
-(with-eval-after-load 'yaml-mode
-  (add-hook 'yaml-mode-hook 'highlight-indent-guides-mode))
+;; Highlight indentions
+(use-package indent-bars
+  :config
+  
+  (setopt
+   indent-bars-defer-setup t
+   indent-bars-color '(font-lock-comment-face :face-bg nil :blend 0.2)
+   indent-bars-pattern "."
+   indent-bars-width-frac 0.1
+   indent-bars-pad-frac 0.1
+   indent-bars-zigzag nil
+   indent-bars-color-by-depth nil
+   indent-bars-highlight-current-depth nil
+   indent-bars-no-descend-string t
+   indent-bars-no-descend-lists 'skip
+   indent-bars-display-on-blank-lines nil)
+  
+  :hook (prog-mode conf-mode yaml-mode yaml-ts-mode))
 ;; end indent
 
 ;; hideshow
@@ -366,7 +365,7 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
   (setq hs-show-indicators t)
   (unbind-key "<left-fringe> <mouse-1>" hs-minor-mode-map) ;; #'hs-indicator-mouse-toggle-hiding，留给 debug 打断点用
   (unbind-key "<left-margin> <mouse-1>" hs-indicators-map)
-  
+
   :bind
   (:map hs-minor-mode-map
 	("S-<tab>" . hs-toggle-hiding))
@@ -386,7 +385,7 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
 (use-package avy
   :config
   (setq avy-all-windows 'all-frames)
-  
+
   :bind
   (("C-c j"	.	avy-goto-word-1)
    ("M-g w"	.	avy-goto-word-or-subword-1)
