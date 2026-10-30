@@ -5,6 +5,8 @@
 ;; 
 
 ;;; Code:
+(setq js-indent-level 4)
+(setq json-encoding-default-indentation (make-string js-indent-level ?\s))
 (require 'json-mode)
 (add-to-list 'treesit-language-source-alist
 	     '(json "https://github.com/tree-sitter/tree-sitter-json"))
@@ -19,26 +21,14 @@
 
 (add-hook 'json-mode-hook
           (lambda ()
-            (make-local-variable 'js-indent-level)
-            (setq tab-width 4)
-            (setq js-indent-level 4)
+            (setq-local tab-width js-indent-level)
 	    (when (executable-find "jq")
 	      (setq-local flycheck-checker 'json-jq))))
 
 (defun json-sort-keys ()
   "Sort json by keys using jq."
   (interactive)
-  (let* ((cmd "jq --sort-keys --indent 4")
-	 (test-cmd "jq . 1>>/dev/null")
-	 (test-run (shell-command-on-region (point-min) (point-max) test-cmd nil nil "*jq error log*" t)))
-    (if (= test-run 0)
-	(save-excursion
-	  (shell-command-on-region (point-min) (point-max) cmd  (current-buffer) 1)))))
-
-(defun json-format-by-jq ()
-  "Format json by keys using jq."
-  (interactive)
-  (let* ((cmd "jq --indent 4 .")
+  (let* ((cmd (format "jq --sort-keys --indent %d" js-indent-level))
 	 (test-cmd "jq . 1>>/dev/null")
 	 (test-run (shell-command-on-region (point-min) (point-max) test-cmd nil nil "*jq error log*" t)))
     (if (= test-run 0)
@@ -47,8 +37,21 @@
 
 (define-key json-mode-map (kbd "C-c C-s") 'json-sort-keys)
 
-(if (executable-find "jq")
-    (define-key json-mode-map (kbd "C-c C-f") 'json-format-by-jq))
+(use-package format-all
+  :config
+  ;; gof is a shell file, it run gofmt firset, goimports second
+  (define-format-all-formatter jq
+    (:executable "jq")
+    (:install)
+    (:languages "JSON")
+    (:features)
+    (:format (format-all--buffer-easy executable "--indent" (number-to-string js-indent-level))))
+
+  :hook
+  (json-mode . (lambda ()
+		  (setq-local format-all-formatters
+			      '(("JSON" jq))))))
+
 
 (use-package jq-mode)
 
