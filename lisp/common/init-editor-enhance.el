@@ -352,7 +352,7 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
    indent-bars-highlight-current-depth nil
    indent-bars-no-descend-string t
    indent-bars-no-descend-lists 'skip
-   indent-bars-display-on-blank-lines nil)
+   indent-bars-display-on-blank-lines 'least)
   
   :hook (prog-mode conf-mode yaml-mode yaml-ts-mode))
 ;; end indent
