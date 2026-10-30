@@ -62,7 +62,9 @@
 (use-package format-all
   :bind (:map prog-mode-map
 	      ("C-M-l" . format-all-region-or-buffer))
-  :commands (format-all-mode format-all-region-or-buffer))
+  :commands (format-all-mode format-all-region-or-buffer)
+  :config
+  (add-hook 'prog-mode-hook #'format-all-ensure-formatter))
 
 (provide 'init-other-tools)
 

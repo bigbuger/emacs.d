@@ -149,9 +149,8 @@
 (use-package format-all
   :hook
   (python-ts-mode . (lambda ()
-		      (setq-local format-all-default-formatters
-				  '(("Python" ruff)))
-		      (format-all-ensure-formatter))))
+		      (setq-local format-all-formatters
+				  '(("Python" ruff))))))
 
 (provide 'init-python)
 

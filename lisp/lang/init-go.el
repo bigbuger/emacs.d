@@ -205,9 +205,8 @@
 
   :hook
   (go-ts-mode . (lambda ()
-		  (setq-local format-all-default-formatters
-			      '(("Go" goimports)))
-		  (format-all-ensure-formatter))))
+		  (setq-local format-all-formatters
+			      '(("Go" goimports))))))
 
 ;; Set up before-save hooks to format buffer and add/delete imports.
 ;; Make sure you don't have other gofmt/goimports hooks enabled.
