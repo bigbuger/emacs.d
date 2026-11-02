@@ -82,12 +82,9 @@
     robe
     
     ;; go
-    go-mode
     gotest
     go-dlv
     go-gen-test
-    go-impl
-    go-tag
     gorepl-mode
 
     ;;rust

@@ -1,7 +1,7 @@
 ;;; init-go.el --- golang config
 
 ;;; Commentary:
-;; 
+;;
 
 ;;; Code:
 
@@ -10,12 +10,9 @@
 ;; go install github.com/go-delve/delve/cmd/dlv@latest
 ;; go install golang.org/x/tools/gopls@latest
 ;; go install github.com/cweill/gotests/...@latest
-;; go install github.com/fatih/gomodifytags@latest
 ;; go install github.com/x-motemen/gore/cmd/gore@latest
 (require 'go-ts-mode)
-(require 'go-mode)
-(require 'go-dlv) ;; 依赖 go-mod
-(require 'go-tag) ;; 依赖 go-mod
+;; (require 'go-dlv) ;; 依赖 go-mod, just dap-dlv?
 (require 'dap-dlv-go)
 (require 'go-gen-test)
 (require 'gorepl-mode)
@@ -52,7 +49,7 @@
    ("gopls.vulncheck" "Imports" nil)
    ;; ("gopls.matcher" "CaseInsensitive")
    ;; ("gopls.completeFunctionCalls" nil t)
-   
+
    ("gopls.hints.assignVariableTypes" nil t)
    ("gopls.hints.compositeLiteralFields" t t)
    ("gopls.hints.compositeLiteralTypes" nil t)
@@ -271,9 +268,53 @@ Not support alias."
   (save-excursion)
   (when-let ((uri (lsp--buffer-uri)))
     (lsp-request "workspace/executeCommand"
-             (list :command "gopls.add_import"
-                   :arguments (vector (list :importPath import
-					  :uri uri))))))
+		 (list :command "gopls.add_import"
+                       :arguments (vector (list :importPath import
+						:uri uri))))))
+(defcustom go-tag-add-options "json=omitempty"
+  "Add the options per given key. i.e: json=omitempty,hcl=squash")
+(defun my-go-tag-add (tags transform)
+  "require gopls v0.23.0+"
+  (interactive
+   (list (read-string "Tags to add: " "json")
+	 (if current-prefix-arg
+             (downcase (replace-regexp-in-string "[-_[:space:]]" ""
+						 (completing-read "Transform style: "
+								  '("snake_case" "camelCase" "lisp-case"
+								    "PascalCase" "Title Case"))))
+	   "snakecase")))
+  (when-let ((uri (lsp--buffer-uri)))
+    (let ((start (if (region-active-p) (region-beginning) (point)))
+	  (end (if (region-active-p) (region-end) (point))))
+      (lsp-request "workspace/executeCommand"
+                   (list :command "gopls.modify_tags"
+			 :arguments
+			 (vector (list :Modification "add"
+                                       :URI uri
+                                       :Range (lsp--range (lsp-point-to-position start)
+							  (lsp-point-to-position end))
+                                       :Add tags
+				       :AddOptions "json=omitempty"
+                                       :Transform transform)))))))
+
+(defun my-go-tag-remove (tags)
+  "require gopls v0.23.0+"
+  (interactive
+   (list (read-string "Tags to remove (leave empty to clear all): " "")))
+  (when-let ((uri (lsp--buffer-uri)))
+    (let* ((start (if (region-active-p) (region-beginning) (point)))
+	   (end (if (region-active-p) (region-end) (point)))
+	   (args (list :Modification "remove"
+		       :URI uri
+		       :Range (lsp--range (lsp-point-to-position start)
+					  (lsp-point-to-position end)))))
+      (if (string-empty-p tags)
+          (setq args (plist-put args :Clear t))
+        (setq args (plist-put args :Remove tags)))
+      (lsp-request "workspace/executeCommand"
+                   (list :command "gopls.modify_tags"
+			 :arguments (vector args))))))
+
 
 ;; (with-eval-after-load 'projectile
 ;;   (projectile-register-project-type 'go-mod '("go.mod")
@@ -403,25 +444,23 @@ Not support alias."
 
 (with-eval-after-load 'go-ts-mode
   (define-key go-ts-mode-map (kbd "C-c C-a") #'my-go-import-add)
-  
-  (define-key go-ts-mode-map (kbd "s-g t") #'go-tag-add)
-  (define-key go-ts-mode-map (kbd "s-g T") #'go-tag-remove)
-  ;; (define-key go-ts-mode-map (kbd "s-g i") #'go-impl) ;; just use gopls?
-  ;; (define-key go-ts-mode-map (kbd "s-g f") #'gofmt)
-  (define-key go-ts-mode-map (kbd "s-g l") #'golangci-lint)
+
+  (define-key go-ts-mode-map (kbd "s-g t") #'my-go-tag-add)
+  (define-key go-ts-mode-map (kbd "s-g T") #'my-go-tag-remove)
   (define-key go-ts-mode-map (kbd "s-g c") #'go-format-struct-comment)
+
+  (define-key go-ts-mode-map (kbd "s-g l") #'golangci-lint)
   (define-key go-mod-ts-mode-map (kbd "s-g l") #'golangci-lint)
-  (define-key go-dot-work-mode-map (kbd "s-g l") #'golangci-lint)
+  (define-key go-work-ts-mode-map (kbd "s-g l") #'golangci-lint)
 
   (define-key go-ts-mode-map (kbd "s-g m t") #'go-mod-tidy)
   (define-key go-mod-ts-mode-map (kbd "s-g m t") #'go-mod-tidy)
-  (define-key go-dot-work-mode-map (kbd "s-g m t") #'go-mod-tidy)
+  (define-key go-work-ts-mode-map (kbd "s-g m t") #'go-mod-tidy)
 
   (define-key go-ts-mode-map (kbd "s-g g") #'go-get)
   (define-key go-mod-ts-mode-map (kbd "s-g g") #'go-get)
-  (define-key go-dot-work-mode-map (kbd "s-g g") #'go-get)
-  
-  
+  (define-key go-work-ts-mode-map (kbd "s-g g") #'go-get)
+
   (define-key go-ts-mode-map (kbd "s-g r") #'go-run)
   (define-key go-ts-mode-map (kbd "s-g s-t") #'convert-to-go-time-format))
 
@@ -528,14 +567,14 @@ Not support alias."
 	  (goto-char (treesit-node-start node))
 	  (font-lock-ensure (point) (pos-eol))
 	  (buffer-substring (point) (pos-eol))))))
-  
+
   :config
   (setf (alist-get 'go-ts-mode  topsy-mode-functions) #'topsy--go-beginning-scope)
 
   (add-hook 'go-ts-mode-hook
 	    (lambda ()
 	      (setq-local lsp-headerline-breadcrumb-segments '(path-up-to-project file))))
-  
+
   :hook
   (go-ts-mode . topsy-mode))
 
@@ -567,7 +606,7 @@ Not support alias."
 		   flash-fill-make-processor-find-column-upper-camel
 		   flash-fill-make-processor-find-column-snake
 		   flash-fill-make-processor-find-column-upper-snake
-		   ;; flash-fill-make-processor-find-substring 
+		   ;; flash-fill-make-processor-find-substring
 		   ))
 
 
