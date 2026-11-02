@@ -388,6 +388,7 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
 
   :bind
   (("C-c j"	.	avy-goto-word-1)
+   ("C-c C-j"	.	avy-goto-word-1)
    ("M-g w"	.	avy-goto-word-or-subword-1)
    ("M-g M-w"	.	avy-goto-word-or-subword-1)
    ("M-g l"	.	avy-goto-line)
