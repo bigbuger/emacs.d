@@ -22,8 +22,9 @@
   (setq agent-shell-activity-group-header-label-function
 	#'agent-shell-activity-group-tally-label)
 
-  (setopt agent-shell-show-cost-indicator t)
-  (setopt agent-shell-persistent-prompt-enabled nil)
+  (setopt agent-shell-show-cost-indicator t
+	  agent-shell-persistent-prompt-enabled t
+	  agent-shell-file-completion-enabled nil)
   
   (defalias 'ag> #'agent-shell-send-dwim)
   (add-to-list 'display-buffer-alist
@@ -35,31 +36,9 @@
   (add-hook 'agent-shell-mode-hook
 	    (lambda ()
 	      (setq list-buffers-directory (expand-file-name default-directory))))
-
-  (defun agent-shell-latex-section (section)
-    (when (and (map-nested-elt section '(:body :start))
-	       (map-nested-elt section '(:body :end)))
-      (require 'org)
-      ;; Silence org-element warnings (hacky!!)
-      (let ((major-mode 'org-mode))
-        (save-excursion
-          (save-restriction
-            (narrow-to-region (map-nested-elt section '(:body :start))
-                              (map-nested-elt section '(:body :end)))
-            (org-format-latex
-             (concat org-preview-latex-image-directory "markdown-overlays")
-             (point-min) (point-max)
-             temporary-file-directory
-             'overlays nil 'forbuffer org-preview-latex-default-process))))))
-
-  ;; too slow
-  ;; (add-hook 'agent-shell-section-functions
-  ;;           #'agent-shell-latex-section
-  ;;           nil nil)
-  )
+)
 
 (use-package agent-shell-ediff
-  :disabled
   :load-path "~/.emacs.d/lisp/libs/agent-shell-ediff"
   :after agent-shell
   :custom
