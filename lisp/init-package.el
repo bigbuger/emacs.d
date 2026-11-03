@@ -83,7 +83,6 @@
     
     ;; go
     gotest
-    go-dlv
     go-gen-test
     gorepl-mode
 
