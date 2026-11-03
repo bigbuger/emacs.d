@@ -142,7 +142,8 @@
 	    (setq-local tab-width 4
 			flycheck--automatically-enabled-checkers '(lsp lsp-go golangci-lint)
 			go-test-args "-v -count=1 -gcflags=all=-l"
-			lsp-inlay-hint-enable t)
+			lsp-inlay-hint-enable t
+			treesit-defun-tactic 'top-level)
             (setq-local treesit-simple-imenu-settings
 			'(("Constant" "\\`const_spec\\'" nil my-treesit-go-var-name)
 			  ("Function" "\\`function_declaration\\'" nil my-treesit-go-var-name)
