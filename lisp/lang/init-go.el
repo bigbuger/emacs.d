@@ -268,13 +268,15 @@ Not support alias."
   (save-excursion)
   (when-let ((uri (lsp--buffer-uri)))
     (lsp-request "workspace/executeCommand"
-		 (list :command "gopls.add_import"
-                       :arguments (vector (list :importPath import
-						:uri uri))))))
+		 `( :command "gopls.add_import"
+                    :arguments [( :importPath ,import
+				  :uri ,uri)]))))
+
 (defcustom go-tag-add-options "json=omitempty"
   "Add the options per given key. i.e: json=omitempty,hcl=squash")
+
 (defun my-go-tag-add (tags transform)
-  "require gopls v0.23.0+"
+  "Add field TAGS for struct fields. Require gopls v0.23.0+."
   (interactive
    (list (read-string "Tags to add: " "json")
 	 (if current-prefix-arg
@@ -287,33 +289,33 @@ Not support alias."
     (let ((start (if (region-active-p) (region-beginning) (point)))
 	  (end (if (region-active-p) (region-end) (point))))
       (lsp-request "workspace/executeCommand"
-                   (list :command "gopls.modify_tags"
-			 :arguments
-			 (vector (list :Modification "add"
-                                       :URI uri
-                                       :Range (lsp--range (lsp-point-to-position start)
-							  (lsp-point-to-position end))
-                                       :Add tags
-				       :AddOptions "json=omitempty"
-                                       :Transform transform)))))))
+                   `( :command "gopls.modify_tags"
+		      :arguments
+		      [( :modification "add"
+			 :uri ,uri
+			 :range ,(lsp--range (lsp-point-to-position start)
+					     (lsp-point-to-position end))
+			 :add ,tags
+			 :addOptions ,go-tag-add-options
+			 :transform ,transform)])))))
 
 (defun my-go-tag-remove (tags)
-  "require gopls v0.23.0+"
+  "Remove field TAGS for struct fields. Require gopls v0.23.0+"
   (interactive
    (list (read-string "Tags to remove (leave empty to clear all): " "")))
   (when-let ((uri (lsp--buffer-uri)))
     (let* ((start (if (region-active-p) (region-beginning) (point)))
 	   (end (if (region-active-p) (region-end) (point)))
-	   (args (list :Modification "remove"
-		       :URI uri
-		       :Range (lsp--range (lsp-point-to-position start)
-					  (lsp-point-to-position end)))))
+	   (args `( :modification "remove"
+		    :uri ,uri
+		    :range ,(lsp--range (lsp-point-to-position start)
+					(lsp-point-to-position end)))))
       (if (string-empty-p tags)
-          (setq args (plist-put args :Clear t))
-        (setq args (plist-put args :Remove tags)))
+          (setq args (plist-put args :clear t))
+        (setq args (plist-put args :remove tags)))
       (lsp-request "workspace/executeCommand"
-                   (list :command "gopls.modify_tags"
-			 :arguments (vector args))))))
+                   `( :command "gopls.modify_tags"
+		      :arguments [,args])))))
 
 
 ;; (with-eval-after-load 'projectile
@@ -597,17 +599,16 @@ Not support alias."
       (flash-fill-region))))
 (define-key go-ts-mode-map (kbd "C-c h") #'go-flash-fill-struct-from-previous-line)
 (setq-mode-local go-ts-mode
-		 flash-fill-processor-maker-list
-		 '(flash-fill-make-processor-find-column
-		   flash-fill-make-processor-find-column-capitalize
-		   flash-fill-make-processor-find-column-downcase
-		   flash-fill-make-processor-find-column-upcase
-		   flash-fill-make-processor-find-column-camel
-		   flash-fill-make-processor-find-column-upper-camel
-		   flash-fill-make-processor-find-column-snake
-		   flash-fill-make-processor-find-column-upper-snake
-		   ;; flash-fill-make-processor-find-substring
-		   ))
+		 flash-fill-processor-maker-list '(flash-fill-make-processor-find-column
+						   flash-fill-make-processor-find-column-capitalize
+						   flash-fill-make-processor-find-column-downcase
+						   flash-fill-make-processor-find-column-upcase
+						   flash-fill-make-processor-find-column-camel
+						   flash-fill-make-processor-find-column-upper-camel
+						   flash-fill-make-processor-find-column-snake
+						   flash-fill-make-processor-find-column-upper-snake
+						   ;; flash-fill-make-processor-find-substring
+						   ))
 
 
 (provide 'init-go)
