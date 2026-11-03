@@ -178,11 +178,26 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
   (setq dmacro-key (kbd "M-E"))
   (global-dmacro-mode t))
 
-;; expand region, by expreg, support tree-sitter
-(use-package expreg
-  :ensure t
-  :bind (("C-=" . expreg-expand)
-         ("C--" . expreg-contract)))
+;; Increase selected region by semantic units
+;; copy from centaur emacs
+(use-package expand-region
+  :functions treesit-buffer-root-node
+  :bind ("C-=" . er/expand-region)
+  :config
+  (defun treesit-mark-bigger-node ()
+    "Use tree-sitter to mark regions."
+    (let* ((root (treesit-buffer-root-node))
+           (node (treesit-node-descendant-for-range root (region-beginning) (region-end)))
+           (node-start (treesit-node-start node))
+           (node-end (treesit-node-end node)))
+      ;; Node fits the region exactly. Try its parent node instead.
+      (when (and (= (region-beginning) node-start) (= (region-end) node-end))
+        (when-let* ((node (treesit-node-parent node)))
+          (setq node-start (treesit-node-start node)
+                node-end (treesit-node-end node))))
+      (set-mark node-end)
+      (goto-char node-start)))
+  (add-to-list 'er/try-expand-list 'treesit-mark-bigger-node))
 
 ;; Kill text between the point and the character CHAR
 (use-package avy-zap
