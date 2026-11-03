@@ -1,4 +1,4 @@
-;;; init-go.el --- golang config
+;;; init-go.el --- golang config  -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 ;;
@@ -136,10 +136,10 @@
 	     '("pb.go" . ("proto")))
 (add-to-list 'projectile-other-file-alist
 	     '("proto" . ("pb.go")))
+
 (add-hook 'go-ts-mode-hook
 	  (lambda ()
-	    (setq-local defun-prompt-regexp go-func-regexp
-			tab-width 4
+	    (setq-local tab-width 4
 			flycheck--automatically-enabled-checkers '(lsp lsp-go golangci-lint)
 			go-test-args "-v -count=1 -gcflags=all=-l"
 			lsp-inlay-hint-enable t)
