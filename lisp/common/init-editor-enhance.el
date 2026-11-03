@@ -184,6 +184,11 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
   :bind (("C-=" . expreg-expand)
          ("C--" . expreg-contract)))
 
+;; Kill text between the point and the character CHAR
+(use-package avy-zap
+  :bind (("M-z" . avy-zap-to-char-dwim) ;; ori zap-to-char
+         ("M-Z" . avy-zap-up-to-char-dwim)))
+
 ;; string-inflection 驼峰/下划线/横线风格自由切换
 (require 'string-inflection)
 (global-set-key (kbd "M-c") 'string-inflection-lower-camelcase) ;; orig capitalize-word
