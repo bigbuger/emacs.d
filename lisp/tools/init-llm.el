@@ -3,7 +3,7 @@
 
 
 ;;; Commentary:
-;; 
+;;
 
 ;;; Code:
 
@@ -24,8 +24,9 @@
 
   (setopt agent-shell-show-cost-indicator t
 	  agent-shell-persistent-prompt-enabled t
-	  agent-shell-file-completion-enabled nil)
-  
+	  agent-shell-file-completion-enabled t
+	  agent-shell-command-completion-enabled t)
+
   (defalias 'ag> #'agent-shell-send-dwim)
   (add-to-list 'display-buffer-alist
 	       '((major-mode . agent-shell-mode)
@@ -35,8 +36,7 @@
   ;; Support to display directory in buffer listings.
   (add-hook 'agent-shell-mode-hook
 	    (lambda ()
-	      (setq list-buffers-directory (expand-file-name default-directory))))
-)
+	      (setq list-buffers-directory (expand-file-name default-directory)))))
 
 (use-package agent-shell-ediff
   :load-path "~/.emacs.d/lisp/libs/agent-shell-ediff"
