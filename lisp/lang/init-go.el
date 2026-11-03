@@ -318,6 +318,36 @@ Not support alias."
 		      :arguments [,args])))))
 
 
+(defun my-go--interface-candidates (input &optional workspaces)
+  "Get interface from gopls that match INPUT from WORKSPACES.  Require gopls v0.23.0+.
+Use interactive/listEnum. see vscode's src for more detail:
+    `https://github.com/golang/vscode-go/blob/25f1a1a36d3367aa248242440f9b3a0c2bfe35e6/extension/src/language/form.ts#L151'"
+  (let* ((symbols (with-lsp-workspaces (or workspaces (lsp-workspaces))
+                    (lsp--send-request
+                     (lsp--make-request "interactive/listEnum"
+					`(:source "workspaceSymbol"
+						  :config (:kinds [11])
+						  :query ,input))))))
+    (mapcar (lambda (entry) (lsp-get entry :value)) symbols)))
+
+(defun my-go-impl ()
+  "Generates method stubs for implementing an interface. Require gopls v0.23.0+."
+  (interactive)
+  (when-let* ((workspaces (lsp-workspaces))
+              (uri (lsp--buffer-uri))
+	      (pos (lsp-point-to-position (point)))
+              (range (lsp--range pos pos))
+	      (comp-fn (lambda (input _predicate _code)
+			 (my-go--interface-candidates input workspaces)))
+	      (interface (completing-read "Interface: " comp-fn)))
+    (lsp-request "workspace/executeCommand"
+		 `( :command "gopls.implement_interface"
+                    :arguments [( :location ( :uri ,uri :range ,range)
+				  :interface ,interface) ]
+                    :formAnswers [(:id "interface" :value ,interface)]))))
+
+
+
 ;; (with-eval-after-load 'projectile
 ;;   (projectile-register-project-type 'go-mod '("go.mod")
 ;; 				    :compile "go build ."
