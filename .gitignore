@@ -20,3 +20,4 @@ elpa
 /projectile-sessions/
 /dap-ui-repl-python-history
 /.dap-breakpoints
+/agent/
