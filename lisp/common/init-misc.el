@@ -59,6 +59,8 @@
 		   ("-" " ")))))
 (add-to-list 'which-key-replacement-alist '(("<left>") "←"))
 (add-to-list 'which-key-replacement-alist '(("<right>") "→"))
+(add-to-list 'which-key-replacement-alist '(("<up>") "↑"))
+(add-to-list 'which-key-replacement-alist '(("<down>") "↓"))
 (add-to-list 'which-key-replacement-alist '(("TAB" . nil) . ("↹" . nil)))
 (add-to-list 'which-key-replacement-alist '(("RET" . nil) . ("⏎" . nil)))
 
