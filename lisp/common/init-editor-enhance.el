@@ -158,12 +158,12 @@ ARG is pass to `sp-end-of-sexp'"
 (global-set-key [remap rectangle-mark-mode] #'cua-rectangle-mark-mode)
 
 ;; dmacro 动态生成键盘宏
-;; 重复一套操作两次后直接用 `M-E' 后就直接调用
-;; 例如输入 hello he 之后按 `M-E' 会变成 hello hello
+;; 重复一套操作两次后直接用 `dmacro-exec' 后就直接调用
+;; 例如输入 hello he 之后调用 `dmacro-exec' 会变成 hello hello
 (use-package dmacro
   :ensure t
   :init
-  (setq dmacro-key (kbd "M-E"))
+  (setq dmacro-key (kbd "M-r")) ;; orig move-to-window-line-top-bottom
   (global-dmacro-mode t))
 
 ;; Increase selected region by semantic units
