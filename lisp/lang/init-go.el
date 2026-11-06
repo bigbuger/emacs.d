@@ -19,7 +19,7 @@
 (require 'gotest)
 
 (setq treesit-language-source-alist
-      (append '((go "https://github.com/tree-sitter/tree-sitter-go")
+      (append '((go "https://github.com/nvlbg/tree-sitter-go.git" :commit "5a6af13a0a5b45bc76cac289c783b315b2b74e13")
 		(gomod "https://github.com/camdencheek/tree-sitter-go-mod"))
 	      treesit-language-source-alist))
 
