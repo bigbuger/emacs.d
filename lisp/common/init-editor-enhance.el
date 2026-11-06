@@ -135,13 +135,23 @@ ARG is pass to `sp-end-of-sexp'"
 
 ;; Multiple cursors
 (use-package multiple-cursors
-  :bind (("C-S-c C-S-c"   . mc/edit-lines)
+  :init
+  ;; multiple-cursor 不支持 isearch, 坑, phi-search 支持，但是它又没有历史记录, multiple-cursor 自动映射了按键
+  (use-package phi-search)
+
+  :config
+  (unbind-key (kbd "<return>") mc/keymap)
+  
+  :bind (("C-c <return>"  . mc/edit-lines)
          ("C->"           . mc/mark-next-like-this)
          ("C-<"           . mc/mark-previous-like-this)
          ("C-c C->"       . mc/mark-all-like-this)
          ("C-M->"         . mc/skip-to-next-like-this)
          ("C-M-<"         . mc/skip-to-previous-like-this)
-         ("M-S-<mouse-1>" . mc/add-cursor-on-click)))
+         ("M-S-<mouse-1>" . mc/add-cursor-on-click)
+
+	 :map mc/keymap
+	 ("C-c M-i"       . mc/insert-numbers)))
 
 (setq cua-enable-cua-keys nil)
 (setq cua-auto-tabify-rectangles nil)
@@ -176,11 +186,6 @@ ARG is pass to `sp-end-of-sexp'"
       (set-mark node-end)
       (goto-char node-start)))
   (add-to-list 'er/try-expand-list 'treesit-mark-bigger-node))
-
-;; Kill text between the point and the character CHAR
-(use-package avy-zap
-  :bind (("M-z" . avy-zap-to-char-dwim) ;; ori zap-to-char
-         ("M-Z" . avy-zap-up-to-char-dwim)))
 
 ;; string-inflection 驼峰/下划线/横线风格自由切换
 (require 'string-inflection)
@@ -313,42 +318,11 @@ ARG is pass to `sp-end-of-sexp'"
 (advice-add 'query-replace-read-to :around #'query-replace-read-to-with-completion)
 ;; end visual-replace
 
-;; multiple-cursor 不支持 isearch, 坑, phi-search 支持，但是它又没有历史记录
-(use-package phi-search
-  :init
-  (defun my-phi-isearch-forward-dwim ()
-    (interactive)
-    ;; Are we using multiple cursors?
-    (cond ((and (boundp 'multiple-cursors-mode)
-		multiple-cursors-mode
-		(fboundp  'phi-search))
-           (call-interactively 'phi-search))
-          ;; Are we defining a macro?
-          (t
-           (call-interactively 'isearch-forward-regexp))))
-  
-  (defun my-phi-isearch-backward-dwim ()
-    (interactive)
-    ;; Are we using multiple cursors?
-    (cond ((and (boundp 'multiple-cursors-mode)
-		multiple-cursors-mode
-		(fboundp  'phi-search))
-           (call-interactively 'phi-search-backward))
-          ;; Are we defining a macro?
-          (t
-           (call-interactively 'isearch-backward-regexp))))
-
-  :bind (("C-s" . my-phi-isearch-backward-dwim)
-	 ("C-r" . my-phi-isearch-forward-dwim)
-	 
-	 ;; 正则搜索按键和非正则换过来
-	 ("C-M-s" . isearch-forward)
-	 ("C-M-r" . isearch-backward)
-	 
-	 :map phi-search-default-map
-	 ("<up>" . phi-search-again-or-previous)
-	 ("<down>" . phi-search-again-or-next)
-	 ([remap keyboard-escape-quit] . phi-search-abort)))
+;; 正则搜索按键和非正则换过来
+(global-set-key (kbd "C-s") #'isearch-forward-regexp)
+(global-set-key (kbd "C-r") #'isearch-backward-regexp)
+(global-set-key (kbd "C-M-s") #'isearch-forward)
+(global-set-key (kbd "C-M-r") #'isearch-backward)
 
 ;; isearch-mb 有更好的搜索体验, 可以直接按箭头移到，也不用搞 isearch 复杂的编辑按钮
 (use-package isearch-mb
@@ -414,7 +388,8 @@ ARG is pass to `sp-end-of-sexp'"
 (use-package avy
   :config
   (setq avy-all-windows 'all-frames)
-
+  (setq avy-style 'pre)
+  
   :bind
   (("C-c j"	.	avy-goto-word-1)
    ("C-c C-j"	.	avy-goto-word-1)
@@ -422,6 +397,12 @@ ARG is pass to `sp-end-of-sexp'"
    ("M-g M-w"	.	avy-goto-word-or-subword-1)
    ("M-g l"	.	avy-goto-line)
    ("M-g M-l"	.	avy-goto-line)))
+
+;; Kill text between the point and the character CHAR
+(use-package avy-zap
+  :bind (("M-z" . avy-zap-to-char-dwim) ;; ori zap-to-char
+         ("M-Z" . avy-zap-up-to-char-dwim)))
+
 
 (provide 'init-editor-enhance)
 
