@@ -133,37 +133,15 @@ ARG is pass to `sp-end-of-sexp'"
 (global-unset-key (kbd "<M-mouse-2>"))	  ; was mouse-yank-secondary
 (global-unset-key (kbd "<M-mouse-3>"))	  ; was mouse-secondary-save-then-kill
 
-;; kmacro-x 利用键盘宏支持选择多个匹配地方进行编辑
-(use-package kmacro-x
-  :ensure t
-  :init
-  (require 'kmacro-x-mc)
-
-  ;;;###autoload
-  (defun kmacro-x-mc-mark-next-or-cua-rect ()
-    "A smart version of `kmacro-x-mc-mark-next' with a fallback.
-
-Acts just like `kmacro-x-mc-mark-next' but falls back to
-`rectangle-mark-mode' when there is no selection."
-    (interactive)
-    (require 'cua-rect)
-    (if (and (not cua-rectangle-mark-mode)
-             (use-region-p))
-	(progn
-          (setq this-command 'kmacro-x-mc-mark-next)
-          (kmacro-x-mc-mark-next))
-      (unless cua-rectangle-mark-mode
-	(cua-rectangle-mark-mode 1))
-      (cua-resize-rectangle-down 1)))
-
-  (global-set-key (kbd "C-<")  #'kmacro-x-mc-mark-previous)
-  (global-set-key (kbd "C->") #'kmacro-x-mc-mark-next-or-cua-rect)
-  (global-set-key (kbd "M-<mouse-1>") #'kmacro-x-mc-mark-at-click)
-
-  (setq kmacro-x-mc-live-preview t)
-  (define-key kmacro-x-mc-mode-map (kbd "C-<return>") #'kmacro-x-mc-apply)
-  (unbind-key "RET" kmacro-x-mc-mode-map)
-  )
+;; Multiple cursors
+(use-package multiple-cursors
+  :bind (("C-S-c C-S-c"   . mc/edit-lines)
+         ("C->"           . mc/mark-next-like-this)
+         ("C-<"           . mc/mark-previous-like-this)
+         ("C-c C->"       . mc/mark-all-like-this)
+         ("C-M->"         . mc/skip-to-next-like-this)
+         ("C-M-<"         . mc/skip-to-previous-like-this)
+         ("M-S-<mouse-1>" . mc/add-cursor-on-click)))
 
 (setq cua-enable-cua-keys nil)
 (setq cua-auto-tabify-rectangles nil)
@@ -335,11 +313,42 @@ Acts just like `kmacro-x-mc-mark-next' but falls back to
 (advice-add 'query-replace-read-to :around #'query-replace-read-to-with-completion)
 ;; end visual-replace
 
-;; 正则搜索按键和非正则换过来
-(global-set-key (kbd "C-s") #'isearch-forward-regexp)
-(global-set-key (kbd "C-r") #'isearch-backward-regexp)
-(global-set-key (kbd "C-M-s") #'isearch-forward)
-(global-set-key (kbd "C-M-r") #'isearch-backward)
+;; multiple-cursor 不支持 isearch, 坑, phi-search 支持，但是它又没有历史记录
+(use-package phi-search
+  :init
+  (defun my-phi-isearch-forward-dwim ()
+    (interactive)
+    ;; Are we using multiple cursors?
+    (cond ((and (boundp 'multiple-cursors-mode)
+		multiple-cursors-mode
+		(fboundp  'phi-search))
+           (call-interactively 'phi-search))
+          ;; Are we defining a macro?
+          (t
+           (call-interactively 'isearch-forward-regexp))))
+  
+  (defun my-phi-isearch-backward-dwim ()
+    (interactive)
+    ;; Are we using multiple cursors?
+    (cond ((and (boundp 'multiple-cursors-mode)
+		multiple-cursors-mode
+		(fboundp  'phi-search))
+           (call-interactively 'phi-search-backward))
+          ;; Are we defining a macro?
+          (t
+           (call-interactively 'isearch-backward-regexp))))
+
+  :bind (("C-s" . my-phi-isearch-backward-dwim)
+	 ("C-r" . my-phi-isearch-forward-dwim)
+	 
+	 ;; 正则搜索按键和非正则换过来
+	 ("C-M-s" . isearch-forward)
+	 ("C-M-r" . isearch-backward)
+	 
+	 :map phi-search-default-map
+	 ("<up>" . phi-search-again-or-previous)
+	 ("<down>" . phi-search-again-or-next)
+	 ([remap keyboard-escape-quit] . phi-search-abort)))
 
 ;; isearch-mb 有更好的搜索体验, 可以直接按箭头移到，也不用搞 isearch 复杂的编辑按钮
 (use-package isearch-mb
