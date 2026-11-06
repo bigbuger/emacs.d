@@ -217,7 +217,7 @@ instead of the hash, like `kill-ring-save' would."
   :after magit
   :init
   (global-diff-hl-mode)
-  (diff-hl-flydiff-mode)
+  ;; (diff-hl-flydiff-mode) ;; 不支持 --histogram
 
   (transient-define-prefix diff-hl-transient ()
     "Diff hl."
