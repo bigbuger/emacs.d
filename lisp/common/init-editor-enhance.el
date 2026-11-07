@@ -139,13 +139,61 @@ ARG is pass to `sp-end-of-sexp'"
   ;; multiple-cursor 不支持 isearch, 坑, phi-search 支持，但是它又没有历史记录, multiple-cursor 自动映射了按键
   (use-package phi-search)
 
+  :commands (mc/mark-all-words-in-region mc/mark-all-symbols-in-region)
   :config
   (unbind-key (kbd "<return>") mc/keymap)
-  
-  :bind (("C-c <return>"  . mc/edit-lines)
+
+  (defmacro mc/def-mark-thing-in-region (thing-name regex)
+    (let ((func (intern (format "mc/mark-all-%ss-in-region" thing-name))))
+      `(progn
+	 (defun ,func (beg end)
+	   "Find and mark all the parts in the region matching the given regexp."
+	   (interactive "r")
+	   (let ((search ,regex)
+		 (case-fold-search nil))
+	     (if (string= search "")
+		 (message "Mark aborted")
+	       (progn
+		 (mc/remove-fake-cursors)
+		 (goto-char beg)
+		 (let ((lastmatch))
+		   (while (and (< (point) end) ; can happen because of (forward-char)
+			       (search-forward-regexp search end t))
+		     (push-mark (match-beginning 0))
+		     (mc/create-fake-cursor-at-point)
+		     (setq lastmatch (point))
+		     (when (= (point) (match-beginning 0))
+		       (forward-char)))
+		   (unless lastmatch
+		     (error "Search failed for %S" search)))
+		 (goto-char (match-end 0))
+		 (if (< (mc/num-cursors) 3)
+		     (mc/disable-multiple-cursors-mode)
+		   (mc/pop-state-from-overlay (mc/furthest-cursor-before-point))
+		   (multiple-cursors-mode 1))))))
+
+	 (add-to-list 'mc--default-cmds-to-run-once ',func))))
+
+  (mc/def-mark-thing-in-region "word" (rx-to-string '(: bow)))
+  (mc/def-mark-thing-in-region "symbol" (rx-to-string '(: symbol-start)))
+
+  (transient-define-prefix mc-region-transient ()
+    ["Make cursor in region" :class transient-row
+     ("l" "lines"   mc/edit-lines)
+     ("w" "words"   mc/mark-all-words-in-region)
+     ("s" "symbols" mc/mark-all-symbols-in-region)
+     ("r" "regex" mc/mark-all-in-region-regexp)]
+
+    (interactive)
+    (if (use-region-p)
+	(transient-setup 'mc-region-transient)
+      (user-error "mark region first")))
+
+  :bind (("C-c <return>"  . mc-region-transient)
          ("C->"           . mc/mark-next-like-this)
          ("C-<"           . mc/mark-previous-like-this)
          ("C-c C->"       . mc/mark-all-like-this)
+         ("C-;"           . mc/mark-all-like-this-dwim)
          ("C-M->"         . mc/skip-to-next-like-this)
          ("C-M-<"         . mc/skip-to-previous-like-this)
          ("M-S-<mouse-1>" . mc/add-cursor-on-click)
@@ -343,7 +391,7 @@ ARG is pass to `sp-end-of-sexp'"
 ;; Highlight indentions
 (use-package indent-bars
   :config
-  
+
   (setopt
    indent-bars-defer-setup t
    indent-bars-color '(font-lock-comment-face :face-bg nil :blend 0.2)
@@ -356,7 +404,7 @@ ARG is pass to `sp-end-of-sexp'"
    indent-bars-no-descend-string t
    indent-bars-no-descend-lists 'skip
    indent-bars-display-on-blank-lines 'least)
-  
+
   :hook (prog-mode conf-mode yaml-mode yaml-ts-mode))
 ;; end indent
 
@@ -389,7 +437,7 @@ ARG is pass to `sp-end-of-sexp'"
   :config
   (setq avy-all-windows 'all-frames)
   (setq avy-style 'pre)
-  
+
   :bind
   (("C-c j"	.	avy-goto-word-1)
    ("C-c C-j"	.	avy-goto-word-1)

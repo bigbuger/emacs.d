@@ -20,8 +20,6 @@
 
 ;; flyspell
 (setq flyspell-mark-duplications-flag nil)
-;; (require 'flyspell-correct-popup)
-;; (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-wrapper)
 
 (setq ispell-program-name "aspell")
 ;; (setq ispell-extra-args '("--sug-mode=ultra" "--camel-case"))
