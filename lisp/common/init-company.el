@@ -3,18 +3,26 @@
 
 
 ;;; Commentary:
-;; 
+;;
 
 ;;; Code:
 
 (require 'company)
 
 
-;; minibuffer 只用自动补全 yasnippet, 不然好多情况好复杂, 非常之乱
+;; minibuffer 只用自动补全 yasnippet
+(defcustom company-minibuffer-enabl-commands
+  '(query-replace-regexp
+    visual-replace-regexp
+    shell-command
+    compile
+    dired-do-shell-command dired-do-async-shell-command)
+  "What command can use company in minibuffer")
+
 (defun my/company-minibuffer-predicate ()
-  (memq current-minibuffer-command '(shell-command
-				     compile
-				     dired-do-shell-command dired-do-async-shell-command))) ;; 就是想用来做一下命令行模版，弥补记忆力，所以这里有再加
+  ;; 就是想用来做一下命令行模版，弥补记忆力，所以这里有再加
+  (memq current-minibuffer-command company-minibuffer-enabl-commands))
+
 (setq company-global-minibuffer #'my/company-minibuffer-predicate)
 (add-hook 'minibuffer-setup-hook
 	  #'(lambda ()

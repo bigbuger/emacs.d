@@ -376,26 +376,23 @@ ARG is pass to `sp-end-of-sexp'"
 	 ;; see `minibuffer-regexp-prompts'
 	 (when (fboundp 'minibuffer--regexp-exit)
 	   (minibuffer--regexp-exit))
+	 (when (fboundp 'company-capf)
+	   (setq-local company-backends '(company-capf)
+		       company-idle-delay nil)
+	   (local-set-key (kbd "C-<tab>") #'company-capf))
 	 (add-hook 'completion-at-point-functions
 		   #'elisp-completion-at-point nil t)))
     (apply orign args)))
 (advice-add 'query-replace-read-to :around #'query-replace-read-to-with-completion)
 
-(defun my-visual-replace-capf ()
-  "Elisp completion for the TO part of a `visual-replace' prompt."
-  (save-excursion
-    (let* ((sep-start (next-single-property-change (point-min) 'separator))
-           (sep-end (and sep-start
-                         (next-single-property-change sep-start 'separator)))
-           (start (or sep-end (point-min))))
-      (save-restriction
-        (narrow-to-region start (point-max))
-        (elisp-completion-at-point)))))
-
 (add-hook 'visual-replace-minibuffer-mode-hook
           (lambda ()
+	    (when (fboundp 'company-capf)
+	      (setq-local company-backends '(company-capf)
+			  company-idle-delay nil)
+	      (local-set-key (kbd "C-<tab>") #'company-capf))
             (add-hook 'completion-at-point-functions
-                      #'my-visual-replace-capf nil t)))
+                      #'elisp-completion-at-point nil t)))
 ;; end visual-replace
 
 ;; 正则搜索按键和非正则换过来
