@@ -1,22 +1,26 @@
-;;; init-ghostel.el --- Ghostel is a terminal emulator for Emacs powered by libghostty-vt, the VT engine behind the Ghostty terminal.
+;;; init-shell.el ---
 ;;; Commentary:
 ;;
 
 ;;; Code:
 
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
+
+
+;; Ghostel is a terminal emulator for Emacs powered by libghostty-vt, the VT engine behind the Ghostty terminal.
 (use-package ghostel
   :bind (("C-c t" . ghostel)
          :map ghostel-semi-char-mode-map
-	 ("M-<left>" . (lambda () (interactive) (ghostel-send-key "b" "meta")))
+	 ("M-<left>"  . (lambda () (interactive) (ghostel-send-key "b" "meta")))
 	 ("M-<right>" . (lambda () (interactive) (ghostel-send-key "f" "meta")))
-	 ("M-<up>" . (lambda () (interactive) (ghostel-send-key "p" "meta")))
-	 ("M-<down>" . (lambda () (interactive) (ghostel-send-key "n" "meta")))
-         ("C-c l"  . consult-line)
-         ("C-k"  . my/ghostel-send-C-k-and-kill)
-	 ("M-0"  . delete-window)
-	 ("M-1"  . delete-other-windows)
-	 ("M-2"  . split-window-vertically)
-	 ("M-3"  . split-window-horizontally))
+	 ("M-<up>"    . (lambda () (interactive) (ghostel-send-key "p" "meta")))
+	 ("M-<down>"  . (lambda () (interactive) (ghostel-send-key "n" "meta")))
+         ("C-c l"     . consult-line)
+         ("C-k"       . my/ghostel-send-C-k-and-kill)
+	 ("M-0"       . delete-window)
+	 ("M-1"       . delete-other-windows)
+	 ("M-2"       . split-window-vertically)
+	 ("M-3"       . split-window-horizontally))
   :config
   (setopt ghostel-glyph-scale-floor 1.0)
   (setopt ghostel-mouse-drag-input-mode nil)
@@ -65,6 +69,6 @@ Returns the buffer."
 (with-eval-after-load 'projectile
   (define-key projectile-command-map (kbd "t") 'ghostel-project))
 
-(provide 'init-ghostel)
+(provide 'init-shell)
 
-;;; init-ghostel.el ends here
+;;; init-shell.el ends here

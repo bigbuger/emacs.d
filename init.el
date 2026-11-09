@@ -1,4 +1,5 @@
 (add-to-list 'warning-suppress-log-types '(files missing-lexbind-cookie))
+(setq native-comp-async-report-warnings-errors 'silent)
 
 (require 'package)
 
@@ -14,14 +15,6 @@
 (define-coding-system-alias 'UTF-8 'utf-8)
 (set-language-environment "UTF-8")
 (prefer-coding-system 'utf-8-unix)
-
-
-;; (setq byte-compile-warnings '(not obsolete))
-;; (setq warning-suppress-log-types '((comp) (bytecomp)))
-(setq native-comp-async-report-warnings-errors 'silent)
-
-(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 
