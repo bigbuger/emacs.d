@@ -143,6 +143,8 @@ ARG is pass to `sp-end-of-sexp'"
   :config
   (unbind-key (kbd "<return>") mc/keymap)
 
+  (add-to-list 'mc--default-cmds-to-run-once 'undo-only)
+
   (defmacro mc/def-mark-thing-in-region (thing-name regex)
     (let ((func (intern (format "mc/mark-all-%ss-in-region" thing-name))))
       `(progn
@@ -189,11 +191,11 @@ ARG is pass to `sp-end-of-sexp'"
 	(transient-setup 'mc-region-transient)
       (user-error "mark region first")))
 
-  :bind (("C-c <return>"  . mc-region-transient)
+  :bind (("C-x m"  . mc-region-transient)
          ("C->"           . mc/mark-next-like-this)
          ("C-<"           . mc/mark-previous-like-this)
          ("C-c C->"       . mc/mark-all-like-this)
-         ("C-;"           . mc/mark-all-like-this-dwim)
+         ("C-;"           . mc/mark-all-dwim)
          ("C-M->"         . mc/skip-to-next-like-this)
          ("C-M-<"         . mc/skip-to-previous-like-this)
          ("M-S-<mouse-1>" . mc/add-cursor-on-click)

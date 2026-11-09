@@ -21,3 +21,4 @@ elpa
 /dap-ui-repl-python-history
 /.dap-breakpoints
 /agent/
+/agent-shell/
