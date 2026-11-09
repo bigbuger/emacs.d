@@ -1,11 +1,10 @@
 ;;; init-http-client.el --- http client, aka curl
-;; verb 网络请求客户端
-
 ;;; Commentary:
 ;; 
 
 ;;; Code:
 
+;; verb 网络请求客户端
 (use-package verb
   :demand t
   :config
