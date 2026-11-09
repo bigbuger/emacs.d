@@ -135,21 +135,28 @@ ARG is pass to `sp-end-of-sexp'"
 
 ;; Multiple cursors
 (use-package multiple-cursors
+  :demand t
   :init
   ;; multiple-cursor 不支持 isearch, 坑, phi-search 支持，但是它又没有历史记录, multiple-cursor 自动映射了按键
-  (use-package phi-search)
+  (use-package phi-search :demand t)
 
   :commands (mc/mark-all-words-in-region mc/mark-all-symbols-in-region)
   :config
   (unbind-key (kbd "<return>") mc/keymap)
 
-  (add-to-list 'mc--default-cmds-to-run-once 'undo-only)
+  (add-to-list 'mc--default-cmds-to-run-once    'undo-only)
+  (add-to-list 'mc--default-cmds-to-run-once    'mc/vertical-align)
+  (add-to-list 'mc--default-cmds-to-run-once    'mc/vertical-align-with-space)
+  (add-to-list 'mc--default-cmds-to-run-for-all 'phi-search)
+  (setq mc/match-cursor-style t)
+  (set-face-attribute 'mc/cursor-bar-face nil
+		      :height 0.1 :background "red" :foreground "red")
 
   (defmacro mc/def-mark-thing-in-region (thing-name regex)
     (let ((func (intern (format "mc/mark-all-%ss-in-region" thing-name))))
       `(progn
 	 (defun ,func (beg end)
-	   "Find and mark all the parts in the region matching the given regexp."
+	   ,(format "Find and mark all the %ss in the region ." thing-name)
 	   (interactive "r")
 	   (let ((search ,regex)
 		 (case-fold-search nil))
@@ -179,6 +186,7 @@ ARG is pass to `sp-end-of-sexp'"
   (mc/def-mark-thing-in-region "word" (rx-to-string '(: bow)))
   (mc/def-mark-thing-in-region "symbol" (rx-to-string '(: symbol-start)))
 
+  (require 'transient)
   (transient-define-prefix mc-region-transient ()
     ["Make cursor in region" :class transient-row
      ("l" "lines"   mc/edit-lines)
