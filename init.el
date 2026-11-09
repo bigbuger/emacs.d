@@ -66,7 +66,7 @@
 	(require (intern (file-name-base f)))))))
 
 
-(require 'my-command)
+(require 'my-edit-command)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/common")
 (require 'init-emacs-base)

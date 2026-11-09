@@ -1,7 +1,7 @@
 ;;; init-other-tools.el --- other tools
 
 ;;; Commentary:
-;; 
+;;
 
 ;;; Code:
 
@@ -24,10 +24,10 @@
   :config
   ;; Use the symbol at point as initial search term
   (consult-customize consult-dash :initial (thing-at-point 'symbol))
-  (setq dash-docs-docsets-path "~/.docset")
-  (setq dash-docs-enable-debugging nil)
-  (setq dash-docs-browser-func #'browse-url)
-  
+  (setq dash-docs-docsets-path "~/.docset"
+	dash-docs-enable-debugging nil
+	dash-docs-browser-func #'browse-url)
+
   :init
   (setq-default consult-dash-docsets '("Redis" "MySql" "MongoDB" "SQLite")))
 
@@ -41,9 +41,9 @@
 (setq reb-re-syntax 'string)
 (use-package casual
   :ensure t
-  :bind (:map reb-mode-map ("C-o" . 'casual-re-builder-tmenu)
-	      :map reb-lisp-mode-map ("C-o" . 'casual-re-builder-tmenu)
-	      :map reb-subexp-mode-map ("C-o" . 'casual-re-builder-tmenu)))
+  :bind ( :map reb-mode-map        ("C-o" . 'casual-re-builder-tmenu)
+	  :map reb-lisp-mode-map   ("C-o" . 'casual-re-builder-tmenu)
+	  :map reb-subexp-mode-map ("C-o" . 'casual-re-builder-tmenu)))
 
 (use-package casual
   :ensure t
@@ -65,6 +65,32 @@
   :commands (format-all-mode format-all-region-or-buffer)
   :config
   (add-hook 'prog-mode-hook #'format-all-ensure-formatter))
+
+
+;; 时间戳 <-> 字符串
+(defun my-convert-time (timestamp)
+  "Convert TIMESTAMP to iso8601 and put it into kill ring."
+  (interactive "ntimestamp:")
+  (let ((time-string (format-time-string "%FT%T%z" (seconds-to-time timestamp))))
+    (progn
+      (kill-new time-string)
+      (message "date is: %s" time-string))))
+(defalias 'd2t 'my-convert-time)
+
+(defun my-get-timestamp (time-string)
+  "Convert TIME-STRING to unix timestamp and put it into kill ring."
+  (interactive "stime-string:")
+  (let* ((tl0 (parse-time-string time-string))
+	 (tl-with-out-zone (butlast tl0))
+	 (tl (append (mapcar #'(lambda (i) (if i i 0)) tl-with-out-zone)
+		     (last tl0)))
+	 (et (apply #'encode-time tl))
+	 (time-stamp (format-time-string "%s" et)))
+    (progn
+      (kill-new time-stamp)
+      (message "timestamp is: %s" time-stamp))))
+(defalias 't2d 'my-get-timestamp)
+
 
 (provide 'init-other-tools)
 
