@@ -184,14 +184,14 @@ ARG is pass to `sp-end-of-sexp'"
      ("l" "lines"   mc/edit-lines)
      ("w" "words"   mc/mark-all-words-in-region)
      ("s" "symbols" mc/mark-all-symbols-in-region)
-     ("r" "regex" mc/mark-all-in-region-regexp)]
+     ("r" "regex"   mc/mark-all-in-region-regexp)]
 
     (interactive)
     (if (use-region-p)
 	(transient-setup 'mc-region-transient)
       (user-error "mark region first")))
 
-  :bind (("C-x m"  . mc-region-transient)
+  :bind (("C-x m"         . mc-region-transient)
          ("C->"           . mc/mark-next-like-this)
          ("C-<"           . mc/mark-previous-like-this)
          ("C-c C->"       . mc/mark-all-like-this)
@@ -201,7 +201,8 @@ ARG is pass to `sp-end-of-sexp'"
          ("M-S-<mouse-1>" . mc/add-cursor-on-click)
 
 	 :map mc/keymap
-	 ("C-c M-i"       . mc/insert-numbers)))
+	 ("C-c M-i"       . mc/insert-numbers)
+	 ("C-|"           . mc/vertical-align-with-space)))
 
 (setq cua-enable-cua-keys nil)
 (setq cua-auto-tabify-rectangles nil)
