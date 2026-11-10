@@ -9,6 +9,8 @@
   :demand t
   :config
   (define-key verb-response-body-mode-map (kbd "C-c i") #'consult-jq)
+  (setq verb-trim-body-end "[ \t\n\r]+")
+  
   (setq verb-tag "curl"
 	verb-auto-kill-response-buffers t)
   (add-to-list 'display-buffer-alist

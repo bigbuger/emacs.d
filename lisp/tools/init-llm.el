@@ -14,8 +14,8 @@
               ("C-c C-c" . shell-maker-submit)
               ("C-c C-k" . agent-shell-interrupt)
 	      ("C-c C-t" . agent-shell-open-transcript)
-	      ("C-<return>" . find-file-at-point-with-line)
-	      ("C-<down-mouse-1>" . find-file-at-point-with-line))
+	      ("C-<return>" . my-find-file-at-point-with-line)
+	      ("C-<down-mouse-1>" . my-find-file-at-point-with-line))
 
   :config
   (setq agent-shell-google-gemini-acp-command '("gemini" "--acp"))
