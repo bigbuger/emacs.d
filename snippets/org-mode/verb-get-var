@@ -1,0 +1,8 @@
+# key: >verb-get-var
+# name: verb get var
+# --
+:properties:
+:Verb-Map-Response+:  (lambda (resp)
+:Verb-Map-Response+:    (setq $1 (verb-json-get (oref resp body) "$2"))
+:Verb-Map-Response+:    resp)
+:end:

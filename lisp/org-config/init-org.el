@@ -122,7 +122,7 @@
 
 ;; org-appear 聚焦斜体、删除线等文字格式时自动转为源码展示
 (setq org-hide-emphasis-markers t)
-(setq org-pretty-entities t)
+;; (setq org-pretty-entities nil)
 (use-package org-appear
   :init
   (setq org-appear-autolinks 'just-brackets)

@@ -253,9 +253,9 @@ since the whatis index is broken post-SIP."
   
   (define-key minibuffer-local-map (kbd "M-r") 'consult-history)
   
-  (with-eval-after-load "org"
-    (define-key org-mode-map (kbd "C-c i") #'consult-outline)
-    (define-key org-mode-map (kbd "M-g i") #'consult-outline))
+  ;; (with-eval-after-load "org"
+  ;;   (define-key org-mode-map (kbd "C-c i") #'consult-outline)
+  ;;   (define-key org-mode-map (kbd "M-g i") #'consult-outline))
 
 
   ;; Use Consult to select xref locations with preview
