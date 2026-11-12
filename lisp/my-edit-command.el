@@ -19,16 +19,6 @@
 
 (global-set-key (kbd "C-c SPC") 'my-select-line)
 
-(defun my-delete-line (num)
-  "Kill NUM lines."
-  (interactive "p")
-  (save-excursion
-    (progn
-      (beginning-of-line)
-      (kill-line num))))
-
-(global-set-key (kbd "C-c w") 'my-delete-line)
-
 (defun my-copy-line (num)
   "Copy NUM lines into killring."
   (interactive "p")
@@ -43,7 +33,7 @@
 	  (message "Copy line %d into killring" startline)
 	(message "Copy line %d to line %d into killring" startline endline)))))
 
-(global-set-key (kbd "C-c y") 'my-copy-line)
+(global-set-key (kbd "M-S-<backspace>") 'my-copy-line)
 
 (defun my-new-line ()
   "Insert new line."
