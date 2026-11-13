@@ -10,11 +10,12 @@
 (use-package agent-shell
   :defer nil
   :bind (:map agent-shell-mode-map
-              ("RET" . newline)
-              ("C-c C-c" . shell-maker-submit)
-              ("C-c C-k" . agent-shell-interrupt)
-	      ("C-c C-t" . agent-shell-open-transcript)
-	      ("C-<return>" . my-find-file-at-point-with-line)
+              ("RET"              . newline)
+	      ("="                . agent-shell-image-scale-increase)
+              ("C-c C-c"          . shell-maker-submit)
+              ("C-c C-k"          . agent-shell-interrupt)
+	      ("C-c C-t"          . agent-shell-open-transcript)
+	      ("C-<return>"       . my-find-file-at-point-with-line)
 	      ("C-<down-mouse-1>" . my-find-file-at-point-with-line))
 
   :config
