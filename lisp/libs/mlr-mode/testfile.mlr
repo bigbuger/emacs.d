@@ -1,0 +1,63 @@
+
+# ----------------------------------------------------------------
+# Expect font-lock-constant-face:
+M_PI M_E
+
+# ----------------------------------------------------------------
+# Expect font-lock-string-face:
+"abc" "123"
+" "
+"this is \"very\" special"
+"abc 'def' ghi"
+
+# Expect mix:
+and "this is a string"
+'adsfasdf'
+'abc "def" ghi'
+
+# ----------------------------------------------------------------
+# Expect font-lock-string-face except 'falls':
+true falls false
+
+# ----------------------------------------------------------------
+# Expect font-lock-comment-face:
+# comment
+not a comment # yup now it is
+### asfasdf
+aaa # a # b # cde
+
+# Expect font-lock-comment-face after '#':
+,,,,,, # here too
+,,, # a # b # cde
+
+# ----------------------------------------------------------------
+# Expect font-lock-keyword-face except IXD, contain, set:
+
+IPS IXS IFS IRS OPS OFS ORS OFLATSEP NF NR FNR FILENAME FILENUM
+ENV
+begin do elif else end filter for if in while break continue contain return
+func subr call dump edump
+emit emitp emitf eprint eprintn print printn tee stdout stderr set unset null
+
+# ----------------------------------------------------------------
+# Expect font-lock-type-face except 'strang strung ver vor':
+arr bool float int map num str var strang strung ver vor
+
+# Expect font-lock-function-name-face foo and bar:
+func foo(int x, str y, bool z) {
+
+}
+subr bar(int x,str y, bool z) {
+}
+$xa = foo($x, $y, $z)
+call foo($x, $y, $z)
+
+# ----------------------------------------------------------------
+# Expect font-lock-variable-name-face except @$ and $@:
+$abcde
+@abcde
+@$
+$@
+$*
+@*
+
