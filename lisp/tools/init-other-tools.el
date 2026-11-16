@@ -60,12 +60,25 @@
   :hook (after-init . emt-mode))
 
 (use-package format-all
+  :demand t
   :bind (:map prog-mode-map
-	      ("C-M-l" . format-all-region-or-buffer))
-  :commands (format-all-mode format-all-region-or-buffer)
+	      ("C-M-l" . my-format-region-or-buffer))
+  :commands (format-all-mode format-all-region-or-buffer my-format-region-or-buffer)
   :config
-  (add-hook 'prog-mode-hook #'format-all-ensure-formatter))
-
+  (add-hook 'prog-mode-hook #'format-all-ensure-formatter)
+  (defun my-format-region-or-buffer (&optional prompt)
+    "If PROMPT is non-nil, prompt interactively for formatter."
+    (interactive (list (if current-prefix-arg 'always t)))
+    (condition-case err
+	(format-all-region-or-buffer prompt)
+      (t
+       (when format-all-debug
+	 (message "; Falling back to indent-region."
+		  (error-message-string err)))
+       (if (use-region-p)
+	   (indent-region (region-beginning) (region-end))
+	 (indent-region (point-min) (point-max))))))
+  )
 
 ;; 时间戳 <-> 字符串
 (defun my-convert-time (timestamp)
