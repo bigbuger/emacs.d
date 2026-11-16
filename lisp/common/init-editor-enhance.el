@@ -110,9 +110,7 @@ ARG is pass to `sp-end-of-sexp'"
   :demand t
   :bind
   (("s-<up>" . drag-stuff-up)
-   ("s-<down>" . drag-stuff-down)
-   ("s-<right>" . drag-stuff-right)
-   ("s-<left>" . drag-stuff-left))
+   ("s-<down>" . drag-stuff-down))
   :init
   (drag-stuff-global-mode 1)
 
