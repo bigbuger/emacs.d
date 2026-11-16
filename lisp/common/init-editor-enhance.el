@@ -148,6 +148,9 @@ ARG is pass to `sp-end-of-sexp'"
   (add-to-list 'mc--default-cmds-to-run-once    'mc/vertical-align)
   (add-to-list 'mc--default-cmds-to-run-once    'mc/vertical-align-with-space)
   (add-to-list 'mc--default-cmds-to-run-for-all 'phi-search)
+
+  (setq mc/insert-numbers-default 1)
+
   (setq mc/match-cursor-style t)
   (set-face-attribute 'mc/cursor-bar-face nil
 		      :height 0.1 :background "red" :foreground "red")
@@ -186,21 +189,7 @@ ARG is pass to `sp-end-of-sexp'"
   (mc/def-mark-thing-in-region "word" (rx-to-string '(: bow)))
   (mc/def-mark-thing-in-region "symbol" (rx-to-string '(: symbol-start)))
 
-  (require 'transient)
-  (transient-define-prefix mc-region-transient ()
-    ["Make cursor in region" :class transient-row
-     ("l" "lines"   mc/edit-lines)
-     ("w" "words"   mc/mark-all-words-in-region)
-     ("s" "symbols" mc/mark-all-symbols-in-region)
-     ("r" "regex"   mc/mark-all-in-region-regexp)]
-
-    (interactive)
-    (if (use-region-p)
-	(transient-setup 'mc-region-transient)
-      (user-error "mark region first")))
-
-  :bind (("C-x m"         . mc-region-transient)
-         ("C->"           . mc/mark-next-like-this)
+  :bind (("C->"           . mc/mark-next-like-this)
          ("C-<"           . mc/mark-previous-like-this)
          ("C-c C->"       . mc/mark-all-like-this)
          ("C-;"           . mc/mark-all-dwim)
@@ -208,9 +197,15 @@ ARG is pass to `sp-end-of-sexp'"
          ("C-M-<"         . mc/skip-to-previous-like-this)
          ("M-S-<mouse-1>" . mc/add-cursor-on-click)
 
+	 :prefix-map mc/mark-map
+	 :prefix "C-x m"
+	 ("l" . mc/edit-lines)
+	 ("w" . mc/mark-all-words-in-region)
+	 ("s" . mc/mark-all-symbols-in-region)
+
 	 :map mc/keymap
-	 ("C-c M-i"       . mc/insert-numbers)
-	 ("C-|"           . mc/vertical-align-with-space)))
+	 ("C-M-1" . mc/insert-numbers)
+	 ("C-|"   . mc/vertical-align-with-space)))
 
 (setq cua-enable-cua-keys nil)
 (setq cua-auto-tabify-rectangles nil)
