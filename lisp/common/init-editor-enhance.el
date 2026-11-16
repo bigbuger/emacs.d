@@ -223,7 +223,7 @@ ARG is pass to `sp-end-of-sexp'"
 (use-package expand-region
   :functions treesit-buffer-root-node
   :bind ("C-=" . er/expand-region)
-  :config
+  :config  
   (defun treesit-mark-bigger-node ()
     "Use tree-sitter to mark regions."
     (let* ((root (treesit-buffer-root-node))
@@ -237,7 +237,25 @@ ARG is pass to `sp-end-of-sexp'"
                 node-end (treesit-node-end node))))
       (set-mark node-end)
       (goto-char node-start)))
-  (add-to-list 'er/try-expand-list 'treesit-mark-bigger-node))
+
+  (add-to-list 'er/try-expand-list 'treesit-mark-bigger-node)
+
+  (defun er/mark-same-face ()
+    "Mark the contiguous text that has the same face as point."
+    (interactive)
+    (when-let ((face (get-text-property (point) 'face)))
+      (let ((beg (point))
+            (end (point)))
+	(while (and (> beg (point-min))
+                    (ignore-errors (face-equal (get-text-property (1- beg) 'face) face)))
+          (setq beg (1- beg)))
+	(while (and (< end (point-max))
+                    (ignore-errors (face-equal (get-text-property end 'face) face)))
+          (setq end (1+ end)))
+	(goto-char beg)
+	(set-mark end))))
+
+  (add-to-list 'er/try-expand-list 'er/mark-same-face))
 
 ;; string-inflection 驼峰/下划线/横线风格自由切换
 (require 'string-inflection)
