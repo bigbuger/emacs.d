@@ -73,3 +73,6 @@
 [submodule "lisp/libs/python-rope.el"]
 	path = lisp/libs/python-rope.el
 	url = git@github.com:bigbuger/python-rope.el.git
+[submodule "lisp/libs/agent-shell-fork-tree"]
+	path = lisp/libs/agent-shell-fork-tree
+	url = git@github.com:roife/agent-shell-fork-tree.git

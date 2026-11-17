@@ -53,6 +53,16 @@
   :config
   (agent-shell-desktop-mode 1))
 
+(use-package agent-shell-fork-tree
+  :load-path "~/.emacs.d/lisp/libs/agent-shell-fork-tree"
+  :hook (agent-shell-mode . agent-shell-fork-tree-mode)
+  :bind ("C-c t" . agent-shell-fork-tree)
+
+  :custom
+  (agent-shell-fork-tree-auto-rebuild nil)
+  (agent-shell-fork-tree-message-truncation 80)
+  (agent-shell-fork-tree-scan-concurrency 8))
+
 (provide 'init-llm)
 
 ;;; init-llm.el ends here
