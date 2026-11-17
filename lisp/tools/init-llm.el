@@ -29,9 +29,8 @@
 	  agent-shell-command-completion-enabled t)
 
   (defun my-agent-shell-dot-subdir (subdir)
-    (let* ((cwd (string-remove-prefix (file-truename "~")
-				      (string-remove-suffix "/" (agent-shell-cwd))))
-           (sanitized (replace-regexp-in-string "/" ":" (string-remove-prefix "/" cwd))))
+    (let* ((cwd (string-remove-suffix "/" (agent-shell-cwd)))
+           (sanitized (replace-regexp-in-string "/" ":" cwd)))
       (expand-file-name subdir (concat "~/.cache/emacs/data/agent-shell/" sanitized))))
 
   (setopt agent-shell-dot-subdir-function #'my-agent-shell-dot-subdir)
