@@ -39,18 +39,18 @@
 
 (use-package format-all
   :config
-  ;; gof is a shell file, it run gofmt firset, goimports second
   (define-format-all-formatter jq
     (:executable "jq")
     (:install)
     (:languages "JSON")
     (:features)
-    (:format (format-all--buffer-easy executable "--indent" (number-to-string js-indent-level))))
+    (:format (format-all--buffer-easy executable "--indent" (number-to-string js-indent-level)))) ;; 会清掉空行，先不用
 
-  :hook
-  (json-mode . (lambda ()
-		  (setq-local format-all-formatters
-			      '(("JSON" jq))))))
+  ;; :hook
+  ;; (json-mode . (lambda ()
+  ;; 		  (setq-local format-all-formatters
+  ;; 			      '(("JSON" jq)))))
+  )
 
 
 (use-package jq-mode)
