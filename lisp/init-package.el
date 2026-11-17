@@ -7,6 +7,8 @@
 
 (defvar my-packages
   '(
+    no-littering
+    
     ;; base
     popup
     crux

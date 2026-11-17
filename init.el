@@ -39,11 +39,10 @@
   (exec-path-from-shell-initialize))
 
 ;; Keep Folders Clean
-(setq no-littering-var-directory
-      (expand-file-name "data/" "~/.cache/emacs"))
-(use-package no-littering
-  :ensure t
-  :demand t)
+(eval-and-compile ; Ensure values don't differ at compile time.
+  (setq no-littering-var-directory
+	(expand-file-name "data/" "~/.cache/emacs"))
+  (require 'no-littering))
 
 ;; no-littering doesn't set this by default so we must place
 ;; auto save files in the same path as it uses for sessions
@@ -106,3 +105,5 @@
 	(let ((l (concat private-setting-dir f)))
 	  (with-demoted-errors
 	      (load-file l))))))
+
+(server-start)

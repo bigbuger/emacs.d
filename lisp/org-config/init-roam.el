@@ -125,8 +125,7 @@
            :if-new (file+head "摘要/${slug}.org" "#+title: ${title}\n#+filetags: :摘要:\n- ref :: %a")
 	   :immediate-finish t
            :unnarrowed t
-	   :empty-lines-before 1)))
-  (server-start))
+	   :empty-lines-before 1))))
 
 (use-package org-roam-ui
   :ensure t
