@@ -28,6 +28,20 @@
 	  agent-shell-file-completion-enabled t
 	  agent-shell-command-completion-enabled t)
 
+  (defun my-agent-shell-dot-subdir (subdir)
+    (let* ((cwd (string-remove-prefix (file-truename "~")
+				      (string-remove-suffix "/" (agent-shell-cwd))))
+           (sanitized (replace-regexp-in-string "/" ":" (string-remove-prefix "/" cwd))))
+      (expand-file-name subdir (concat "~/.cache/emacs/data/agent-shell/" sanitized))))
+
+  (setopt agent-shell-dot-subdir-function #'my-agent-shell-dot-subdir)
+
+  (setq agent-shell-pi-environment
+	(agent-shell-make-environment-variables
+	 "PI_OFFLINE" "1"
+	 "PI_SKIP_VERSION_CHECK" "1"
+	 "PI_TELEMETRY" "0"))
+
   (defalias 'ag> #'agent-shell-send-dwim)
   (add-to-list 'display-buffer-alist
 	       '((major-mode . agent-shell-mode)
