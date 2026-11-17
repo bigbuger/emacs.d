@@ -21,7 +21,7 @@
   (let ((name (format "%s" x)))
     (or
      ;; Current window is not dedicated window.
-     (window-dedicated-p (selected-window))
+     ;; (window-dedicated-p (selected-window))
 
      ;; Buffer name not match below blacklist.
      ;; just block all buffer start with *
@@ -31,6 +31,7 @@
 	  (not (with-current-buffer x (derived-mode-p 'json-mode)))
 	  (not (string-prefix-p "*compilation" name))
 	  (not (string-prefix-p "*vterm" name))
+	  (not (string-suffix-p "ghostel*" name))
 	  (not (string-prefix-p "*term" name))
 	  (not (string-prefix-p "*shell" name))
 	  (not (string-prefix-p "*ielm" name))
@@ -42,7 +43,7 @@
 
      ;; acp
      (string-prefix-p "acp-client-stderr" name)
-     
+
      )))
 
 
@@ -55,46 +56,68 @@
 
 (defun awesome-tab-buffer-groups ()
   "Control buffers' tag group rules."
-  (list
-   (cond
-    ((string-prefix-p org-roam-directory (buffer-file-name))
-     "Roam")
-    ((or
-      (string-prefix-p (file-truename "~/code/go/pkg/mod") (buffer-file-name))
-      (string-prefix-p "/usr/local/go/src" (buffer-file-name))
-      (and (derived-mode-p 'dired-mode)
-	   (or (string-prefix-p (file-truename "~/code/go/pkg/mod") default-directory)
-	       (string-prefix-p "/usr/local/go/src" default-directory))))
-     "Go pkg mod")
+  (let ((file-name (or (ignore-errors
+			 (file-truename (buffer-file-name)))
+		       ""))
+	(home (expand-file-name "~")))
+    (list
+     (cond
+      ((string-prefix-p org-roam-directory file-name)
+       "Roam")
+      ((or
+	(string-prefix-p (file-truename "~/code/go/pkg/mod") file-name)
+	(string-prefix-p "/usr/local/go/src" file-name)
+	(and (derived-mode-p 'dired-mode)
+	     (or (string-prefix-p (file-truename "~/code/go/pkg/mod") default-directory)
+		 (string-prefix-p "/usr/local/go/src" default-directory))))
+       "Go pkg mod")
 
-    ((or (derived-mode-p 'eshell-mode)
-	 (derived-mode-p 'term-mode)
-	 (derived-mode-p 'shell-mode)
-	 (derived-mode-p 'vterm-mode)
-	 (derived-mode-p 'compilation-mode)
-	 (derived-mode-p 'comint-mode))
-     (centaur-tabs-get-group-name-with-perfix "Execute")) ;; 执行模式每个项目一个组
+      ((member file-name (mapcar #'expand-file-name '("~/.bash_profile" "~/.bashrc" "~/.profile")))
+       "*Bash config*")
 
-    ;; ((and (not (projectile-project-root))
-    ;;	  (memq major-mode '(org-mode org-agenda-mode diary-mode)))
-    ;;  "OrgMode")
+      ((or
+	(member file-name (mapcar #'expand-file-name '("~/.zshrc" "~/.zshenv" "~/.zprofile" "~/.zsh_history")))
+	(string-prefix-p (expand-file-name "~/.zsh") default-directory))
+       "*Zsh config*")
 
-    ((memq major-mode '(magit-process-mode
-			magit-status-mode
-			magit-diff-mode
-			magit-revision-mode
-			magit-log-mode
-			magit-file-mode
-			magit-blob-mode
-			magit-blame-mode
-			))
-     (centaur-tabs-get-group-name-with-perfix "Magit"))
-    
-    ((string-equal "*" (substring (buffer-name) 0 1))
-     "Emacs")
+      ((or (derived-mode-p 'eshell-mode)
+	   (derived-mode-p 'term-mode)
+	   (derived-mode-p 'shell-mode)
+	   (derived-mode-p 'vterm-mode)
+	   (derived-mode-p 'ghostel-mode)
+	   (derived-mode-p 'compilation-mode)
+	   (derived-mode-p 'comint-mode))
+       (centaur-tabs-get-group-name-with-perfix "Execute")) ;; 执行模式每个项目一个组
 
-    (t
-     (awesome-tab-get-group-name (current-buffer))))))
+      ;; smart-switch-project stop working with this，I don't know why
+      ;; ((and
+      ;; 	(string-prefix-p (concat home "/.") default-directory)
+      ;; 	(not (string-prefix-p (expand-file-name "~/.emacs.d") default-directory))
+      ;; 	(not (awesome-tab-get-project-name)))
+      ;;  (let* ((rel (file-relative-name default-directory home))
+      ;; 	      (dir (car (file-name-split rel))))
+      ;; 	 (format "*Dot %s files*" (string-remove-prefix "." (or dir "")))))
+
+      ;; ((and (not (projectile-project-root))
+      ;;	  (memq major-mode '(org-mode org-agenda-mode diary-mode)))
+      ;;  "OrgMode")
+
+      ((memq major-mode '(magit-process-mode
+			  magit-status-mode
+			  magit-diff-mode
+			  magit-revision-mode
+			  magit-log-mode
+			  magit-file-mode
+			  magit-blob-mode
+			  magit-blame-mode
+			  ))
+       (centaur-tabs-get-group-name-with-perfix "Magit"))
+
+      ((string-equal "*" (substring (buffer-name) 0 1))
+       "Emacs")
+
+      (t
+       (awesome-tab-get-group-name (current-buffer)))))))
 
 (setq awesome-tab-icon-height 0.8)
 (setq awesome-tab-icon-file-v-adjust 0)
@@ -175,7 +198,7 @@ That is, a string used to represent it on the tab bar."
      ;; Tab index.
      (when awesome-tab-show-tab-index
        (propertize (format awesome-tab-index-format-str (+ current-buffer-index 1)) 'face tab-face))
-     
+
      ;; Tab label.
      (propertize (awesome-tab-tab-name tab)
 		 'face tab-face
