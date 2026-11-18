@@ -50,7 +50,56 @@
   ;; Support to display directory in buffer listings.
   (add-hook 'agent-shell-mode-hook
 	    (lambda ()
-	      (setq list-buffers-directory (expand-file-name default-directory)))))
+	      (setq list-buffers-directory (expand-file-name default-directory))))
+
+  ;;; agent-shell: pi 权限选项按键 + 紧凑标签
+  (defcustom my-agent-shell--permission-keys
+    '(("\\`No, provide reason"	    . "X")
+      ("\\`No\\'"		    . "x")
+      ("both directions"            . "b")
+      ("reads and writes"           . "b")
+      ("\\`Yes, .*for this session" . "!"))
+    "Keys for permission options that not match the agent-shell default kind."
+
+    :type '(alist :key-type regexp :value-type string))
+
+  (defun my-agent-shell--quoted-target-to-count (label)
+    "Rewrite a single quoted grant target as `1 path'."
+    (if (string-match-p "\"[^\"]+\"" label)
+	(replace-regexp-in-string "\"[^\"]+\"" "1 path" label t t)
+      label))
+
+  (defun my-agent-shell--short-permission-label (name)
+    "Compact pi-permission-system's session-option labels."
+    (let ((case-fold-search nil))
+      (if (string-match "\\`Yes, allow \\(reads and writes\\|reads\\|writes\\|access\\) to .* for this session\\'" name)
+          (my-agent-shell--quoted-target-to-count name)
+	name)))
+
+  (defun my-agent-shell--permission-advice (orig &rest args)
+    "Give every ACP permission option a meaning-based key and a compact label.
+
+pi-acp tags every `select' option `allow_once', so agent-shell hands a
+key to the first one only; decide the key from the label instead, and
+fall back to agent-shell's own key for any other agent's wording.  Also
+unify pi's two label styles (`\"<path>\"' / `N paths') into the latter."
+    (let* ((action (apply orig args))
+           (opt (plist-get args :acp-option))
+           (name (or (map-elt opt 'name) ""))
+           (char (or (map-elt action :char)
+                     (cdr (seq-find (lambda (rule)
+                                      (string-match-p (car rule) name))
+                                    my-agent-shell--permission-keys))))
+           (label (my-agent-shell--short-permission-label name)))
+      (when action
+	(when char
+          (map-put! action :char char))
+        (map-put! action :label (if char (format "%s (%s)" label char) label)))
+      action))
+
+  (advice-add 'agent-shell--make-permission-action
+              :around #'my-agent-shell--permission-advice)
+  )
 
 (use-package agent-shell-ediff
   :load-path "~/.emacs.d/lisp/libs/agent-shell-ediff"
@@ -69,7 +118,7 @@
 (use-package agent-shell-fork-tree
   :load-path "~/.emacs.d/lisp/libs/agent-shell-fork-tree"
   :hook (agent-shell-mode . agent-shell-fork-tree-mode)
-  :bind ("C-c t" . agent-shell-fork-tree)
+  :bind ("C-c C-f" . agent-shell-fork-tree)
 
   :custom
   (agent-shell-fork-tree-auto-rebuild nil)
