@@ -6,8 +6,6 @@
 
 ;;; Code:
 
-(add-hook 'conf-mode-hook #'display-line-numbers-mode)
-
 ;; cargo install taplo-cli --features lsp
 ;; (use-package lsp-mode
 ;;   :hook

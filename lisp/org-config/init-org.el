@@ -29,9 +29,6 @@
 	  (lambda ()
 	    (imenu-add-menubar-index)))
 
-;; 显示行号
-(add-hook 'org-mode-hook #'display-line-numbers-mode)
-
 ;; inline显示图片
 (setq auto-window-vscroll nil) ;; 关掉，auto-window-vscroll, 不然有图片时按 C-n 要等图片显示完，😩
 (setq org-startup-with-inline-images 1)

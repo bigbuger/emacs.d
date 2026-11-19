@@ -705,15 +705,8 @@ targets."
      (mb-win (progn
 	       (select-window mb-win)
 	       (insert (string-join strings " "))))
-     ((length< (aw-window-list) 2)
-      (embark-insert strings))
-     (t (let ((aw-dispatch-always t))
-	  (aw-select " Ace - Insert"
-		     #'(lambda (window)
-			 (with-selected-window window
-			   (if buffer-read-only
-			       (message "Buffer is read-only")
-			     (embark-insert strings))))))))))
+     (t
+      (embark-insert strings)))))
 (add-to-list 'embark-multitarget-actions #'embark-ace-insert)
 (define-key embark-general-map (kbd "i") #'embark-ace-insert)
 

@@ -99,7 +99,10 @@
 			     (set-auto-mode)))))
 
 ;; 显示行号
-(add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode +1)))
+
+(dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
+  (add-hook hook #'display-line-numbers-mode))
+
 (column-number-mode 1)
 
 ;; 高亮括号匹配

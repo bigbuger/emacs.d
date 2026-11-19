@@ -6,8 +6,8 @@
 
 ;;; Code:
 
-(setq major-mode-remap-alist
-      '((python-mode . python-ts-mode)))
+(add-to-list 'major-mode-remap-alist
+	     '(python-mode . python-ts-mode))
 (add-hook 'python-ts-mode-hook #'superword-mode)
 (add-hook 'python-ts-mode-hook
 	  #'(lambda ()

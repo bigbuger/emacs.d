@@ -31,6 +31,9 @@
 (add-to-list 'auto-mode-alist '("/go\\.mod\\'" . go-mod-ts-mode))
 ;;(add-to-list 'auto-mode-alist '("/go\\.mod\\'" . go-dot-mod-mode))
 
+(with-eval-after-load 'agent-shell
+  (add-to-list 'agent-shell-markdown-language-mapping '("go" . "go-ts")))
+
 (setq go-fontify-function-calls nil)
 
 ;;(setenv "GO111MODULE" "off")
