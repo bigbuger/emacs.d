@@ -15,6 +15,8 @@
               ("C-c C-c"          . shell-maker-submit)
               ("C-c C-k"          . agent-shell-interrupt)
 	      ("C-c C-t"          . agent-shell-open-transcript)
+	      ("C-M-p"            . comint-previous-prompt)
+	      ("C-M-n"            . comint-next-prompt)
 	      ("C-<return>"       . my-find-file-at-point-with-line)
 	      ("C-<down-mouse-1>" . my-find-file-at-point-with-line))
 
@@ -22,11 +24,34 @@
   (setq agent-shell-google-gemini-acp-command '("gemini" "--acp"))
   (setq agent-shell-activity-group-header-label-function
 	#'agent-shell-activity-group-tally-label)
+  (setq agent-shell-session-restore-verbosity 'full)
+  (setq agent-shell-prompt-busy-frames '("▶▷▷" "▷▶▷" "▷▷▶")
+	agent-shell-chat--body-indent "   "
+	agent-shell-elicitation--indent "    ")
 
   (setopt agent-shell-show-cost-indicator t
 	  agent-shell-persistent-prompt-enabled t
 	  agent-shell-file-completion-enabled t
 	  agent-shell-command-completion-enabled t)
+
+  (defun my-agent-shell-imenu-index ()
+    "Imenu index of agent-shell turns, from prompt text properties."
+    (let (entries)
+      (dolist (range (agent-shell-prompt-ranges))
+	(let* ((beg (map-elt range :input-start))
+               (end (min (map-elt range :input-end) (point-max)))
+               (text (string-replace "\n" " ⏎ " (string-trim (buffer-substring-no-properties beg end)))))
+          (unless (string-empty-p text)
+            (push (cons text
+                        (copy-marker beg))
+                  entries))))
+      (nreverse entries)))
+
+  (add-hook 'agent-shell-mode-hook
+            (lambda ()
+              (setq-local imenu-create-index-function
+                          #'my-agent-shell-imenu-index)))
+
 
   (defun my-agent-shell-dot-subdir (subdir)
     (let* ((cwd (string-remove-suffix "/" (agent-shell-cwd)))
