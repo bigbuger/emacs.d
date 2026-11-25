@@ -47,6 +47,13 @@
 	      (setq-local company-backends
 			  (cl-adjoin '(company-math-symbols-latex :with company-yasnippet) company-backends :test #'equal)))))
 
+(use-package pele
+  :after markdown-mode
+  :vc (:url "https://github.com/LuciusChen/pele.el.git" :rev "8b37ebc41b4b5cd10c3fb645bd8e5d07d1f90fc8")
+  :hook (markdown-mode . pele-markdown-mode))
+
+(use-package mermaid-mode)
+
 (provide 'init-markdown)
 
 ;;; init-markdown.el ends here
