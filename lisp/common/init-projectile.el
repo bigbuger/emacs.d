@@ -2,7 +2,7 @@
 
 
 ;;; Commentary:
-;; 
+;;
 
 ;;; Code:
 (require 'projectile)
@@ -45,7 +45,7 @@
 (cl-nsubstitute ".git/" ".git" projectile-project-root-files-bottom-up :test #'string=)
 
 (defun my-projectile-ignore-git-project (project-root)
-    (string-match-p ".git" project-root))
+  (string-match-p ".git" project-root))
 (setq projectile-ignored-project-function #'my-projectile-ignore-git-project)
 
 (setq frame-title-format
@@ -69,20 +69,45 @@
 (defvar xref-project-history-hash (make-hash-table :test 'equal)
   "Storage for per-project xref histories.")
 
-(defun xref-project-history-current-project ()
-  "Get the current or associated project."
-  (or (projectile-project-root)
-      ""))
+(with-eval-after-load 'xref
+  (defun xref-project-history-current-project ()
+    "Get the current or associated project."
+    (or (projectile-project-root)
+	""))
 
-(defun xref-project-history (&optional new-value)
-  "Return or set a project specific xref-history."
-  (let ((proj (xref-project-history-current-project)))
-    (if new-value
-        (puthash proj new-value xref-project-history-hash)
-      (or
-       (gethash proj xref-project-history-hash)
-       (puthash proj (xref--make-xref-history) xref-project-history-hash)))))
-(setq xref-history-storage #'xref-project-history)
+  (defun xref--project-history (proj)
+    "Return the xref history stored for PROJ, creating it if needed."
+    (or (gethash proj xref-project-history-hash)
+	(puthash proj (xref--make-xref-history) xref-project-history-hash)))
+
+  (defun xref-project-history (&optional new-value)
+    "Return or set a project specific xref-history."
+    (let ((proj (xref-project-history-current-project)))
+      (if new-value
+          (puthash proj new-value xref-project-history-hash)
+	(xref--project-history proj))))
+  (setq xref-history-storage #'xref-project-history)
+
+  ;; 跨项目跳转带上原来的历史
+  (defvar xref--inherit-source-history nil
+    "Xref history of the buffer the current jump originates from.")
+
+  (defun xref-set-up-project-history (orig &rest args)
+    "Remember the source buffer's xref history."
+    (let ((xref--inherit-source-history (xref--get-history)))
+      (apply orig args)))
+
+  (advice-add 'xref-pop-to-location :around #'xref-set-up-project-history)
+  (advice-add 'xref-goto-xref :around #'xref-set-up-project-history)
+
+  (defun xref-inherit-jump-history ()
+    "In the jumped-to buffer, keep using the source project's history."
+    (when xref--inherit-source-history
+      (let ((src xref--inherit-source-history)
+            (proj (xref-project-history-current-project)))
+	(unless (eq (xref--project-history proj) src)
+          (puthash proj src xref-project-history-hash)))))
+  (add-hook 'xref-after-jump-hook #'xref-inherit-jump-history))
 
 ;; projectile rg 有时候比 consult-rg 好用
 (define-key projectile-mode-map (kbd "C-c p s") 'projectile-ripgrep)
