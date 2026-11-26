@@ -181,7 +181,7 @@ instead of the hash, like `kill-ring-save' would."
       ("p" "Previous conflict" smerge-prev :transient t)
       ("z" "undo"              undo-only :transient t)]])
   
-  (define-key smerge-mode-map (kbd "C-c v") 'smerge-transient))
+  (define-key smerge-mode-map (kbd "C-c v m") 'smerge-transient))
 ;; end smerge
 
 (use-package difftastic-bindings
@@ -225,9 +225,10 @@ instead of the hash, like `kill-ring-save' would."
      [("n" "Next hunk" diff-hl-next-hunk :transient t)]
      [("p" "Previous hunk" diff-hl-previous-hunk :transient t)]
      [("k" "Revert hunk" diff-hl-revert-hunk :transient t)]
+     [("m" "mark hunk" diff-hl-mark-hunk :transient t)]
      [("q" "Quite" transient-quit-all)]
      [("RET" "Quite" transient-quit-all)]])
-  (global-set-key (kbd "C-c v") 'diff-hl-transient)
+  (global-set-key (kbd "C-c v d") 'diff-hl-transient)
   
   
   :hook

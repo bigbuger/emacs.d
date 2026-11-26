@@ -214,9 +214,7 @@ ARG is pass to `sp-end-of-sexp'"
 ;; 例如输入 hello he 之后调用 `dmacro-exec' 会变成 hello hello
 (use-package dmacro
   :ensure t
-  :init
-  (setq dmacro-key (kbd "M-r")) ;; orig move-to-window-line-top-bottom
-  (global-dmacro-mode t))
+  :bind* ("M-e" . dmacro-exec))
 
 ;; Increase selected region by semantic units
 ;; copy from centaur emacs
