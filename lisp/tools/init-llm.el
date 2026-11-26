@@ -138,82 +138,49 @@ unify pi's two label styles (`\"<path>\"' / `N paths') into the latter."
               :around #'my-agent-shell--permission-advice)
 
   ;;; agent-shell: 选项过多/过长时每项一行
+  (require 'cl-lib)
   (defcustom my-agent-shell--permission-multiline-min-options 5
     "Split permission options onto separate lines when there are this many.
 
-The diff `View' button counts as an option.  See
-`my-agent-shell--permission-dialog-advice'."
+The diff `View' button counts as an option."
     :type 'integer)
 
   (defcustom my-agent-shell--permission-multiline-max-width 100
     "Split permission options onto separate lines when the row is wider.
 
 Width is measured in columns (`string-width'), so CJK text counts
-double.  See `my-agent-shell--permission-dialog-advice'."
+double."
     :type 'integer)
 
-  (defcustom my-agent-shell--permission-option-indent "    "
-    "Indent for permission options rendered one per line."
-    :type 'string)
-
-  (defun my-agent-shell--permission-button-starts (text)
-    "Return positions where TEXT's permission buttons start.
-
-Buttons from `agent-shell--make-button' carry a `button' property of
-`permission', so find where that property starts rather than parsing
-the rendered text."
-    (let (starts)
-      (dotimes (i (length text))
-        (when (and (eq (get-text-property i 'button text) 'permission)
-                   (or (zerop i)
-                       (not (eq (get-text-property (1- i) 'button text) 'permission))))
-          (push i starts)))
-      (nreverse starts)))
-
-  (defun my-agent-shell--permission-option-row (text pos)
-    "Return the line of TEXT holding the button at POS."
-    (let ((beg (if (string-match "\\(?:\n[^\n]*\\)\\'" (substring text 0 pos))
-                   (match-beginning 0)
-                 0)))
-      (substring text beg (or (string-match "\n" text pos) (length text)))))
-
-  (defun my-agent-shell--permission-split-options (text starts)
-    "Return TEXT with each permission button of STARTS on its own line.
-
-Only the separator before each button is replaced, so button text, text
-properties and the offsets `agent-shell--make-permission-button' derives
-from the button length are untouched."
-    (let ((indent (or my-agent-shell--permission-option-indent ""))
-          (parts nil)
-          (beg 0))               ; start of the piece not yet copied
-      (dolist (start (cdr starts))
-        (let ((sep (if (eq (aref text (1- start)) ?\s) (1- start) start)))
-          (push (substring text beg sep) parts)
-          (push (concat "\n" indent) parts)
-          (setq beg start)))
-      (push (substring text beg) parts)
-      (apply #'concat (nreverse parts))))
-
-  (defun my-agent-shell--permission-dialog-advice (orig &rest args)
-    "Split the permission option row into one line per option when long.
-
-Advises `agent-shell--make-tool-call-permission-text', the only place
-that sees every option: it joins all buttons into a single row.  Split
-when more than `my-agent-shell--permission-multiline-min-options' buttons
-are shown (the diff `View' button counts too) or when the row is wider
-than `my-agent-shell--permission-multiline-max-width' columns."
-    (let* ((text (apply orig args))
-           (starts (my-agent-shell--permission-button-starts text)))
-      (if (and (cdr starts)
-               (or (>= (length starts) my-agent-shell--permission-multiline-min-options)
-                   (> (string-width
-                       (my-agent-shell--permission-option-row text (car starts)))
-                      my-agent-shell--permission-multiline-max-width)))
-          (my-agent-shell--permission-split-options text starts)
-        text)))
+  (defun my-agent-shell--permission-dialog-filter (text)
+    "Split TEXT's permission option row into one line per option when long."
+    (let ((starts
+           (cl-loop for i below (length text)
+                    when (and (eq (get-text-property i 'button text) 'permission)
+                              (or (zerop i)
+                                  (not (eq (get-text-property (1- i) 'button text)
+                                           'permission))))
+                    collect i)))
+      (when (cdr starts)
+        (let* ((first (car starts))
+               (beg (if (string-match "\\(?:\n[^\n]*\\)\\'" (substring text 0 first))
+                        (match-beginning 0)
+                      0))
+               (row (substring text beg
+                               (or (string-match "\n" text first)
+                                   (length text)))))
+          (when (or (>= (length starts) my-agent-shell--permission-multiline-min-options)
+                    (> (string-width row)
+                       my-agent-shell--permission-multiline-max-width))
+            (dolist (start (reverse (cdr starts)))
+              (let ((sep (if (eq (aref text (1- start)) ?\s) (1- start) start)))
+                (setq text (concat (substring text 0 sep)
+                                   "\n    "
+                                   (substring text start))))))))
+      text))
 
   (advice-add 'agent-shell--make-tool-call-permission-text
-              :around #'my-agent-shell--permission-dialog-advice)
+              :filter-return #'my-agent-shell--permission-dialog-filter)
   )
 
 (use-package agent-shell-ediff
