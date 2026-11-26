@@ -252,6 +252,7 @@ since the whatis index is broken post-SIP."
   (global-set-key (kbd "C-h I") 'consult-info)
   
   (define-key minibuffer-local-map (kbd "M-r") 'consult-history)
+  (define-key comint-mode-map (kbd "M-r") 'consult-history)
   
   ;; (with-eval-after-load "org"
   ;;   (define-key org-mode-map (kbd "C-c i") #'consult-outline)
