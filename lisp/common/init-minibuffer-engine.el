@@ -1,8 +1,8 @@
 ;;; init-1-minibuffer-engine.el --- minibuffer engine config -*- lexical-binding: t; -*-
-;;; 
+;;;
 
 ;;; Commentary:
-;; 
+;;
 
 ;;; Code:
 
@@ -29,7 +29,7 @@
 	      ("M-S"   . vertico-toggle-sort)
 	      ("s-j"   . vertico-quick-jump)
 	      ("C-c j" . vertico-quick-jump))
-  
+
   :init
   (vertico-mode)
   (vertico-multiform-mode 1)
@@ -60,7 +60,7 @@
   ;; macos 下面 man 获取补全会很慢，所以屏蔽之..
   ;; https://github.com/minad/vertico/issues/297
   (defun macos-man-completion-table-before-while (&rest _)
-    "If running under macOS, do not attempt to complete manual page names, 
+    "If running under macOS, do not attempt to complete manual page names,
 since the whatis index is broken post-SIP."
     (not (eq system-type 'darwin)))
   (advice-add #'Man-completion-table :before-while #'macos-man-completion-table-before-while)
@@ -92,14 +92,14 @@ since the whatis index is broken post-SIP."
   :config
   ;; (setq orderless-style-dispatchers (list #'orderless-kwd-dispatch ; 查询可以通过 :mod:lisp :dir:xxx 之类的命令查询 buffer
   ;;                                         #'orderless-affix-dispatch))
-  
+
   (defun my-orderless-fuzzy (component)
     "abc 匹配 a\w*[_-]b\w*[_-]c"
     (orderless--separated-by '(seq (zero-or-more word) (in "-" "_"))
       (cl-loop for char across component collect `(seq bow ,char))))
   (add-to-list 'orderless-affix-dispatch-alist
 	       `(?@ . ,#'my-orderless-fuzzy))
-  
+
   (setq orderless-matching-styles
 	'(orderless-literal		; use = to dispatch
 	  orderless-regexp		;
@@ -113,12 +113,12 @@ since the whatis index is broken post-SIP."
   (require 'pyim)
   (defun orderless-regex-pinyin (str)
     (pyim-cregexp-build (orderless-regexp str)))
-  
+
   (orderless-define-completion-style orderless+initialism
     (orderless-matching-styles '(orderless-literal
 				 orderless-regexp
 				 orderless-initialism)))
-  
+
   (orderless-define-completion-style orderless+initialism+pinyin
     (orderless-matching-styles '(orderless-literal
 				 orderless-regex-pinyin
@@ -133,7 +133,7 @@ since the whatis index is broken post-SIP."
   (orderless-define-completion-style orderless+pinyin
     (orderless-matching-styles '(orderless-literal
 				 orderless-regex-pinyin)))
-  
+
   (setq orderless-component-separator #'orderless-escapable-split-on-space)
 
   (setq completion-styles '(orderless basic partial-completion))
@@ -147,7 +147,7 @@ since the whatis index is broken post-SIP."
 	  (project-buffer   (styles orderless+initialism))
 	  (bookmark         (styles orderless+initialism+pinyin))
 	  (consult-location (styles orderless))))
-  
+
   :init
   (with-eval-after-load 'company
     ;; We follow a suggestion by company maintainer u/hvis:
@@ -155,7 +155,7 @@ since the whatis index is broken post-SIP."
     (defun company-completion-styles (capf-fn &rest args)
       (let ((completion-styles '(basic partial-completion emacs22)))
 	(apply capf-fn args)))
-    
+
     (advice-add 'company-capf :around #'company-completion-styles))
 
   (defun using-orderless(orig_fun &rest args)
@@ -192,7 +192,7 @@ since the whatis index is broken post-SIP."
 	       (,#'projectile-switch-to-buffer . project-buffer)
                (,#'projectile-switch-project . project-file)))
     (add-to-list 'marginalia-command-categories e))
-  
+
   (add-to-list 'marginalia-prompt-categories '("\\<buffer\\>" . buffer)))
 
 (use-package nerd-icons-completion
@@ -210,7 +210,7 @@ since the whatis index is broken post-SIP."
   :config
   (setf (alist-get 'consult-line vertico-multiform-commands)
 	'((vertico-cycle . t)))
-  
+
   :init
   ;; Use `consult-completion-in-region' if Vertico is enabled.
   ;; Otherwise use the default `completion--in-region' function.
@@ -221,48 +221,61 @@ since the whatis index is broken post-SIP."
                      #'consult-completion-in-region
                    #'completion--in-region)
 		 args)))
-  
-  
+
+
   (setq consult-narrow-key "C-+") ;; narrow 切换多个分组
   ;; (setq consult-line-start-from-top t)
-  
+
   (global-set-key (kbd "C-x b") 'consult-buffer)
   (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
   (global-set-key (kbd "C-x 5 b") 'consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
   (global-set-key (kbd "M-y") 'consult-yank-pop) ;; orig. yank-pop
-  
+
   (global-set-key (kbd "C-c m") 'consult-bookmark)
   (global-set-key (kbd "C-c s") 'consult-ripgrep)
   (global-set-key (kbd "C-c f") 'consult-fd)
   (global-set-key (kbd "C-c e") 'consult-recent-file)
   (global-set-key (kbd "C-c i") 'consult-imenu)
   (global-set-key (kbd "C-c k") 'consult-kmacro)
-  
+
   (global-set-key (kbd "M-g i") 'consult-imenu)	      ;; orig. imenu
   (global-set-key (kbd "M-g M-g") 'consult-goto-line) ;; orig. goto-line
   (global-set-key (kbd "M-g g") 'consult-goto-line) ;; orig. goto-line
   (global-set-key (kbd "M-g m") 'consult-global-mark)
   (global-set-key (kbd "M-g r") 'consult-grep-match)
-  
+
   (global-set-key (kbd "M-s l") 'consult-line)
   (global-set-key (kbd "M-s k")  'consult-keep-lines)
   (global-set-key (kbd "M-s u")  'consult-focus-lines)
   (global-set-key (kbd "M-s e")  'consult-isearch-history)
-  
+
   (global-set-key (kbd "C-h I") 'consult-info)
-  
+
   (define-key minibuffer-local-map (kbd "M-r") 'consult-history)
   (with-eval-after-load 'comint
     (define-key comint-mode-map (kbd "M-r") 'consult-history))
 
-  ;; (with-eval-after-load "org"
-  ;;   (define-key org-mode-map (kbd "C-c i") #'consult-outline)
-  ;;   (define-key org-mode-map (kbd "M-g i") #'consult-outline))
+  (with-eval-after-load 'org
+    (define-key org-mode-map (kbd "C-c i") #'consult-org-heading)
+
+    (defun my-consult-org-heading-strip-face-hight (orign &rest args)
+      (let* ((height (face-attribute 'default :height))
+	     (org-level-faces
+	      (mapcar (lambda (face)
+			(let ((new-face (intern (format "%s--no-height" face))))
+			  (make-face new-face)
+			  (set-face-attribute new-face nil
+					      :inherit face
+					      :height height) ;; make all line same height in minibuffer
+			  new-face))
+		      org-level-faces)))
+	(apply orign args)))
+    (advice-add 'consult-org--headings :around #'my-consult-org-heading-strip-face-hight))
 
 
   ;; Use Consult to select xref locations with preview
   (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref)
+	xref-show-definitions-function #'consult-xref)
 
   (defun consult--get-completion-options-from-help (exec)
     "Generate exec options table vai `exec' -h."
@@ -301,7 +314,7 @@ since the whatis index is broken post-SIP."
 	 (defcustom ,options-alist
 	   (consult--get-completion-options-from-help ,exec)
 	   ,(format "%s options alist." exec))
-	 
+
 	 (defun ,capf ()
 	   "Completion option.
 This is the function to be used for the hook `completion-at-point-functions'."
@@ -312,7 +325,7 @@ This is the function to be used for the hook `completion-at-point-functions'."
 	     (list start end ,options-alist
 		   :annotation-function
 		   (lambda (cand) (cdr (assoc cand ,options-alist))))))
-	 
+
 	 (defun ,adv (orign &rest args)
 	   (minibuffer-with-setup-hook
 	       (:append
@@ -320,10 +333,10 @@ This is the function to be used for the hook `completion-at-point-functions'."
 		  (add-hook 'completion-at-point-functions
 			    #',capf nil t)))
 	     (apply orign args)))
-	 
+
 	 (advice-add ,command :around ',adv))))
   (def-consult-help 'consult-ripgrep "rg")
-  
+
   :config
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
@@ -333,11 +346,11 @@ This is the function to be used for the hook `completion-at-point-functions'."
    consult-goto-line
    consult-keep-lines 			;加入 debounce 防止正则出错时中断
    consult-focus-lines
-   
+
    :preview-key '(:debounce 0.4 any) ;; Option 1: Delay preview
    ;; :preview-key "M-."             ;; Option 2: Manual preview
    )
-  
+
   (consult-customize
    consult-bookmark
    consult-recent-file
@@ -347,13 +360,13 @@ This is the function to be used for the hook `completion-at-point-functions'."
    consult-theme
    consult-buffer
    consult-source-buffer
-   
+
    :preview-key '("M-.")))
 
 (use-package consult
   :after orderless
   :defines consult-line-literal
-  
+
   :config
   ;; Use the `orderless` completion style, restricted to `orderless-literal`
   (defun consult-line-literal ()
@@ -408,10 +421,10 @@ This is the function to be used for the hook `completion-at-point-functions'."
     (if (string-prefix-p "/" (minibuffer-contents))
 	(consult--orign-regexp-compiler input type ignore-case)
       (consult--orderless-regexp-compiler input type ignore-case)))
-  
+
   ;; globally for all consult-grep/ripgrep/find/...
   ;; (setq consult--regexp-compiler #'consult--orderless-regexp-compiler)
-  
+
   (defun consult--with-orderless (&rest args)
     (minibuffer-with-setup-hook
 	(lambda ()
@@ -447,7 +460,7 @@ This is the function to be used for the hook `completion-at-point-functions'."
                 :category file
                 :action   ,#'projectile-switch-project-by-name
                 :items    ,(lambda () (projectile-known-projects))))
-  
+
   (setq consult-buffer-sources '(consult-source-buffer
 				 consult-source-hidden-buffer
 				 consult-source-modified-buffer
@@ -459,7 +472,7 @@ This is the function to be used for the hook `completion-at-point-functions'."
 				 consult-source-project-buffer-hidden
 				 consult-source-project-recent-file-hidden
 				 my-consult-source-projectile-projects))
-  
+
   )
 
 (use-package consult
@@ -544,7 +557,7 @@ selected color."
   :config
   (defvar embark-collect-smart-column-regex
     "consult-lsp-diagnostics")
-  
+
   (add-hook 'embark-collect-mode-hook
 	    #'(lambda ()
 		(unless (string-match-p
@@ -555,14 +568,14 @@ selected color."
   (setq embark-confirm-act-all nil)
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
-               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+	       '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
                  (window-parameters (mode-line-format . none))))
 
   (unbind-key "S" embark-general-map) ;; embark-collect
   (unbind-key "E" embark-general-map) ;; embark-export
   (unbind-key "L" embark-general-map) ;; embark-live
-  
+
   (unbind-key "C" embark-general-map) 	;; embark-consult-search-map
   (define-key embark-general-map (kbd "C-c") 'embark-consult-search-map)
   (unbind-key "r" embark-consult-search-map) ;; #'consult-ripgrep
@@ -595,7 +608,7 @@ selected color."
   (setq which-key-use-C-h-commands nil
         ;; press C-h after a prefix key, it shows all the possible key bindings and let you choose what you want
         prefix-help-command #'embark-prefix-help-command)
-  
+
   ;; embark display in an bottom buffer
   ;; (setq
   ;;  embark-verbose-indicator-display-action
@@ -608,7 +621,7 @@ selected color."
     (interactive)
     (let ((embark-quit-after-action nil))
       (embark-dwim)))
-  
+
   (defun embark-which-key-indicator ()
     "An embark indicator that displays keymaps using which-key.
 The which-key help message will show the type and value of the
@@ -626,8 +639,8 @@ targets."
                    (if (cdr targets) "…" "")))
 	 (if prefix
              (pcase (lookup-key keymap prefix 'accept-default)
-               ((and (pred keymapp) km) km)
-               (_ (key-binding prefix 'accept-default)))
+	       ((and (pred keymapp) km) km)
+	       (_ (key-binding prefix 'accept-default)))
            keymap)
 	 nil nil t (lambda (binding)
                      (not (string-suffix-p "-argument" (cdr binding))))))))
@@ -643,10 +656,10 @@ targets."
 		       :position (point)
 		       :background-color "LightYellow1"
 		       :timeout 0.8
-		       
+
 		       :border-color "LightYellow2"
 		       :border-width 1))))
-  
+
   (setq embark-indicators
 	'(embark-which-key-indicator
 	  embark-highlight-indicator
@@ -659,16 +672,16 @@ targets."
     (let ((embark-indicators
            (remq #'embark-which-key-indicator embark-indicators)))
       (apply fn args)))
-  
+
   (advice-add #'embark-completing-read-prompter
-              :around #'embark-hide-which-key-indicator))
+	      :around #'embark-hide-which-key-indicator))
 
 (eval-when-compile
   (defmacro my-embark-ace-action (fn)
     `(defun ,(intern (concat "my-embark-ace-" (symbol-name fn))) ()
        (interactive)
        (with-demoted-errors "%s"
-	 
+
 	 (require 'ace-window)
 	 (let ((aw-dispatch-always t))
 	   (if (length< (aw-window-list) 2)
@@ -763,7 +776,7 @@ targets."
                          (file-remote-p file 'user) "@" (file-remote-p file 'host)
                          "|sudo:root@"
                          (file-remote-p file 'host) ":" (file-remote-p file 'localname))
-               (concat "/sudo:root@localhost:" file))))
+	       (concat "/sudo:root@localhost:" file))))
 
 (define-key embark-file-map (kbd "S") 'sudo-find-file)
 
@@ -790,7 +803,7 @@ targets."
       (funcall orig-fun tranfar-lines)))
 
   (advice-add 'embark-consult-export-grep :around '+embark-consult-export-grep)
-  
+
   )
 
 (use-package vertico-posframe
