@@ -242,9 +242,6 @@
 ;; json output is json
 (defalias 'org-babel-execute:json 'org-babel-execute:passthrough)
 
-(provide 'ob-passthrough)
-
-
 (setq org-ditaa-jar-path "~/tool/ditaa-0.11.0-standalone.jar")
 
 (setq org-babel-python-command "python3")
@@ -269,7 +266,6 @@
 	   (awk . t)
 	   (shell . t)
 	   (js . t)
-	   (passthrough . t)
 	   (verb . t)
 	   (sql . t)
 	   (sqlite . t)

@@ -66,12 +66,6 @@
      (format "glpsol -m %s %s" (org-babel-process-file-name in-file) cmdline)
      "")))
 
-(with-eval-after-load 'org
-  (add-to-list 'org-babel-load-languages
-	       '(gmpl . t)))
-
-(provide 'ob-gmpl)
-
 (provide 'init-glpk)
 
 ;;; init-glpk.el ends here

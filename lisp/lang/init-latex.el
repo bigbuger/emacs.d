@@ -1,7 +1,7 @@
 ;;; init-latex.el ---
 
 ;;; Commentary:
-;; 
+;;
 
 ;;; Code:
 
@@ -15,7 +15,7 @@
   (TeX-source-correlate-mode t)		 ;; 编译后开启正反向搜索
   (TeX-source-correlate-method 'synctex) ;; 正反向搜索的执行方式
   (TeX-source-correlate-start-server t) ;; 不再询问是否开启服务器以执行反向搜索
-  
+
   :config
   (setq-default TeX-master t) ;; 默认询问主文件
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
@@ -38,11 +38,11 @@
   :ensure t
   :config
   (pdf-loader-install)
-  
+
   ;; Use pdf-tools to open PDF files
   (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
 	TeX-source-correlate-start-server t)
-  
+
   ;; Update PDF buffers after successful LaTeX runs
   (add-hook 'TeX-after-compilation-finished-functions
             #'TeX-revert-document-buffer))
@@ -70,7 +70,7 @@ buffer's text scale."
 	      (dotimes (_ text-scale-mode-amount)
 		(xenops-increase-size)))
 	     (t (dotimes (_ (abs text-scale-mode-amount))
-		(xenops-decrease-size)))))
+		  (xenops-decrease-size)))))
       (t (dolist (ov (overlays-in (point-min) (point-max)))
 	   (if (eq (overlay-get ov 'category)
 		   'preview-overlay)
@@ -111,7 +111,7 @@ buffer's text scale."
                     :activation-fn (lsp-activate-on "asymptote")
                     :major-modes '(asy-mode)
                     :server-id 'asyls))
-  
+
   ;; (add-hook 'asy-mode-hook #'lsp-deferred)
   (with-eval-after-load 'company-keywords
     (with-eval-after-load "asy-keywords.el"
@@ -122,7 +122,7 @@ buffer's text scale."
 				 ,@asy-type-name
 				 ,@asy-function-name
 				 ,@asy-variable-name)))))))
-    
+
 (use-package ob-asymptote
   :init
   (with-eval-after-load 'org
@@ -160,13 +160,7 @@ buffer's text scale."
       (with-current-buffer ob-metapost-output-buffer-name
 	(if (member "output" (split-string result-type))
 	    (buffer-string)
-	nil)))))
-
-(with-eval-after-load 'org
-  (add-to-list 'org-babel-load-languages
-	       '(metapost . t)))
-
-(provide 'ob-metapost)
+	  nil)))))
 
 (with-eval-after-load 'smart-compile
   (setf (alist-get "\\.mp\\'" smart-compile-alist nil nil #'string=) "mpost %f"))
