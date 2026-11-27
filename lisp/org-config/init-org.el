@@ -282,13 +282,22 @@
   :ensure t
   :defer t
   :bind (:map org-mode-map
-	      ("C-M-y" . org-download-clipboard))
+	      ("C-y" . my-org-yank))
   
   :config
   (setq org-download-annotate-function (lambda (_link) ""))
-  (setq-default org-download-image-dir "./image")
+  (setq-default org-download-image-dir "./images")
   (setq org-download-image-attr-list
-        '("#+ATTR_ORG: :width 80% :align center"))
+        '("#+ATTR_ORG: :width 40%"))
+  (when (executable-find "pngpaste")
+    (setq org-download-screenshot-method "pngpaste %s"))
+
+  (defun my-org-yank (&optional arg)
+    "Yank, or org-download-screenshot when that has image in clipboard"
+    (interactive "*P")
+    (if (yank-media--find-matching-media "\\`image/")
+	(org-download-screenshot)
+      (yank arg)))
   
   :init
   ;; Add handlers for drag-and-drop when Org is loaded.
