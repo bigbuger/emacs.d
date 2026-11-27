@@ -239,8 +239,9 @@
 (defun org-babel-execute:passthrough (body params)
   body)
 
-;; json output is json
+;; json output is json, pass to other src block
 (defalias 'org-babel-execute:json 'org-babel-execute:passthrough)
+(setq org-babel-default-header-args:json '((:results . "none")))
 
 (setq org-ditaa-jar-path "~/tool/ditaa-0.11.0-standalone.jar")
 
