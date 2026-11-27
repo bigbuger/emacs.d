@@ -224,9 +224,14 @@ instead of the hash, like `kill-ring-save' would."
     ["Jump to git change hunk:"
      [("n" "Next hunk" diff-hl-next-hunk :transient t)]
      [("p" "Previous hunk" diff-hl-previous-hunk :transient t)]
+     [("m" "mark hunk" diff-hl-mark-hunk :transient t)]]
+
+    ["Actions"
      [("k" "Revert hunk" diff-hl-revert-hunk :transient t)]
-     [("m" "mark hunk" diff-hl-mark-hunk :transient t)]
-     [("q" "Quite" transient-quit-all)]
+     [("s" "stage hunk" diff-hl-stage-current-hunk)]
+     [("=" "diff hunk" diff-hl-diff-goto-hunk)]]
+    
+    [[("q" "Quite" transient-quit-all)]
      [("RET" "Quite" transient-quit-all)]])
   (global-set-key (kbd "C-c v d") 'diff-hl-transient)
   
