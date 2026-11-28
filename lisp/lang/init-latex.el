@@ -96,23 +96,29 @@ buffer's text scale."
 	       '(latex . t)))
 
 ;; Asymptote 语言，c like 绘图语言
-(when (file-exists-p "/usr/local/share/emacs/site-lisp/asymptote")
-  (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/asymptote")
-  (autoload 'asy-mode "asy-mode.el" "Asymptote major mode." t)
-  (autoload 'lasy-mode "asy-mode.el" "hybrid Asymptote/Latex major mode." t)
-  (autoload 'asy-insinuate-latex "asy-mode.el" "Asymptote insinuate LaTeX." t)
-  (add-to-list 'auto-mode-alist '("\\.asy$" . asy-mode))
+(when (executable-find "asy")
+  (let* ((texmfdist (string-trim
+		     (shell-command-to-string "kpsewhich --var-value TEXMFDIST")))
+	 (dir (expand-file-name "asymptote" texmfdist)))
+    (when (file-exists-p dir)
+      (add-to-list 'load-path dir)
+      (autoload 'asy-mode "asy-mode.el" "Asymptote major mode." t)
+      (autoload 'lasy-mode "asy-mode.el" "hybrid Asymptote/Latex major mode." t)
+      (autoload 'asy-insinuate-latex "asy-mode.el" "Asymptote insinuate LaTeX." t)
+      (add-to-list 'auto-mode-alist '("\\.asy$" . asy-mode))))
 
-  (require 'lsp-mode)
-  (add-to-list 'lsp-language-id-configuration '(asy-mode . "asymptote"))
+  (with-eval-after-load 'lsp-mode
+    (add-to-list 'lsp-language-id-configuration '(asy-mode . "asymptote"))
 
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection '("asy" "-lsp"))
-                    :activation-fn (lsp-activate-on "asymptote")
-                    :major-modes '(asy-mode)
-                    :server-id 'asyls))
+    (lsp-register-client
+     (make-lsp-client :new-connection (lsp-stdio-connection '("asy" "-lsp"))
+                      :activation-fn (lsp-activate-on "asymptote")
+                      :major-modes '(asy-mode)
+                      :server-id 'asyls))
 
-  ;; (add-hook 'asy-mode-hook #'lsp-deferred)
+    ;; (add-hook 'asy-mode-hook #'lsp-deferred)
+    )
+  
   (with-eval-after-load 'company-keywords
     (with-eval-after-load "asy-keywords.el"
       (add-to-list 'company-keywords-alist
