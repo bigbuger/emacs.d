@@ -23,7 +23,7 @@
   ;; 就是想用来做一下命令行模版，弥补记忆力，所以这里有再加
   (memq current-minibuffer-command company-minibuffer-enabl-commands))
 
-(setq company-global-minibuffer #'my/company-minibuffer-predicate)
+(setq company-global-minibuffer nil) ;; 太复杂了，还会改了 tab 键，先关掉
 (add-hook 'minibuffer-setup-hook
 	  #'(lambda ()
 	      (setq-local company-backends '(company-yasnippet))))
